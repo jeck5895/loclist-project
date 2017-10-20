@@ -23,6 +23,9 @@ export default{
         setUser: (state, payload) => {
             state.user = payload.data;
         },
+        clearUser: state => {
+            state.user = {};
+        },
         setServerResponse: (state, payload) => {
             state.serverResponse = payload;
         },
@@ -50,31 +53,35 @@ export default{
                 console.log(errors.response.data);
             });
         },
+        clearUser: context => {
+            context.commit('clearUser');
+        },
         createUser: (context, payload) => {
-            axios.post('api/user', payload)
+            axios.post('api/users', payload)
             .then(response => {
                 let result = response;
                 context.commit('setServerResponse', result);
                 $("#createUserModal").modal('hide');
-                toastr.success('Success', 'User '+ result.data.name + ' has been saved');
-                //console.log(result);
+                toastr.success('Success', result.data.message);
+                document.getElementById('userForm').reset();
+                console.log(result);
             })
             .catch(error => {
                 let errors = error.response;
                 context.commit('setServerResponse', errors);
+                //toastr.error('Error', 'Oops! something went wrong');
                 console.log(errors);
             });
         },
         updateUser: (context, payload) => {
-            // console.log('update');
-            console.log(payload)
-            // axios.patch('api/user/', payload)
-            // .then(response => {
-            //     console.log(response);
-            // })
-            // .catch(error => {
-            //     console.log(error.response.data)
-            // });
+        
+            axios.patch('api/users/' + payload.id, payload, payload)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error.response.data)
+            });
         },
         deleteUser: (context, payload) => {
 

@@ -117,6 +117,7 @@ export default {
                     // console.log(user);
                     if (this.formType == 'CreateUser') {
                         this.$store.dispatch('createUser', user);
+                        this.$store.dispatch('loadUsers');
                     }
                     else if (this.formType == 'EditUser') {
                         this.$store.dispatch('updateUser', user);

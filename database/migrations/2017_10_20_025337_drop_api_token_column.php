@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUidAttributeToNullable extends Migration
+class DropApiTokenColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class AddUidAttributeToNullable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            
-            $table->string('uid',50)->unique()->nullable()->change();
+            $table->dropColumn('api_token');
         });
     }
 
@@ -27,7 +26,8 @@ class AddUidAttributeToNullable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('uid');
+            //
+            $table->dropColumn('api_token');
         });
     }
 }

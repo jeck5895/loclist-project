@@ -38,8 +38,18 @@ class UsersController extends Controller
      */
     public function store(StoreNewUser $request)
     {
-        //
-        return $request;
+        
+        User::create(
+            [
+                'name' => $request['name'],
+                'initial' => $request['initial'],
+                'email' => $request['email'],
+                'password' => bcrypt('secret'),
+                'userType' => $request['userType']
+            ]
+        );
+        
+        return ['message' => $request['name'] . ' has been saved.'];
     }
 
     /**
@@ -72,10 +82,21 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreNewUser $request, $id)
+    public function update(Request $request, $id)
     {
         //
-        return array("request" => $request, "wildcard"=>$id);
+        $user_info = User::find($id)
+                    ->update([
+                        'name' => $request['name'],
+                        'initial' => $request['initial'],
+                        'email' => $request['email'],
+                        'userType' => $request['userType']
+                    ]);
+
+        return  [
+                    'message' => 'Changes has been saved.',
+                    'request' => $id
+                ];
     }
 
     /**

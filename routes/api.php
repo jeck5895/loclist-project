@@ -18,10 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:api')->group(function() {
-    Route::get('/users', 'UsersController@index');
-    Route::get('/users/{id}', 'UsersController@show');
-    Route::post('/user', 'UsersController@store');
-    Route::patch('/user/{id}', 'UsersController@update');
+    // Route::get('/users', 'UsersController@index');
+    // Route::get('/users/{id}', 'UsersController@show');
+    // Route::post('/user', 'UsersController@store');
+    // Route::patch('/user/{id}', 'UsersController@update');
+    Route::resource('users', 'UsersController');
 });
 
 Route::get('/user_types', 'UserTypesController@index');

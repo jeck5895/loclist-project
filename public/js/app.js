@@ -58175,6 +58175,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showModal: function showModal() {
             this.$store.dispatch('setModalTitle', "New User Details");
             this.$store.dispatch('setModalFormType', 'CreateUser');
+            this.$store.dispatch('clearUser');
             this.$store.dispatch('setForm', document.getElementById('userForm'));
             this.$store.dispatch('showModal', this.currForm);
         }
@@ -58496,6 +58497,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     // console.log(user);
                     if (_this.formType == 'CreateUser') {
                         _this.$store.dispatch('createUser', user);
+                        _this.$store.dispatch('loadUsers');
                     } else if (_this.formType == 'EditUser') {
                         _this.$store.dispatch('updateUser', user);
                     } else {
@@ -62234,6 +62236,9 @@ var index_esm = {
         setUser: function setUser(state, payload) {
             state.user = payload.data;
         },
+        clearUser: function clearUser(state) {
+            state.user = {};
+        },
         setServerResponse: function setServerResponse(state, payload) {
             state.serverResponse = payload;
         },
@@ -62257,29 +62262,31 @@ var index_esm = {
                 console.log(errors.response.data);
             });
         },
+        clearUser: function clearUser(context) {
+            context.commit('clearUser');
+        },
         createUser: function createUser(context, payload) {
-            axios.post('api/user', payload).then(function (response) {
+            axios.post('api/users', payload).then(function (response) {
                 var result = response;
                 context.commit('setServerResponse', result);
                 $("#createUserModal").modal('hide');
-                toastr.success('Success', 'User ' + result.data.name + ' has been saved');
-                //console.log(result);
+                toastr.success('Success', result.data.message);
+                document.getElementById('userForm').reset();
+                console.log(result);
             }).catch(function (error) {
                 var errors = error.response;
                 context.commit('setServerResponse', errors);
+                //toastr.error('Error', 'Oops! something went wrong');
                 console.log(errors);
             });
         },
         updateUser: function updateUser(context, payload) {
-            // console.log('update');
-            console.log(payload);
-            // axios.patch('api/user/', payload)
-            // .then(response => {
-            //     console.log(response);
-            // })
-            // .catch(error => {
-            //     console.log(error.response.data)
-            // });
+
+            axios.patch('api/users/' + payload.id, payload, payload).then(function (response) {
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error.response.data);
+            });
         },
         deleteUser: function deleteUser(context, payload) {}
     }

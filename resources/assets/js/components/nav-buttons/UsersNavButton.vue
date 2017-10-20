@@ -20,6 +20,7 @@
             showModal() {
                 this.$store.dispatch('setModalTitle', "New User Details");
                 this.$store.dispatch('setModalFormType', 'CreateUser');
+                this.$store.dispatch('clearUser');
                 this.$store.dispatch('setForm', document.getElementById('userForm'));
                 this.$store.dispatch('showModal', this.currForm);
             }
