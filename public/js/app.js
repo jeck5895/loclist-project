@@ -58500,6 +58500,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         _this.$store.dispatch('loadUsers');
                     } else if (_this.formType == 'EditUser') {
                         _this.$store.dispatch('updateUser', user);
+                        _this.$store.dispatch('loadUsers');
                     } else {
                         alert('unknown action');
                     }
@@ -62281,9 +62282,11 @@ var index_esm = {
             });
         },
         updateUser: function updateUser(context, payload) {
-
             axios.patch('api/users/' + payload.id, payload, payload).then(function (response) {
-                console.log(response);
+                context.commit('setServerResponse', response);
+                $("#createUserModal").modal('hide');
+                toastr.success('Success', response.data.message);
+                document.getElementById('userForm').reset();
             }).catch(function (error) {
                 console.log(error.response.data);
             });

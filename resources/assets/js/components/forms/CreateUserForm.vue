@@ -121,6 +121,7 @@ export default {
                     }
                     else if (this.formType == 'EditUser') {
                         this.$store.dispatch('updateUser', user);
+                        this.$store.dispatch('loadUsers');
                     }
                     else {
                         alert('unknown action')

@@ -74,10 +74,12 @@ export default{
             });
         },
         updateUser: (context, payload) => {
-        
             axios.patch('api/users/' + payload.id, payload, payload)
             .then(response => {
-                console.log(response);
+                context.commit('setServerResponse', response);
+                $("#createUserModal").modal('hide');
+                toastr.success('Success', response.data.message);
+                document.getElementById('userForm').reset();
             })
             .catch(error => {
                 console.log(error.response.data)
