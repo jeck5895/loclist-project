@@ -67,14 +67,14 @@ export default{
         },
         updateUser: (context, payload) => {
             // console.log('update');
-            // console.log(payload)
-            axios.patch('api/user', payload)
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.log(error.response.data)
-            });
+            console.log(payload)
+            // axios.patch('api/user/', payload)
+            // .then(response => {
+            //     console.log(response);
+            // })
+            // .catch(error => {
+            //     console.log(error.response.data)
+            // });
         },
         deleteUser: (context, payload) => {
 

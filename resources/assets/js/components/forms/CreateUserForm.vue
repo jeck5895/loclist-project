@@ -104,6 +104,8 @@ export default {
         },
         submitUserForm(scope) {
             let user = {
+                id: this.user.id,
+                uid: this.user.uid,
                 name: this.user.name,
                 initial: this.user.initial,
                 email: this.user.email,

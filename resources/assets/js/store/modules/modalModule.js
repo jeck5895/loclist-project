@@ -56,7 +56,8 @@ export default {
             $('#createUserModal').modal('show');
         },
         closeModal: (context, payload) => {
-            if(payload){
+           
+            if(Object.keys(payload.errors).length){
                 payload.errors.clear(payload.scope);
             }
             context.commit('clearServerResponse'); // commit clearServerResponse mutation from userModule

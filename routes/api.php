@@ -21,7 +21,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/users', 'UsersController@index');
     Route::get('/users/{id}', 'UsersController@show');
     Route::post('/user', 'UsersController@store');
-    Route::patch('/user', 'UsersController@update');
+    Route::patch('/user/{id}', 'UsersController@update');
 });
 
 Route::get('/user_types', 'UserTypesController@index');

@@ -72,10 +72,10 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreNewUser $request, $id)
     {
         //
-        return $request;
+        return array("request" => $request, "wildcard"=>$id);
     }
 
     /**
