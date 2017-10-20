@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\User;
 use App\Http\Requests\StoreNewUser;
+use App\Http\Requests\UpdateUser;
 
 class UsersController extends Controller
 {
@@ -82,7 +83,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUser $request, $id)
     {
         //
         $user_info = User::find($id)

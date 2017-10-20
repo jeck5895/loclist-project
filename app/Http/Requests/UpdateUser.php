@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreNewUser extends FormRequest
+class UpdateUser extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,6 @@ class StoreNewUser extends FormRequest
      */
     public function authorize()
     {
-        //return false;
         return $this->user()->userType == 1? true : false;
     }
 
@@ -26,7 +25,7 @@ class StoreNewUser extends FormRequest
     {
         return [
             //
-            'email' => 'required|unique:users|email',
+            'email' => 'required|email|unique:users,email,'.$this->get('id'),
             'userType' => 'required',
             'name' => 'required'
         ];

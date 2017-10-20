@@ -82,6 +82,7 @@ export default{
                 document.getElementById('userForm').reset();
             })
             .catch(error => {
+                context.commit('setServerResponse', error.response);
                 console.log(error.response.data)
             });
         },

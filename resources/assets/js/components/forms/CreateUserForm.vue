@@ -33,7 +33,7 @@
                     <label for="">Email
                         <span class="required-field">*</span>
                     </label>
-                    <input v-validate="{rules:{required:true, email:true}}" name="email" type="email" v-model="user.email" class="form-control">
+                    <input data-vv-validate-on="'blur'" v-validate="{rules:{required:true, email:true}}" name="email" type="email" v-model="user.email" class="form-control">
                     <small class="form-text has-danger" v-show="errors.has('userForm.email')">{{ errors.first('userForm.email') }}</small>
                 </div>
                 <div class="form-group">
@@ -64,6 +64,9 @@
  * const isUniqueEmail = (value) => {
  *  return axios.post('/api/')
 }; */
+// import { Validator } from 'vee-validate';
+
+// const uniqueEmail = 
 
 export default {
     mounted() {

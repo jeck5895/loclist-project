@@ -58445,6 +58445,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * const isUniqueEmail = (value) => {
  *  return axios.post('/api/')
 }; */
+// import { Validator } from 'vee-validate';
+
+// const uniqueEmail = 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {},
@@ -58682,7 +58685,11 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
-              attrs: { name: "email", type: "email" },
+              attrs: {
+                "data-vv-validate-on": "'blur'",
+                name: "email",
+                type: "email"
+              },
               domProps: { value: _vm.user.email },
               on: {
                 input: function($event) {
@@ -62288,6 +62295,7 @@ var index_esm = {
                 toastr.success('Success', response.data.message);
                 document.getElementById('userForm').reset();
             }).catch(function (error) {
+                context.commit('setServerResponse', error.response);
                 console.log(error.response.data);
             });
         },
