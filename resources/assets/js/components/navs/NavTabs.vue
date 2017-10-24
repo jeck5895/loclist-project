@@ -4,7 +4,7 @@
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#home" role="tab"><strong>CLIENTS</strong></a>
             </li>
-            <li class="nav-item">
+            <li v-if="authUser.userType == 1"class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#users" role="tab"><strong>MANAGE USERS</strong></a>
             </li>
             <li class="nav-item">
@@ -20,6 +20,11 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <clients-nav-button></clients-nav-button>
+                <div class="row mb-2">
+                    <div class="col">
+                        <clients-filter></clients-filter>
+                    </div>
+                </div>
                 <clients-table></clients-table>
             </div>
             <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab">
@@ -40,6 +45,9 @@
             <template slot="header">{{ modalTitle }}</template>
             <create-user-form></create-user-form>
         </modal>
+        <confirmation-modal>
+            <template slot="confirmationHeader"> {{ modalTitle }} </template>
+        </confirmation-modal>
     </div>
 </template>
 
@@ -49,11 +57,13 @@
     import ClientsNavButton from '../nav-buttons/ClientsNavButton';
     import UsersNavButton from '../nav-buttons/UsersNavButton';
     import Modal from '../modal/modal';
+    import ConfirmationModal from '../modal/ConfirmationModal';
     import CreateUserForm from '../forms/CreateUserForm';
+    import ClientsFilter from '../filters/ClientsFilter';
 
     export default {
         mounted() {
-            
+
         },
         data(){
             return {
@@ -63,6 +73,9 @@
         computed:{
             modalTitle(){
                 return this.$store.getters.getModalTitle;
+            },
+            authUser() {
+                return this.$auth.getter();
             }
         },
         components:{
@@ -71,7 +84,9 @@
             ClientsNavButton,
             UsersNavButton,
             Modal,
-            CreateUserForm
+            ConfirmationModal,
+            CreateUserForm,
+            ClientsFilter
         }
     }
 </script>

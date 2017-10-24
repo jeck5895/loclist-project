@@ -1,7 +1,7 @@
 <nav class="navbar navbar-shadowed navbar-expand-sm navbar-dark bg-incognito">
     <a class="navbar-brand" href="#">
         <img src="/images/icon.png" height="25" width="25" class="d-inline-block align-top" alt="">
-        SRI-Locationlist
+        SRI-Locatorslist
     </a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"

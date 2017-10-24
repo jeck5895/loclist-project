@@ -4,7 +4,8 @@ export default function (Vue) {
             axios.get('/api/user').then(response => {
                 console.log(response)
                 var user = JSON.stringify(response.data);
-               localStorage.setItem('_u', user);
+                if(localStorage.getItem('_u') == null)
+                localStorage.setItem('_u', user);
                //return user;
             }).catch(function(error) {
                 console.log(error)

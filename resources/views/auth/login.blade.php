@@ -19,7 +19,7 @@
 
                                 @if ($errors->has('email'))
                                     <small class="help-block has-danger">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        {{ $errors->first('email') }}
                                     </small>
                                 @endif
                             </div>

@@ -9,9 +9,12 @@
                     <div class="alert alert-danger" role="alert" v-if="serverResponse.status == 422">
         
                         <strong>Errors</strong> :{{ serverResponse.data.message }}
-                        <ul>
-                            <li v-if="serverResponse.data.errors.email" v-for="e in serverResponse.data.errors.email">{{ e }}</li>
+                        <ul v-if="serverResponse.data.errors.email">
+                            <li v-for="e in serverResponse.data.errors.email" :key="e">{{ e }}</li>
                         </ul>
+                    </div>
+                    <div class="alert alert-danger" role="alert" v-if="serverResponse.status == 403">
+                        <strong>You are not authorized to perform this action</strong> 
                     </div>
                 </div>
                 <div class="form-group">
@@ -42,7 +45,7 @@
                     </label>
                     <select v-validate="{rules:{required:true}}" name="user_type" v-model="user.userType" id="" class="form-control">
                         <option></option>
-                        <option v-for="user_type in user_types" :value="user_type.id"> {{ user_type.userType }}</option>
+                        <option v-for="user_type in user_types" :key="user_type.id" :value="user_type.id"> {{ user_type.userType }}</option>
                     </select>
                     <small class="form-text has-danger" v-show="errors.has('userForm.user_type')">{{ errors.first('userForm.user_type') }}</small>
                 </div>
@@ -120,11 +123,11 @@ export default {
                     // console.log(user);
                     if (this.formType == 'CreateUser') {
                         this.$store.dispatch('createUser', user);
-                        this.$store.dispatch('loadUsers');
+                        this.$store.dispatch('loadUsers','/api/users');
                     }
                     else if (this.formType == 'EditUser') {
                         this.$store.dispatch('updateUser', user);
-                        this.$store.dispatch('loadUsers');
+                        this.$store.dispatch('loadUsers','/api/users');
                     }
                     else {
                         alert('unknown action')

@@ -16,7 +16,9 @@ window.toastr = toastr;
 Vue.use(VeeValidate);
 Vue.use(VueRouter);
 Vue.use(Auth);
-// Vue.use(VueToastr);
+
+
+
 
 Vue.component(
     'passport-clients',

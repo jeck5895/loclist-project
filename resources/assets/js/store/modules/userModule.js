@@ -3,7 +3,9 @@ export default{
     state:{
         users:[],
         user:{},
-        serverResponse:false
+        serverResponse:false,
+        curr_url: '/api/users',
+        pages: 0,
     },
     getters:{
         loadUsers: state => {
@@ -14,6 +16,12 @@ export default{
         },
         getServerResponse: state => {
             return state.serverResponse;
+        },
+        getCurrUrl: state => {
+            return state.curr_url;
+        },
+        getTotalPage: state => {
+            return state.pages;
         },
     },
     mutations:{
@@ -31,14 +39,23 @@ export default{
         },
         clearServerResponse: state =>{
             state.serverResponse = false;
-        }
+        },
+        setUrl: (state, payload) => {
+            state.curr_url = payload;
+        },
+        setTotalPage: (state, payload) => {
+            state.pages = payload;
+        },
     },
     actions:{
-        loadUsers: context => {
-            axios.get('/api/users')
+        loadUsers: (context, payload) => {
+            //change url for pagination 
+            axios.get(payload)
             .then(response => {
-                //console.log(response)
+                console.log(response);
+                var pages = Math.round(response.data.total / response.data.per_page);
                 context.commit('setUsers', response);
+                context.commit('setTotalPage', pages);
             })
             .catch(error => {
                 console.log(error.response.data)
@@ -52,6 +69,12 @@ export default{
             .catch(errors => {
                 console.log(errors.response.data);
             });
+        },
+        setUrl: (context, payload) => {
+            context.commit('setUrl', payload);
+        },
+        setTotalPages: (pages, payload) => {
+            context.commit('setTotalPages', payload);
         },
         clearUser: context => {
             context.commit('clearUser');
@@ -87,7 +110,14 @@ export default{
             });
         },
         deleteUser: (context, payload) => {
-
+            //console.log(payload)
+            axios.delete('api/users/' + payload.user.id)
+            .then(response => {
+                toastr.success('Success', response.data.message);
+            })
+            .catch(error => {
+                console.log()
+            });
         }
     }
 }

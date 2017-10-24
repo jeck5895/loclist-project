@@ -16,9 +16,20 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $user = \App\User::with('userType')->get();
+        $users = \App\User::with('userType')->paginate(5);
 
-        return $user;
+        // foreach($query as $user){
+        //     $users[] = array (
+                
+        //     );
+        // }
+
+        // $paginator = $this->items()->where('position', '=', null)->paginate(15);
+        // $paginator->getCollection()->transform(function ($value) {
+        //     // Your code here    
+        // })
+
+        return $users;
     }
 
     /**
@@ -39,7 +50,7 @@ class UsersController extends Controller
      */
     public function store(StoreNewUser $request)
     {
-        
+        //$this->authorize('create');
         User::create(
             [
                 'name' => $request['name'],
@@ -108,6 +119,12 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //User::find($id)->delete();
+        User::destroy($id);
+        
+        return  [
+            'message' => 'Record has been deleted',
+            'status' => 'OK'
+        ];
     }
 }

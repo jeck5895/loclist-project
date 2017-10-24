@@ -16,7 +16,7 @@ class UserPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function view(User $user, User $user)
+    public function view(User $user)
     {
         //
     }
@@ -30,6 +30,8 @@ class UserPolicy
     public function create(User $user)
     {
         //
+        $boolean = $user->userType === 1 ? true : false;
+        return true;
     }
 
     /**
@@ -39,7 +41,7 @@ class UserPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function update(User $user, User $editUser)
+    public function update(User $user)
     {
         //
         return $user->userType == 1? true : false;

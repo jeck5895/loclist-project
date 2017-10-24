@@ -7,6 +7,10 @@ export default {
         modalFormValidation:{
             scope:'',
             errors:{}
+        },
+        deletionType: {
+            scope: '',
+            user: {}
         }
     },
     getters:{
@@ -21,6 +25,9 @@ export default {
         },
         getForm: state => {
             return state.form;
+        },
+        getDeletionType: state => {
+            return state.deletionType;
         }
     },
     mutations:{
@@ -36,9 +43,15 @@ export default {
         },
         setForm: (state, payload) => {
             state.form = payload;
+        },
+        setDeletionType: (state, payload) => {
+            state.deletionType = payload;
         }
     },
     actions:{
+        setDeletionType: (context, payload) => {
+            context.commit('setDeletionType', payload);
+        },
         setForm: (context, payload) => {
             context.commit('setForm', payload);
         },
@@ -55,6 +68,9 @@ export default {
             payload.reset();
             $('#createUserModal').modal('show');
         },
+        showConfirmationModal: (context, payload) => {
+            $("#deleteConfirmationModal").modal("show");
+        },
         closeModal: (context, payload) => {
            
             if(Object.keys(payload.errors).length){
@@ -63,6 +79,9 @@ export default {
             context.commit('clearServerResponse'); // commit clearServerResponse mutation from userModule
             $("#createUserModal").modal('hide');
             
+        },
+        closeConfirmationModal: (context, payload) => {
+            $("#deleteConfirmationModal").modal("hide");
         }
     }
 }
