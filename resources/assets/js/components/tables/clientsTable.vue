@@ -4,20 +4,19 @@
             <tr>
                 <th>Ref</th>
                 <th>Entry By</th>
-                <th>Overall Status</th>
-                <th>Entry Date</th>
                 <th>Client Name</th>
-                <th>Industry</th>
-                <th>Nationality</th>
-                <th>ISO Certification</th>
-                <th>Mailing Address</th>
-                <th>Street/Brgy/Town</th>
-                <th>City/Province</th>
+                <th>Contact Person</th>
+                <th>Contact #</th>
+                <th>Email</th>
+                <th>Date of Call</th>
+                <th>Date of Saturation</th>
+                <th>Date of Presentation</th>
+                <th>Follow-up Date</th>
                 <th>Options</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="client in clients">
+            <tr v-for="client in clients" :key="client.id">
                 <!-- ID -->
                 <td style="vertical-align: middle;">
                     {{ client.id }}
@@ -30,39 +29,35 @@
 
                 <!-- Secret -->
                 <td style="vertical-align: middle;">
-                    {{ client.o_status }}
-                </td>
-
-                <td style="vertical-align: middle;">
-                    {{ client.entry_date }}
-                </td>
-
-                <td style="vertical-align: middle;">
                     {{ client.client_name }}
                 </td>
 
                 <td style="vertical-align: middle;">
-                    {{ client.industry }}
+                    {{ client.contact_person }}
                 </td>
 
                 <td style="vertical-align: middle;">
-                    {{ client.nationality }}
+                    {{ client.contact_no }}
                 </td>
 
                 <td style="vertical-align: middle;">
-                    {{ client.iso_cetification }}
+                    {{ client.email }}
                 </td>
 
                 <td style="vertical-align: middle;">
-                    {{ client.mailing_address }}
+                    {{ client.date_call }}
                 </td>
 
                 <td style="vertical-align: middle;">
-                    {{ client.street_address }}
+                    {{ client.saturation_date }}
                 </td>
 
                 <td style="vertical-align: middle;">
-                    {{ client.province }}
+                    {{ client.presentation_date }}
+                </td>
+
+                <td style="vertical-align: middle;">
+                    {{ client.followup_date }}
                 </td>
 
                 <!-- Edit Button -->
@@ -96,72 +91,67 @@ export default {
             clients: [
                 {
                     id: 1,
-                    entry_by: "John Duhat",
-                    o_status: "For Follow-up Call",
-                    entry_date: moment().format('MMMM Do YYYY'),
-                    client_name: "ARMY NAVY",
-                    industry: "Food Service",
-                    nationality: "Filipino",
-                    iso_certification: "",
-                    mailing_address: "Jupiter St, Makati, Metro Manila",
-                    street_address: "007 Shopwise Arcade, Araneta Center",
-                    province: "Quezon City"
+                    entry_by: "Peter John Jude",
+                    client_name: "Microsoft Windows",
+                    contact_person: "John Doe",
+                    contact_no: '+63916-285-9262',
+                    email: "john.doe@gmail.com",
+                    date_call: moment().format('MMM Do YYYY'),
+                    saturation_date: moment().format('MMM Do YYYY'),
+                    presentation_date: moment().format('MMM Do YYYY'),
+                    followup_date: moment().format('MMM Do YYYY'),
 
                 },
                 {
                     id: 2,
                     entry_by: "John Duhat",
-                    o_status: "For Follow-up Call",
-                    entry_date: moment().format('MMMM Do YYYY'),
-                    client_name: "ARMY NAVY",
-                    industry: "Food Service",
-                    nationality: "Filipino",
-                    iso_certification: "",
-                    mailing_address: "Jupiter St, Makati, Metro Manila",
-                    street_address: "007 Shopwise Arcade, Araneta Center",
-                    province: "Quezon City"
+                    client_name: "Microsoft Windows",
+                    contact_person: "John Doe",
+                    contact_no: '+63916-285-9262',
+                    email: "john.doe@gmail.com",
+                    date_call: moment().format('MMM Do YYYY'),
+                    saturation_date: moment().format('MMM Do YYYY'),
+                    presentation_date: moment().format('MMM Do YYYY'),
+                    followup_date: moment().format('MMM Do YYYY'),
 
                 },
                 {
                     id: 3,
                     entry_by: "John Duhat",
-                    o_status: "For Follow-up Call",
-                    entry_date: moment().format('MMMM Do YYYY'),
-                    client_name: "ARMY NAVY",
-                    industry: "Food Service",
-                    nationality: "Filipino",
-                    iso_certification: "",
-                    mailing_address: "Jupiter St, Makati, Metro Manila",
-                    street_address: "007 Shopwise Arcade, Araneta Center",
-                    province: "Quezon City"
+                    client_name: "Microsoft Windows",
+                    contact_person: "John Doe",
+                    contact_no: '+63916-285-9262',
+                    email: "john.doe@gmail.com",
+                    date_call: moment().format('MMM Do YYYY'),
+                    saturation_date: moment().format('MMM Do YYYY'),
+                    presentation_date: moment().format('MMM Do YYYY'),
+                    followup_date: moment().format('MMM Do YYYY'),
 
                 },
                 {
                     id: 4,
                     entry_by: "John Duhat",
-                    o_status: "For Follow-up Call",
-                    entry_date: moment().format('MMMM Do YYYY'),
-                    client_name: "ARMY NAVY",
-                    industry: "Food Service",
-                    nationality: "Filipino",
-                    iso_certification: "",
-                    mailing_address: "Jupiter St, Makati, Metro Manila",
-                    street_address: "007 Shopwise Arcade, Araneta Center",
-                    province: "Quezon City"
+                    client_name: "Microsoft Windows",
+                    contact_person: "John Doe",
+                    contact_no: '+63916-285-9262',
+                    email: "john.doe@gmail.com",
+                    date_call: moment().format('MMM Do YYYY'),
+                    saturation_date: moment().format('MMM Do YYYY'),
+                    presentation_date: moment().format('MMM Do YYYY'),
+                    followup_date: moment().format('MMM Do YYYY'),
 
                 },
                 {
                     id: 5,
                     entry_by: "John Duhat",
-                    o_status: "For Follow-up Call",
-                    entry_date: moment().format('MMMM Do YYYY'),
-                    client_name: "ARMY NAVY",
-                    industry: "Food Service",
-                    nationality: "Filipino",
-                    iso_certification: "",
-                    mailing_address: "Jupiter St, Makati, Metro Manila",
-                    street_address: "007 Shopwise Arcade, Araneta Center",
-                    province: "Quezon City"
+                    client_name: "Microsoft Windows",
+                    contact_person: "John Doe",
+                    contact_no: '+63916-285-9262',
+                    email: "john.doe@gmail.com",
+                    date_call: moment().format('MMM Do YYYY'),
+                    saturation_date: moment().format('MMM Do YYYY'),
+                    presentation_date: moment().format('MMM Do YYYY'),
+                    followup_date: moment().format('MMM Do YYYY'),
 
                 },
             ]
@@ -169,10 +159,16 @@ export default {
     },
     methods: {
         view(client){
-            console.log(client.id);
+			console.log(client.id);
+			/* Set modal necessary modal info for displaying the right form/data */
+            this.$store.dispatch('setModalTitle', 'Edit Client Details');
+            //this.$store.dispatch('loadUser', user); load client details instead for viewing
+            this.$store.dispatch('setModalFormType', 'EditClient');
+            $("#createUserModal").modal("show");
         },
         edit(client) {
-            console.log(client)
+			console.log(client);
+			/* Navigation to new page for editing client because of lots no.of forms */
         },
         destroy(client) {
             // axios.delete('/oauth/clients/' + client.id)
@@ -188,5 +184,9 @@ export default {
 <style scoped>
     button {
         cursor: pointer;
+    }
+    
+    .table th, .table td{
+        padding: 0.25rem;
     }
 </style>

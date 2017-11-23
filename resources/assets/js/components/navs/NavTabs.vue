@@ -19,9 +19,12 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <clients-nav-button></clients-nav-button>
-                <div class="row mb-2">
-                    <div class="col">
+                
+                <div class="row">
+                    <div class="col-sm-4 mr-auto">
+                        <clients-nav-button></clients-nav-button>
+                    </div>
+                    <div class="col-sm-4">
                         <clients-filter></clients-filter>
                     </div>
                 </div>
@@ -35,7 +38,22 @@
                 This is Definition of Terms Tab
             </div>
             <div class="tab-pane fade" id="reports" role="tabpanel" aria-labelledby="reports-tab">
-                This is Report Tab
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                Design UI for 2 types of reports
+                            </div>
+                            <div class="card-body">
+                                KPI REPORT 
+                                Quarterly
+                                Weekly
+                                Annulay
+                                with date Filters
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
                 This is Settings
@@ -43,7 +61,13 @@
         </div>
         <modal>
             <template slot="header">{{ modalTitle }}</template>
-            <create-user-form></create-user-form>
+            <!-- This condition displays what form/data should be display -->
+            <div v-if="modalFormType == 'EditUser'">
+                <create-user-form></create-user-form>
+            </div>
+            <div v-if="modalFormType == 'EditClient'">
+                <label for="">Edit Client</label>
+            </div>
         </modal>
         <confirmation-modal>
             <template slot="confirmationHeader"> {{ modalTitle }} </template>
@@ -73,6 +97,9 @@
         computed:{
             modalTitle(){
                 return this.$store.getters.getModalTitle;
+            },
+            modalFormType(){
+                return this.$store.getters.getModalFormType;
             },
             authUser() {
                 return this.$auth.getter();

@@ -155,3 +155,8 @@
     }
 </script>
 
+<style scoped>
+    .table th, .table td{
+        padding: 0.25rem;
+    }
+</style>

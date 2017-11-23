@@ -50,6 +50,8 @@ export default {
     },
     actions:{
         setDeletionType: (context, payload) => {
+            // const {commit} = context; //using ES6 deconstruction 
+            // commit('setDeletionType', payload);
             context.commit('setDeletionType', payload);
         },
         setForm: (context, payload) => {
@@ -84,4 +86,4 @@ export default {
             $("#deleteConfirmationModal").modal("hide");
         }
     }
-}
+};
