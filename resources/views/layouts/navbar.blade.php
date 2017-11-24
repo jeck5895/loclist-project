@@ -26,7 +26,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                     <a href="" class="dropdown-header text-center">
-                        <img src="{{ Auth::user()->user_img }}" height="65" width="65" class="rounded-circle border"  alt="">
+                        <img src="{{ Auth::user()->user_img }}" height="65" width="65" class="rounded-circle border"  alt="{{ Auth::user()->name }} image">
                     </a>
                     <div class="dropdown-divider"></div>
                     <router-link class="dropdown-item" to="/home">

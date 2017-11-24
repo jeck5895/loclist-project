@@ -67,8 +67,8 @@ export default {
             context.commit('setModalFormValidation', payload);
         },
         showModal: (context, payload) => {
-            payload.reset();
-            $('#createUserModal').modal('show');
+           payload.reset();
+           $('#createUserModal').modal('show');
         },
         showConfirmationModal: (context, payload) => {
             $("#deleteConfirmationModal").modal("show");

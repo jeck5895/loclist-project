@@ -3,7 +3,6 @@ export default{
     state:{
         users:[],
         user:{},
-        serverResponse:false,
         curr_url: '/api/users',
         pages: 0,
     },
@@ -13,9 +12,6 @@ export default{
         },
         loadUser: state => {
             return state.user;
-        },
-        getServerResponse: state => {
-            return state.serverResponse;
         },
         getCurrUrl: state => {
             return state.curr_url;
@@ -34,12 +30,7 @@ export default{
         clearUser: state => {
             state.user = {};
         },
-        setServerResponse: (state, payload) => {
-            state.serverResponse = payload;
-        },
-        clearServerResponse: state =>{
-            state.serverResponse = false;
-        },
+        
         setUrl: (state, payload) => {
             state.curr_url = payload;
         },

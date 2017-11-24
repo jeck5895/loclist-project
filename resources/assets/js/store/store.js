@@ -4,14 +4,18 @@ import clientModule from './modules/clientModule';
 import userModule from './modules/userModule';
 import modalModule from './modules/modalModule';
 import userTypeModule from './modules/userTypeModule';
+import serverResponseModule from './modules/serverResponseModule';
+import industryModule from './modules/industryModule';
 
 Vue.use(Vuex); 
 
 export const store = new Vuex.Store({
     modules:{
+        serverResponseModule: serverResponseModule,
         clientModule: clientModule,
         userModule: userModule,
         userTypeModule: userTypeModule,
-        modalModule: modalModule
+        modalModule: modalModule,
+        industryModule: industryModule
     }
 });

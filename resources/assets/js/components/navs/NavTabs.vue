@@ -2,19 +2,19 @@
     <div>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#home" role="tab"><strong>CLIENTS</strong></a>
+                <a class="nav-link active" data-toggle="tab" href="#home" role="tab"> <strong> <span class="fa fa-briefcase"></span> CLIENTS</strong></a>
             </li>
             <li v-if="authUser.userType == 1"class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#users" role="tab"><strong>MANAGE USERS</strong></a>
+                <a class="nav-link" data-toggle="tab" href="#users" role="tab"><strong> <span class="fa fa-users"></span> MANAGE USERS</strong></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#definition" role="tab"><strong>DEFINITION OF TERMS</strong></a>
+                <a class="nav-link" data-toggle="tab" href="#definition" role="tab"><strong> <span class="fa fa-book"></span> DEFINITION OF TERMS</strong></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#reports" role="tab"><strong>REPORTS</strong></a>
+                <a class="nav-link" data-toggle="tab" href="#reports" role="tab"><strong> <span class="fa fa-bar-chart"></span> REPORTS</strong></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#settings" role="tab"><strong>SETTINGS</strong></a>
+                <a class="nav-link" data-toggle="tab" href="#settings" role="tab"><strong> <span class="fa fa-gears"></span> MAINTENANCE</strong></a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -56,14 +56,17 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-                This is Settings
+                <maintainance></maintainance>
             </div>
         </div>
         <modal>
             <template slot="header">{{ modalTitle }}</template>
             <!-- This condition displays what form/data should be display -->
-            <div v-if="modalFormType == 'EditUser'">
+            <div v-if="modalFormType == 'EditUser' || modalFormType == 'CreateUser'">
                 <create-user-form></create-user-form>
+            </div>
+            <div v-if="modalFormType == 'CREATE_INDUSTRY' || modalFormType == 'EDIT_INDUSTRY'">
+                <industry-form></industry-form>
             </div>
             <div v-if="modalFormType == 'EditClient'">
                 <label for="">Edit Client</label>
@@ -84,10 +87,12 @@
     import ConfirmationModal from '../modal/ConfirmationModal';
     import CreateUserForm from '../forms/CreateUserForm';
     import ClientsFilter from '../filters/ClientsFilter';
+    import Maintainance from '../containers/Maintainance';
+    import IndustryForm from '../forms/IndustryForm';
 
     export default {
         mounted() {
-
+            console.log(this.modalFormType)
         },
         data(){
             return {
@@ -113,16 +118,19 @@
             Modal,
             ConfirmationModal,
             CreateUserForm,
-            ClientsFilter
+            ClientsFilter,
+            Maintainance,
+            IndustryForm
+        },
+        filters:{
+            humanReadableFormat(date) {
+                return moment(date).format('MMMM Do, YYYY');
+            }
         }
     }
 </script>
 <style scoped>
-    .nav-tabs .nav-link{
-        border:none;
-    }
-    .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
-        border-bottom: 3px solid #549eff;
-        background: transparent;
+    a {
+        color: #495057; 
     }
 </style>

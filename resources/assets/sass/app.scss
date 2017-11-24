@@ -10,6 +10,10 @@
 //@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "~bootstrap/scss/bootstrap";
 
+.table th,
+.table td {
+    padding: 0.25rem;
+}
 
 .btn-default{
     color: #333;
@@ -102,3 +106,13 @@
     max-width: 135px;
 }
 
+.nav-tabs .nav-link {
+    border: none;
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+    border-bottom: 3px solid #549eff;
+    color: #549eff;
+    background: transparent;
+}

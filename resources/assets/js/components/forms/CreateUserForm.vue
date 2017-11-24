@@ -3,16 +3,13 @@
         <div class="col-md-12">
             <form id="userForm" @submit.prevent="submitUserForm('userForm')" data-vv-scope="userForm">
                 <div class="form-group">
-                    <!-- <div class="alert alert-success" role="alert" v-if="serverResponse.status == 200">
-                        {{ serverResponse.data }}
-                    </div> -->
                     <div class="alert alert-danger" role="alert" v-if="serverResponse.status == 422">
-        
                         <strong>Errors</strong> :{{ serverResponse.data.message }}
                         <ul v-if="serverResponse.data.errors.email">
                             <li v-for="e in serverResponse.data.errors.email" :key="e">{{ e }}</li>
                         </ul>
                     </div>
+
                     <div class="alert alert-danger" role="alert" v-if="serverResponse.status == 403">
                         <strong>You are not authorized to perform this action</strong> 
                     </div>

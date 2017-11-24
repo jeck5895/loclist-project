@@ -23,6 +23,7 @@ Route::middleware('auth:api')->group(function() {
     // Route::post('/user', 'UsersController@store');
     // Route::patch('/user/{id}', 'UsersController@update');
     Route::apiResource('users', 'UsersController');
+    Route::apiResource('industries','IndustryController');
 });
 
 Route::get('/user_types', 'UserTypesController@index');

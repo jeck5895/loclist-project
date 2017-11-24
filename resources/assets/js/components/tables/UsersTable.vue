@@ -107,7 +107,7 @@
             }
         },
         filters:{
-            humanReadableFormat(date){
+            humanReadableFormat(date) {
                 return moment(date).format('MMMM Do, YYYY');
             }
         },
@@ -156,7 +156,5 @@
 </script>
 
 <style scoped>
-    .table th, .table td{
-        padding: 0.25rem;
-    }
+    
 </style>

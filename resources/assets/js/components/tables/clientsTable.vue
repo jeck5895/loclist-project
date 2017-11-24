@@ -67,9 +67,12 @@
                             <span class="fa fa-edit"></span>
                         </button>
 
-                        <button type="button" title="View" class="btn btn-sm btn-default" @click="view(client)">
+                        <router-link :to="{ name: 'viewClient', params: { clientId : toUrlFormat(client.client_name) + '-' + client.id }}" class="btn btn-sm btn-default">
                             <span class="fa fa-eye"></span>
-                        </button>
+                        </router-link>
+                        <!-- <button type="button" title="View" class="btn btn-sm btn-default" @click="view(client)">
+                            <span class="fa fa-eye"></span>
+                        </button> -->
 
                         <button type="button" title="Delete" class="btn btn-sm btn-default" @click="destroy(client)">
                             <span class="fa fa-trash"></span>
@@ -158,13 +161,15 @@ export default {
         }
     },
     methods: {
+        toUrlFormat(param){
+            return param.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+        },
         view(client){
-			console.log(client.id);
+			
 			/* Set modal necessary modal info for displaying the right form/data */
-            this.$store.dispatch('setModalTitle', 'Edit Client Details');
-            //this.$store.dispatch('loadUser', user); load client details instead for viewing
-            this.$store.dispatch('setModalFormType', 'EditClient');
-            $("#createUserModal").modal("show");
+            // this.$store.dispatch('setModalTitle', 'Edit Client Details');
+            // //this.$store.dispatch('loadUser', user); load client details instead for viewing
+            // $("#createUserModal").modal("show");
         },
         edit(client) {
 			console.log(client);
@@ -177,6 +182,9 @@ export default {
             //         });
             console.log(client)
         }
+    },
+    filters: {
+        
     }
 }
 </script>
