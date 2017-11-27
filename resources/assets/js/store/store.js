@@ -6,6 +6,7 @@ import modalModule from './modules/modalModule';
 import userTypeModule from './modules/userTypeModule';
 import serverResponseModule from './modules/serverResponseModule';
 import industryModule from './modules/industryModule';
+import nationalityModule from './modules/nationalityModule';
 
 Vue.use(Vuex); 
 
@@ -16,6 +17,7 @@ export const store = new Vuex.Store({
         userModule: userModule,
         userTypeModule: userTypeModule,
         modalModule: modalModule,
-        industryModule: industryModule
+        industryModule: industryModule,
+        nationalityModule: nationalityModule
     }
 });

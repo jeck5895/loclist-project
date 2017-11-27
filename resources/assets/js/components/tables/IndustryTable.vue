@@ -22,7 +22,8 @@
                         {{ industry.created_at | humanReadableFormat}}
                     </td>
                     <td style="vertical-align: middle;">
-                        <span class="bg-success p-1 text-white"> <strong><small>Active</small></strong></span>
+                        <span v-if="industry.is_active == 1" class="bg-success p-1 text-white"> <strong><small>Active</small></strong></span>
+                        <span v-if="industry.is_active == 0" class="bg-danger p-1 text-white"> <strong><small>Inactive</small></strong></span>
                     </td>
                     <td style="vertical-align: middle;">
                         <div class="btn-group btn-group-sm" role="group">
@@ -30,9 +31,9 @@
                                 <span class="fa fa-edit"></span>
                             </button>
 
-                            <button type="button" title="View" class="btn btn-sm btn-default" @click="view(industry)">
+                            <!-- <button type="button" title="View" class="btn btn-sm btn-default" @click="view(industry)">
                                 <span class="fa fa-eye"></span>
-                            </button>
+                            </button> -->
 
                             <button @click="destroy(industry)" type="button" class="btn btn-sm btn-default">
                                 <span class="fa fa-trash"></span>
@@ -42,14 +43,16 @@
                 </tr>
             </tbody>
         </table>
+        <pagination scope="industries" :object="industries" url="api/industries" classSize="pagination-sm"></pagination>
     </div>
 </template>
 
 <script>
+import Pagination from '../pagination/Pagination';
+
 export default {
     mounted() {
-        this.$store.dispatch('loadIndustries');
-        console.log(this.industries)
+        this.$store.dispatch('loadIndustries','api/industries');
     },
     computed: {
         industries() {
@@ -57,15 +60,31 @@ export default {
         }
     },
     methods: {
+        edit(industry) {
+            this.$store.dispatch('setModalFormType', 'EDIT_INDUSTRY').then(() => {
+                this.$store.dispatch('setModalTitle', 'Edit Industry');
+                this.$store.dispatch('loadIndustry', industry);  
+                $("#createUserModal").modal("show");
+            });
+        },
+        destroy(industry) {
+            let deletionType = {
+                    scope: "industries",
+                    industry: industry
+                };
 
+            this.$store.dispatch('setModalTitle', "Delete " + industry.industry_name + " ?");
+            this.$store.dispatch('setDeletionType', deletionType);
+            this.$store.dispatch('showConfirmationModal');
+        }
     },
     filters:{
-        transformStatus(status) {
-            return status == 1 ? `<span>`:'' ;
-        },
         humanReadableFormat(date) {
             return moment(date).format('MMMM Do, YYYY');
         }
+    },
+    components:{
+        Pagination
     }
 }
 </script>

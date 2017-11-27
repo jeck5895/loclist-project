@@ -70,7 +70,7 @@ export default{
         clearUser: context => {
             context.commit('clearUser');
         },
-        createUser: (context, payload) => {
+        storeUser: (context, payload) => {
             axios.post('api/users', payload)
             .then(response => {
                 let result = response;
@@ -107,7 +107,7 @@ export default{
                 toastr.success('Success', response.data.message);
             })
             .catch(error => {
-                console.log()
+                console.log(error)
             });
         }
     }

@@ -1,5 +1,5 @@
 <template>
-    <form id="industryForm" @submit.prevent="submitForm('industryForm')" data-vv-scope="industryForm">
+    <form id="nationalityForm" @submit.prevent="submitForm('nationalityForm')" data-vv-scope="nationalityForm">
         <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-danger" role="alert" v-if="serverResponse.status == 422">
@@ -12,15 +12,15 @@
             </div>
 
             <div class="form-group col-md-12">
-                <label for="">Industry</label>
-                <input name="industry_name" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="form-control form-control-sm"
-                    v-model="industry.industry_name">
-                <small class="form-text has-danger" v-show="errors.has('industryForm.industry_name')">{{ errors.first('industryForm.industry_name') }}</small>
+                <label for="">Nationality</label>
+                <input name="nationality" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="form-control form-control-sm"
+                    v-model="nationality.nationality">
+                <small class="form-text has-danger" v-show="errors.has('nationalityForm.nationality')">{{ errors.first('nationalityForm.nationality') }}</small>
             </div>
 
             <div class="form-group col">
                 <button type="submit" class="btn btn-sm btn-success">Save</button>
-                <button type="button" @click="closeModal('industryForm')" class="btn btn-sm btn-danger">
+                <button type="button" @click="closeModal('nationalityForm')" class="btn btn-sm btn-danger">
                     Close
                 </button>
             </div>
@@ -30,12 +30,12 @@
 
 <script>
     export default {
-        mounted() {
+        created() {
 
         },
         computed: {
-            industry() {
-                return this.$store.getters.getIndustry;
+            nationality() {
+                return this.$store.getters.getNationality;
             },
             formType() {
                 return this.$store.getters.getModalFormType;
@@ -59,20 +59,20 @@
 
             },
             submitForm(scope) {
-                let industry = {
-                    id: this.industry.id,
-                    industry_name: this.industry.industry_name
+                let nationality = {
+                    id: this.nationality.id,
+                    nationality: this.nationality.nationality
                 }
                 this.$validator.validateAll(scope).then((result) => {
                     if (result) { // if true submit form else set serverResponse error
-                        if (this.formType == 'CREATE_INDUSTRY') {
-                            this.$store.dispatch('storeIndustry', industry).then(() => {
-                                this.$store.dispatch('loadIndustries', 'api/industries');
+                        if (this.formType == 'CREATE_NATIONALITY') {
+                            this.$store.dispatch('storeNationality', nationality).then(() => {
+                                this.$store.dispatch('loadNationalities', 'api/nationalities');
                             });
-                        } else if (this.formType == 'EDIT_INDUSTRY') {
-                            this.$store.dispatch('updateIndustry', industry)
+                        } else if (this.formType == 'EDIT_NATIONALITY') {
+                            this.$store.dispatch('updateNationality', nationality)
                             .then(() => {
-                                this.$store.dispatch('loadIndustries', 'api/industries');
+                                this.$store.dispatch('loadNationalities', 'api/nationalities');
                             });
                         } else {
                             toastr.error('Error', 'Unknown Command');

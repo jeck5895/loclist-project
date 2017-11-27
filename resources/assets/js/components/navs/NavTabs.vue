@@ -68,6 +68,9 @@
             <div v-if="modalFormType == 'CREATE_INDUSTRY' || modalFormType == 'EDIT_INDUSTRY'">
                 <industry-form></industry-form>
             </div>
+            <div v-if="modalFormType == 'CREATE_NATIONALITY' || modalFormType == 'EDIT_NATIONALITY'">
+                <nationality-form></nationality-form>
+            </div>
             <div v-if="modalFormType == 'EditClient'">
                 <label for="">Edit Client</label>
             </div>
@@ -89,6 +92,7 @@
     import ClientsFilter from '../filters/ClientsFilter';
     import Maintainance from '../containers/Maintainance';
     import IndustryForm from '../forms/IndustryForm';
+    import NationalityForm from '../forms/NationalityForm';
 
     export default {
         mounted() {
@@ -120,7 +124,8 @@
             CreateUserForm,
             ClientsFilter,
             Maintainance,
-            IndustryForm
+            IndustryForm,
+            NationalityForm
         },
         filters:{
             humanReadableFormat(date) {

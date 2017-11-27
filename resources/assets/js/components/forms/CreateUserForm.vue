@@ -119,7 +119,7 @@ export default {
                     // console.log(result); //result returns true / false
                     // console.log(user);
                     if (this.formType == 'CreateUser') {
-                        this.$store.dispatch('createUser', user);
+                        this.$store.dispatch('storeUser', user);
                         this.$store.dispatch('loadUsers','/api/users');
                     }
                     else if (this.formType == 'EditUser') {

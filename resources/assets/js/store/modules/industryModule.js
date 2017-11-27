@@ -17,16 +17,27 @@ export default {
         },
         setIndustries: (state, payload) => {
             state.industries = payload.data;
+        },
+        clearIndustry: state => {
+            state.industry = {};
         }
     },
     actions:{
-        loadIndustry: () => {
-
+        clearIndustry: context => {
+            context.commit('clearIndustry');
         },
-        loadIndustries: context => {
-            axios.get('api/industries')
+        loadIndustry: (context, payload) => {
+            axios.get('api/industries/' + payload.id)
+            .then((response) => {
+                context.commit('setIndustry', response);
+            })
+            .catch((errors) => {
+                console.log(errors.response.data);
+            });
+        },
+        loadIndustries: (context, payload) => { /** payload is used for url pagination. So url is dynamic */
+            axios.get(payload)
                 .then(response => {
-                    console.log(response);
                     //ar pages = Math.round(response.data.total / response.data.per_page);
                     context.commit('setIndustries', response);
                     //context.commit('setTotalPage', pages);
@@ -35,7 +46,7 @@ export default {
                     console.log(error.response.data)
                 });
         },
-        createIndustry: (context, payload) => {
+        storeIndustry: (context, payload) => {
             axios.post('api/industries', payload)
             .then(response => {
                 let result = response;
@@ -52,7 +63,26 @@ export default {
             });
         },
         updateIndustry: (context, payload) => {
-            alert('edit industry')
+            axios.patch('api/industries/' + payload.id, payload)
+            .then(response => {
+                context.commit('setServerResponse', response);
+                $("#createUserModal").modal('hide');
+                toastr.success('Success', response.data.message);
+                document.getElementById('industryForm').reset();
+            })
+            .catch(error => {
+                context.commit('setServerResponse', error.response);
+                console.log(error.response.data)
+            })
+        },
+        deleteIndustry: (context, payload) => {
+            axios.delete('api/industries/' + payload.industry.id)
+            .then(response => {
+                toastr.success('Success', response.data.message);
+            })
+            .catch(error => {
+                console.log(error)
+            });
         }
     }
 };

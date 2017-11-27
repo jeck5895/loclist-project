@@ -31,14 +31,29 @@
         },
         methods:{
             submitConfirmation () {
-                var deletetionInfo = this.deletionType;
-                this.$store.dispatch('deleteUser', deletetionInfo)
-                .then(() => {
-                    this.$store.dispatch('closeConfirmationModal');
-                })
-                .then(() => {
-                    this.$store.dispatch('loadUsers','/api/users');
-                });
+                var deletionInfo = this.deletionType;
+                switch (deletionInfo.scope) {
+                    case "users":
+                        this.$store.dispatch('deleteUser', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadUsers','/api/users');
+                        });
+                        break;
+                    case "industries":
+                        this.$store.dispatch('deleteIndustry', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadIndustries','api/industries');
+                        });
+                        break;
+                    default:
+                        break;
+                }
 
                 
             },

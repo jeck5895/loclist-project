@@ -55,8 +55,9 @@
                 </tr>
             </tbody>
         </table>
-
-        <nav aria-label="...">
+        
+        <pagination scope="users" :object="users" url="api/users"></pagination>
+        <!-- <nav aria-label="...">
             <ul class="pagination justify-content-center">
                 <li :class="users.first_page_url == null ? 'page-item disabled' : '' ">
                     <a class="page-link" @click.prevent="firstPage(users.first_page_url)" href="#" tabindex="-1"><span class="fa fa-long-arrow-left"></span></a>
@@ -74,11 +75,13 @@
                     <a class="page-link" @click.prevent="lastPage(users.last_page_url)" href="#"><span class="fa fa-long-arrow-right"></span></a>
                 </li>
             </ul>
-        </nav>
+        </nav> -->
     </div>
 </template>
 
 <script>
+    import Pagination from '../pagination/Pagination';
+
     export default {
         mounted(){
             this.$store.dispatch('loadUsers', this.currUrl);
@@ -112,24 +115,24 @@
             }
         },
         methods:{
-            toPage(page){
-                var url = this.currUrl + "?page=" + page;
-                this.$store.dispatch('loadUsers', url);
-            },
-            nextPage (url) {
-                this.$store.dispatch('loadUsers', url);
-            },
-            prevPage (url) {
-                this.$store.dispatch('loadUsers', url);
-            },
-            firstPage(url){
-                //console.log(url)
-                this.$store.dispatch('loadUsers', url);
-            },
-            lastPage(url){
-                //console.log(url)
-                this.$store.dispatch('loadUsers', url);
-            },
+            // toPage(page){
+            //     var url = this.currUrl + "?page=" + page;
+            //     this.$store.dispatch('loadUsers', url);
+            // },
+            // nextPage (url) {
+            //     this.$store.dispatch('loadUsers', url);
+            // },
+            // prevPage (url) {
+            //     this.$store.dispatch('loadUsers', url);
+            // },
+            // firstPage(url){
+            //     //console.log(url)
+            //     this.$store.dispatch('loadUsers', url);
+            // },
+            // lastPage(url){
+            //     //console.log(url)
+            //     this.$store.dispatch('loadUsers', url);
+            // },
             edit(user){
                 this.$store.dispatch('setModalTitle', 'Edit User Details');
                 this.$store.dispatch('loadUser', user);
@@ -140,8 +143,6 @@
 
             },
             destroy(user){
-                // if(confirm("Do you really want to delete " + user.name + " record?") == true )
-                // alert("deleted")
                 let deletionType = {
                     scope: "users",
                     user: user
@@ -151,6 +152,9 @@
                 this.$store.dispatch('setDeletionType', deletionType);
                 this.$store.dispatch('showConfirmationModal');
             }
+        },
+        components:{
+            Pagination
         }
     }
 </script>

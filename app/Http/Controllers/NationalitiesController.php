@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreIndustry;
-use \App\Industry;
+use App\Http\Requests\StoreNationality;
+use App\Http\Requests\UpdateNationality;
+use App\Nationality;
 
-class IndustryController extends Controller
+class NationalitiesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,8 @@ class IndustryController extends Controller
      */
     public function index()
     {
-        //
-        $industries = Industry::paginate(5);
-
-        return $industries;
+        $nationalities = Nationality::paginate(5);
+        return $nationalities;
     }
 
     /**
@@ -38,14 +36,13 @@ class IndustryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreIndustry $request)
+    public function store(StoreNationality $request)
     {
-        //
-        Industry::create([
-            'industry_name' => $request['industry_name']
+        Nationality::create([
+            'nationality' => $request['nationality']
         ]);
-        
-        return ['message' => 'Industry has been saved'];
+
+        return ['message' => 'Nationality has been saved'];
     }
 
     /**
@@ -56,7 +53,9 @@ class IndustryController extends Controller
      */
     public function show($id)
     {
-        //
+        $nationality = Nationality::find($id);
+
+        return $nationality;
     }
 
     /**
@@ -77,9 +76,16 @@ class IndustryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateNationality $request, $id)
     {
-        //
+        $nationality_info = Nationality::find($id)
+                            ->update([
+                                'nationality' => $request['nationality']
+                            ]);
+        return  [
+                    'message' => 'Changes has been saved',
+                    'request' => $id
+                ];
     }
 
     /**

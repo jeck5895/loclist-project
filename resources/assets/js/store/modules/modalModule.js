@@ -78,7 +78,7 @@ export default {
             if(Object.keys(payload.errors).length){
                 payload.errors.clear(payload.scope);
             }
-            context.commit('clearServerResponse'); // commit clearServerResponse mutation from userModule
+            context.commit('clearServerResponse'); // commit clearServerResponse mutation from serverResponseModule
             $("#createUserModal").modal('hide');
             
         },
