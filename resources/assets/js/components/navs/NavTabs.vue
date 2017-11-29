@@ -71,6 +71,12 @@
             <div v-if="modalFormType == 'CREATE_NATIONALITY' || modalFormType == 'EDIT_NATIONALITY'">
                 <nationality-form></nationality-form>
             </div>
+            <div v-if="modalFormType == 'CREATE_ISO' || modalFormType == 'EDIT_ISO'">
+                <iso-certificate-form></iso-certificate-form>
+            </div>
+            <div v-if="modalFormType == 'CREATE_SOURCING_PRACTICE' || modalFormType == 'EDIT_SOURCING_PRACTICE'">
+                <sourcing-form></sourcing-form>
+            </div>
             <div v-if="modalFormType == 'EditClient'">
                 <label for="">Edit Client</label>
             </div>
@@ -88,11 +94,13 @@
     import UsersNavButton from '../nav-buttons/UsersNavButton';
     import Modal from '../modal/modal';
     import ConfirmationModal from '../modal/ConfirmationModal';
-    import CreateUserForm from '../forms/CreateUserForm';
+    import CreateUserForm from '../forms/user/CreateUserForm';
     import ClientsFilter from '../filters/ClientsFilter';
     import Maintainance from '../containers/Maintainance';
-    import IndustryForm from '../forms/IndustryForm';
-    import NationalityForm from '../forms/NationalityForm';
+    import IndustryForm from '../forms/maintainance/IndustryForm';
+    import NationalityForm from '../forms/maintainance/NationalityForm';
+    import IsoCertificateForm from '../forms/maintainance/IsoCertificateForm';
+    import SourcingForm from '../forms/maintainance/SourcingForm';
 
     export default {
         mounted() {
@@ -125,7 +133,9 @@
             ClientsFilter,
             Maintainance,
             IndustryForm,
-            NationalityForm
+            NationalityForm,
+            IsoCertificateForm,
+            SourcingForm
         },
         filters:{
             humanReadableFormat(date) {

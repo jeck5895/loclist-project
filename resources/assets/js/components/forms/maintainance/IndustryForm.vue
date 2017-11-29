@@ -4,6 +4,9 @@
             <div class="col-md-12">
                 <div class="alert alert-danger" role="alert" v-if="serverResponse.status == 422">
                     <strong>Errors</strong> :{{ serverResponse.data.message }}
+                    <ul v-if="serverResponse.data.errors.industry_name">
+                        <li v-for="e in serverResponse.data.errors.industry_name" :key="e">{{ e }}</li>
+                    </ul>
                 </div>
 
                 <div class="alert alert-danger" role="alert" v-if="serverResponse.status == 403">

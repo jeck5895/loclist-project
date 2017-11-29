@@ -25,9 +25,7 @@ router.beforeEach((to, from, next) => {
         next();
     }
 });
-Vue.filter('humanReadableFormat', function(date){
-    return moment(date).format('MMMM Do, YYYY');
-});
+
 const app = new Vue({
     el: '#app',
     data:{

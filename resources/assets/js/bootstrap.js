@@ -18,7 +18,9 @@ Vue.use(VueRouter);
 Vue.use(Auth);
 
 
-
+Vue.filter('humanReadableFormat', function(date){
+    return moment(date).format('MMMM Do, YYYY');
+});
 
 Vue.component(
     'passport-clients',

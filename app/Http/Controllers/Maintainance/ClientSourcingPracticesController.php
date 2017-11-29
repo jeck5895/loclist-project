@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Maintainance;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreNationality;
-use App\Http\Requests\UpdateNationality;
-use App\Nationality;
+use App\Http\Requests\StoreSourcingPractice;
+use App\Http\Requests\UpdateSourcingPractice;
+use App\Http\Controllers\Controller;
+use App\ClientSourcingPractice;
 
-class NationalitiesController extends Controller
+class ClientSourcingPracticesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +17,15 @@ class NationalitiesController extends Controller
      */
     public function index()
     {
-        $nationalities = Nationality::paginate(5);
-        return $nationalities;
+        if(isset($_GET['type']) && $_GET['type'] == 'all')
+        {
+            $sourcing_practices = ClientSourcingPractice::get();
+        }
+        else{
+            $sourcing_practices = ClientSourcingPractice::paginate(5);
+        }
+
+        return $sourcing_practices;
     }
 
     /**
@@ -36,13 +44,12 @@ class NationalitiesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreNationality $request)
+    public function store(StoreSourcingPractice $request)
     {
-        Nationality::create([
-            'nationality' => $request['nationality']
-        ]);
-
-        return ['message' => 'Nationality has been saved'];
+        $sourcing_practice = ClientSourcingPractice::create([
+                                'name' => $request['name']
+                            ]);
+        return ['message' => 'Sourcing Practice has been saved'];
     }
 
     /**
@@ -53,9 +60,9 @@ class NationalitiesController extends Controller
      */
     public function show($id)
     {
-        $nationality = Nationality::find($id);
+        $sourcing_practice = ClientSourcingPractice::find($id);
 
-        return $nationality;
+        return $sourcing_practice;
     }
 
     /**
@@ -76,17 +83,14 @@ class NationalitiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateNationality $request, $id)
+    public function update(UpdateSourcingPractice $request, $id)
     {
-        $nationality_info = Nationality::find($id)
-                            ->update([
-                                'nationality' => $request['nationality']
-                            ]);
-        return  [
-                    'message' => 'Changes has been saved',
-                    'request' => $id
-                ];
-    }
+        $sourcing_practice = ClientSourcingPractice::find($id)
+                                ->update([
+                                    'name' => $request['name']
+                                ]);
+        return ['message' => 'Changes has been save'];
+    }   
 
     /**
      * Remove the specified resource from storage.

@@ -68,16 +68,21 @@
                 });
             },
             destroy(nationality) {
+                let deletionType = {
+                    scope: "nationalities",
+                    nationality: nationality
+                };
 
+                this.$store.dispatch('setModalTitle', "Delete " + nationality.nationality + " ?");
+                this.$store.dispatch('setDeletionType', deletionType);
+                this.$store.dispatch('showConfirmationModal');
             }
         },
         components: {
             Pagination
         },
         filters:{
-            humanReadableFormat(date) {
-                return moment(date).format('MMMM Do, YYYY');
-            }
+            
         }
     }
 </script>

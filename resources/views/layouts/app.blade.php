@@ -25,6 +25,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://unpkg.com/vue-toasted"></script>
+    <script src="https://unpkg.com/vue-toasted"></script>\
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzuR3C9fwpMSVr51bQv-Y-zEVvVjFoytc&libraries=places"></script>
+
 </body>
 </html>

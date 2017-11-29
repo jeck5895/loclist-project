@@ -58,16 +58,14 @@
 </template>
 
 <script>
-    import ClientDetailsForm from "../forms/ClientDetailsForm";
-    import ClientPresentationForm from "../forms/ClientPresentationForm";
-    import ClientCallsForm from "../forms/ClientCallsForm";
-    import ClientSaturationForm from "../forms/ClientSaturationForm";
-    import ClientAcquisitionForm from "../forms/ClientAcquisitionForm";
+    import ClientDetailsForm from "../forms/client/ClientDetailsForm";
     import NavButtons from '../nav-buttons/NavButtons';
     import AlertReminder from '../alerts/AlertReminder';
 
     export default {
-        created() {},
+        mounted() {
+            
+        },
         computed: {},
         components: {
             ClientDetailsForm,

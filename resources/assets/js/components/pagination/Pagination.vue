@@ -46,6 +46,12 @@
                     case "nationalities":
                         this.$store.dispatch('loadNationalities', url);
                         break;
+                    case "certificates":
+                        this.$store.dispatch('loadNationalities', url);
+                        break;
+                    case "sourcing_practices":
+                        this.$store.dispatch('loadSourcingPractices', url);
+                        break;
                     default:
                         break;
                 }
@@ -61,6 +67,12 @@
                     case "nationalities":
                         this.$store.dispatch('loadNationalities', url);
                         break;
+                    case "certificates":
+                        this.$store.dispatch('loadNationalities', url);
+                        break;
+                    case "sourcing_practices":
+                        this.$store.dispatch('loadSourcingPractices', url);
+                        break;
                     default:
                         break;
                 }
@@ -75,6 +87,12 @@
                         break;
                     case "nationalities":
                         this.$store.dispatch('loadNationalities', url);
+                        break;
+                    case "certificates":
+                        this.$store.dispatch('loadNationalities', url);
+                        break;
+                    case "sourcing_practices":
+                        this.$store.dispatch('loadSourcingPractices', url);
                         break;
                     default:
                         break;
@@ -92,6 +110,12 @@
                     case "nationalities":
                         this.$store.dispatch('loadNationalities', url);
                         break;
+                    case "certificates":
+                        this.$store.dispatch('loadNationalities', url);
+                        break;
+                    case "sourcing_practices":
+                        this.$store.dispatch('loadSourcingPractices', url);
+                        break;
                     default:
                         break;
                 }
@@ -107,6 +131,12 @@
                         break;
                     case "nationalities":
                         this.$store.dispatch('loadNationalities', url);
+                        break;
+                    case "certificates":
+                        this.$store.dispatch('loadNationalities', url);
+                        break;
+                    case "sourcing_practices":
+                        this.$store.dispatch('loadSourcingPractices', url);
                         break;
                     default:
                         break;

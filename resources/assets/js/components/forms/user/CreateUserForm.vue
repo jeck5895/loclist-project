@@ -41,7 +41,7 @@
                         <span class="required-field">*</span>
                     </label>
                     <select v-validate="{rules:{required:true}}" name="user_type" v-model="user.userType" id="" class="form-control">
-                        <option></option>
+                        <option>--Select User Type--</option>
                         <option v-for="user_type in user_types" :key="user_type.id" :value="user_type.id"> {{ user_type.userType }}</option>
                     </select>
                     <small class="form-text has-danger" v-show="errors.has('userForm.user_type')">{{ errors.first('userForm.user_type') }}</small>

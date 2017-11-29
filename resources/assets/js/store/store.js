@@ -7,6 +7,8 @@ import userTypeModule from './modules/userTypeModule';
 import serverResponseModule from './modules/serverResponseModule';
 import industryModule from './modules/industryModule';
 import nationalityModule from './modules/nationalityModule';
+import isoCertificateModule from './modules/isoCertificateModule';
+import sourcingModule from './modules/sourcingModule';
 
 Vue.use(Vuex); 
 
@@ -18,6 +20,8 @@ export const store = new Vuex.Store({
         userTypeModule: userTypeModule,
         modalModule: modalModule,
         industryModule: industryModule,
-        nationalityModule: nationalityModule
+        nationalityModule: nationalityModule,
+        isoCertificateModule,
+        sourcingModule
     }
 });

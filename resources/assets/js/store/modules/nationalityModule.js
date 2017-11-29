@@ -12,6 +12,9 @@ export default {
         }
     },
     mutations: {
+        clearNationalities: state => {
+            state.nationalities = [];
+        },
         clearNationality: state => {
             state.nationality = {};
         },
@@ -23,6 +26,9 @@ export default {
         }   
     },
     actions: {
+        clearNationalities: context => {
+            context.commit('clearNationalities');
+        },
         clearNationality: context => {
             var {commit} = context; //destructuring object
             commit('clearNationality');
@@ -74,7 +80,13 @@ export default {
             });
         },
         deleteNationality: (context, payload) => {
-
+            axios.delete('api/nationalities/' + payload.nationality.id)
+            .then(response => {
+                toastr.success('Success', response.data.message);
+            })
+            .catch(error => {
+                context.commit('setServerResponse', error.response.data);
+            });
         }
     }
 }

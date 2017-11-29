@@ -107,6 +107,7 @@ export default{
                 toastr.success('Success', response.data.message);
             })
             .catch(error => {
+                context.commit('setServerResponse', error.response.data);
                 console.log(error)
             });
         }

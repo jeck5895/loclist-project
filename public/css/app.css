@@ -9717,6 +9717,14 @@ a.text-dark:hover {
   visibility: hidden !important;
 }
 
+.toast-success {
+  background-color: #28a745 !important;
+}
+
+.toast-error {
+  background-color: #BD362F !important;
+}
+
 .table th,
 .table td {
   padding: 0.25rem;

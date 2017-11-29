@@ -51,6 +51,24 @@
                             this.$store.dispatch('loadIndustries','api/industries');
                         });
                         break;
+                    case "nationalities":
+                        this.$store.dispatch('deleteNationality', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadNationalities','api/nationalities');
+                        });
+                        break;
+                    case "certificates":
+                        this.$store.dispatch('deleteCertificate', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadCertificates','api/certificates');
+                        });
+                    break;
                     default:
                         break;
                 }

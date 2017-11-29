@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Maintainance;
 
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreIndustry;
-use App\Http\Requests\UpdateIndustry;
-use \App\Industry;
+use App\Http\Requests\StoreCertificate;
+use App\Http\Requests\UpdateCertificate;
+use App\Certificate;
 
-class IndustriesController extends Controller
+class CertificatesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,14 @@ class IndustriesController extends Controller
      */
     public function index()
     {
-        //
-        $industries = Industry::paginate(5);
-
-        return $industries;
+        if(isset($_GET['type']) && $_GET['type'] == 'all'){
+            $certificates = Certificate::get();
+        }
+        else{
+            $certificates = Certificate::paginate(5);
+        }
+        
+        return $certificates;
     }
 
     /**
@@ -39,14 +43,13 @@ class IndustriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreIndustry $request)
+    public function store(StoreCertificate $request)
     {
-        //
-        Industry::create([
-            'industry_name' => $request['industry_name']
+        Certificate::create([
+            'iso_name' => $request['iso_name']
         ]);
-        
-        return ['message' => 'Industry has been saved'];
+
+        return ['message' => 'Certificate has been saved'];
     }
 
     /**
@@ -57,9 +60,9 @@ class IndustriesController extends Controller
      */
     public function show($id)
     {
-        $industry = Industry::find($id);
-
-        return $industry;
+        $certificate = Certificate::find($id);
+        
+        return $certificate;
     }
 
     /**
@@ -70,7 +73,7 @@ class IndustriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -80,17 +83,14 @@ class IndustriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateIndustry $request, $id)
+    public function update(UpdateCertificate $request, $id)
     {
-        $industry_info = Industry::find($id)
+        $certificate = Certificate::find($id)
                         ->update([
-                            'industry_name' => $request['industry_name']
+                            'iso_name' => $request['iso_name']
                         ]);
-        
-        return  [
-                    'message' => 'Changes has been saved.',
-                    'request' => $id
-                ];
+
+        return ['message' => 'Changes has been saved'];
     }
 
     /**
@@ -101,8 +101,8 @@ class IndustriesController extends Controller
      */
     public function destroy($id)
     {
-        Industry::destroy($id);
-        
+        Certificate::destroy($id);
+
         return  [
             'message' => 'Record has been deleted',
             'status' => 'OK'

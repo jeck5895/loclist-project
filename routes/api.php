@@ -23,8 +23,11 @@ Route::middleware('auth:api')->group(function() {
     // Route::post('/user', 'UsersController@store');
     // Route::patch('/user/{id}', 'UsersController@update');
     Route::apiResource('users', 'UsersController');
-    Route::apiResource('industries', 'IndustriesController');
-    Route::apiResource('nationalities', 'NationalitiesController');
+    Route::apiResource('industries', 'maintainance\IndustriesController');
+    Route::apiResource('nationalities', 'maintainance\NationalitiesController');
+    Route::apiResource('certificates','maintainance\CertificatesController');
+    Route::apiResource('clients', 'client\ClientsController');
+    Route::apiResource('sourcing_practices','maintainance\ClientSourcingPracticesController');
 });
 
 Route::get('/user_types', 'UserTypesController@index');

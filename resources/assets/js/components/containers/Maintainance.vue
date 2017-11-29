@@ -41,13 +41,28 @@
                     <div class="card-header">
                         <h6 class="float-left">ISO Certicates</h6>
                         <div class="float-right">
-                            <button class="btn btn-sm btn-default" @click="showFormModal('INDUSTRY_FORM')">
+                            <button class="btn btn-sm btn-default" @click="showFormModal('ISO_FORM')">
                                 <span class="fa fa-plus"></span> Add Certificate
                             </button>
                         </div>
                     </div>
                     <div class="card-body p-0">
-                        
+                        <certificates-table></certificates-table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h6 class="float-left">Sourcing Practices</h6>
+                        <div class="float-right">
+                            <button class="btn btn-sm btn-default" @click="showFormModal('SOURCING_FORM')">
+                                <span class="fa fa-plus"></span> Add Sourcing Practice
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <sourcing-table></sourcing-table>
                     </div>
                 </div>
             </div>
@@ -59,6 +74,9 @@
 <script>
     import IndustryTable from '../tables/IndustryTable';
     import NationalitiesTable from '../tables/NationalitiesTable';
+    import CertificatesTable from '../tables/CertificatesTable';
+    import SourcingTable from '../tables/SourcingTable';
+
     export default {
         mounted(){
 
@@ -92,6 +110,22 @@
                             this.$store.dispatch('showModal', this.currForm);
                         });
                         break;
+                    case 'ISO_FORM':
+                        this.$store.dispatch('setModalFormType', 'CREATE_ISO').then(()=>{
+                            this.$store.dispatch('setForm', document.getElementById('isoForm'));
+                            this.$store.dispatch('setModalTitle', "ISO Certificate Details");
+                            this.$store.dispatch('clearCertificate');
+                            this.$store.dispatch('showModal', this.currForm);
+                        });
+                        break;
+                    case 'SOURCING_FORM':
+                        this.$store.dispatch('setModalFormType', 'CREATE_SOURCING_PRACTICE').then(()=>{
+                            this.$store.dispatch('setForm', document.getElementById('sourcingForm'));
+                            this.$store.dispatch('setModalTitle', "Sourcing Practice Details");
+                            this.$store.dispatch('clearSourcingPractice');
+                            this.$store.dispatch('showModal', this.currForm);
+                        });
+                        break;
                     default:
                         break;
                 }
@@ -100,7 +134,9 @@
         components:{
             IndustryTable,
             NationalitiesTable,
-        }
+            CertificatesTable,
+            SourcingTable
+        } 
     }
 </script>
 

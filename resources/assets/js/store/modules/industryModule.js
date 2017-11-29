@@ -18,11 +18,17 @@ export default {
         setIndustries: (state, payload) => {
             state.industries = payload.data;
         },
+        clearIndustries : state => {
+            state.industries = [];
+        },
         clearIndustry: state => {
             state.industry = {};
         }
     },
     actions:{
+        clearIndustries: context => {
+            context.commit('clearIndustries');
+        },
         clearIndustry: context => {
             context.commit('clearIndustry');
         },
@@ -81,6 +87,7 @@ export default {
                 toastr.success('Success', response.data.message);
             })
             .catch(error => {
+                context.commit('setServerResponse', error.response.data);
                 console.log(error)
             });
         }

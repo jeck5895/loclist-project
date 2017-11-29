@@ -12,7 +12,7 @@
         </div>
         <div class="collapse show card-body" id="detailsCollapse">
             <!-- 1st row -->
-            <form id="clientDetailsForm" @submit.prevent="submitDetailsForm" data-vv-scope="clientDetailsForm">
+            <form id="clientDetailsForm" @submit.prevent="submitDetailsForm('clientDetailsForm')" data-vv-scope="clientDetailsForm">
                 <div class="row">
                     <div class="form-group col-md-3">
                         <label for="companyName" class="control-label">Company Name
@@ -26,19 +26,26 @@
                             <span class="required-field">*</span>
                         </label>
                         <select name="client_industry" class="form-control form-control-sm" id="companyIndustry">
-                            <option></option>
+                            <option>--Select Industry--</option>
+                            <option v-for="(industry, index) in industries" :key="index" :value="industry.id">
+                                {{ industry.industry_name }}
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-3">
                         <label for="companyIndustry">Nationality</label>
-                        <select name="client_nationality" class="form-control form-control-sm" id="companyIndustry">
-                            <option></option>
+                        <select v-validate="{rules:{required:true}}" name="nationality" class="form-control form-control-sm">
+                            <option>--Select Nationality--</option>
+                            <option v-for="(nationality, index) in nationalities" :key="index" :value="nationality.id"> {{ nationality.nationality }}</option>
                         </select>
                     </div>
                     <div class="col-md-3">
                         <label for="companyIndustry">ISO Certifacation</label>
                         <select name="client_isocertificate" class="form-control form-control-sm" id="companyIndustry">
-                            <option></option>
+                            <option>--Select Certificate--</option>
+                            <option v-for="(certificate, index) in certificates" :key="index" :value="certificate.id">
+                                {{ certificate.iso_name }}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -63,22 +70,21 @@
                         <input type="text" class="form-control form-control-sm" id="streetAddress">
                     </div>
 
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-5">
                         <label for="streetAddress">City/Province</label>
-                        <select name="province" id="" class="form-control form-control-sm">
-                            <option value=""></option>
-                        </select>
+                        <input @keypress="autoComplete" ref="address" type="text" name="province" id="" class="form-control form-control-sm" placeholder="Enter location">
                     </div>
 
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-2">
                         <label for="companyIndustry">Area</label>
-                        <select name="area" class="form-control form-control-sm" id="companyIndustry">
+                        <!-- <select name="area" class="form-control form-control-sm" id="companyIndustry">
                             <option></option>
-                        </select>
+                        </select> -->
+                        <input id="administrative_area_level_1" type="text" name="administrative_area_level_1" class="form-control form-control-sm">
                     </div>
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-2">
                         <label for="companyIndustry">Zip Code</label>
-                        <input type="text" class="form-control form-control-sm">
+                        <input id="postal_code" name="postal_code"type="text" class="form-control form-control-sm">
                     </div>
                 </div>
 
@@ -137,7 +143,6 @@
                         </select>
                     </div>
                 </div>
-
                 <!-- 7th row -->
                 <hr>
                 <div class="row">
@@ -149,8 +154,11 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="">Sourcing Practice</label>
-                        <select name="" id="" class="form-control form-control-sm">
-                            <option value=""></option>
+                        <select name="sourcing_practice" id="" class="form-control form-control-sm">
+                            <option>--Select Sourcing Practice--</option>
+                            <option v-for="(sourcing_practice, index) in sourcing_practices" :key="index" :value="sourcing_practice.id">
+                                {{ sourcing_practice.name }}
+                            </option>
                         </select>
                     </div>
                     <div class="form-group col-md-3">
@@ -172,7 +180,9 @@
                     <div class="form-group col-md-3">
                         <label for="">Company (CSI/SRI)</label>
                         <select name="" id="" class="form-control form-control-sm">
-                            <option value=""></option>
+                            <option value="">--Select Company--</option>
+                            <option value="CSI">CSI</option>
+                            <option value="SRI">SRI</option>
                         </select>
                     </div>
                 </div>
@@ -189,17 +199,70 @@
 <script>
 export default {
     created() {
-
+        this.$store.dispatch('loadNationalities','api/nationalities?type=all');
+        this.$store.dispatch('loadCertificates','api/certificates?type=all');
+        this.$store.dispatch('loadIndustries','api/industries?type=all');
+        this.$store.dispatch('loadSourcingPractices','api/sourcing_practices?type=all');
     },
     data() {
         return {
 
         }
     },
+    computed: {
+        industries() {
+            return this.$store.getters.getIndustries;
+        },
+        nationalities() {
+            return this.$store.getters.getNationalities;
+        },
+        certificates() {
+            return this.$store.getters.getIsoCertificates;
+        },
+        sourcing_practices() {
+            return this.$store.getters.getSourcingPratices;
+        }
+    },
     methods: {
-        submitDetailsForm(){
-            alert('Form Submitted');
+        submitDetailsForm() {
+
+        },
+        autoComplete() {
+            var refs = this.$refs;
+            var input = refs.address;
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            // var autocomplete = new google.maps.places.Autocomplete(input,{types:['(regions)']});
+            autocomplete.addListener('place_changed', () => {
+                console.log(autocomplete.getPlace());
+                var place = autocomplete.getPlace();
+                var componentForm = {
+                    street_number: 'short_name',
+                    route: 'long_name',
+                    locality: 'long_name',
+                    administrative_area_level_1: 'short_name',
+                    country: 'long_name',
+                    postal_code: 'short_name'
+                };
+                
+                for(var element in componentForm){
+                    if(document.getElementById(element))
+                        document.getElementById(element).value = ''; //reset value
+                }
+
+                for (var i = 0; i < place.address_components.length; i++) {
+                    var addressType = place.address_components[i].types[0];
+                    
+                    if (componentForm[addressType]) {
+                        var val = place.address_components[i][componentForm[addressType]];
+                        
+                        if(document.getElementById(addressType)){
+                            document.getElementById(addressType).value = val;
+                        }
+                    }
+                }
+            });
         }
     }
 }
 </script>
+

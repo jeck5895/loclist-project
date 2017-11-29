@@ -205,10 +205,10 @@
 </template>
 
 <script>
-    import ClientPresentationForm from "../../forms/ClientPresentationForm";
-    import ClientCallsForm from "../../forms/ClientCallsForm";
-    import ClientSaturationForm from "../../forms/ClientSaturationForm";
-    import ClientAcquisitionForm from "../../forms/ClientAcquisitionForm";
+    import ClientPresentationForm from "../../forms/client/ClientPresentationForm";
+    import ClientCallsForm from "../../forms/client/ClientCallsForm";
+    import ClientSaturationForm from "../../forms/client/ClientSaturationForm";
+    import ClientAcquisitionForm from "../../forms/client/ClientAcquisitionForm";
     import  Modal from '../../modal/modal';
     import NavButtons from '../../nav-buttons/NavButtons';
 

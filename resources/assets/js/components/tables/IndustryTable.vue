@@ -79,9 +79,7 @@ export default {
         }
     },
     filters:{
-        humanReadableFormat(date) {
-            return moment(date).format('MMMM Do, YYYY');
-        }
+        
     },
     components:{
         Pagination
