@@ -77,8 +77,11 @@
             <div v-if="modalFormType == 'CREATE_SOURCING_PRACTICE' || modalFormType == 'EDIT_SOURCING_PRACTICE'">
                 <sourcing-form></sourcing-form>
             </div>
-            <div v-if="modalFormType == 'EditClient'">
-                <label for="">Edit Client</label>
+            <div v-if="modalFormType == 'CREATE_DEPARTMENT' || modalFormType == 'EDIT_DEPARTMENT'">
+                <department-form></department-form>
+            </div>
+            <div v-if="modalFormType == 'CREATE_POSITION' || modalFormType == 'EDIT_POSITION'">
+                <position-form></position-form>
             </div>
         </modal>
         <confirmation-modal>
@@ -101,6 +104,8 @@
     import NationalityForm from '../forms/maintainance/NationalityForm';
     import IsoCertificateForm from '../forms/maintainance/IsoCertificateForm';
     import SourcingForm from '../forms/maintainance/SourcingForm';
+    import DepartmentForm from '../forms/maintainance/DepartmentForm';
+    import PositionForm from '../forms/maintainance/PositionForm';
 
     export default {
         mounted() {
@@ -135,12 +140,12 @@
             IndustryForm,
             NationalityForm,
             IsoCertificateForm,
-            SourcingForm
+            SourcingForm,
+            DepartmentForm,
+            PositionForm
         },
         filters:{
-            humanReadableFormat(date) {
-                return moment(date).format('MMMM Do, YYYY');
-            }
+            
         }
     }
 </script>

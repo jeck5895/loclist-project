@@ -9,6 +9,8 @@ import industryModule from './modules/industryModule';
 import nationalityModule from './modules/nationalityModule';
 import isoCertificateModule from './modules/isoCertificateModule';
 import sourcingModule from './modules/sourcingModule';
+import departmentModule from './modules/departmentModule';
+import positionModule from './modules/positionModule';
 
 Vue.use(Vuex); 
 
@@ -22,6 +24,8 @@ export const store = new Vuex.Store({
         industryModule: industryModule,
         nationalityModule: nationalityModule,
         isoCertificateModule,
-        sourcingModule
+        sourcingModule,
+        departmentModule,
+        positionModule
     }
 });

@@ -16,7 +16,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="client in clients" :key="client.id">
+            <tr v-if="clients == 0">
+                    <td colspan="7" class="text-center">
+                        No data to show...
+                    </td>
+                </tr>
+            <tr v-else v-for="client in clients" :key="client.id">
                 <!-- ID -->
                 <td style="vertical-align: middle;">
                     {{ client.id }}

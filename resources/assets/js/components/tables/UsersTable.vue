@@ -14,7 +14,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="user in users.data" :key="user.id">
+                <tr v-if="users.data == 0">
+                    <td colspan="7" class="text-center">
+                        No data to show...
+                    </td>
+                </tr>
+
+                <tr v-else v-for="user in users.data" :key="user.id">
                     <td style="vertical-align: middle;">
                         {{ user.id }}
                     </td>

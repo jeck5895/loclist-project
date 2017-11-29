@@ -67,7 +67,39 @@
                 </div>
             </div>
         </div>
-        
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h6 class="float-left">Departments</h6>
+                        <div class="float-right">
+                            <button class="btn btn-sm btn-default" @click="showFormModal('DEPARTMENT_FORM')">
+                                <span class="fa fa-plus"></span> Add Departent
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <departments-table></departments-table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h6 class="float-left">Positions</h6>
+                        <div class="float-right">
+                            <button class="btn btn-sm btn-default" @click="showFormModal('POSITION_FORM')">
+                                <span class="fa fa-plus"></span> Add Position
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <positions-table></positions-table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -76,6 +108,8 @@
     import NationalitiesTable from '../tables/NationalitiesTable';
     import CertificatesTable from '../tables/CertificatesTable';
     import SourcingTable from '../tables/SourcingTable';
+    import DepartmentsTable from '../tables/DepartmentsTable';
+    import PositionsTable from '../tables/PositionsTable';
 
     export default {
         mounted(){
@@ -126,6 +160,22 @@
                             this.$store.dispatch('showModal', this.currForm);
                         });
                         break;
+                    case 'DEPARTMENT_FORM':
+                        this.$store.dispatch('setModalFormType', 'CREATE_DEPARTMENT').then(()=>{
+                            this.$store.dispatch('setForm', document.getElementById('departmentForm'));
+                            this.$store.dispatch('setModalTitle', "Department Details");
+                            this.$store.dispatch('clearDepartment');
+                            this.$store.dispatch('showModal', this.currForm);
+                        });
+                        break;
+                    case 'POSITION_FORM':
+                        this.$store.dispatch('setModalFormType', 'CREATE_POSITION').then(()=>{
+                            this.$store.dispatch('setForm', document.getElementById('positionForm'));
+                            this.$store.dispatch('setModalTitle', "Position Details");
+                            this.$store.dispatch('clearPosition');
+                            this.$store.dispatch('showModal', this.currForm);
+                        });
+                        break;
                     default:
                         break;
                 }
@@ -135,7 +185,9 @@
             IndustryTable,
             NationalitiesTable,
             CertificatesTable,
-            SourcingTable
+            SourcingTable,
+            DepartmentsTable,
+            PositionsTable
         } 
     }
 </script>

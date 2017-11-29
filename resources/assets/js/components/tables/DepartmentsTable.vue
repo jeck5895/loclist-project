@@ -4,40 +4,40 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Certificate</th>
+                    <th>Department</th>
                     <th>Date Created</th>
                     <th>Status</th>
                     <th>OPTIONS</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-if="certificates.data == 0">
+                <tr v-if="departments.data == 0">
                     <td colspan="7" class="text-center">
                         No data to show...
                     </td>
                 </tr>
-                <tr v-else v-for="certificate in certificates.data" :key="certificate.id">
+
+                <tr v-else v-for="(department, index) in departments.data" :key="index">
                    <td style="vertical-align: middle;">
-                        {{ certificate.id }}
+                        {{ department.id }}
                     </td>
                     <td style="vertical-align: middle;">
-                        {{ certificate.iso_name }}
+                        {{ department.department_name }}
                     </td>
                     <td style="vertical-align: middle;">
-                        {{ certificate.created_at | humanReadableFormat}}
+                        {{ department.created_at | humanReadableFormat}}
                     </td>
                     <td style="vertical-align: middle;">
-                        <span v-if="certificate.is_active == 1" class="bg-success p-1 text-white"> <strong><small>Active</small></strong></span>
-                        <span v-if="certificate.is_active == 0" class="bg-danger p-1 text-white"> <strong><small>Inactive</small></strong></span>
+                        <span v-if="department.is_active == 1" class="bg-success p-1 text-white"> <strong><small>Active</small></strong></span>
+                        <span v-if="department.is_active == 0" class="bg-danger p-1 text-white"> <strong><small>Inactive</small></strong></span>
                     </td>
                     <td style="vertical-align: middle;">
                         <div class="btn-group btn-group-sm" role="group">
-                            <button type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(certificate)">
+                            <button type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(department)">
                                 <span class="fa fa-edit"></span>
                             </button>
 
-
-                            <button @click="destroy(certificate)" type="button" class="btn btn-sm btn-default">
+                            <button @click="destroy(department)" type="button" class="btn btn-sm btn-default">
                                 <span class="fa fa-trash"></span>
                             </button>
                         </div>
@@ -45,7 +45,7 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="certificates" :object="certificates" url="api/industries" classSize="pagination-sm"></pagination>
+        <pagination scope="departments" :object="departments" url="api/departments" classSize="pagination-sm"></pagination>
     </div>
 </template>
 
@@ -54,36 +54,33 @@
 
     export default {
         created() {
-            this.$store.dispatch('loadCertificates','api/certificates');
+            this.$store.dispatch('loadDepartments','api/departments');
         },
         computed: {
-            certificates() {
-                return this.$store.getters.getIsoCertificates;
+            departments() {
+                return this.$store.getters.getDepartments;
             }
         },
         methods: {
-            edit(certificate) {
-                this.$store.dispatch('setModalFormType', 'EDIT_ISO').then(() => {
-                    this.$store.dispatch('setModalTitle', 'Edit Certificate');
-                    this.$store.dispatch('loadCertificate', certificate);  
+            edit(department) {
+                this.$store.dispatch('setModalFormType', 'EDIT_DEPARTMENT').then(() => {
+                    this.$store.dispatch('setModalTitle', 'Edit Department');
+                    this.$store.dispatch('loadDepartment', department);  
                     $("#createUserModal").modal("show");
                 });
             },
-            destroy(certificate) {
+            destroy(department) {
                 let deletionType = {
-                    scope: "certificates",
-                    certificate: certificate
+                    scope: "departments",
+                    department: department
                 };
 
-                this.$store.dispatch('setModalTitle', "Delete " + certificate.iso_name + " ?");
+                this.$store.dispatch('setModalTitle', "Delete " + department.department_name + " ?");
                 this.$store.dispatch('setDeletionType', deletionType);
                 this.$store.dispatch('showConfirmationModal');
             }
         },
-        filters: {
-            
-        },
-        components: {
+        components: {   
             Pagination
         }
     }

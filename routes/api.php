@@ -28,6 +28,8 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('certificates','maintainance\CertificatesController');
     Route::apiResource('clients', 'client\ClientsController');
     Route::apiResource('sourcing_practices','maintainance\ClientSourcingPracticesController');
+    Route::apiResource('departments', 'maintainance\DepartmentsController');
+    Route::apiResource('positions', 'maintainance\PositionsController');
 });
 
 Route::get('/user_types', 'UserTypesController@index');

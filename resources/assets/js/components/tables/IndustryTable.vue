@@ -11,7 +11,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="industry in industries.data" :key="industry.id">
+                <tr v-if="industries.data == 0">
+                    <td colspan="7" class="text-center">
+                        No data to show...
+                    </td>
+                </tr>
+
+                <tr v-else v-for="industry in industries.data" :key="industry.id">
                    <td style="vertical-align: middle;">
                         {{ industry.id }}
                     </td>

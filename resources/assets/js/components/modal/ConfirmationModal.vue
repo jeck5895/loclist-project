@@ -68,6 +68,24 @@
                         .then(() => {
                             this.$store.dispatch('loadCertificates','api/certificates');
                         });
+                    case "departments":
+                        this.$store.dispatch('deleteDepartment', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadDepartments','api/departments');
+                        });
+                        break;
+                    case "positions":
+                        this.$store.dispatch('deletePosition', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadPositions','api/positions');
+                        })
+                        break;
                     break;
                     default:
                         break;

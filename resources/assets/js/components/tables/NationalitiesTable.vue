@@ -11,7 +11,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="nationality in nationalities.data" :key="nationality.id">
+                <tr v-if="nationalities.data == 0">
+                    <td colspan="7" class="text-center">
+                        No data to show...
+                    </td>
+                </tr>
+
+                <tr v-else v-for="nationality in nationalities.data" :key="nationality.id">
                     <td style="vertical-align: middle;">
                         {{ nationality.id }}
                     </td>

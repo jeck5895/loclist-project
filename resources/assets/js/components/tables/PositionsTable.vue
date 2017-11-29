@@ -4,40 +4,40 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Certificate</th>
+                    <th>Position</th>
                     <th>Date Created</th>
                     <th>Status</th>
                     <th>OPTIONS</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-if="certificates.data == 0">
+                <tr v-if="positions.data == 0">
                     <td colspan="7" class="text-center">
                         No data to show...
                     </td>
                 </tr>
-                <tr v-else v-for="certificate in certificates.data" :key="certificate.id">
+
+                <tr v-else v-for="(position, index) in positions.data" :key="index">
                    <td style="vertical-align: middle;">
-                        {{ certificate.id }}
+                        {{ position.id }}
                     </td>
                     <td style="vertical-align: middle;">
-                        {{ certificate.iso_name }}
+                        {{ position.position_name }}
                     </td>
                     <td style="vertical-align: middle;">
-                        {{ certificate.created_at | humanReadableFormat}}
+                        {{ position.created_at | humanReadableFormat}}
                     </td>
                     <td style="vertical-align: middle;">
-                        <span v-if="certificate.is_active == 1" class="bg-success p-1 text-white"> <strong><small>Active</small></strong></span>
-                        <span v-if="certificate.is_active == 0" class="bg-danger p-1 text-white"> <strong><small>Inactive</small></strong></span>
+                        <span v-if="position.is_active == 1" class="bg-success p-1 text-white"> <strong><small>Active</small></strong></span>
+                        <span v-if="position.is_active == 0" class="bg-danger p-1 text-white"> <strong><small>Inactive</small></strong></span>
                     </td>
                     <td style="vertical-align: middle;">
                         <div class="btn-group btn-group-sm" role="group">
-                            <button type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(certificate)">
+                            <button type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(position)">
                                 <span class="fa fa-edit"></span>
                             </button>
 
-
-                            <button @click="destroy(certificate)" type="button" class="btn btn-sm btn-default">
+                            <button @click="destroy(position)" type="button" class="btn btn-sm btn-default">
                                 <span class="fa fa-trash"></span>
                             </button>
                         </div>
@@ -45,7 +45,7 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="certificates" :object="certificates" url="api/industries" classSize="pagination-sm"></pagination>
+        <pagination scope="positions" :object="positions" url="api/positions" classSize="pagination-sm"></pagination>
     </div>
 </template>
 
@@ -54,36 +54,33 @@
 
     export default {
         created() {
-            this.$store.dispatch('loadCertificates','api/certificates');
+            this.$store.dispatch('loadPositions', 'api/positions');
         },
         computed: {
-            certificates() {
-                return this.$store.getters.getIsoCertificates;
+            positions() {
+                return this.$store.getters.getPositions;
             }
         },
         methods: {
-            edit(certificate) {
-                this.$store.dispatch('setModalFormType', 'EDIT_ISO').then(() => {
-                    this.$store.dispatch('setModalTitle', 'Edit Certificate');
-                    this.$store.dispatch('loadCertificate', certificate);  
+            edit(position) {
+                this.$store.dispatch('setModalFormType', 'EDIT_POSITION').then(() => {
+                    this.$store.dispatch('setModalTitle', 'Edit Position');
+                    this.$store.dispatch('loadPosition', position);  
                     $("#createUserModal").modal("show");
                 });
             },
-            destroy(certificate) {
+            destroy(position) {
                 let deletionType = {
-                    scope: "certificates",
-                    certificate: certificate
+                    scope: "positions",
+                    position: position
                 };
 
-                this.$store.dispatch('setModalTitle', "Delete " + certificate.iso_name + " ?");
+                this.$store.dispatch('setModalTitle', "Delete " + position.position_name + " ?");
                 this.$store.dispatch('setDeletionType', deletionType);
                 this.$store.dispatch('showConfirmationModal');
             }
         },
-        filters: {
-            
-        },
-        components: {
+        components: {   
             Pagination
         }
     }
