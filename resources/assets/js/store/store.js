@@ -11,6 +11,7 @@ import isoCertificateModule from './modules/isoCertificateModule';
 import sourcingModule from './modules/sourcingModule';
 import departmentModule from './modules/departmentModule';
 import positionModule from './modules/positionModule';
+import manpowerModule from './modules/manpowerModule';
 
 Vue.use(Vuex); 
 
@@ -26,6 +27,7 @@ export const store = new Vuex.Store({
         isoCertificateModule,
         sourcingModule,
         departmentModule,
-        positionModule
+        positionModule,
+        manpowerModule
     }
 });

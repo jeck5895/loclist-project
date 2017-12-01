@@ -23,6 +23,7 @@
     "popper.js": "^1.11.0",
     "toastr": "^2.1.2",
     "vee-validate": "^2.0.0-rc.18",
+    "vue-inputmask": "^0.2.1",
     "vue-router": "^2.7.0",
     "vuex": "^3.0.0"
   }

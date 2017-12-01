@@ -100,6 +100,25 @@
                 </div>
             </div>
         </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h6 class="float-left">Manpower Types</h6>
+                        <div class="float-right">
+                            <button class="btn btn-sm btn-default" @click="showFormModal('MANPOWER_FORM')">
+                                <span class="fa fa-plus"></span> Add Manpower
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <manpowers-table></manpowers-table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -110,6 +129,7 @@
     import SourcingTable from '../tables/SourcingTable';
     import DepartmentsTable from '../tables/DepartmentsTable';
     import PositionsTable from '../tables/PositionsTable';
+    import ManpowersTable from '../tables/ManpowersTable';
 
     export default {
         mounted(){
@@ -176,6 +196,14 @@
                             this.$store.dispatch('showModal', this.currForm);
                         });
                         break;
+                    case 'MANPOWER_FORM':
+                        this.$store.dispatch('setModalFormType', 'CREATE_MANPOWER').then(()=>{
+                            this.$store.dispatch('setForm', document.getElementById('manpowerForm'));
+                            this.$store.dispatch('setModalTitle', "Manpower Details");
+                            this.$store.dispatch('clearManpower');
+                            this.$store.dispatch('showModal', this.currForm);
+                        });
+                        break;
                     default:
                         break;
                 }
@@ -187,7 +215,8 @@
             CertificatesTable,
             SourcingTable,
             DepartmentsTable,
-            PositionsTable
+            PositionsTable,
+            ManpowersTable
         } 
     }
 </script>

@@ -52,6 +52,15 @@
                     case "sourcing_practices":
                         this.$store.dispatch('loadSourcingPractices', url);
                         break;
+                    case "departments":
+                        this.$store.dispatch('loadDepartments', url);
+                        break;
+                    case "positions":
+                        this.$store.dispatch('loadPositions', url);
+                        break;
+                    case "manpowers":
+                        this.$store.dispatch('loadManpowers', url);
+                        break;
                     default:
                         break;
                 }

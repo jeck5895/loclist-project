@@ -1,11 +1,11 @@
 <template>
-    <form id="nationalityForm" @submit.prevent="submitForm('nationalityForm')" data-vv-scope="nationalityForm">
+    <form id="manpowerForm" @submit.prevent="submitForm('manpowerForm')" data-vv-scope="manpowerForm">
         <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-danger" role="alert" v-if="serverResponse.status == 422">
                     <strong>Errors</strong> :{{ serverResponse.data.message }}
-                    <ul v-if="serverResponse.data.errors.nationality">
-                        <li v-for="e in serverResponse.data.errors.nationality" :key="e">{{ e }}</li>
+                    <ul v-if="serverResponse.data.errors.type">
+                        <li v-for="e in serverResponse.data.errors.type" :key="e">{{ e }}</li>
                     </ul>
                 </div>
 
@@ -15,15 +15,15 @@
             </div>
 
             <div class="form-group col-md-12">
-                <label for="">Nationality</label>
-                <input name="nationality" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="form-control form-control-sm"
-                    v-model="nationality.nationality">
-                <small class="form-text has-danger" v-show="errors.has('nationalityForm.nationality')">{{ errors.first('nationalityForm.nationality') }}</small>
+                <label for="">Type</label>
+                <input name="type" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="form-control form-control-sm"
+                    v-model="manpower.type">
+                <small class="form-text has-danger" v-show="errors.has('manpowerForm.type')">{{ errors.first('manpowerForm.type') }}</small>
             </div>
 
             <div class="form-group col">
                 <button type="submit" class="btn btn-sm btn-success">Save</button>
-                <button type="button" @click="closeModal('nationalityForm')" class="btn btn-sm btn-danger">
+                <button type="button" @click="closeModal('manpowerForm')" class="btn btn-sm btn-danger">
                     Close
                 </button>
             </div>
@@ -33,12 +33,12 @@
 
 <script>
     export default {
-        created() {
-
+        mounted() {
+            
         },
         computed: {
-            nationality() {
-                return this.$store.getters.getNationality;
+            manpower() {
+                return this.$store.getters.getManpower;
             },
             formType() {
                 return this.$store.getters.getModalFormType;
@@ -51,7 +51,7 @@
             }
         },
         methods: {
-            closeModal(scope) {
+        closeModal(scope) {
                 let payload = {
                     scope: scope,
                     errors: this.errors
@@ -62,20 +62,20 @@
 
             },
             submitForm(scope) {
-                let nationality = {
-                    id: this.nationality.id,
-                    nationality: this.nationality.nationality
+                let manpower = {
+                    id: this.manpower.id,
+                    type: this.manpower.type
                 }
                 this.$validator.validateAll(scope).then((result) => {
                     if (result) { // if true submit form else set serverResponse error
-                        if (this.formType == 'CREATE_NATIONALITY') {
-                            this.$store.dispatch('storeNationality', nationality).then(() => {
-                                this.$store.dispatch('loadNationalities', 'api/nationalities');
+                        if (this.formType == 'CREATE_MANPOWER') {
+                            this.$store.dispatch('storeManpower', manpower).then(() => {
+                                this.$store.dispatch('loadManpowers', 'api/manpowers');
                             });
-                        } else if (this.formType == 'EDIT_NATIONALITY') {
-                            this.$store.dispatch('updateNationality', nationality)
+                        } else if (this.formType == 'EDIT_MANPOWER') {
+                            this.$store.dispatch('updateManpower', manpower)
                             .then(() => {
-                                this.$store.dispatch('loadNationalities', 'api/nationalities');
+                                this.$store.dispatch('loadManpowers', 'api/manpowers');
                             });
                         } else {
                             toastr.error('Error', 'Unknown Command');

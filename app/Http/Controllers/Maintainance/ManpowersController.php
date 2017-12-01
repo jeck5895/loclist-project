@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Maintainance;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StorePosition;
-use App\Http\Requests\UpdatePosition;
 use App\Http\Controllers\Controller;
-use App\Position;
+use App\Http\Requests\StoreManpowerType;
+use App\Http\Requests\UpdateManpowerType;
+use App\ClientManpowerType;
 
-class PositionsController extends Controller
+class ManpowersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,13 +18,13 @@ class PositionsController extends Controller
     public function index()
     {
         if(isset($_GET['type']) && $_GET['type'] == 'all'){
-            $positions = Position::get();
+            $manpower_types = ClientManpowerType::get();
         }
         else{
-            $positions = Position::paginate(5);
+            $manpower_types = ClientManpowerType::paginate(5);
         }
 
-        return $positions;
+        return $manpower_types;
     }
 
     /**
@@ -43,13 +43,13 @@ class PositionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePosition $request)
+    public function store(StoreManpowerType $request)
     {
-        $position = Position::create([
-            'position_name' => $request['position_name']
+        $manpower_type = ClientManpowerType::create([
+            'type' => $request['type']
         ]);
 
-        return ['message' => 'Position has been saved'];
+        return ['message' => 'Record has been saved'];
     }
 
     /**
@@ -60,9 +60,9 @@ class PositionsController extends Controller
      */
     public function show($id)
     {
-        $position = Position::find($id);
+        $manpower_type = ClientManpowerType::find($id);
 
-        return $position;
+        return $manpower_type;
     }
 
     /**
@@ -83,12 +83,13 @@ class PositionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePosition $request, $id)
+    public function update(UpdateManpowerType $request, $id)
     {
-        $position = Position::find($id)
-                    ->update([
-                        'position_name' => $request['position_name']
-                    ]);
+        $manpower_type = ClientManpowerType::find($id)
+                        ->update([
+                            'type' => $request['type']
+                        ]);
+
         return ['message' => 'Changes has been saved'];
     }
 
@@ -100,7 +101,7 @@ class PositionsController extends Controller
      */
     public function destroy($id)
     {
-        Position::destroy($id);
+        ClientManpowerType::destroy($id);
 
         return  [
             'message' => 'Record has been deleted',

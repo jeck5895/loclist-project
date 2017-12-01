@@ -29,6 +29,9 @@
                 this.$store.dispatch('clearIndustries');
                 this.$store.dispatch('clearIsoCertificates');
                 this.$store.dispatch('clearSourcingPractices');
+                this.$store.dispatch('clearDepartments');
+                this.$store.dispatch('clearPositions');
+                this.$store.dispatch('clearManpowers');
                 router.push('/clients/create');
             }
         }

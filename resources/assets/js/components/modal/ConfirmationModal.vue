@@ -84,9 +84,17 @@
                         })
                         .then(() => {
                             this.$store.dispatch('loadPositions','api/positions');
-                        })
+                        });
                         break;
-                    break;
+                    case "manpowers":
+                        this.$store.dispatch('deleteManpower', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadManpowers','api/manpowers');
+                        });
+                        break;
                     default:
                         break;
                 }

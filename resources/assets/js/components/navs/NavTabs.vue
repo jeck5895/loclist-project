@@ -83,6 +83,10 @@
             <div v-if="modalFormType == 'CREATE_POSITION' || modalFormType == 'EDIT_POSITION'">
                 <position-form></position-form>
             </div>
+            <div v-if="modalFormType == 'CREATE_MANPOWER' || modalFormType == 'EDIT_MANPOWER'">
+                <manpower-form></manpower-form>
+            </div>
+            
         </modal>
         <confirmation-modal>
             <template slot="confirmationHeader"> {{ modalTitle }} </template>
@@ -106,6 +110,7 @@
     import SourcingForm from '../forms/maintainance/SourcingForm';
     import DepartmentForm from '../forms/maintainance/DepartmentForm';
     import PositionForm from '../forms/maintainance/PositionForm';
+    import ManpowerForm from '../forms/maintainance/ManpowerForm';
 
     export default {
         mounted() {
@@ -142,7 +147,8 @@
             IsoCertificateForm,
             SourcingForm,
             DepartmentForm,
-            PositionForm
+            PositionForm,
+            ManpowerForm
         },
         filters:{
             

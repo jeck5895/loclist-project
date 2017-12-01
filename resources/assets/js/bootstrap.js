@@ -6,6 +6,7 @@ import moment from 'moment';
 import toastr from 'toastr';
 import VeeValidate from 'vee-validate';
 import Auth from './package/Auth';
+const VueInputMask = require('vue-inputmask').default;
 // import VueToastr from '@deveodk/vue-toastr';
 // import '@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css';
 
@@ -13,6 +14,7 @@ window.VeeValidate = VeeValidate;
 window.moment = moment;
 window.toastr = toastr;
 
+Vue.use(VueInputMask);
 Vue.use(VeeValidate);
 Vue.use(VueRouter);
 Vue.use(Auth);
