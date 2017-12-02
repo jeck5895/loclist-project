@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Maintainance;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreCertificate;
-use App\Http\Requests\UpdateCertificate;
+use App\Http\Requests\Maintainance\Certificate\StoreCertificate;
+use App\Http\Requests\Maintainance\Certificate\UpdateCertificate;
 use App\Certificate;
 
 class CertificatesController extends Controller

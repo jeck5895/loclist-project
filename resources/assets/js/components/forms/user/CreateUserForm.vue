@@ -70,7 +70,7 @@
 
 export default {
     mounted() {
-
+        this.$store.dispatch('loadUserTypes', 'api/user_types?type=all');
     },
     data() {
         return {
@@ -82,7 +82,7 @@ export default {
             return this.$store.getters.loadUser;
         },
         user_types() {
-            return this.$store.getters.loadUserTypes;
+            return this.$store.getters.getUserTypes;
         },
         modalFormValidation() {
             return this.$store.getters.getModalFormValidation;

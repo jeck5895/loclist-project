@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Maintainance;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreDepartment;
-use App\Http\Requests\UpdateDepartment;
+use App\Http\Requests\Maintainance\Department\StoreDepartment;
+use App\Http\Requests\Maintainance\Department\UpdateDepartment;
 use App\Http\Controllers\Controller;
 use App\Department;
 

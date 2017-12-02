@@ -32,6 +32,7 @@
                 this.$store.dispatch('clearDepartments');
                 this.$store.dispatch('clearPositions');
                 this.$store.dispatch('clearManpowers');
+                this.$store.dispatch('clearUserTypes');
                 router.push('/clients/create');
             }
         }

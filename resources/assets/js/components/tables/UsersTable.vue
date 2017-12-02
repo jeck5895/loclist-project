@@ -63,25 +63,7 @@
         </table>
         
         <pagination scope="users" :object="users" url="api/users"></pagination>
-        <!-- <nav aria-label="...">
-            <ul class="pagination justify-content-center">
-                <li :class="users.first_page_url == null ? 'page-item disabled' : '' ">
-                    <a class="page-link" @click.prevent="firstPage(users.first_page_url)" href="#" tabindex="-1"><span class="fa fa-long-arrow-left"></span></a>
-                </li>
-                <li :class="users.prev_page_url == null ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" @click.prevent="prevPage(users.prev_page_url)" href="#" tabindex="-1">Previous</a>
-                </li>
-                <li :class="users.current_page == i ? 'page-item active':'active'" v-for="i in users.last_page" :key="i">
-                    <a class="page-link" @click.prevent="toPage(i)" href="#">{{ i }}</a>
-                </li>
-                <li :class="users.next_page_url == null ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" @click.prevent="nextPage(users.next_page_url)" href="#">Next</a>
-                </li>
-                <li :class="users.last_page_url == null ? 'page-item disabled' : '' ">
-                    <a class="page-link" @click.prevent="lastPage(users.last_page_url)" href="#"><span class="fa fa-long-arrow-right"></span></a>
-                </li>
-            </ul>
-        </nav> -->
+
     </div>
 </template>
 
@@ -91,7 +73,6 @@
     export default {
         mounted(){
             this.$store.dispatch('loadUsers', this.currUrl);
-            this.$store.dispatch('loadUserTypes');
         },
         data(){
             return {
@@ -104,9 +85,6 @@
             },
             users () {
                 return this.$store.getters.loadUsers;
-            },
-            userTypes () {
-                return this.$store.getters.loadUserTypes;
             },
             modalForm () {
                 return this.$store.getters.getModalForm;

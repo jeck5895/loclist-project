@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Maintainance;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreManpowerType;
-use App\Http\Requests\UpdateManpowerType;
+use App\Http\Requests\Maintainance\Manpower\StoreManpowerType;
+use App\Http\Requests\Maintainance\Manpower\UpdateManpowerType;
 use App\ClientManpowerType;
 
 class ManpowersController extends Controller

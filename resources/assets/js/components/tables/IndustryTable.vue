@@ -37,10 +37,6 @@
                                 <span class="fa fa-edit"></span>
                             </button>
 
-                            <!-- <button type="button" title="View" class="btn btn-sm btn-default" @click="view(industry)">
-                                <span class="fa fa-eye"></span>
-                            </button> -->
-
                             <button @click="destroy(industry)" type="button" class="btn btn-sm btn-default">
                                 <span class="fa fa-trash"></span>
                             </button>

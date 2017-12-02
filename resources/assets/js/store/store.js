@@ -1,17 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import clientModule from './modules/clientModule';
-import userModule from './modules/userModule';
-import modalModule from './modules/modalModule';
-import userTypeModule from './modules/userTypeModule';
-import serverResponseModule from './modules/serverResponseModule';
-import industryModule from './modules/industryModule';
-import nationalityModule from './modules/nationalityModule';
-import isoCertificateModule from './modules/isoCertificateModule';
-import sourcingModule from './modules/sourcingModule';
-import departmentModule from './modules/departmentModule';
-import positionModule from './modules/positionModule';
-import manpowerModule from './modules/manpowerModule';
+import clientModule from './modules/clients/clientModule';
+import userModule from './modules/users/userModule';
+import modalModule from './modules/modal/modalModule';
+import userTypeModule from './modules/maintainance/userTypeModule';
+import serverResponseModule from './modules/server/serverResponseModule';
+import industryModule from './modules/maintainance/industryModule';
+import nationalityModule from './modules/maintainance/nationalityModule';
+import isoCertificateModule from './modules/maintainance/isoCertificateModule';
+import sourcingModule from './modules/maintainance/sourcingModule';
+import departmentModule from './modules/maintainance/departmentModule';
+import positionModule from './modules/maintainance/positionModule';
+import manpowerModule from './modules/maintainance/manpowerModule';
 
 Vue.use(Vuex); 
 

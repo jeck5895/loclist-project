@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Maintainance;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use \App\UserType;
+use App\Http\Requests\Maintainance\UserType\StoreUserType;
+use App\Http\Requests\Maintainance\UserType\UpdateUserType;
+use App\UserType;
 
 class UserTypesController extends Controller
 {
@@ -14,8 +17,12 @@ class UserTypesController extends Controller
      */
     public function index()
     {
-        $user_types = UserType::all();
-
+         if(isset($_GET['type']) && $_GET['type'] == 'all'){
+           $user_types = UserType::all();
+        }
+        else{
+           $user_types = UserType::paginate(5);
+        }        
         return $user_types;
     }
 
@@ -35,9 +42,13 @@ class UserTypesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserType $request)
     {
-        //
+        $user_type = UserType::create([
+            'userType' => $request['userType']
+        ]);
+
+        return ['message' => 'User type has been saved'];
     }
 
     /**
@@ -48,7 +59,9 @@ class UserTypesController extends Controller
      */
     public function show($id)
     {
-        //
+        $user_type = UserType::find($id);
+
+        return $user_type;
     }
 
     /**
@@ -69,9 +82,14 @@ class UserTypesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserType $request, $id)
     {
-        //
+        $user_type = UserType::find($id)
+                    ->update([
+                        'userType' => $request['userType']
+                    ]);
+                        
+        return ['message' => 'Changes has been saved'];
     }
 
     /**
@@ -82,6 +100,11 @@ class UserTypesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        UserType::destroy($id);
+
+        return  [
+            'message' => 'Record has been deleted',
+            'status' => 'OK'
+        ];
     }
 }

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Maintainance;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreIndustry;
-use App\Http\Requests\UpdateIndustry;
+use App\Http\Requests\Maintainance\Industry\StoreIndustry;
+use App\Http\Requests\Maintainance\Industry\UpdateIndustry;
 use \App\Industry;
 
 class IndustriesController extends Controller

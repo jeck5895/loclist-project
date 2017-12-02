@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Maintainance;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StorePosition;
-use App\Http\Requests\UpdatePosition;
+use App\Http\Requests\Maintainance\Position\StorePosition;
+use App\Http\Requests\Maintainance\Position\UpdatePosition;
 use App\Http\Controllers\Controller;
 use App\Position;
 

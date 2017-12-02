@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Maintainance;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreSourcingPractice;
-use App\Http\Requests\UpdateSourcingPractice;
+use App\Http\Requests\Maintainance\SourcingPractice\StoreSourcingPractice;
+use App\Http\Requests\Maintainance\SourcingPractice\UpdateSourcingPractice;
 use App\Http\Controllers\Controller;
 use App\ClientSourcingPractice;
 

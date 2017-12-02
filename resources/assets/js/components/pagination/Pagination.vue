@@ -61,6 +61,9 @@
                     case "manpowers":
                         this.$store.dispatch('loadManpowers', url);
                         break;
+                    case "user_types":
+                        this.$store.dispatch('loadUserTypes', url);
+                        break;
                     default:
                         break;
                 }

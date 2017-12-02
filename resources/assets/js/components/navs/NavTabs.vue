@@ -86,6 +86,9 @@
             <div v-if="modalFormType == 'CREATE_MANPOWER' || modalFormType == 'EDIT_MANPOWER'">
                 <manpower-form></manpower-form>
             </div>
+            <div v-if="modalFormType == 'CREATE_USERTYPE' || modalFormType == 'EDIT_USERTYPE'">
+                <user-type-form></user-type-form>
+            </div>
             
         </modal>
         <confirmation-modal>
@@ -111,6 +114,7 @@
     import DepartmentForm from '../forms/maintainance/DepartmentForm';
     import PositionForm from '../forms/maintainance/PositionForm';
     import ManpowerForm from '../forms/maintainance/ManpowerForm';
+    import UserTypeForm from '../forms/maintainance/UserTypeForm';
 
     export default {
         mounted() {
@@ -148,7 +152,8 @@
             SourcingForm,
             DepartmentForm,
             PositionForm,
-            ManpowerForm
+            ManpowerForm,
+            UserTypeForm
         },
         filters:{
             

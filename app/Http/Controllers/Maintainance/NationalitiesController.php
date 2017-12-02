@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Maintainance;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreNationality;
-use App\Http\Requests\UpdateNationality;
+use App\Http\Requests\Maintainance\Nationality\StoreNationality;
+use App\Http\Requests\Maintainance\Nationality\UpdateNationality;
 use App\Nationality;
 
 class NationalitiesController extends Controller

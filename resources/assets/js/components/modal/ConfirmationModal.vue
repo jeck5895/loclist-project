@@ -95,6 +95,15 @@
                             this.$store.dispatch('loadManpowers','api/manpowers');
                         });
                         break;
+                    case "user_types":
+                        this.$store.dispatch('deleteUserType', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadUserTypes','api/user_types');
+                        });
+                        break;
                     default:
                         break;
                 }
