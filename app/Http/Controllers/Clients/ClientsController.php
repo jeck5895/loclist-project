@@ -15,7 +15,9 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        //
+        $clients = Client::active()->paginate(5);
+
+        return $clients;
     }
 
     /**

@@ -18,10 +18,10 @@ class NationalitiesController extends Controller
     public function index()
     {
         if(isset($_GET['type']) && $_GET['type'] == 'all'){
-            $nationalities = Nationality::get();   
+            $nationalities = Nationality::active()->get();   
         }
         else{
-            $nationalities = Nationality::paginate(5);
+            $nationalities = Nationality::active()->paginate(5);
         }
             
         return $nationalities;

@@ -2,16 +2,10 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class ClientSourcingPractice extends Model
+class ClientSourcingPractice extends Pivot
 {
-    protected $fillable = ['name'];
-
-    public function client() 
-    {   /**
-        *   Create relationship to Client Model depends on hasOne or hasMany
-        */
-        return $this->belongsTo(Client::class); 
-    }
+    
 }

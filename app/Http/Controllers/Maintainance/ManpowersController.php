@@ -18,10 +18,10 @@ class ManpowersController extends Controller
     public function index()
     {
         if(isset($_GET['type']) && $_GET['type'] == 'all'){
-            $manpower_types = ClientManpowerType::get();
+            $manpower_types = ClientManpowerType::active()->get();
         }
         else{
-            $manpower_types = ClientManpowerType::paginate(5);
+            $manpower_types = ClientManpowerType::active()->paginate(5);
         }
 
         return $manpower_types;

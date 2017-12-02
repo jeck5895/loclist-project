@@ -28,7 +28,7 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('nationalities', 'maintainance\NationalitiesController');
     Route::apiResource('certificates','maintainance\CertificatesController');
     Route::apiResource('clients', 'clients\ClientsController');
-    Route::apiResource('sourcing_practices','maintainance\ClientSourcingPracticesController');
+    Route::apiResource('sourcing_practices','maintainance\SourcingPracticesController');
     Route::apiResource('departments', 'maintainance\DepartmentsController');
     Route::apiResource('positions', 'maintainance\PositionsController');
     Route::apiResource('manpowers', 'maintainance\ManpowersController');

@@ -28,11 +28,23 @@ class User extends Authenticatable
         'password', 'remember_token','api_token',
     ];
 
-    public function socialProviders(){
+    public function scopeActive($query) //can pass 2nd argument as parameters for where condition i.e scopeActive($query, $param)
+    {
+        return $query->where('is_active', 1);
+    }
+
+    public  function scopeInactive($query)
+    {
+        return $query->where('is_active', 0);
+    }
+
+    public function socialProviders()
+    {
         return $this->hasOne(SocialProvider::class);
     }
 
-    public function UserType(){
+    public function UserType()
+    {
         return $this->belongsTo(UserType::class, 'userType')->select(['id','userType']); //userType is the foreign key in users Table
     }
 }

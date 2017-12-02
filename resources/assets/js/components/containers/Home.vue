@@ -9,7 +9,7 @@
                 </div>
             </div> -->
             <div class="card card-default rounded-0">
-                <div class="card-body p-2">
+                <div class="card-body home-tab p-2">
                     <nav-tabs></nav-tabs>
                     <!-- <clients-table></clients-table> -->
                 </div>

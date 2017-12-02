@@ -1,5 +1,5 @@
 <template>
-    <table id="clients-table" class="table table-borderless table-striped m-b-none" v-if="clients.length > 0">
+    <table id="clients-table" class="table table-borderless table-striped m-b-none">
         <thead>
             <tr>
                 <th>Ref</th>
@@ -16,12 +16,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-if="clients == 0">
-                    <td colspan="7" class="text-center">
+            <tr v-if="clients.data == 0">
+                    <td colspan="11" class="text-center">
                         No data to show...
                     </td>
                 </tr>
-            <tr v-else v-for="client in clients" :key="client.id">
+            <tr v-else v-for="(client, index) in clients.data" :key="index">
                 <!-- ID -->
                 <td style="vertical-align: middle;">
                     {{ client.id }}
@@ -92,77 +92,16 @@
 <script>
 export default {
     mounted() {
-
+        this.$store.dispatch('loadClients', 'api/clients')
     },
     data() {
         return {
-            clients: [
-                {
-                    id: 1,
-                    entry_by: "Peter John Jude",
-                    client_name: "Microsoft Windows",
-                    contact_person: "John Doe",
-                    contact_no: '+63916-285-9262',
-                    email: "john.doe@gmail.com",
-                    date_call: moment().format('MMM Do YYYY'),
-                    saturation_date: moment().format('MMM Do YYYY'),
-                    presentation_date: moment().format('MMM Do YYYY'),
-                    followup_date: moment().format('MMM Do YYYY'),
 
-                },
-                {
-                    id: 2,
-                    entry_by: "John Duhat",
-                    client_name: "Microsoft Windows",
-                    contact_person: "John Doe",
-                    contact_no: '+63916-285-9262',
-                    email: "john.doe@gmail.com",
-                    date_call: moment().format('MMM Do YYYY'),
-                    saturation_date: moment().format('MMM Do YYYY'),
-                    presentation_date: moment().format('MMM Do YYYY'),
-                    followup_date: moment().format('MMM Do YYYY'),
-
-                },
-                {
-                    id: 3,
-                    entry_by: "John Duhat",
-                    client_name: "Microsoft Windows",
-                    contact_person: "John Doe",
-                    contact_no: '+63916-285-9262',
-                    email: "john.doe@gmail.com",
-                    date_call: moment().format('MMM Do YYYY'),
-                    saturation_date: moment().format('MMM Do YYYY'),
-                    presentation_date: moment().format('MMM Do YYYY'),
-                    followup_date: moment().format('MMM Do YYYY'),
-
-                },
-                {
-                    id: 4,
-                    entry_by: "John Duhat",
-                    client_name: "Microsoft Windows",
-                    contact_person: "John Doe",
-                    contact_no: '+63916-285-9262',
-                    email: "john.doe@gmail.com",
-                    date_call: moment().format('MMM Do YYYY'),
-                    saturation_date: moment().format('MMM Do YYYY'),
-                    presentation_date: moment().format('MMM Do YYYY'),
-                    followup_date: moment().format('MMM Do YYYY'),
-
-                },
-                {
-                    id: 5,
-                    entry_by: "John Duhat",
-                    client_name: "Microsoft Windows",
-                    contact_person: "John Doe",
-                    contact_no: '+63916-285-9262',
-                    email: "john.doe@gmail.com",
-                    date_call: moment().format('MMM Do YYYY'),
-                    saturation_date: moment().format('MMM Do YYYY'),
-                    presentation_date: moment().format('MMM Do YYYY'),
-                    followup_date: moment().format('MMM Do YYYY'),
-
-                },
-            ]
+        }
+    },
+    computed: {
+        clients() {
+            return this.$store.getters.getClients;
         }
     },
     methods: {
@@ -171,21 +110,12 @@ export default {
         },
         view(client){
 			
-			/* Set modal necessary modal info for displaying the right form/data */
-            // this.$store.dispatch('setModalTitle', 'Edit Client Details');
-            // //this.$store.dispatch('loadUser', user); load client details instead for viewing
-            // $("#createUserModal").modal("show");
         },
         edit(client) {
-			console.log(client);
-			/* Navigation to new page for editing client because of lots no.of forms */
+
         },
         destroy(client) {
-            // axios.delete('/oauth/clients/' + client.id)
-            //         .then(response => {
-            //             this.getClients();
-            //         });
-            console.log(client)
+    
         }
     },
     filters: {

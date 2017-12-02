@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use \App\User;
+use App\User;
 use App\Http\Requests\Users\StoreNewUser;
 use App\Http\Requests\Users\UpdateUser;
 
@@ -17,7 +17,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = \App\User::with('userType')->paginate(5);
+        $users = User::active()->with('userType')->paginate(5);
 
         // foreach($query as $user){
         //     $users[] = array (

@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Maintainance\SourcingPractice\StoreSourcingPractice;
 use App\Http\Requests\Maintainance\SourcingPractice\UpdateSourcingPractice;
 use App\Http\Controllers\Controller;
-use App\ClientSourcingPractice;
+use App\SourcingPractice;
 
-class ClientSourcingPracticesController extends Controller
+class SourcingPracticesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +19,10 @@ class ClientSourcingPracticesController extends Controller
     {
         if(isset($_GET['type']) && $_GET['type'] == 'all')
         {
-            $sourcing_practices = ClientSourcingPractice::get();
+            $sourcing_practices = SourcingPractice::active()->get();
         }
         else{
-            $sourcing_practices = ClientSourcingPractice::paginate(5);
+            $sourcing_practices = SourcingPractice::active()->paginate(5);
         }
 
         return $sourcing_practices;
@@ -46,7 +46,7 @@ class ClientSourcingPracticesController extends Controller
      */
     public function store(StoreSourcingPractice $request)
     {
-        $sourcing_practice = ClientSourcingPractice::create([
+        $sourcing_practice = SourcingPractice::create([
                                 'name' => $request['name']
                             ]);
         return ['message' => 'Sourcing Practice has been saved'];
@@ -60,7 +60,7 @@ class ClientSourcingPracticesController extends Controller
      */
     public function show($id)
     {
-        $sourcing_practice = ClientSourcingPractice::find($id);
+        $sourcing_practice = SourcingPractice::find($id);
 
         return $sourcing_practice;
     }
@@ -85,7 +85,7 @@ class ClientSourcingPracticesController extends Controller
      */
     public function update(UpdateSourcingPractice $request, $id)
     {
-        $sourcing_practice = ClientSourcingPractice::find($id)
+        $sourcing_practice = SourcingPractice::find($id)
                                 ->update([
                                     'name' => $request['name']
                                 ]);

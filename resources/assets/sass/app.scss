@@ -9,6 +9,9 @@
 // Bootstrap
 //@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "~bootstrap/scss/bootstrap";
+.home-tab {
+    min-height: 500px!important;
+}
 
 .toast-success {
     background-color: #28a745 !important;

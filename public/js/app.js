@@ -57715,95 +57715,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {},
+    mounted: function mounted() {
+        this.$store.dispatch('loadClients', 'api/clients');
+    },
     data: function data() {
-        return {
-            clients: [{
-                id: 1,
-                entry_by: "Peter John Jude",
-                client_name: "Microsoft Windows",
-                contact_person: "John Doe",
-                contact_no: '+63916-285-9262',
-                email: "john.doe@gmail.com",
-                date_call: moment().format('MMM Do YYYY'),
-                saturation_date: moment().format('MMM Do YYYY'),
-                presentation_date: moment().format('MMM Do YYYY'),
-                followup_date: moment().format('MMM Do YYYY')
-
-            }, {
-                id: 2,
-                entry_by: "John Duhat",
-                client_name: "Microsoft Windows",
-                contact_person: "John Doe",
-                contact_no: '+63916-285-9262',
-                email: "john.doe@gmail.com",
-                date_call: moment().format('MMM Do YYYY'),
-                saturation_date: moment().format('MMM Do YYYY'),
-                presentation_date: moment().format('MMM Do YYYY'),
-                followup_date: moment().format('MMM Do YYYY')
-
-            }, {
-                id: 3,
-                entry_by: "John Duhat",
-                client_name: "Microsoft Windows",
-                contact_person: "John Doe",
-                contact_no: '+63916-285-9262',
-                email: "john.doe@gmail.com",
-                date_call: moment().format('MMM Do YYYY'),
-                saturation_date: moment().format('MMM Do YYYY'),
-                presentation_date: moment().format('MMM Do YYYY'),
-                followup_date: moment().format('MMM Do YYYY')
-
-            }, {
-                id: 4,
-                entry_by: "John Duhat",
-                client_name: "Microsoft Windows",
-                contact_person: "John Doe",
-                contact_no: '+63916-285-9262',
-                email: "john.doe@gmail.com",
-                date_call: moment().format('MMM Do YYYY'),
-                saturation_date: moment().format('MMM Do YYYY'),
-                presentation_date: moment().format('MMM Do YYYY'),
-                followup_date: moment().format('MMM Do YYYY')
-
-            }, {
-                id: 5,
-                entry_by: "John Duhat",
-                client_name: "Microsoft Windows",
-                contact_person: "John Doe",
-                contact_no: '+63916-285-9262',
-                email: "john.doe@gmail.com",
-                date_call: moment().format('MMM Do YYYY'),
-                saturation_date: moment().format('MMM Do YYYY'),
-                presentation_date: moment().format('MMM Do YYYY'),
-                followup_date: moment().format('MMM Do YYYY')
-
-            }]
-        };
+        return {};
     },
 
+    computed: {
+        clients: function clients() {
+            return this.$store.getters.getClients;
+        }
+    },
     methods: {
         toUrlFormat: function toUrlFormat(param) {
             return param.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
         },
-        view: function view(client) {
-
-            /* Set modal necessary modal info for displaying the right form/data */
-            // this.$store.dispatch('setModalTitle', 'Edit Client Details');
-            // //this.$store.dispatch('loadUser', user); load client details instead for viewing
-            // $("#createUserModal").modal("show");
-        },
-        edit: function edit(client) {
-            console.log(client);
-            /* Navigation to new page for editing client because of lots no.of forms */
-        },
-        destroy: function destroy(client) {
-            // axios.delete('/oauth/clients/' + client.id)
-            //         .then(response => {
-            //             this.getClients();
-            //         });
-            console.log(client);
-        }
+        view: function view(client) {},
+        edit: function edit(client) {},
+        destroy: function destroy(client) {}
     },
     filters: {}
 });
@@ -57816,223 +57746,177 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.clients.length > 0
-    ? _c(
-        "table",
-        {
-          staticClass: "table table-borderless table-striped m-b-none",
-          attrs: { id: "clients-table" }
-        },
+  return _c(
+    "table",
+    {
+      staticClass: "table table-borderless table-striped m-b-none",
+      attrs: { id: "clients-table" }
+    },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
         [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            [
-              _vm.clients == 0
-                ? _c("tr", [
+          _vm.clients.data == 0
+            ? _c("tr", [
+                _c(
+                  "td",
+                  { staticClass: "text-center", attrs: { colspan: "11" } },
+                  [
+                    _vm._v(
+                      "\n                    No data to show...\n                "
+                    )
+                  ]
+                )
+              ])
+            : _vm._l(_vm.clients.data, function(client, index) {
+                return _c("tr", { key: index }, [
+                  _c("td", { staticStyle: { "vertical-align": "middle" } }, [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(client.id) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticStyle: { "vertical-align": "middle" } }, [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(client.entry_by) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticStyle: { "vertical-align": "middle" } }, [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(client.client_name) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticStyle: { "vertical-align": "middle" } }, [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(client.contact_person) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticStyle: { "vertical-align": "middle" } }, [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(client.contact_no) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticStyle: { "vertical-align": "middle" } }, [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(client.email) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticStyle: { "vertical-align": "middle" } }, [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(client.date_call) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticStyle: { "vertical-align": "middle" } }, [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(client.saturation_date) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticStyle: { "vertical-align": "middle" } }, [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(client.presentation_date) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticStyle: { "vertical-align": "middle" } }, [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(client.followup_date) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticStyle: { "vertical-align": "middle" } }, [
                     _c(
-                      "td",
-                      { staticClass: "text-center", attrs: { colspan: "7" } },
+                      "div",
+                      {
+                        staticClass: "btn-group btn-group-sm",
+                        attrs: { role: "group" }
+                      },
                       [
-                        _vm._v(
-                          "\n                    No data to show...\n                "
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-default",
+                            attrs: { type: "button", title: "Edit" },
+                            on: {
+                              click: function($event) {
+                                _vm.edit(client)
+                              }
+                            }
+                          },
+                          [_c("span", { staticClass: "fa fa-edit" })]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "btn btn-sm btn-default",
+                            attrs: {
+                              to: {
+                                name: "viewClient",
+                                params: {
+                                  clientId:
+                                    _vm.toUrlFormat(client.client_name) +
+                                    "-" +
+                                    client.id
+                                }
+                              }
+                            }
+                          },
+                          [_c("span", { staticClass: "fa fa-eye" })]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-default",
+                            attrs: { type: "button", title: "Delete" },
+                            on: {
+                              click: function($event) {
+                                _vm.destroy(client)
+                              }
+                            }
+                          },
+                          [_c("span", { staticClass: "fa fa-trash" })]
                         )
-                      ]
+                      ],
+                      1
                     )
                   ])
-                : _vm._l(_vm.clients, function(client) {
-                    return _c("tr", { key: client.id }, [
-                      _c(
-                        "td",
-                        { staticStyle: { "vertical-align": "middle" } },
-                        [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(client.id) +
-                              "\n            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        { staticStyle: { "vertical-align": "middle" } },
-                        [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(client.entry_by) +
-                              "\n            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        { staticStyle: { "vertical-align": "middle" } },
-                        [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(client.client_name) +
-                              "\n            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        { staticStyle: { "vertical-align": "middle" } },
-                        [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(client.contact_person) +
-                              "\n            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        { staticStyle: { "vertical-align": "middle" } },
-                        [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(client.contact_no) +
-                              "\n            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        { staticStyle: { "vertical-align": "middle" } },
-                        [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(client.email) +
-                              "\n            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        { staticStyle: { "vertical-align": "middle" } },
-                        [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(client.date_call) +
-                              "\n            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        { staticStyle: { "vertical-align": "middle" } },
-                        [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(client.saturation_date) +
-                              "\n            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        { staticStyle: { "vertical-align": "middle" } },
-                        [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(client.presentation_date) +
-                              "\n            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        { staticStyle: { "vertical-align": "middle" } },
-                        [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(client.followup_date) +
-                              "\n            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        { staticStyle: { "vertical-align": "middle" } },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "btn-group btn-group-sm",
-                              attrs: { role: "group" }
-                            },
-                            [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-sm btn-default",
-                                  attrs: { type: "button", title: "Edit" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.edit(client)
-                                    }
-                                  }
-                                },
-                                [_c("span", { staticClass: "fa fa-edit" })]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "btn btn-sm btn-default",
-                                  attrs: {
-                                    to: {
-                                      name: "viewClient",
-                                      params: {
-                                        clientId:
-                                          _vm.toUrlFormat(client.client_name) +
-                                          "-" +
-                                          client.id
-                                      }
-                                    }
-                                  }
-                                },
-                                [_c("span", { staticClass: "fa fa-eye" })]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-sm btn-default",
-                                  attrs: { type: "button", title: "Delete" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.destroy(client)
-                                    }
-                                  }
-                                },
-                                [_c("span", { staticClass: "fa fa-trash" })]
-                              )
-                            ],
-                            1
-                          )
-                        ]
-                      )
-                    ])
-                  })
-            ],
-            2
-          )
-        ]
+                ])
+              })
+        ],
+        2
       )
-    : _vm._e()
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -66544,7 +66428,12 @@ var render = function() {
     [
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card card-default rounded-0" }, [
-          _c("div", { staticClass: "card-body p-2" }, [_c("nav-tabs")], 1)
+          _c(
+            "div",
+            { staticClass: "card-body home-tab p-2" },
+            [_c("nav-tabs")],
+            1
+          )
         ])
       ]),
       _vm._v(" "),
@@ -72107,12 +71996,15 @@ var index_esm = {
         client: {}
     },
     getters: {
-        loadClients: function loadClients(state) {
+        getClients: function getClients(state) {
             return state.clients;
+        },
+        getClient: function getClient(state) {
+            return state.client;
         }
     },
     mutations: {
-        //create clear
+
         clearClient: function clearClient(state) {
             state.client = {};
         },
@@ -72142,10 +72034,35 @@ var index_esm = {
             });
         },
         loadClients: function loadClients(context, payload) {
-            axios.get('/api/clients').then(function (response) {
+            axios.get(payload).then(function (response) {
                 context.commit('setClients', response);
             }).catch(function (error) {
                 alert(error.response.data);
+            });
+        },
+        storeClient: function storeClient(context, payload) {
+            axios.post('api/clients', payload).then(function (response) {
+                context.commit('setServerResponse', response);
+                toastr.success('Success', result.data.message);
+                document.getElementById('clientDetailsForm').reset();
+            }).catch(function (error) {
+                context.commit('setServerResponse', error.response);
+            });
+        },
+        updateClient: function updateClient(context, payload) {
+            axios.patch('api/clients/' + payload.id, payload).then(function (response) {
+                context.commit('setServerResponse', response);
+                toastr.success('Success', result.data.message);
+                document.getElementById('clientDetailsForm').reset();
+            }).catch(function (error) {
+                context.commit('setServerResponse', error.response);
+            });
+        },
+        deleteClient: function deleteClient(context, payload) {
+            axios.delete('api/clients/', +payload.id).then(function (response) {
+                toastr.success('Success', response.data.message);
+            }).catch(function (error) {
+                context.commit('setServerResponse', error.response);
             });
         }
     }

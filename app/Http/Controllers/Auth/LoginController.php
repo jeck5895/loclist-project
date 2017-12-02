@@ -67,8 +67,12 @@ class LoginController extends Controller
                        return array("code" => 401, "response" => "Unauthorized User");
                    }
                    else{
-                        if($user['user_img'] == NULL){
-                            \App\User::where('email', $user['email'])->update(['user_img' => $social_user->avatar_original]);
+                        if($user['user_img'] == NULL || $user['uid'] == NULL){
+                            \App\User::where('email', $user['email'])
+                            ->update([
+                                'user_img' => $social_user->avatar_original,
+                                'uid' => $social_user->id   
+                            ]);
                         }
                         if (Auth::attempt(['email' => $user['email'], 'password' => 'secret'])) {
                            // Authentication passed...

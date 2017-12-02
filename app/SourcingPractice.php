@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Industry extends Model
+class SourcingPractice extends Model
 {
-    protected $fillable = ['industry_name'];
+    protected $fillable = ['name'];
 
     public function scopeActive($query) //can pass 2nd argument as parameters for where condition i.e scopeActive($query, $param)
     {
@@ -18,8 +18,10 @@ class Industry extends Model
         return $query->where('is_active', 0);
     }
 
-    public function client()
-    {
-        return $this->hasOne(Client::class);
+    public function client() 
+    {   /**
+        *   Create relationship to Client Model depends or hasMany
+        */
+        return $this->belongsToMany(Client::class)->using(ClientSourcingPractice::class); 
     }
 }

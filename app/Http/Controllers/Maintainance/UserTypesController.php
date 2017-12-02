@@ -18,7 +18,7 @@ class UserTypesController extends Controller
     public function index()
     {
          if(isset($_GET['type']) && $_GET['type'] == 'all'){
-           $user_types = UserType::all();
+           $user_types = UserType::get();
         }
         else{
            $user_types = UserType::paginate(5);

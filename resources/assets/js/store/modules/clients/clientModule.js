@@ -5,12 +5,15 @@ export default {
         client: {}
     },
     getters:{
-        loadClients: state =>{
+        getClients: state => {
             return state.clients;
+        },
+        getClient: state => {
+            return state.client;
         }
     },
     mutations:{
-        //create clear
+
         clearClient: state => {
             state.client = {};
         },
@@ -42,12 +45,44 @@ export default {
             });
         },
         loadClients: (context, payload) => {
-            axios.get('/api/clients')
+            axios.get(payload)
             .then(response => {
                 context.commit('setClients', response);
             })
             .catch(error => {
                 alert(error.response.data);
+            });
+        },
+        storeClient: (context, payload) => {
+            axios.post('api/clients', payload)
+            .then( response => {
+                context.commit('setServerResponse', response);
+                toastr.success('Success', result.data.message);
+                document.getElementById('clientDetailsForm').reset();
+            })
+            .catch(error => {
+                context.commit('setServerResponse', error.response);
+
+            });
+        },
+        updateClient: (context, payload) => {
+            axios.patch('api/clients/' + payload.id, payload)
+            .then( response => {
+                context.commit('setServerResponse', response);
+                toastr.success('Success', result.data.message);
+                document.getElementById('clientDetailsForm').reset();
+            })
+            .catch(error => {
+                context.commit('setServerResponse', error.response);
+            })
+        },
+        deleteClient: (context, payload) => {
+            axios.delete('api/clients/', + payload.id)
+            .then( response => {
+                toastr.success('Success', response.data.message)
+            })
+            .catch( error => {
+                context.commit('setServerResponse', error.response);
             });
         }
     }
