@@ -36,6 +36,9 @@ export default {
             axios.get(payload)
             .then(response => {
                 context.commit('setPositions', response);
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
             })
             .catch(error => {
                 console.log(error.response)
@@ -45,6 +48,9 @@ export default {
             axios.get('api/positions/' + payload.id)
             .then(response => {
                 context.commit('setPosition', response);
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
             })
             .catch(error => {
                 console.log(error.response)

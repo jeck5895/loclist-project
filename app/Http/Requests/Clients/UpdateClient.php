@@ -13,7 +13,8 @@ class UpdateClient extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+        // return $this->user()->userType == 1 ? true : false;
     }
 
     /**
@@ -24,7 +25,28 @@ class UpdateClient extends FormRequest
     public function rules()
     {
         return [
-            //
+            'entry_by' => 'required',
+            'overall_status' => 'required',
+            'client_name' => 'required|unique:clients,client_name,'.$this->get('id'),
+            'industry' => 'required|numeric',
+            'nationality' => 'required|numeric',
+            'iso_certf' => 'required|numeric',
+            'complete_mailing_address' => 'required',
+            'techno_park' => 'required',
+            'street_address' => 'required',
+            'province' => 'required',
+            'administrative_area_level_1' => 'required',
+            'postal_code' => 'required|numeric',
+            'website' => 'required',
+            'primary_landline' => 'required',
+            'other_landline' => 'required',
+            'mobile_number' => 'required',
+            'email_address' => 'required|email',
+            'contact_person' => 'required',
+            'gender' => 'required',
+            'department' => 'required|numeric',
+            'position' => 'required|numeric',
+            'proposal' => 'required'
         ];
     }
 }

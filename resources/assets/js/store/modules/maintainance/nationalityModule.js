@@ -37,6 +37,9 @@ export default {
             axios.get('api/nationalities/' + payload.id)
             .then(response => {
                 context.commit('setNationality', response);
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
             })
             .catch(error => {
                 console.log(error.response.data)
@@ -46,6 +49,9 @@ export default {
             axios.get(payload)
             .then(response => {
                 context.commit('setNationalities', response);
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
             })
             .catch(error => {
                 console(error)

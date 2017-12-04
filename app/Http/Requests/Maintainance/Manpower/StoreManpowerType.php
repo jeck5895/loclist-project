@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Maintainance\Manpower;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,7 @@ class StoreManpowerType extends FormRequest
     public function rules()
     {
         return [
-            'type' => 'required'
+            'type' => 'required|unique:client_manpower_types'
         ];
     }
 }

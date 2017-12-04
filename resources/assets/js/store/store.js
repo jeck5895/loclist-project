@@ -12,6 +12,7 @@ import sourcingModule from './modules/maintainance/sourcingModule';
 import departmentModule from './modules/maintainance/departmentModule';
 import positionModule from './modules/maintainance/positionModule';
 import manpowerModule from './modules/maintainance/manpowerModule';
+import companyModule from './modules/companies/companyModule';
 
 Vue.use(Vuex); 
 
@@ -28,6 +29,7 @@ export const store = new Vuex.Store({
         sourcingModule,
         departmentModule,
         positionModule,
-        manpowerModule
+        manpowerModule,
+        companyModule
     }
 });

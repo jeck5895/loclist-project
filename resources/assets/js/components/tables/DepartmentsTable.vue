@@ -67,6 +67,7 @@
                     this.$store.dispatch('setModalTitle', 'Edit Department');
                     this.$store.dispatch('loadDepartment', department);  
                     $("#createUserModal").modal("show");
+                    this.$store.dispatch('setLoadingState', true);
                 });
             },
             destroy(department) {

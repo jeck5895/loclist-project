@@ -67,6 +67,7 @@
                     this.$store.dispatch('setModalTitle', 'Edit Certificate');
                     this.$store.dispatch('loadCertificate', certificate);  
                     $("#createUserModal").modal("show");
+                    this.$store.dispatch('setLoadingState', true);
                 });
             },
             destroy(certificate) {

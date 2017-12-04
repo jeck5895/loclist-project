@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Maintainance\SourcingPractice;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,7 @@ class updateSourcingPractice extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required|unique:sourcing_practices,name,'.$this->get('id')
         ];
     }
 }

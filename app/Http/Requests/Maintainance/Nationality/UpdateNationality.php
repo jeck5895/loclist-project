@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Maintainance\Nationality;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,7 @@ class UpdateNationality extends FormRequest
     public function rules()
     {
         return [
-            'nationality' => 'required'
+            'nationality' => 'required|unique:nationalities,nationality,'.$this->get('id')
         ];
     }
 }

@@ -66,6 +66,7 @@
                     this.$store.dispatch('setModalTitle', 'Edit Manpower');
                     this.$store.dispatch('loadManpower', manpower);  
                     $("#createUserModal").modal("show");
+                    this.$store.dispatch('setLoadingState', true);
                 });
             },
             destroy(manpower) {

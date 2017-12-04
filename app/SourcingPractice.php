@@ -18,10 +18,10 @@ class SourcingPractice extends Model
         return $query->where('is_active', 0);
     }
 
-    public function client() 
+    public function clients() 
     {   /**
-        *   Create relationship to Client Model depends or hasMany
+        *   use in retrieving clients with roles
         */
-        return $this->belongsToMany(Client::class)->using(ClientSourcingPractice::class); 
+        return $this->belongsToMany(Client::class,'client_sourcing_practices','client_id','sourcing_practice_id')->using(ClientSourcingPractice::class)->withTimestamps(); 
     }
 }

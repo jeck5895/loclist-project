@@ -67,6 +67,7 @@ export default {
                 this.$store.dispatch('setModalTitle', 'Edit Industry');
                 this.$store.dispatch('loadIndustry', industry);  
                 $("#createUserModal").modal("show");
+                this.$store.dispatch('setLoadingState', true);
             });
         },
         destroy(industry) {

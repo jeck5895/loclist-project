@@ -5,8 +5,8 @@
                 <div class="form-group">
                     <div class="alert alert-danger" role="alert" v-if="serverResponse.status == 422">
                         <strong>Errors</strong> :{{ serverResponse.data.message }}
-                        <ul v-if="serverResponse.data.errors.email">
-                            <li v-for="e in serverResponse.data.errors.email" :key="e">{{ e }}</li>
+                        <ul v-if="serverResponse.data.errors">
+                            <li v-if="serverResponse.data.errors.email" v-for="e in serverResponse.data.errors.email" :key="e">{{ e }}</li>
                         </ul>
                     </div>
 

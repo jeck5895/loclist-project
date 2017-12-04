@@ -4,39 +4,44 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Sources Practice</th>
+                    <th>Company</th>
+                    <th>Code</th>
                     <th>Date Created</th>
                     <th>Status</th>
                     <th>OPTIONS</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-if="practices.data == 0">
+                <tr v-if="companies.data == 0">
                     <td colspan="7" class="text-center">
                         No data to show...
                     </td>
                 </tr>
-                <tr v-else v-for="practice in practices.data" :key="practice.id">
+
+                <tr v-else v-for="(company, index) in companies.data" :key="index">
                    <td style="vertical-align: middle;">
-                        {{ practice.id }}
+                        {{ company.id }}
                     </td>
                     <td style="vertical-align: middle;">
-                        {{ practice.name }}
+                        {{ company.company_name }}
                     </td>
                     <td style="vertical-align: middle;">
-                        {{ practice.created_at | humanReadableFormat}}
+                        {{ company.code }}
                     </td>
                     <td style="vertical-align: middle;">
-                        <span v-if="practice.is_active == 1" class="bg-success p-1 text-white"> <strong><small>Active</small></strong></span>
-                        <span v-if="practice.is_active == 0" class="bg-danger p-1 text-white"> <strong><small>Inactive</small></strong></span>
+                        {{ company.created_at | humanReadableFormat}}
+                    </td>
+                    <td style="vertical-align: middle;">
+                        <span v-if="company.is_active == 1" class="bg-success p-1 text-white"> <strong><small>Active</small></strong></span>
+                        <span v-if="company.is_active == 0" class="bg-danger p-1 text-white"> <strong><small>Inactive</small></strong></span>
                     </td>
                     <td style="vertical-align: middle;">
                         <div class="btn-group btn-group-sm" role="group">
-                            <button type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(practice)">
+                            <button type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(company)">
                                 <span class="fa fa-edit"></span>
                             </button>
 
-                            <button @click="destroy(practice)" type="button" class="btn btn-sm btn-default">
+                            <button @click="destroy(company)" type="button" class="btn btn-sm btn-default">
                                 <span class="fa fa-trash"></span>
                             </button>
                         </div>
@@ -44,7 +49,7 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="sourcing_practices" :object="practices" url="api/sourcing_practices" classSize="pagination-sm"></pagination>
+        <pagination scope="companies" :object="companies" url="api/companies" classSize="pagination-sm"></pagination>
     </div>
 </template>
 
@@ -53,37 +58,34 @@
 
     export default {
         created() {
-            this.$store.dispatch('loadSourcingPractices', 'api/sourcing_practices');
+            this.$store.dispatch('loadCompanies', 'api/companies');
         },
         computed: {
-            practices() {
-                return this.$store.getters.getSourcingPratices;
+            companies() {
+                return this.$store.getters.getCompanies;
             }
-        },
+        },  
         methods: {
-            edit(sourcing_practice) {
-                this.$store.dispatch('setModalFormType', 'EDIT_SOURCING_PRACTICE').then(() => {
-                    this.$store.dispatch('setModalTitle', 'Edit Sourcing Practice');
-                    this.$store.dispatch('loadSourcingPractice', sourcing_practice);  
+            edit(company) {
+                this.$store.dispatch('setModalFormType', 'EDIT_COMPANY').then(() => {
+                    this.$store.dispatch('setModalTitle', 'Edit Company');
+                    this.$store.dispatch('loadCompany', company);  
                     $("#createUserModal").modal("show");
                     this.$store.dispatch('setLoadingState', true);
                 });
             },
-            destroy(sourcing_practice) {
+            destroy(company) {
                 let deletionType = {
-                    scope: "sourcing_practice",
-                    sourcing_practice: sourcing_practice
+                    scope: "companies",
+                    company: company
                 };
 
-                this.$store.dispatch('setModalTitle', "Delete " + sourcing_practice.name + " ?");
+                this.$store.dispatch('setModalTitle', "Delete " + company.company_name + " ?");
                 this.$store.dispatch('setDeletionType', deletionType);
                 this.$store.dispatch('showConfirmationModal');
             }
         },
-        filters: {
-
-        },
-        components: {
+        components:{
             Pagination
         }
     }

@@ -24,6 +24,7 @@ Route::middleware('auth:api')->group(function() {
     // Route::patch('/user/{id}', 'UsersController@update');
     Route::apiResource('users', 'users\UsersController');
     Route::apiResource('user_types', 'maintainance\UserTypesController');
+    Route::apiResource('companies', 'companies\CompaniesController');
     Route::apiResource('industries', 'maintainance\IndustriesController');
     Route::apiResource('nationalities', 'maintainance\NationalitiesController');
     Route::apiResource('certificates','maintainance\CertificatesController');

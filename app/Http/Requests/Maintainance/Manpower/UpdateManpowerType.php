@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Maintainance\Manpower;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -13,7 +13,7 @@ class UpdateManpowerType extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->userType == 1 ? true : false;;
+        return $this->user()->userType == 1 ? true : false;
     }
 
     /**
@@ -24,7 +24,7 @@ class UpdateManpowerType extends FormRequest
     public function rules()
     {
         return [
-            'type' => 'required'
+            'type' => 'required|unique:client_manpower_types,type,'.$this->get('id')
         ];
     }
 }

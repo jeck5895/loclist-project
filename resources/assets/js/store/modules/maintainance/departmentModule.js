@@ -36,6 +36,9 @@ export default {
             axios.get(payload)
             .then(response => {
                 context.commit('setDepartments', response);
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
             })
             .catch(error => {
                 console.log(error.response)
@@ -45,6 +48,9 @@ export default {
             axios.get('api/departments/' + payload.id)
             .then(response => {
                 context.commit('setDepartment', response);
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
             })
             .catch(error => {
                 console.log(error.response)

@@ -36,7 +36,10 @@ export default {
         loadCertificates: (context, payload) => {
             axios.get(payload)
             .then(response => {
-                context.commit('setIsoCertificates',response)
+                context.commit('setIsoCertificates',response);
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
             })
             .catch(error => {
                 console.log(error.response.data)
@@ -45,7 +48,10 @@ export default {
         loadCertificate: (context, payload) => {
             axios.get('api/certificates/' + payload.id)
             .then(response => {
-                context.commit('setIsoCertificate', response)
+                context.commit('setIsoCertificate', response);
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
             })
             .catch(error => {
                 console.log(error.response.data)

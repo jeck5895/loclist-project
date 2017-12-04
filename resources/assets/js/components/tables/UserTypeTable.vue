@@ -68,6 +68,7 @@
                     this.$store.dispatch('setModalTitle', 'Edit User type');
                     this.$store.dispatch('loadUserType', user_type);  
                     $("#createUserModal").modal("show");
+                    this.$store.dispatch('setLoadingState', true);
                 });
             },
             destroy(user_type) {

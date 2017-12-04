@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Maintainance\Certificate;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,7 @@ class UpdateCertificate extends FormRequest
     public function rules()
     {
         return [
-            'iso_name' => 'required'
+            'iso_name' => 'required|unique:certificates,iso_name,'.$this->get('id')
         ];
     }
 }

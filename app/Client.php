@@ -19,9 +19,14 @@ class Client extends Model
         return $query->where('is_active', 0);
     }
 
+    public function manpower_providers()
+    {
+        $this->hasMany(ClientManpowerProvider::class);
+    }
+
     public function sourcing_practices()
     {
-        return $this->belongsToMany(SourcingPractice::class);
+        return $this->belongsToMany(SourcingPractice::class, 'client_sourcing_practices','client_id','sourcing_practice_id')->withTimestamps();
     }
 
     public function certificate() 

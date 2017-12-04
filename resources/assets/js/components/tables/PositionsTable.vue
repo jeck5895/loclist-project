@@ -67,6 +67,7 @@
                     this.$store.dispatch('setModalTitle', 'Edit Position');
                     this.$store.dispatch('loadPosition', position);  
                     $("#createUserModal").modal("show");
+                    this.$store.dispatch('setLoadingState', true);
                 });
             },
             destroy(position) {

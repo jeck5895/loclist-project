@@ -36,6 +36,9 @@ export default {
             axios.get('api/industries/' + payload.id)
             .then((response) => {
                 context.commit('setIndustry', response);
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
             })
             .catch((errors) => {
                 console.log(errors.response.data);
@@ -44,9 +47,12 @@ export default {
         loadIndustries: (context, payload) => { /** payload is used for url pagination. So url is dynamic */
             axios.get(payload)
                 .then(response => {
-                    //ar pages = Math.round(response.data.total / response.data.per_page);
+                    
                     context.commit('setIndustries', response);
-                    //context.commit('setTotalPage', pages);
+                    setTimeout(() => {
+                        context.commit('setLoadingState', false);
+                    }, 1000);
+                  
                 })
                 .catch(error => {
                     console.log(error.response.data)

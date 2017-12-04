@@ -1,9 +1,13 @@
 export default{
     state:{
-        isLoading:false,
+        isLoading: false,
+        isSubmitted: false,
         serverResponse: false,
     },
     getters: {
+        getSubmitState: state => {
+            return state.isSubmitted;
+        },
         getLoadingState: state => {
             return state.isLoading;
         },
@@ -12,6 +16,9 @@ export default{
         },
     },
     mutations: {
+        setSubmitState: (state, payload) => {
+            state.isSubmitted = payload;
+        },
         setLoadingState: (state, payload) => {
             state.isLoading = payload;
         },
@@ -25,6 +32,9 @@ export default{
     actions: {
         setLoadingState: (context, payload) => {
             context.commit('setLoadingState', payload);
+        },
+        setSubmitState: (context, payload) => {
+            context.commit('setSubmitState', payload);
         }
     }
 }

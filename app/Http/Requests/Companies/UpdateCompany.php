@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Maintainance\UserType;
+namespace App\Http\Requests\Companies;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUserType extends FormRequest
+class UpdateCompany extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreUserType extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->userType == 1 ? true : false;;
+        return $this->user()->userType == 1 ? true : false;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreUserType extends FormRequest
     public function rules()
     {
         return [
-            'userType' => 'required|user_types'
+            'company_name' => 'required|unique:companies,company_name,'.$this->get('id'),
+            'code' => 'required'
         ];
     }
 }

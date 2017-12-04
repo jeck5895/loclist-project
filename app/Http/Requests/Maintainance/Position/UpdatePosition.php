@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Maintainance\Position;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,7 @@ class UpdatePosition extends FormRequest
     public function rules()
     {
         return [
-            'position_name' => 'required'
+            'position_name' => 'required|unique:positions,position_name,'.$this->get('id')
         ];
     }
 }

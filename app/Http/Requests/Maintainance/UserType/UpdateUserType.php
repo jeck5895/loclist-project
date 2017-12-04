@@ -24,7 +24,7 @@ class UpdateUserType extends FormRequest
     public function rules()
     {
         return [
-            'userType' => 'required'
+            'userType' => 'required|unique:user_types,userType,'.$this->get('id')
         ];
     }
 }

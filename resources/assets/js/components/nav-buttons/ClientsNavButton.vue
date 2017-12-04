@@ -33,6 +33,7 @@
                 this.$store.dispatch('clearPositions');
                 this.$store.dispatch('clearManpowers');
                 this.$store.dispatch('clearUserTypes');
+                this.$store.dispatch('clearCompanies');
                 router.push('/clients/create');
             }
         }

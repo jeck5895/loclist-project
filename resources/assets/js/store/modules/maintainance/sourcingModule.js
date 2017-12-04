@@ -37,6 +37,9 @@ export default {
             axios.get('api/sourcing_practices/' + payload.id)
             .then(response => {
                 context.commit('setSourcingPractice', response);
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
             })
             .catch(error => {
                 console.log(error.response)
@@ -45,7 +48,10 @@ export default {
         loadSourcingPractices: (context, payload) => {
             axios.get(payload)
             .then(response => {
-                context.commit('setSourcingPractices', response)
+                context.commit('setSourcingPractices', response);
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
             })
             .catch(error => {
                 console.log(error.response)

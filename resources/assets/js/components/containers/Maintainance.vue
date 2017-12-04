@@ -6,7 +6,25 @@
             <div class="col-md-6">
                 <div class="card card-default">
                     <div class="card-header">
-                        <h6 class="float-left">Industry</h6>
+                        <h6 class="float-left">Companies</h6>
+                        <div class="float-right">
+                            <button class="btn btn-sm btn-default" @click="showFormModal('COMPANY_FORM')">
+                                <span class="fa fa-plus"></span> Add Company
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <companies-table></companies-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h6 class="float-left">Industries</h6>
                         <div class="float-right">
                             <button class="btn btn-sm btn-default" @click="showFormModal('INDUSTRY_FORM')">
                                 <span class="fa fa-plus"></span> Add Industry
@@ -21,7 +39,7 @@
             <div class="col-md-6">
                 <div class="card card-default">
                     <div class="card-header clearfix">
-                        <h6 class="float-left">Nationality</h6>
+                        <h6 class="float-left">Nationalities</h6>
                         <div class="float-right">
                             <button class="btn btn-sm btn-default" @click="showFormModal('NATIONALITY_FORM')">
                                 <span class="fa fa-plus"></span> Add Nationality
@@ -146,6 +164,7 @@
     import PositionsTable from '../tables/PositionsTable';
     import ManpowersTable from '../tables/ManpowersTable';
     import UserTypeTable from '../tables/UserTypeTable';
+    import CompaniesTable from '../tables/CompaniesTable';
 
     export default {
         mounted(){
@@ -184,7 +203,7 @@
                         this.$store.dispatch('setModalFormType', 'CREATE_ISO').then(()=>{
                             this.$store.dispatch('setForm', document.getElementById('isoForm'));
                             this.$store.dispatch('setModalTitle', "ISO Certificate Details");
-                            this.$store.dispatch('clearCertificate');
+                            this.$store.dispatch('clearIsoCertificate');
                             this.$store.dispatch('showModal', this.currForm);
                         });
                         break;
@@ -228,6 +247,14 @@
                             this.$store.dispatch('showModal', this.currForm);
                         });
                         break;
+                    case 'COMPANY_FORM':
+                        this.$store.dispatch('setModalFormType', 'CREATE_COMPANY').then(()=>{
+                            this.$store.dispatch('setForm', document.getElementById('companyForm'));
+                            this.$store.dispatch('setModalTitle', "Company Details");
+                            this.$store.dispatch('clearCompany');
+                            this.$store.dispatch('showModal', this.currForm);
+                        });
+                        break;
                     default:
                         break;
                 }
@@ -241,7 +268,8 @@
             DepartmentsTable,
             PositionsTable,
             ManpowersTable,
-            UserTypeTable
+            UserTypeTable,
+            CompaniesTable
         } 
     }
 </script>

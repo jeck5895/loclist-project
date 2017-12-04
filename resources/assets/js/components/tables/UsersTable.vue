@@ -120,6 +120,7 @@
                 this.$store.dispatch('loadUser', user);
                 this.$store.dispatch('setModalFormType', 'EditUser');
                 $("#createUserModal").modal("show");
+                this.$store.dispatch('setLoadingState', true);
             },
             view(user){
 

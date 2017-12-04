@@ -205,8 +205,9 @@
                         <label for="">Company (CSI/SRI)</label>
                         <select v-validate="{rules:{required:true}}" name="company"  class="form-control form-control-sm">
                             <option value="">--Select Company--</option>
-                            <option value="CSI">CSI</option>
-                            <option value="SRI">SRI</option>
+                            <option v-for="(company, index) in companies" :key="index" :value="company.id">
+                                {{ company.company_name }}
+                            </option>
                         </select>
                         <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.company')">{{ errors.first('clientDetailsForm.company') }}</small>
                     </div>
@@ -231,6 +232,7 @@ export default {
         this.$store.dispatch('loadDepartments','api/departments?type=all');
         this.$store.dispatch('loadPositions', 'api/positions?type=all');
         this.$store.dispatch('loadManpowers', 'api/manpowers?type=all');
+        this.$store.dispatch('loadCompanies', 'api/companies?type=all');
     },
     data() {
         return {
@@ -238,6 +240,12 @@ export default {
         }
     },
     computed: {
+        client() {
+            return this.$store.getters.getClient;
+        },
+        companies() {
+            return this.$store.getters.getCompanies;
+        },
         industries() {
             return this.$store.getters.getIndustries;
         },
@@ -263,6 +271,30 @@ export default {
     methods: {
         submitDetailsForm(scope) {
             let client = {
+                client_name: this.client.client_name,
+                industry: this.client.industry,
+                nationality: this.client.nationality,
+                iso_certf: this.client.iso_certf,
+                complete_mailing_address: this.client.complete_mailing_address,
+                techno_park: this.client.techno_park,
+                street_address: this.client.street_address,
+                province: this.client.province,
+                administrative_area_level_1: this.client.administrative_area_level_1,
+                postal_code: this.client.postal_code,
+                website: this.client.website,
+                primary_landline: this.client.primary_landline,
+                other_landline: this.client.other_landline,
+                mobile_number: this.client.mobile_number,
+                email_address: this.client.email_address,
+                contact_person: this.client.contact_person,
+                gender: this.client.gender,
+                department: this.client.department,
+                position: this.client.position,
+                proposal: this.client.proposal,
+                company: this.client.company
+                // manpower: this.client.manpower, this is seperate table
+                // sourcing_practice: this.client.sourcing_practive this is seperate table,
+                //manpower_provider: this.client.manpower_provider,
 
             };
 

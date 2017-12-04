@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Maintainance\Industry;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,7 @@ class StoreIndustry extends FormRequest
     public function rules()
     {
         return [
-            'industry_name' => 'required'
+            'industry_name' => 'required|unique:industries'
         ];
     }
 }

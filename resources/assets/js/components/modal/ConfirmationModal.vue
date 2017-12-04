@@ -103,6 +103,14 @@
                         .then(() => {
                             this.$store.dispatch('loadUserTypes','api/user_types');
                         });
+                    case "companies":
+                        this.$store.dispatch('deleteCompany', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadCompanies','api/companies');
+                        });
                         break;
                     default:
                         break;

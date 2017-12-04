@@ -71,6 +71,7 @@
                     this.$store.dispatch('setModalTitle', 'Edit Nationality');
                     this.$store.dispatch('loadNationality', nationality);  
                     $("#createUserModal").modal("show");
+                    this.$store.dispatch('setLoadingState', true);
                 });
             },
             destroy(nationality) {

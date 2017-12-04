@@ -62,32 +62,42 @@
         <modal>
             <template slot="header">{{ modalTitle }}</template>
             <!-- This condition displays what form/data should be display -->
-            <div v-if="modalFormType == 'EditUser' || modalFormType == 'CreateUser'">
-                <create-user-form></create-user-form>
+            <div v-if="isLoading" class="row">
+                <div class="img-loading-container">
+                    <img src="/images/spinner.gif">
+                </div>
             </div>
-            <div v-if="modalFormType == 'CREATE_INDUSTRY' || modalFormType == 'EDIT_INDUSTRY'">
-                <industry-form></industry-form>
-            </div>
-            <div v-if="modalFormType == 'CREATE_NATIONALITY' || modalFormType == 'EDIT_NATIONALITY'">
-                <nationality-form></nationality-form>
-            </div>
-            <div v-if="modalFormType == 'CREATE_ISO' || modalFormType == 'EDIT_ISO'">
-                <iso-certificate-form></iso-certificate-form>
-            </div>
-            <div v-if="modalFormType == 'CREATE_SOURCING_PRACTICE' || modalFormType == 'EDIT_SOURCING_PRACTICE'">
-                <sourcing-form></sourcing-form>
-            </div>
-            <div v-if="modalFormType == 'CREATE_DEPARTMENT' || modalFormType == 'EDIT_DEPARTMENT'">
-                <department-form></department-form>
-            </div>
-            <div v-if="modalFormType == 'CREATE_POSITION' || modalFormType == 'EDIT_POSITION'">
-                <position-form></position-form>
-            </div>
-            <div v-if="modalFormType == 'CREATE_MANPOWER' || modalFormType == 'EDIT_MANPOWER'">
-                <manpower-form></manpower-form>
-            </div>
-            <div v-if="modalFormType == 'CREATE_USERTYPE' || modalFormType == 'EDIT_USERTYPE'">
-                <user-type-form></user-type-form>
+            <div v-if="!isLoading">
+                <div v-if="modalFormType == 'EditUser' || modalFormType == 'CreateUser'">
+                    <create-user-form></create-user-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_COMPANY' || modalFormType == 'EDIT_COMPANY'">
+                    <company-form></company-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_INDUSTRY' || modalFormType == 'EDIT_INDUSTRY'">
+                    <industry-form></industry-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_NATIONALITY' || modalFormType == 'EDIT_NATIONALITY'">
+                    <nationality-form></nationality-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_ISO' || modalFormType == 'EDIT_ISO'">
+                    <iso-certificate-form></iso-certificate-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_SOURCING_PRACTICE' || modalFormType == 'EDIT_SOURCING_PRACTICE'">
+                    <sourcing-form></sourcing-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_DEPARTMENT' || modalFormType == 'EDIT_DEPARTMENT'">
+                    <department-form></department-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_POSITION' || modalFormType == 'EDIT_POSITION'">
+                    <position-form></position-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_MANPOWER' || modalFormType == 'EDIT_MANPOWER'">
+                    <manpower-form></manpower-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_USERTYPE' || modalFormType == 'EDIT_USERTYPE'">
+                    <user-type-form></user-type-form>
+                </div>
             </div>
             
         </modal>
@@ -115,6 +125,7 @@
     import PositionForm from '../forms/maintainance/PositionForm';
     import ManpowerForm from '../forms/maintainance/ManpowerForm';
     import UserTypeForm from '../forms/maintainance/UserTypeForm';
+    import CompanyForm from '../forms/company/CompanyForm';
 
     export default {
         mounted() {
@@ -126,6 +137,9 @@
             }
         },
         computed:{
+            isLoading(){
+                return this.$store.getters.getLoadingState;
+            },
             modalTitle(){
                 return this.$store.getters.getModalTitle;
             },
@@ -153,7 +167,8 @@
             DepartmentForm,
             PositionForm,
             ManpowerForm,
-            UserTypeForm
+            UserTypeForm,
+            CompanyForm
         },
         filters:{
             

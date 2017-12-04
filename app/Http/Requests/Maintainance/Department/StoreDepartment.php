@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Maintainance\Department;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,7 @@ class StoreDepartment extends FormRequest
     public function rules()
     {
         return [
-            'department_name' => 'required'
+            'department_name' => 'required|unique:departments'
         ];
     }
 }
