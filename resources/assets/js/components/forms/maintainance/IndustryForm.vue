@@ -2,11 +2,13 @@
     <form id="industryForm" @submit.prevent="submitForm('industryForm')" data-vv-scope="industryForm">
         <div class="row">
             <div class="col-md-12">
-                {{ serverResponse }}
+               
                 <div class="alert alert-danger" role="alert" v-if="serverResponse.status == 422">
                     <strong>Errors</strong> :{{ serverResponse.data.message }}
                     <ul v-if="serverResponse.data.errors">
-                        <li v-if="serverResponse.data.errors.industry_name" v-for="e in serverResponse.data.errors.industry_name" :key="e">{{ e }}</li>
+                        <template v-if="serverResponse.data.errors.industry_name">
+                            <li v-for="e in serverResponse.data.errors.industry_name" :key="e">{{ e }}</li>
+                        </template>
                     </ul>
                 </div>
 

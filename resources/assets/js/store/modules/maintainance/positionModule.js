@@ -33,6 +33,7 @@ export default {
             context.commit('clearPositions');
         },
         loadPositions: (context, payload) => {
+            context.commit('setLoadingState', true);
             axios.get(payload)
             .then(response => {
                 context.commit('setPositions', response);
@@ -41,10 +42,14 @@ export default {
                 }, 1000);
             })
             .catch(error => {
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
                 console.log(error.response)
             });
         },
         loadPosition: (context, payload) => {
+            
             axios.get('api/positions/' + payload.id)
             .then(response => {
                 context.commit('setPosition', response);
@@ -59,10 +64,12 @@ export default {
         storePosition: (context, payload) => {
             axios.post('api/positions', payload)
             .then(response => {
-                context.commit('setServerResponse', response);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', response.data.message);
-                document.getElementById('positionForm').reset();
+                setTimeout(() => {
+                    context.commit('setServerResponse', response);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', response.data.message);
+                    // document.getElementById('positionForm').reset();
+                }, 1000);
             })
             .catch(error => {
                 context.commit('setServerResponse', error.response);
@@ -71,10 +78,12 @@ export default {
         updatePosition: (context, payload) => {
             axios.patch('api/positions/' + payload.id, payload)
             .then(response => {
-                context.commit('setServerResponse', response);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', response.data.message);
-                document.getElementById('positionForm').reset();
+                setTimeout(() => {
+                    context.commit('setServerResponse', response);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', response.data.message);
+                    //document.getElementById('positionForm').reset();
+                }, 1000);
             })
             .catch(error => {
                 context.commit('setServerResponse', error.response);

@@ -36,7 +36,6 @@
                                 <span class="fa fa-edit"></span>
                             </button>
 
-
                             <button @click="destroy(certificate)" type="button" class="btn btn-sm btn-default">
                                 <span class="fa fa-trash"></span>
                             </button>
@@ -80,9 +79,6 @@
                 this.$store.dispatch('setDeletionType', deletionType);
                 this.$store.dispatch('showConfirmationModal');
             }
-        },
-        filters: {
-            
         },
         components: {
             Pagination

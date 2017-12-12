@@ -41,12 +41,16 @@ export default{
     actions:{
         loadUsers: (context, payload) => {
             //change url for pagination 
+            context.commit('setLoadingState', true);
             axios.get(payload)
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 var pages = Math.round(response.data.total / response.data.per_page);
                 context.commit('setUsers', response);
                 context.commit('setTotalPage', pages);
+                setTimeout(() => {
+                    context.commit('setLoadingState', true);
+                }, 1000);
             })
             .catch(error => {
                 console.log(error.response.data)
@@ -78,7 +82,7 @@ export default{
                 $("#createUserModal").modal('hide');
                 toastr.success('Success', result.data.message);
                 document.getElementById('userForm').reset();
-                console.log(result);
+            
             })
             .catch(error => {
                 let errors = error.response;

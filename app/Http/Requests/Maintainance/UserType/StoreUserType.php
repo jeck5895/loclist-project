@@ -24,7 +24,7 @@ class StoreUserType extends FormRequest
     public function rules()
     {
         return [
-            'userType' => 'required|user_types'
+            'userType' => 'required|unique:user_types'
         ];
     }
 }

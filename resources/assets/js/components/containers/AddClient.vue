@@ -5,55 +5,7 @@
             <nav-buttons></nav-buttons>
             <!-- Client Details -->
             <client-details-form></client-details-form>
-
-            <!-- CALLS SECTION -->
-            <!-- <client-calls-form></client-calls-form> -->
-
-            <!-- Client Saturation -->
-            <!-- <client-saturation-form></client-saturation-form> -->
-
-            <!-- Client Presentation -->
-            <!-- <client-presentation-form></client-presentation-form> -->
-
-            <!-- Acquisition Section -->
-            <!-- <client-acquisition-form></client-acquisition-form> -->
         </div>
-
-        <!-- <div class="col-md-2">
-            <ul class="list-unstyled fixed-right" id="spy-form">
-                <li>
-                    <h4 class="mb-0">Side Navigation</h4>
-                </li>
-                <li>
-                    <hr class="mt-1 mb-2">
-                </li>
-                <li>
-                    <h6>
-                        <a href="#client-details" class="text-muted">Details</a>
-                    </h6>
-                </li>
-                <li>
-                    <h6>
-                        <a href="#calls" class="text-muted">Calls</a>
-                    </h6>
-                </li>
-                <li>
-                    <h6>
-                        <a href="#client-saturation" class="text-muted">Saturation</a>
-                    </h6>
-                </li>
-                <li>
-                    <h6>
-                        <a href="#client-presentation" class="text-muted">Presentation</a>
-                    </h6>
-                </li>
-                <li>
-                    <h6>
-                        <a href="#client-status" class="text-muted">Acquisition</a>
-                    </h6>
-                </li>
-            </ul>
-        </div> -->
     </div>
 </template>
 
@@ -61,9 +13,35 @@
     import ClientDetailsForm from "../forms/client/ClientDetailsForm";
     import NavButtons from '../nav-buttons/NavButtons';
     import AlertReminder from '../alerts/AlertReminder';
-
+    import {store} from '../../store/store.js';
+    
     export default {
         mounted() {
+           
+        },
+        beforeRouteEnter(to, from, next) {
+            store.dispatch('clearNationalities');
+            store.dispatch('clearIndustries');
+            store.dispatch('clearIsoCertificates');
+            store.dispatch('clearSourcingPractices');
+            store.dispatch('clearDepartments');
+            store.dispatch('clearPositions');
+            store.dispatch('clearManpowers');
+            store.dispatch('clearUserTypes');
+            store.dispatch('clearCompanies');
+            store.dispatch('clearClient');
+            store.dispatch('loadNationalities','api/nationalities?type=all');
+            store.dispatch('loadCertificates','api/certificates?type=all');
+            store.dispatch('loadIndustries','api/industries?type=all');
+            store.dispatch('loadSourcingPractices','api/sourcing_practices?type=all');
+            store.dispatch('loadDepartments','api/departments?type=all');
+            store.dispatch('loadPositions', 'api/positions?type=all');
+            store.dispatch('loadManpowers', 'api/manpowers?type=all');
+            store.dispatch('loadCompanies', 'api/companies?type=all');
+            next();
+        },
+        beforeRouteUpdate(to, from, next) {
+            
             
         },
         computed: {},

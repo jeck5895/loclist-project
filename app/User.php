@@ -47,4 +47,13 @@ class User extends Authenticatable
     {
         return $this->belongsTo(UserType::class, 'userType')->select(['id','userType']); //userType is the foreign key in users Table
     }
+
+    public function clients()
+    {
+        /**
+         * entry_by foreign key in Client model 
+         * uid local key in this model
+         */
+        return $this->hasMany(Client::class ,'entry_by', 'uid'); 
+    }
 }

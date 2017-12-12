@@ -28,7 +28,7 @@
     export default {
         props:['scope','object', 'url', 'classSize'],
         created(){
-            console.log(this.$route)
+            // console.log(this.$route)
         },
         computed:{
 
@@ -64,8 +64,11 @@
                     case "user_types":
                         this.$store.dispatch('loadUserTypes', url);
                         break;
-                     case "companies":
+                    case "companies":
                         this.$store.dispatch('loadCompanies', url);
+                        break;
+                    case "clients":
+                        this.$store.dispatch('loadClients', url);
                         break;
                     default:
                         break;
@@ -88,6 +91,24 @@
                     case "sourcing_practices":
                         this.$store.dispatch('loadSourcingPractices', url);
                         break;
+                    case "departments":
+                        this.$store.dispatch('loadDepartments', url);
+                        break;
+                    case "positions":
+                        this.$store.dispatch('loadPositions', url);
+                        break;
+                    case "manpowers":
+                        this.$store.dispatch('loadManpowers', url);
+                        break;
+                    case "user_types":
+                        this.$store.dispatch('loadUserTypes', url);
+                        break;
+                    case "companies":
+                        this.$store.dispatch('loadCompanies', url);
+                        break;
+                    case "clients":
+                        this.$store.dispatch('loadClients', url);
+                        break;
                     default:
                         break;
                 }
@@ -108,6 +129,24 @@
                         break;
                     case "sourcing_practices":
                         this.$store.dispatch('loadSourcingPractices', url);
+                        break;
+                    case "departments":
+                        this.$store.dispatch('loadDepartments', url);
+                        break;
+                    case "positions":
+                        this.$store.dispatch('loadPositions', url);
+                        break;
+                    case "manpowers":
+                        this.$store.dispatch('loadManpowers', url);
+                        break;
+                    case "user_types":
+                        this.$store.dispatch('loadUserTypes', url);
+                        break;
+                    case "companies":
+                        this.$store.dispatch('loadCompanies', url);
+                        break;
+                    case "clients":
+                        this.$store.dispatch('loadClients', url);
                         break;
                     default:
                         break;
@@ -131,6 +170,24 @@
                     case "sourcing_practices":
                         this.$store.dispatch('loadSourcingPractices', url);
                         break;
+                    case "departments":
+                        this.$store.dispatch('loadDepartments', url);
+                        break;
+                    case "positions":
+                        this.$store.dispatch('loadPositions', url);
+                        break;
+                    case "manpowers":
+                        this.$store.dispatch('loadManpowers', url);
+                        break;
+                    case "user_types":
+                        this.$store.dispatch('loadUserTypes', url);
+                        break;
+                    case "companies":
+                        this.$store.dispatch('loadCompanies', url);
+                        break;
+                    case "clients":
+                        this.$store.dispatch('loadClients', url);
+                        break;
                     default:
                         break;
                 }
@@ -152,6 +209,24 @@
                         break;
                     case "sourcing_practices":
                         this.$store.dispatch('loadSourcingPractices', url);
+                        break;
+                    case "departments":
+                        this.$store.dispatch('loadDepartments', url);
+                        break;
+                    case "positions":
+                        this.$store.dispatch('loadPositions', url);
+                        break;
+                    case "manpowers":
+                        this.$store.dispatch('loadManpowers', url);
+                        break;
+                    case "user_types":
+                        this.$store.dispatch('loadUserTypes', url);
+                        break;
+                    case "companies":
+                        this.$store.dispatch('loadCompanies', url);
+                        break;
+                    case "clients":
+                        this.$store.dispatch('loadClients', url);
                         break;
                     default:
                         break;

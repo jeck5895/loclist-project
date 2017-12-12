@@ -34,6 +34,7 @@ export default {
             commit('clearCertificate');
         },
         loadCertificates: (context, payload) => {
+            context.commit('setLoadingState', true);
             axios.get(payload)
             .then(response => {
                 context.commit('setIsoCertificates',response);
@@ -42,6 +43,9 @@ export default {
                 }, 1000);
             })
             .catch(error => {
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
                 console.log(error.response.data)
             });
         },
@@ -60,10 +64,12 @@ export default {
         storeCertificate: (context, payload) => {
             axios.post('api/certificates', payload)
             .then(response => {
-                context.commit('setServerResponse', response);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', response.data.message);
-                document.getElementById('isoForm').reset();
+                setTimeout(() => {
+                    context.commit('setServerResponse', response);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', response.data.message);
+                    //document.getElementById('isoForm').reset();
+                }, 1000);
             })
             .catch(error => {
                 let errors = error.response;
@@ -75,10 +81,12 @@ export default {
         updateCertificate: (context, payload) => {
             axios.patch('api/certificates/' + payload.id, payload)
             .then(response => {
-                context.commit('setServerResponse', response);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', response.data.message);
-                document.getElementById('isoForm').reset();
+                setTimeout(() => {
+                    context.commit('setServerResponse', response);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', response.data.message);
+                    //document.getElementById('isoForm').reset();
+                }, 1000);
             })
             .catch(error => {
                 context.commit('setServerResponse', error.response);

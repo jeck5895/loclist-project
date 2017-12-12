@@ -46,6 +46,7 @@ export default {
             });
         },
         loadNationalities: (context, payload) => {
+            context.commit('setLoadingState', true);
             axios.get(payload)
             .then(response => {
                 context.commit('setNationalities', response);
@@ -54,16 +55,21 @@ export default {
                 }, 1000);
             })
             .catch(error => {
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
                 console(error)
             });
         },
         storeNationality : (context, payload) => {
             axios.post('api/nationalities', payload)
             .then(response => {
-                context.commit('setServerResponse', response);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', response.data.message);
-                document.getElementById('nationalityForm').reset();
+                setTimeout(() => {
+                    context.commit('setServerResponse', response);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', response.data.message);
+                //document.getElementById('nationalityForm').reset();
+                }, 1000);
             })
             .catch(error => {
                 let errors = error.response;
@@ -75,10 +81,12 @@ export default {
         updateNationality: (context, payload) => {
             axios.patch('api/nationalities/' + payload.id, payload)
             .then(response => {
-                context.commit('setServerResponse', response);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', response.data.message);
-                document.getElementById('nationalityForm').reset();
+                setTimeout(() => {
+                    context.commit('setServerResponse', response);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', response.data.message);
+                    //document.getElementById('nationalityForm').reset();
+                }, 1000);
             })
             .catch(error => {
                 context.commit('setServerResponse', error.response);

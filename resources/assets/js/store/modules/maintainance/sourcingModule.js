@@ -46,6 +46,7 @@ export default {
             });
         },
         loadSourcingPractices: (context, payload) => {
+            context.commit('setLoadingState', true);
             axios.get(payload)
             .then(response => {
                 context.commit('setSourcingPractices', response);
@@ -54,16 +55,21 @@ export default {
                 }, 1000);
             })
             .catch(error => {
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
                 console.log(error.response)
             })
         },
         storeSourcingPractice: (context, payload) => {
             axios.post('api/sourcing_practices', payload)
             .then(response => {
-                context.commit('setServerResponse', response);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', response.data.message);
-                document.getElementById('sourcingForm').reset();
+                setTimeout(() => {
+                    context.commit('setServerResponse', response);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', response.data.message);
+                // document.getElementById('sourcingForm').reset();
+                }, 1000);
             })
             .catch(error => {
                 let errors = error.response;
@@ -74,10 +80,12 @@ export default {
         updateSourcingPractice: (context, payload) => {
             axios.patch('api/sourcing_practices/' + payload.id, payload)
             .then(response => {
-                context.commit('setServerResponse', response);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', response.data.message);
-                document.getElementById('sourcingForm').reset()
+                setTimeout(()=>{
+                    context.commit('setServerResponse', response);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', response.data.message);
+                // document.getElementById('sourcingForm').reset()
+                }, 1000);
             })
             .catch(error => {
                 let errors = error.response;

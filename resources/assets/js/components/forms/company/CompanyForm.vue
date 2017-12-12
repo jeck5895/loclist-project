@@ -5,8 +5,12 @@
                 <div class="alert alert-danger" role="alert" v-if="serverResponse.status == 422">
                     <strong>Errors</strong> :{{ serverResponse.data.message }}
                     <ul v-if="serverResponse.data.errors">
-                        <li v-if="serverResponse.data.errors.company_name" v-for="e in serverResponse.data.errors.company_name" :key="e">{{ e }}</li>
-                        <li v-if="serverResponse.data.errors.code" v-for="e in serverResponse.data.errors.code" :key="e">{{ e }}</li>
+                        <template v-if="serverResponse.data.errors.company_name">
+                            <li v-for="e in serverResponse.data.errors.company_name" :key="e">{{ e }}</li>
+                        </template>
+                        <template v-if="serverResponse.data.errors.code">
+                            <li  v-for="e in serverResponse.data.errors.code" :key="e">{{ e }}</li>
+                        </template>
                     </ul>
                 </div>
 

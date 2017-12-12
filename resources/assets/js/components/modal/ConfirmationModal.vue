@@ -22,7 +22,7 @@
 <script>
     export default {
         created(){
-            console.log(this.deletionType)
+            // console.log(this.deletionType)
         },
         computed:{
             deletionType () {

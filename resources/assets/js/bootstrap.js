@@ -7,18 +7,22 @@ import toastr from 'toastr';
 import VeeValidate from 'vee-validate';
 import Auth from './package/Auth';
 const VueInputMask = require('vue-inputmask').default;
+import vSelect from 'vue-select';
+// import select2 from 'select2';
 // import VueToastr from '@deveodk/vue-toastr';
 // import '@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css';
 
+// window.select2 = select2;
 window.VeeValidate = VeeValidate;
 window.moment = moment;
 window.toastr = toastr;
 
+// Vue.use(select2);
 Vue.use(VueInputMask);
 Vue.use(VeeValidate);
 Vue.use(VueRouter);
 Vue.use(Auth);
-
+Vue.component('v-select', vSelect);
 
 Vue.filter('humanReadableFormat', function(date){
     return moment(date).format('MMMM Do, YYYY');
@@ -38,6 +42,9 @@ Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue')
 );
+
+
+
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -49,7 +56,9 @@ try {
     window.Popper = require('popper.js').default;//for bootstrap 4 dropdown
     //require('bootstrap-sass');
     require('bootstrap'); //for bootstrap 4 setup
+    require('select2');
 } catch (e) {}
+
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -74,6 +83,37 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+
+Vue.component('select2Multiple', {
+    props: ['options', 'value'],
+    template: '#select2-template',
+    mounted: function () {
+        var vm = this
+        $(this.$el)
+            // init select2
+            .select2({ data: this.options })
+            .val(this.value)
+            .trigger('change')
+            // emit event on change.
+            .on('change', function () {
+                vm.$emit('input', $(this).val())
+            })
+    },
+    watch: {
+        value: function (value) {
+            if ([...value].sort().join(",") !== [...$(this.$el).val()].sort().join(","))
+                $(this.$el).val(value).trigger('change');
+        },
+        options: function (options) {
+            // update options
+            $(this.$el).select2({ data: options })
+        }
+    },
+    destroyed: function () {
+        $(this.$el).off().select2('destroy')
+    }
+})
+
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

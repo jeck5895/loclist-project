@@ -60,10 +60,12 @@ export default{
         storeUserType: (context, payload) => {
             axios.post('api/user_types', payload)
             .then( response => {
-                context.commit('setServerResponse', response);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', response.data.message);
-                document.getElementById('userTypeForm').reset();
+                setTimeout(() => {
+                    context.commit('setServerResponse', response);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', response.data.message);
+                // document.getElementById('userTypeForm').reset();
+                }, 1000);
             })
             .catch( error => {
                 context.commit('setServerResponse', error.response);
@@ -72,10 +74,12 @@ export default{
         updateUserType: (context, payload) => {
             axios.patch('api/user_types/' + payload.id, payload)
             .then( response => {
-                context.commit('setServerResponse', response);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', response.data.message);
-                document.getElementById('userTypeForm').reset();
+                setTimeout(() => {
+                    context.commit('setServerResponse', response);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', response.data.message);
+                    //document.getElementById('userTypeForm').reset();
+                }, 1000);
             })
             .catch( error => {
                 context.commit('setServerResponse', error.response);

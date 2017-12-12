@@ -19,9 +19,18 @@ class Client extends Model
         return $query->where('is_active', 0);
     }
 
+    public function user()
+    {
+        /**
+         * entry_by is the foreign key from Client model 
+         * uid is the local key from User model
+         */
+        return $this->belongsTo(User::class, 'entry_by','uid'); 
+    }
+
     public function manpower_providers()
     {
-        $this->hasMany(ClientManpowerProvider::class);
+        return $this->hasMany(ClientManpowerProvider::class);
     }
 
     public function sourcing_practices()

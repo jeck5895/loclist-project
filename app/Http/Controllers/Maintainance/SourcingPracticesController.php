@@ -19,7 +19,7 @@ class SourcingPracticesController extends Controller
     {
         if(isset($_GET['type']) && $_GET['type'] == 'all')
         {
-            $sourcing_practices = SourcingPractice::active()->get();
+            $sourcing_practices = SourcingPractice::select(['id','name'])->active()->get();
         }
         else{
             $sourcing_practices = SourcingPractice::active()->paginate(5);

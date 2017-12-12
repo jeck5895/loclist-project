@@ -44,3 +44,4 @@ const app = new Vue({
         Vue.auth.setter();
     },
 });
+

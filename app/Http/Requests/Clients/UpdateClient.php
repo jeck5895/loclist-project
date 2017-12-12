@@ -13,7 +13,7 @@ class UpdateClient extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return !empty($this->user())  ? true : false;
         // return $this->user()->userType == 1 ? true : false;
     }
 

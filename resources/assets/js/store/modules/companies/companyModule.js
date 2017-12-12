@@ -64,7 +64,7 @@ export default {
                     context.commit('setServerResponse', response);
                     toastr.success('Success', response.data.message);
                     $("#createUserModal").modal('hide');
-                    document.getElementById('companyForm').reset();   
+                    // document.getElementById('companyForm').reset();   
                 }, 1000);
             })
             .catch(error => {

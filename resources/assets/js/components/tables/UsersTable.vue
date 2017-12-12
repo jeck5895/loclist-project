@@ -14,7 +14,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-if="users.data == 0">
+                <tr v-if="isLoading">
+                    <td colspan="11" class="text-center">
+                    <div v-if="isLoading" class="card-body">
+                            <div class="img-loading-container">
+                                <img src="/images/spinner.gif">
+                            </div>   
+                        </div>
+                    </td>
+                </tr>
+                <tr v-else-if="users.data == 0">
                     <td colspan="7" class="text-center">
                         No data to show...
                     </td>

@@ -2,7 +2,7 @@ export default function (Vue) {
     Vue.auth = {
         setter(){
             axios.get('/api/user').then(response => {
-                console.log(response)
+                // console.log(response)
                 var user = JSON.stringify(response.data);
                 if(localStorage.getItem('_u') == null)
                 localStorage.setItem('_u', user);

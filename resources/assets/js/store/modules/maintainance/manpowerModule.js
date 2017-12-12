@@ -33,6 +33,7 @@ export default {
             context.commit('clearManpower');
         },
         loadManpowers: (context, payload) => {
+            context.commit('setLoadingState', true);
             axios.get(payload)
             .then( response => {
                 context.commit('setManpowers', response);
@@ -41,6 +42,9 @@ export default {
                 }, 1000);
             })
             .catch( error => {
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
                 console.log(error.response);
             });
         },
@@ -59,10 +63,12 @@ export default {
         storeManpower: (context, payload) => {
             axios.post('api/manpowers', payload)
             .then( response => {
-                context.commit('setServerResponse', response);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', response.data.message);
-                document.getElementById('manpowerForm').reset();   
+                setTimeout(() => {
+                    context.commit('setServerResponse', response);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', response.data.message);
+                    //document.getElementById('manpowerForm').reset(); 
+                }, 1000);  
             })
             .catch(error =>{
                 context.commit('setServerResponse', error.response);
@@ -71,10 +77,12 @@ export default {
         updateManpower: (context, payload) => {
             axios.patch('api/manpowers/' + payload.id, payload)
             .then( response => {
-                context.commit('setServerResponse', response);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', response.data.message);
-                document.getElementById('manpowerForm').reset();   
+                setTimeout(() => {
+                    context.commit('setServerResponse', response);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', response.data.message);
+                    //document.getElementById('manpowerForm').reset(); 
+                }, 1000);   
             })
             .catch( error => {
                 context.commit('setServerResponse', error.response);

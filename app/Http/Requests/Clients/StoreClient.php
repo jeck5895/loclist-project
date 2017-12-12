@@ -13,8 +13,7 @@ class StoreClient extends FormRequest
      */
     public function authorize()
     {
-        return true;
-        // return $this->user()->userType == 1 ? true : false;
+        return !empty($this->user()) ? true : false;
     }
 
     /**
@@ -26,7 +25,7 @@ class StoreClient extends FormRequest
     {
         return [
             'entry_by' => 'required',
-            'overall_status' => 'required',
+            // 'overall_status' => 'required',
             'client_name' => 'required|unique:clients',
             'industry' => 'required|numeric',
             'nationality' => 'required|numeric',
@@ -37,6 +36,7 @@ class StoreClient extends FormRequest
             'province' => 'required',
             'administrative_area_level_1' => 'required',
             'postal_code' => 'required|numeric',
+            'company' => 'required',
             'website' => 'required',
             'primary_landline' => 'required',
             'other_landline' => 'required',

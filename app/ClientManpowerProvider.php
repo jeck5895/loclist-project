@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class ClientManpowerProvider extends Model
 {
+    protected $fillabel = ['manpower_provider']; 
     protected $guarded = [];
 
-    public function user() 
+    public function client() 
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(Client::class);
     }
 }

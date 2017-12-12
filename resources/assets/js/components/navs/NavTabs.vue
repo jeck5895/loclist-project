@@ -22,7 +22,7 @@
                 
                 <div class="row">
                     <div class="col-sm-4 mr-auto">
-                        <clients-nav-button></clients-nav-button>
+                        <nav-buttons></nav-buttons>
                     </div>
                     <div class="col-sm-4">
                         <clients-filter></clients-filter>
@@ -110,7 +110,7 @@
 <script>
     import clientsTable from '../tables/clientsTable.vue';
     import UsersTable from '../tables/UsersTable.vue';
-    import ClientsNavButton from '../nav-buttons/ClientsNavButton';
+    import NavButtons from '../nav-buttons/NavButtons';
     import UsersNavButton from '../nav-buttons/UsersNavButton';
     import Modal from '../modal/modal';
     import ConfirmationModal from '../modal/ConfirmationModal';
@@ -129,7 +129,7 @@
 
     export default {
         mounted() {
-            console.log(this.modalFormType)
+            // console.log(this.modalFormType)
         },
         data(){
             return {
@@ -153,7 +153,7 @@
         components:{
             clientsTable,
             UsersTable,
-            ClientsNavButton,
+            NavButtons,
             UsersNavButton,
             Modal,
             ConfirmationModal,

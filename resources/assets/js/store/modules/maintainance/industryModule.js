@@ -45,6 +45,7 @@ export default {
             });
         },
         loadIndustries: (context, payload) => { /** payload is used for url pagination. So url is dynamic */
+            context.commit('setLoadingState', true);
             axios.get(payload)
                 .then(response => {
                     
@@ -55,6 +56,9 @@ export default {
                   
                 })
                 .catch(error => {
+                    setTimeout(() => {
+                        context.commit('setLoadingState', false);
+                    }, 1000);
                     console.log(error.response.data)
                 });
         },
@@ -62,10 +66,12 @@ export default {
             axios.post('api/industries', payload)
             .then(response => {
                 let result = response;
-                context.commit('setServerResponse', result);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', result.data.message);
-                document.getElementById('industryForm').reset();
+                setTimeout(() => {
+                    context.commit('setServerResponse', result);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', result.data.message);
+                    //document.getElementById('industryForm').reset();
+                }, 1000);
             })
             .catch(error => {
                 let errors = error.response;
@@ -77,10 +83,12 @@ export default {
         updateIndustry: (context, payload) => {
             axios.patch('api/industries/' + payload.id, payload)
             .then(response => {
-                context.commit('setServerResponse', response);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', response.data.message);
-                document.getElementById('industryForm').reset();
+                setTimeout(() => {
+                    context.commit('setServerResponse', result);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', result.data.message);
+                    //document.getElementById('industryForm').reset();
+                }, 1000);
             })
             .catch(error => {
                 context.commit('setServerResponse', error.response);
