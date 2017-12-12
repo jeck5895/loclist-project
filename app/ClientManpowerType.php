@@ -17,4 +17,9 @@ class ClientManpowerType extends Model
     {
         return $query->where('is_active', 0);
     }
+
+    public function clients() 
+    {
+        $this->hasMany(Client::class);
+    }
 }

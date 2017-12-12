@@ -16,7 +16,7 @@
 
             <div class="form-group col-md-12">
                 <label for="">Nationality</label>
-                <input name="nationality" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="form-control form-control-sm"
+                <input name="nationality" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="uppercase form-control form-control-sm"
                     v-model="nationality.nationality">
                 <small class="form-text has-danger" v-show="errors.has('nationalityForm.nationality')">{{ errors.first('nationalityForm.nationality') }}</small>
             </div>
@@ -62,12 +62,14 @@
 
             },
             submitForm(scope) {
-                let nationality = {
-                    id: this.nationality.id,
-                    nationality: this.nationality.nationality
-                }
+                
                 this.$validator.validateAll(scope).then((result) => {
                     if (result) { // if true submit form else set serverResponse error
+                        let nationality = {
+                            id: this.nationality.id,
+                            nationality: this.nationality.nationality.toUpperCase()
+                        };
+                        
                         if (this.formType == 'CREATE_NATIONALITY') {
                             this.$store.dispatch('storeNationality', nationality).then(() => {
                                 this.$store.dispatch('loadNationalities', 'api/nationalities');

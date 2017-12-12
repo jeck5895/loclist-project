@@ -15691,7 +15691,7 @@ var routes = [{
         forAuthUsers: true
     }
 }, {
-    path: '/clients/details/:clientId',
+    path: '/clients/details/:companyName/:clientId',
     name: 'viewClient',
     component: __webpack_require__(367),
     meta: {
@@ -63939,12 +63939,10 @@ var render = function() {
                                       to: {
                                         name: "viewClient",
                                         params: {
-                                          clientId:
-                                            _vm.toUrlFormat(
-                                              client.client_name
-                                            ) +
-                                            "-" +
-                                            client.id
+                                          companyName: _vm.toUrlFormat(
+                                            client.client_name
+                                          ),
+                                          clientId: client.id
                                         }
                                       }
                                     }
@@ -64023,7 +64021,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "img-loading-container" }, [
-      _c("img", { attrs: { src: "/images/spinner.gif" } })
+      _c("img", {
+        staticClass: "img-sm",
+        attrs: { src: "/images/spinner.gif" }
+      })
     ])
   }
 ]
@@ -64123,7 +64124,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -64226,6 +64227,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     computed: {
+        isLoading: function isLoading() {
+            return this.$store.getters.getLoadingState;
+        },
         currUrl: function currUrl() {
             return this.$store.getters.getCurrUrl;
         },
@@ -64241,30 +64245,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     filters: {},
     methods: {
-        // toPage(page){
-        //     var url = this.currUrl + "?page=" + page;
-        //     this.$store.dispatch('loadUsers', url);
-        // },
-        // nextPage (url) {
-        //     this.$store.dispatch('loadUsers', url);
-        // },
-        // prevPage (url) {
-        //     this.$store.dispatch('loadUsers', url);
-        // },
-        // firstPage(url){
-        //     //console.log(url)
-        //     this.$store.dispatch('loadUsers', url);
-        // },
-        // lastPage(url){
-        //     //console.log(url)
-        //     this.$store.dispatch('loadUsers', url);
-        // },
         edit: function edit(user) {
             this.$store.dispatch('setModalTitle', 'Edit User Details');
             this.$store.dispatch('loadUser', user);
             this.$store.dispatch('setModalFormType', 'EditUser');
             $("#createUserModal").modal("show");
-            this.$store.dispatch('setLoadingState', true);
         },
         view: function view(user) {},
         destroy: function destroy(user) {
@@ -64956,7 +64941,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "img-loading-container" }, [
-      _c("img", { attrs: { src: "/images/spinner.gif" } })
+      _c("img", {
+        staticClass: "img-sm",
+        attrs: { src: "/images/spinner.gif" }
+      })
     ])
   }
 ]
@@ -71111,7 +71099,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -71191,13 +71179,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         submitForm: function submitForm(scope) {
             var _this2 = this;
 
-            var industry = {
-                id: this.industry.id,
-                industry_name: this.industry.industry_name
-            };
             this.$validator.validateAll(scope).then(function (result) {
+
                 if (result) {
                     // if true submit form else set serverResponse error
+
+                    var industry = {
+                        id: _this2.industry.id,
+                        industry_name: _this2.industry.industry_name.toUpperCase()
+                    };
+
                     if (_this2.formType == 'CREATE_INDUSTRY') {
                         _this2.$store.dispatch('storeIndustry', industry).then(function () {
                             _this2.$store.dispatch('loadIndustries', 'api/industries');
@@ -71301,7 +71292,7 @@ var render = function() {
                 expression: "industry.industry_name"
               }
             ],
-            staticClass: "form-control form-control-sm",
+            staticClass: "uppercase form-control form-control-sm",
             attrs: {
               name: "industry_name",
               "data-vv-validate-on": "'blur'",
@@ -71460,7 +71451,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -71537,13 +71528,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         submitForm: function submitForm(scope) {
             var _this2 = this;
 
-            var nationality = {
-                id: this.nationality.id,
-                nationality: this.nationality.nationality
-            };
             this.$validator.validateAll(scope).then(function (result) {
                 if (result) {
                     // if true submit form else set serverResponse error
+                    var nationality = {
+                        id: _this2.nationality.id,
+                        nationality: _this2.nationality.nationality.toUpperCase()
+                    };
+
                     if (_this2.formType == 'CREATE_NATIONALITY') {
                         _this2.$store.dispatch('storeNationality', nationality).then(function () {
                             _this2.$store.dispatch('loadNationalities', 'api/nationalities');
@@ -71640,7 +71632,7 @@ var render = function() {
                 expression: "nationality.nationality"
               }
             ],
-            staticClass: "form-control form-control-sm",
+            staticClass: "uppercase form-control form-control-sm",
             attrs: {
               name: "nationality",
               "data-vv-validate-on": "'blur'",
@@ -71799,7 +71791,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -71876,13 +71868,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         submitForm: function submitForm(scope) {
             var _this2 = this;
 
-            var certificate = {
-                id: this.certificate.id,
-                iso_name: this.certificate.iso_name
-            };
             this.$validator.validateAll(scope).then(function (result) {
                 if (result) {
                     // if true submit form else set serverResponse error
+                    var certificate = {
+                        id: _this2.certificate.id,
+                        iso_name: _this2.certificate.iso_name.toUpperCase()
+                    };
+
                     if (_this2.formType == 'CREATE_ISO') {
                         _this2.$store.dispatch('storeCertificate', certificate).then(function () {
                             _this2.$store.dispatch('loadCertificates', 'api/certificates');
@@ -71979,7 +71972,7 @@ var render = function() {
                 expression: "certificate.iso_name"
               }
             ],
-            staticClass: "form-control form-control-sm",
+            staticClass: "uppercase form-control form-control-sm",
             attrs: {
               name: "certificate",
               "data-vv-validate-on": "'blur'",
@@ -72138,7 +72131,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -72215,14 +72208,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         submitForm: function submitForm(scope) {
             var _this2 = this;
 
-            var sourcing_practice = {
-                id: this.sourcing_practice.id,
-                name: this.sourcing_practice.name
-            };
-
             this.$validator.validateAll(scope).then(function (result) {
+
                 if (result) {
                     // if true submit form else set serverResponse error
+                    var sourcing_practice = {
+                        id: _this2.sourcing_practice.id,
+                        name: _this2.sourcing_practice.name.toUpperCase()
+                    };
+
                     if (_this2.formType == 'CREATE_SOURCING_PRACTICE') {
                         _this2.$store.dispatch('storeSourcingPractice', sourcing_practice).then(function () {
                             _this2.$store.dispatch('loadSourcingPractices', 'api/sourcing_practices');
@@ -72318,7 +72312,7 @@ var render = function() {
                 expression: "sourcing_practice.name"
               }
             ],
-            staticClass: "form-control form-control-sm",
+            staticClass: "uppercase form-control form-control-sm",
             attrs: {
               name: "name",
               "data-vv-validate-on": "'blur'",
@@ -72477,7 +72471,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -72554,13 +72548,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         submitForm: function submitForm(scope) {
             var _this2 = this;
 
-            var department = {
-                id: this.department.id,
-                department_name: this.department.department_name
-            };
             this.$validator.validateAll(scope).then(function (result) {
+
                 if (result) {
                     // if true submit form else set serverResponse error
+                    var department = {
+                        id: _this2.department.id,
+                        department_name: _this2.department.department_name.toUpperCase()
+                    };
+
                     if (_this2.formType == 'CREATE_DEPARTMENT') {
                         _this2.$store.dispatch('storeDepartment', department).then(function () {
                             _this2.$store.dispatch('loadDepartments', 'api/departments');
@@ -72657,7 +72653,7 @@ var render = function() {
                 expression: "department.department_name"
               }
             ],
-            staticClass: "form-control form-control-sm",
+            staticClass: "uppercase form-control form-control-sm",
             attrs: {
               name: "department_name",
               "data-vv-validate-on": "'blur'",
@@ -72816,7 +72812,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -72893,13 +72889,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         submitForm: function submitForm(scope) {
             var _this2 = this;
 
-            var position = {
-                id: this.position.id,
-                position_name: this.position.position_name
-            };
             this.$validator.validateAll(scope).then(function (result) {
+
                 if (result) {
                     // if true submit form else set serverResponse error
+                    var position = {
+                        id: _this2.position.id,
+                        position_name: _this2.position.position_name.toUpperCase()
+                    };
+
                     if (_this2.formType == 'CREATE_POSITION') {
                         _this2.$store.dispatch('storePosition', position).then(function () {
                             _this2.$store.dispatch('loadPositions', 'api/positions');
@@ -72996,7 +72994,7 @@ var render = function() {
                 expression: "position.position_name"
               }
             ],
-            staticClass: "form-control form-control-sm",
+            staticClass: "uppercase form-control form-control-sm",
             attrs: {
               name: "position_name",
               "data-vv-validate-on": "'blur'",
@@ -73155,7 +73153,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -73232,13 +73230,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         submitForm: function submitForm(scope) {
             var _this2 = this;
 
-            var manpower = {
-                id: this.manpower.id,
-                type: this.manpower.type
-            };
             this.$validator.validateAll(scope).then(function (result) {
+
                 if (result) {
                     // if true submit form else set serverResponse error
+
+                    var manpower = {
+                        id: _this2.manpower.id,
+                        type: _this2.manpower.type.toUpperCase()
+                    };
+
                     if (_this2.formType == 'CREATE_MANPOWER') {
                         _this2.$store.dispatch('storeManpower', manpower).then(function () {
                             _this2.$store.dispatch('loadManpowers', 'api/manpowers');
@@ -73334,7 +73335,7 @@ var render = function() {
                 expression: "manpower.type"
               }
             ],
-            staticClass: "form-control form-control-sm",
+            staticClass: "uppercase form-control form-control-sm",
             attrs: {
               name: "type",
               "data-vv-validate-on": "'blur'",
@@ -73493,7 +73494,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -73570,14 +73571,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         submitForm: function submitForm(scope) {
             var _this2 = this;
 
-            var user_type = {
-                id: this.user_type.id,
-                userType: this.user_type.userType
-            };
-
             this.$validator.validateAll(scope).then(function (result) {
+
                 if (result) {
                     // if true submit form else set serverResponse error
+                    var user_type = {
+                        id: _this2.user_type.id,
+                        userType: _this2.user_type.userType.toUpperCase()
+                    };
+
                     if (_this2.formType == 'CREATE_USERTYPE') {
                         _this2.$store.dispatch('storeUserType', user_type).then(function () {
                             _this2.$store.dispatch('loadUserTypes', 'api/user_types');
@@ -73674,7 +73676,7 @@ var render = function() {
                 expression: "user_type.userType"
               }
             ],
-            staticClass: "form-control form-control-sm",
+            staticClass: "uppercase form-control form-control-sm",
             attrs: {
               name: "userType",
               "data-vv-validate-on": "'blur'",
@@ -73833,7 +73835,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -73921,14 +73923,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         submitForm: function submitForm(scope) {
             var _this2 = this;
 
-            var company = {
-                id: this.company.id,
-                company_name: this.company.company_name,
-                code: this.company.code
-            };
             this.$validator.validateAll(scope).then(function (result) {
                 if (result) {
                     // if true submit form else set serverResponse error
+                    var company = {
+                        id: _this2.company.id,
+                        company_name: _this2.company.company_name,
+                        code: _this2.company.code
+                    };
+
                     if (_this2.formType == 'CREATE_COMPANY') {
                         _this2.$store.dispatch('storeCompany', company).then(function () {
                             _this2.$store.dispatch('loadCompanies', 'api/companies');
@@ -74808,7 +74811,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         __WEBPACK_IMPORTED_MODULE_3__store_store_js__["a" /* store */].dispatch('loadCompanies', 'api/companies?type=all');
         next();
     },
-    beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {},
 
     computed: {},
     components: {
@@ -75295,40 +75297,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this3 = this;
 
             var user = Vue.auth.getter();
-            var client = {
-                entry_by: user.uid,
-                client_name: this.client.client_name.toUpperCase(),
-                industry: this.client.industry,
-                nationality: this.client.nationality,
-                iso_certf: this.client.iso_certf,
-                complete_mailing_address: this.client.complete_mailing_address,
-                techno_park: this.client.techno_park,
-                street_address: this.client.street_address,
-                province: this.client.province,
-                administrative_area_level_1: this.client.administrative_area_level_1,
-                postal_code: this.client.postal_code,
-                website: this.client.website,
-                primary_landline: this.client.primary_landline,
-                other_landline: this.client.other_landline,
-                mobile_number: this.client.mobile_number,
-                email_address: this.client.email_address,
-                contact_person: this.client.contact_person,
-                gender: this.client.gender,
-                department: this.client.department,
-                position: this.client.position,
-                proposal: this.client.proposal,
-                company: this.client.company,
-                manpower: this.client.manpower,
-                sourcing_practices: this.selected,
-                manpower_providers: this.client_manpower_providers
-            };
 
             this.$validator.validateAll(scope).then(function (result) {
                 if (result) {
+                    var client = {
+                        entry_by: user.uid,
+                        client_name: _this3.client.client_name.toUpperCase(),
+                        industry: _this3.client.industry,
+                        nationality: _this3.client.nationality,
+                        iso_certf: _this3.client.iso_certf,
+                        complete_mailing_address: _this3.client.complete_mailing_address,
+                        techno_park: _this3.client.techno_park,
+                        street_address: _this3.client.street_address,
+                        province: _this3.client.province,
+                        administrative_area_level_1: _this3.client.administrative_area_level_1,
+                        postal_code: _this3.client.postal_code,
+                        website: _this3.client.website,
+                        primary_landline: _this3.client.primary_landline,
+                        other_landline: _this3.client.other_landline,
+                        mobile_number: _this3.client.mobile_number,
+                        email_address: _this3.client.email_address,
+                        contact_person: _this3.client.contact_person,
+                        gender: _this3.client.gender,
+                        department: _this3.client.department,
+                        position: _this3.client.position,
+                        proposal: _this3.client.proposal,
+                        company: _this3.client.company,
+                        manpower: _this3.client.manpower,
+                        sourcing_practices: _this3.selected,
+                        manpower_providers: _this3.client_manpower_providers
+                    };
 
                     if (_this3.formType == 'CREATE_CLIENT') {
                         _this3.$store.dispatch('storeClient', client).then(function (response) {
                             console.log(response);
+                            //document.getElementById('clientDetailsForm').reset();
                             _this3.$store.dispatch('clearClient');
                             _this3.$store.dispatch('clearClientManpowerProviders');
                             _this3.selected = [];
@@ -79029,8 +79032,13 @@ var index_esm = {
             context.commit('clearClientManpowerProviders');
         },
         loadClient: function loadClient(context, payload) {
-            axios.get('api/clients/', +payload.id).then(function (response) {
+            context.commit('setLoadingState', true);
+
+            axios.get('api/clients/' + payload.id).then(function (response) {
                 context.commit('setClient', response);
+                setTimeout(function () {
+                    context.commit('setLoadingState', false);
+                }, 1000);
             }).catch(function (error) {
                 console.log(error.response);
             });
@@ -79149,8 +79157,13 @@ var index_esm = {
             });
         },
         loadUser: function loadUser(context, payload) {
+            context.dispatch('setLoadingState', true);
+
             axios.get('/api/users/' + payload.id).then(function (response) {
                 context.commit('setUser', response);
+                setTimeout(function () {
+                    context.dispatch('setLoadingState', false);
+                }, 1000);
             }).catch(function (errors) {
                 console.log(errors.response.data);
             });
@@ -80219,10 +80232,12 @@ var index_esm = {
         },
         updateCompany: function updateCompany(context, payload) {
             axios.patch('api/companies/' + payload.id, payload).then(function (response) {
-                context.commit('setServerResponse', response);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', response.data.message);
-                document.getElementById('companyForm').reset();
+                setTimeout(function () {
+                    context.commit('setServerResponse', response);
+                    toastr.success('Success', response.data.message);
+                    $("#createUserModal").modal('hide');
+                    // document.getElementById('companyForm').reset();   
+                }, 1000);
             }).catch(function (error) {
                 context.commit('setServerResponse', error.response);
                 console.log(error.response.data);
@@ -80388,6 +80403,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modal_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__modal_modal__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__nav_buttons_NavButtons__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__nav_buttons_NavButtons___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__nav_buttons_NavButtons__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store_store_js__ = __webpack_require__(134);
 //
 //
 //
@@ -80594,6 +80610,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -80603,6 +80641,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+        var payload = {
+            id: to.params.clientId
+        };
+
+        __WEBPACK_IMPORTED_MODULE_6__store_store_js__["a" /* store */].dispatch('loadClient', payload);
+        next();
+    },
     created: function created() {
         console.log(this.$route.params.clientId);
     },
@@ -80613,9 +80659,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     computed: {
-        // clientId(){
-        //     return this.$route.params.clientId;
-        // },
+        client: function client() {
+            return this.$store.getters.getClient;
+        },
+        isLoading: function isLoading() {
+            return this.$store.getters.getLoadingState;
+        },
         modalTitle: function modalTitle() {
             return this.$store.getters.getModalTitle;
         },
@@ -81868,12 +81917,363 @@ var render = function() {
           _c("nav-buttons"),
           _vm._v(" "),
           _c("div", { staticClass: "card" }, [
-            _vm._m(0),
+            _c("div", { staticClass: "card-header clearfix bg-white" }, [
+              _c("h4", { staticClass: "float-left" }, [
+                _vm._v("Company Information")
+              ]),
+              _vm._v(" "),
+              !_vm.isLoading
+                ? _c("div", { staticClass: "row float-right" }, [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "dd",
+                      { staticClass: "mb-0", staticStyle: { width: "90%" } },
+                      [_vm._v(" " + _vm._s(_vm.client.user.name) + " ")]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "dd",
+                      { staticClass: "mb-0", staticStyle: { width: "90%" } },
+                      [
+                        _vm._v(
+                          " " +
+                            _vm._s(
+                              _vm._f("humanReadableFormat")(
+                                _vm.client.created_at
+                              )
+                            ) +
+                            " "
+                        )
+                      ]
+                    )
+                  ])
+                : _vm._e()
+            ]),
             _vm._v(" "),
-            _vm._m(1),
+            _vm.isLoading
+              ? _c("div", { staticClass: "card-body" }, [_vm._m(2)])
+              : _c("div", { staticClass: "card-body" }, [
+                  _c("img", {
+                    staticClass: "client-profile img-thumbnail",
+                    attrs: {
+                      src: "/images/img-default.png",
+                      alt: "",
+                      width: "150",
+                      height: "150"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("dl", { staticClass: "row" }, [
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v(
+                        "\n                        Client Name\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.client.client_name) +
+                          "\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v(
+                        "\n                        Industry\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(
+                        "\n                        Information Technology\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v(
+                        "\n                        Nationality\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(
+                        "\n                        American\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v(
+                        "\n                        ISO Certification\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(
+                        "\n                        ISO 9001\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v(
+                        "\n                        Mailing Address\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.client.complete_mailing_address) +
+                          "\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v(
+                        "\n                        Techno Park\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.client.techno_park) +
+                          "\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v(
+                        "\n                        Address\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(
+                            _vm.client.street_address +
+                              " " +
+                              _vm.client.province
+                          ) +
+                          "\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v(
+                        "\n                        Area\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.client.administrative_area_level_1) +
+                          "\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v(
+                        "\n                        Zip Code\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(
+                        "\n                       " +
+                          _vm._s(_vm.client.postal_code) +
+                          "\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v(
+                        "\n                        Official Website\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.client.website) +
+                          "\n                        "
+                      ),
+                      _vm.client.website != "N/A"
+                        ? _c(
+                            "a",
+                            {
+                              staticStyle: { color: "black" },
+                              attrs: {
+                                href: _vm.client.website,
+                                target: _vm.client.website
+                              }
+                            },
+                            [
+                              _c("span", {
+                                staticClass: "fa fa-external-link-square"
+                              })
+                            ]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v(
+                        "\n                        Primary Landline\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(
+                        "\n                       " +
+                          _vm._s(_vm.client.primary_landline) +
+                          "\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v(
+                        "\n                        Other Landline\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.client.other_landline) +
+                          "\n                    "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("dl", { staticClass: "row" }, [
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v("Contact Person")
+                    ]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(_vm._s(_vm.client.contact_person))
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Email")]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(_vm._s(_vm.client.email_address))
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v("Mobile No.")
+                    ]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(_vm._s(_vm.client.mobile_number))
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Gender")]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(_vm._s(_vm.client.gender))
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v("Deparment")
+                    ]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(_vm._s(_vm.client.department.department_name))
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Position")]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(_vm._s(_vm.client.position.position_name))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("dl", { staticClass: "row" }, [
+                    _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Manpower")]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(_vm._s(_vm.client.manpower_type.type))
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v("Souring Practices")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "dd",
+                      { staticClass: "col-sm-9" },
+                      _vm._l(_vm.client.sourcing_practices, function(
+                        sp,
+                        index
+                      ) {
+                        return _c("span", { key: index }, [
+                          _vm._v(
+                            " \n                            " +
+                              _vm._s(
+                                _vm.client.sourcing_practices.length - 1 !=
+                                index
+                                  ? sp.name + ", "
+                                  : sp.name
+                              ) +
+                              " \n                        "
+                          )
+                        ])
+                      })
+                    ),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [
+                      _vm._v("Manpower Provider")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "dd",
+                      { staticClass: "col-sm-9" },
+                      _vm._l(_vm.client.manpower_providers, function(
+                        provider,
+                        index
+                      ) {
+                        return _c("span", { key: index }, [
+                          _vm._v(
+                            " \n                            " +
+                              _vm._s(
+                                _vm.client.manpower_providers.length - 1 !=
+                                index
+                                  ? provider.manpower_provider + ", "
+                                  : provider.manpower_provider
+                              ) +
+                              "\n                        "
+                          )
+                        ])
+                      })
+                    ),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Proposal")]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(_vm._s(_vm.client.proposal))
+                    ]),
+                    _vm._v(" "),
+                    _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Company")]),
+                    _vm._v(" "),
+                    _c("dd", { staticClass: "col-sm-9" }, [
+                      _vm._v(_vm._s(_vm.client.company.company_name))
+                    ])
+                  ])
+                ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-footer bg-white" }, [
-              _vm._m(2),
+              _vm._m(3),
               _vm._v(" "),
               _c(
                 "div",
@@ -82064,212 +82464,28 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header bg-white" }, [
-      _c("h4", [_vm._v("Company Information")])
+    return _c("dt", { staticStyle: { width: "10%" } }, [
+      _c("span", { staticClass: "fa fa-user" })
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("img", {
-        staticClass: "client-profile img-thumbnail",
-        attrs: {
-          src: "/images/img-default.png",
-          alt: "",
-          width: "150",
-          height: "150"
-        }
-      }),
-      _vm._v(" "),
-      _c("dl", { staticClass: "row" }, [
-        _c("dt", { staticClass: "col-sm-3" }, [
-          _vm._v("\n                        Client Name\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [
-          _vm._v(
-            "\n                        Microsoft Window\n                    "
-          )
-        ]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [
-          _vm._v("\n                        Industry\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [
-          _vm._v(
-            "\n                        Information Technology\n                    "
-          )
-        ]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [
-          _vm._v("\n                        Nationality\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [
-          _vm._v("\n                        American\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [
-          _vm._v(
-            "\n                        ISO Certification\n                    "
-          )
-        ]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [
-          _vm._v("\n                        ISO 9001\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [
-          _vm._v(
-            "\n                        Mailing Address\n                    "
-          )
-        ]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [
-          _vm._v(
-            "\n                        6750 Ayala Avenue, 6750, Makati, Metro Manila\n                    "
-          )
-        ]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [
-          _vm._v("\n                        Techno Park\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [
-          _vm._v(
-            "\n                        6750 Ayala Avenue, 6750, Makati, Metro Manila\n                    "
-          )
-        ]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [
-          _vm._v("\n                        Address\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [
-          _vm._v(
-            "\n                        6750 Ayala Avenue, 6750, Makati, Metro Manila\n                    "
-          )
-        ]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [
-          _vm._v("\n                        Area\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [
-          _vm._v(
-            "\n                        National Capital Region\n                    "
-          )
-        ]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [
-          _vm._v("\n                        Zip Code\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [
-          _vm._v("\n                       1123\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [
-          _vm._v(
-            "\n                        Official Website\n                    "
-          )
-        ]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [
-          _vm._v("\n                       https://www.microsoft.com/en-ph "),
-          _c(
-            "a",
-            {
-              staticStyle: { color: "black" },
-              attrs: {
-                href: "https://www.microsoft.com/en-ph",
-                target: "https://www.microsoft.com/en-ph"
-              }
-            },
-            [_c("span", { staticClass: "fa fa-external-link-square" })]
-          )
-        ]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [
-          _vm._v(
-            "\n                        Primary Landline\n                    "
-          )
-        ]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [
-          _vm._v(
-            "\n                       1800 1 441 0158\n                    "
-          )
-        ]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [
-          _vm._v(
-            "\n                        Other Landline\n                    "
-          )
-        ]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [
-          _vm._v(
-            "\n                       1800 1 441 0158\n                    "
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("dl", { staticClass: "row" }, [
-        _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Contact Person")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [_vm._v("Satya Nadella")]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Email")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [
-          _vm._v("bill.gates@microsoft.com")
-        ]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Mobile No.")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [_vm._v("09121321345")]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Gender")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [_vm._v("Male")]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Deparment")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [_vm._v("General")]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Position")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [_vm._v("CEO")])
-      ]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("dl", { staticClass: "row" }, [
-        _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Manpower")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [_vm._v("Outsourced")]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Souring Practices")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [_vm._v("Agency")]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Manpower Provider")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [_vm._v("SRI")]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Proposal")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [_vm._v("Outsourced")]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-sm-3" }, [_vm._v("Company")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-sm-9" }, [_vm._v("SRI")])
+    return _c("dt", { staticStyle: { width: "10%" } }, [
+      _c("span", { staticClass: "fa fa-calendar" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "img-loading-container" }, [
+        _c("img", {
+          staticClass: "img-sm",
+          attrs: { src: "/images/spinner.gif" }
+        })
       ])
     ])
   },

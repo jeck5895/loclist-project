@@ -5,10 +5,22 @@
             <nav-buttons></nav-buttons>
 
             <div class="card">
-                <div class="card-header bg-white">
-                    <h4>Company Information</h4>
+                <div class="card-header clearfix bg-white">
+                    <h4 class="float-left">Company Information</h4>
+                    <div v-if="!isLoading" class="row float-right">
+                        <dt style="width: 10%;"> <span class="fa fa-user"></span></dt>  <dd class="mb-0" style="width: 90%;"> {{ client.user.name }} </dd>
+                        <dt style="width: 10%;"> <span class="fa fa-calendar"></span></dt>  <dd class="mb-0" style="width: 90%;"> {{ client.created_at | humanReadableFormat }} </dd>
+                        
+                    </div>
                 </div>
-                <div class="card-body">
+                <div v-if="isLoading" class="card-body">
+                    <div class="row">
+                        <div class="img-loading-container">
+                            <img src="/images/spinner.gif" class="img-sm">
+                        </div>   
+                    </div>
+                </div>
+                <div v-else class="card-body">
                     
                     <img src="/images/img-default.png" alt="" width="150" height="150" class="client-profile img-thumbnail">
                    
@@ -17,7 +29,7 @@
                             Client Name
                         </dt>
                         <dd class="col-sm-9">
-                            Microsoft Window
+                            {{ client.client_name }}
                         </dd>
                         <dt class="col-sm-3">
                             Industry
@@ -41,89 +53,98 @@
                             Mailing Address
                         </dt>
                         <dd class="col-sm-9">
-                            6750 Ayala Avenue, 6750, Makati, Metro Manila
+                            {{ client.complete_mailing_address }}
                         </dd>
                         <dt class="col-sm-3">
                             Techno Park
                         </dt>
                         <dd class="col-sm-9">
-                            6750 Ayala Avenue, 6750, Makati, Metro Manila
+                            {{ client.techno_park }}
                         </dd>
                         <dt class="col-sm-3">
                             Address
                         </dt>
                         <dd class="col-sm-9">
-                            6750 Ayala Avenue, 6750, Makati, Metro Manila
+                            {{ client.street_address + " " + client.province }}
                         </dd>
                         <dt class="col-sm-3">
                             Area
                         </dt>
                         <dd class="col-sm-9">
-                            National Capital Region
+                            {{ client.administrative_area_level_1 }}
                         </dd>
                         <dt class="col-sm-3">
                             Zip Code
                         </dt>
                         <dd class="col-sm-9">
-                           1123
+                           {{ client.postal_code }}
                         </dd>
                         <dt class="col-sm-3">
                             Official Website
                         </dt>
                         <dd class="col-sm-9">
-                           https://www.microsoft.com/en-ph <a href="https://www.microsoft.com/en-ph" style="color:black;" target="https://www.microsoft.com/en-ph"><span class="fa fa-external-link-square"></span></a>
+                            {{ client.website }}
+                            <a v-if="client.website != 'N/A'" :href="client.website" style="color:black;" :target="client.website"><span class="fa fa-external-link-square"></span></a>
                         </dd>
 
                         <dt class="col-sm-3">
                             Primary Landline
                         </dt>
                         <dd class="col-sm-9">
-                           1800 1 441 0158
+                           {{ client.primary_landline }}
                         </dd>
 
                         <dt class="col-sm-3">
                             Other Landline
                         </dt>
                         <dd class="col-sm-9">
-                           1800 1 441 0158
+                            {{ client.other_landline }}
                         </dd>
                     </dl>
                     <hr>
                     <dl class="row">
                         <dt class="col-sm-3">Contact Person</dt>
-                        <dd class="col-sm-9">Satya Nadella</dd>
+                        <dd class="col-sm-9">{{ client.contact_person }}</dd>
 
                         <dt class="col-sm-3">Email</dt>
-                        <dd class="col-sm-9">bill.gates@microsoft.com</dd>
+                        <dd class="col-sm-9">{{ client.email_address }}</dd>
 
                         <dt class="col-sm-3">Mobile No.</dt>
-                        <dd class="col-sm-9">09121321345</dd>
+                        <dd class="col-sm-9">{{ client.mobile_number }}</dd>
 
                         <dt class="col-sm-3">Gender</dt>
-                        <dd class="col-sm-9">Male</dd>
+                        <dd class="col-sm-9">{{ client.gender }}</dd>
 
                         <dt class="col-sm-3">Deparment</dt>
-                        <dd class="col-sm-9">General</dd>
+                        <dd class="col-sm-9">{{ client.department.department_name }}</dd>
 
                         <dt class="col-sm-3">Position</dt>
-                        <dd class="col-sm-9">CEO</dd>
+                        <dd class="col-sm-9">{{ client.position.position_name }}</dd>
                     </dl>
                     <hr>
                     <dl class="row">
                         <dt class="col-sm-3">Manpower</dt>
-                        <dd class="col-sm-9">Outsourced</dd>
+                        <dd class="col-sm-9">{{ client.manpower_type.type }}</dd>
 
                         <dt class="col-sm-3">Souring Practices</dt>
-                        <dd class="col-sm-9">Agency</dd>
+                        <dd class="col-sm-9">
+                            <span v-for="(sp, index) in client.sourcing_practices" :key="index"> 
+                                {{ (client.sourcing_practices.length-1 != index) ? sp.name + ', ' : sp.name }} 
+                            </span>
+                        </dd>
 
                         <dt class="col-sm-3">Manpower Provider</dt>
-                        <dd class="col-sm-9">SRI</dd>
+                        <dd class="col-sm-9">
+                            <span v-for="(provider, index) in client.manpower_providers" :key="index"> 
+                                {{ (client.manpower_providers.length-1 != index) ? provider.manpower_provider + ', ' : provider.manpower_provider }}
+                            </span>
+                        </dd>
 
                         <dt class="col-sm-3">Proposal</dt>
-                        <dd class="col-sm-9">Outsourced</dd>
+                        <dd class="col-sm-9">{{ client.proposal }}</dd>
 
                         <dt class="col-sm-3">Company</dt>
-                        <dd class="col-sm-9">SRI</dd>
+                        <dd class="col-sm-9">{{ client.company.company_name }}</dd>
                     </dl>
                 </div>
                 <div class="card-footer bg-white">
@@ -211,8 +232,17 @@
     import ClientAcquisitionForm from "../../forms/client/ClientAcquisitionForm";
     import  Modal from '../../modal/modal';
     import NavButtons from '../../nav-buttons/NavButtons';
+    import {store} from '../../../store/store.js';
 
     export default {
+        beforeRouteEnter(to, from, next) {
+            let payload = {
+                id: to.params.clientId
+            };
+
+            store.dispatch('loadClient', payload);
+            next();
+        },
         created() {
             console.log(this.$route.params.clientId);
         },
@@ -222,9 +252,12 @@
             };
         },
         computed: {
-            // clientId(){
-            //     return this.$route.params.clientId;
-            // },
+            client() {
+                return this.$store.getters.getClient;
+            },
+            isLoading() {
+                return this.$store.getters.getLoadingState;
+            },
             modalTitle(){
                 return this.$store.getters.getModalTitle;
             },

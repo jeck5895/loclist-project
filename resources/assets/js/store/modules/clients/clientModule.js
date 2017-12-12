@@ -66,9 +66,14 @@ export default {
             context.commit('clearClientManpowerProviders');
         },
         loadClient: (context, payload) => {
-            axios.get('api/clients/', + payload.id)
+            context.commit('setLoadingState', true);
+            
+            axios.get('api/clients/' + payload.id)
             .then(response => {
                 context.commit('setClient', response);
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
             })
             .catch(error => {
                 console.log(error.response);

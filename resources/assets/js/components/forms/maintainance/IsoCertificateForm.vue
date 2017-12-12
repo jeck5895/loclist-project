@@ -16,7 +16,7 @@
 
             <div class="form-group col-md-12">
                 <label for="">ISO name</label>
-                <input name="certificate" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="form-control form-control-sm"
+                <input name="certificate" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="uppercase form-control form-control-sm"
                     v-model="certificate.iso_name">
                 <small class="form-text has-danger" v-show="errors.has('isoForm.certificate')">{{ errors.first('isoForm.certificate') }}</small>
             </div>
@@ -62,12 +62,13 @@
 
             },
             submitForm(scope) {
-                let certificate = {
-                    id: this.certificate.id,
-                    iso_name: this.certificate.iso_name
-                }
                 this.$validator.validateAll(scope).then((result) => {
                     if (result) { // if true submit form else set serverResponse error
+                        let certificate = {
+                            id: this.certificate.id,
+                            iso_name: this.certificate.iso_name.toUpperCase()
+                        };
+                        
                         if (this.formType == 'CREATE_ISO') {
                             this.$store.dispatch('storeCertificate', certificate).then(() => {
                                 this.$store.dispatch('loadCertificates', 'api/certificates');

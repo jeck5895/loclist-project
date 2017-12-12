@@ -50,6 +50,10 @@
     left: 0;
 }
 
+.uppercase{
+    text-transform: uppercase;
+}
+
 // .dropdown-menu:before {
 //     position: absolute;
 //     top: -7px;
@@ -132,5 +136,10 @@
     height: auto;
     width: auto;
     margin: auto;
+}
+
+.img-sm{
+    height: 75px;
+    width: 75px;
 }
 

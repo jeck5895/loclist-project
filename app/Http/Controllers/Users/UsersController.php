@@ -74,6 +74,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = \App\User::find($id);
+        
         return $user;
     }
 

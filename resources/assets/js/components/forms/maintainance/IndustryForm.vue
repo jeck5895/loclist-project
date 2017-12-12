@@ -19,7 +19,7 @@
 
             <div class="form-group col-md-12">
                 <label for="">Industry</label>
-                <input name="industry_name" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="form-control form-control-sm"
+                <input name="industry_name" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="uppercase form-control form-control-sm"
                     v-model="industry.industry_name">
                 <small class="form-text has-danger" v-show="errors.has('industryForm.industry_name')">{{ errors.first('industryForm.industry_name') }}</small>
             </div>
@@ -65,12 +65,16 @@
 
             },
             submitForm(scope) {
-                let industry = {
-                    id: this.industry.id,
-                    industry_name: this.industry.industry_name
-                }
+                
                 this.$validator.validateAll(scope).then((result) => {
+                    
                     if (result) { // if true submit form else set serverResponse error
+
+                        let industry = {
+                            id: this.industry.id,
+                            industry_name: this.industry.industry_name.toUpperCase()
+                        };
+
                         if (this.formType == 'CREATE_INDUSTRY') {
                             this.$store.dispatch('storeIndustry', industry).then(() => {
                                 this.$store.dispatch('loadIndustries', 'api/industries');

@@ -77,10 +77,12 @@ export default {
         updateCompany: (context, payload) => {
             axios.patch('api/companies/' + payload.id, payload)
             .then(response => {
-                context.commit('setServerResponse', response);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', response.data.message);
-                document.getElementById('companyForm').reset();
+                setTimeout(() => {
+                    context.commit('setServerResponse', response);
+                    toastr.success('Success', response.data.message);
+                    $("#createUserModal").modal('hide');
+                    // document.getElementById('companyForm').reset();   
+                }, 1000);
             })
             .catch(error => {
                 context.commit('setServerResponse', error.response);

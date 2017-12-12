@@ -9757,6 +9757,10 @@ a.text-dark:hover {
   left: 0;
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
 .dropdown-item:hover {
   background-color: #549eff;
   color: #fff;
@@ -9818,5 +9822,10 @@ a.text-dark:hover {
   height: auto;
   width: auto;
   margin: auto;
+}
+
+.img-sm {
+  height: 75px;
+  width: 75px;
 }
 

@@ -40,10 +40,6 @@
             store.dispatch('loadCompanies', 'api/companies?type=all');
             next();
         },
-        beforeRouteUpdate(to, from, next) {
-            
-            
-        },
         computed: {},
         components: {
             ClientDetailsForm,

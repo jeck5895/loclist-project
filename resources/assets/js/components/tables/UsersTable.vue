@@ -18,7 +18,7 @@
                     <td colspan="11" class="text-center">
                     <div v-if="isLoading" class="card-body">
                             <div class="img-loading-container">
-                                <img src="/images/spinner.gif">
+                                <img src="/images/spinner.gif" class="img-sm">
                             </div>   
                         </div>
                     </td>
@@ -89,6 +89,9 @@
             }
         },
         computed:{
+            isLoading() {
+                return this.$store.getters.getLoadingState;
+            },
             currUrl () {
                 return this.$store.getters.getCurrUrl;
             },
@@ -106,30 +109,11 @@
            
         },
         methods:{
-            // toPage(page){
-            //     var url = this.currUrl + "?page=" + page;
-            //     this.$store.dispatch('loadUsers', url);
-            // },
-            // nextPage (url) {
-            //     this.$store.dispatch('loadUsers', url);
-            // },
-            // prevPage (url) {
-            //     this.$store.dispatch('loadUsers', url);
-            // },
-            // firstPage(url){
-            //     //console.log(url)
-            //     this.$store.dispatch('loadUsers', url);
-            // },
-            // lastPage(url){
-            //     //console.log(url)
-            //     this.$store.dispatch('loadUsers', url);
-            // },
             edit(user){
                 this.$store.dispatch('setModalTitle', 'Edit User Details');
                 this.$store.dispatch('loadUser', user);
                 this.$store.dispatch('setModalFormType', 'EditUser');
                 $("#createUserModal").modal("show");
-                this.$store.dispatch('setLoadingState', true);
             },
             view(user){
 

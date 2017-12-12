@@ -16,7 +16,7 @@
 
             <div class="form-group col-md-12">
                 <label for="">Department</label>
-                <input name="department_name" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="form-control form-control-sm"
+                <input name="department_name" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="uppercase form-control form-control-sm"
                     v-model="department.department_name">
                 <small class="form-text has-danger" v-show="errors.has('departmentForm.department_name')">{{ errors.first('departmentForm.department_name') }}</small>
             </div>
@@ -61,12 +61,15 @@ export default {
             });
         },
         submitForm(scope) {
-            let department = {
-                id: this.department.id,
-                department_name: this.department.department_name
-            }
+            
             this.$validator.validateAll(scope).then((result) => {
+                
                 if (result) { // if true submit form else set serverResponse error
+                    let department = {
+                        id: this.department.id,
+                        department_name: this.department.department_name.toUpperCase()
+                    };
+
                     if (this.formType == 'CREATE_DEPARTMENT') {
                             this.$store.dispatch('storeDepartment', department).then(() => {
                                 this.$store.dispatch('loadDepartments', 'api/departments');

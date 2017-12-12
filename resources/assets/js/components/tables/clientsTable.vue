@@ -21,7 +21,7 @@
                     <td colspan="11" class="text-center">
                     <div v-if="isLoading" class="card-body">
                             <div class="img-loading-container">
-                                <img src="/images/spinner.gif">
+                                <img src="/images/spinner.gif" class="img-sm">
                             </div>   
                         </div>
                     </td>
@@ -82,7 +82,7 @@
                                 <span class="fa fa-edit"></span>
                             </button>
 
-                            <router-link :to="{ name: 'viewClient', params: { clientId : toUrlFormat(client.client_name) + '-' + client.id }}" class="btn btn-sm btn-default">
+                            <router-link :to="{ name: 'viewClient', params: { companyName:  toUrlFormat(client.client_name), clientId : client.id }}" class="btn btn-sm btn-default">
                                 <span class="fa fa-eye"></span>
                             </router-link>
                             
@@ -119,11 +119,17 @@
         },
         methods: {
             toUrlFormat(param) {
-            return param.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
+                return param.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
             },
-            view(client) {},
-            edit(client) {},
-            destroy(client) {}
+            view(client) {
+
+            },
+            edit(client) {
+
+            },
+            destroy(client) {
+                
+            }
         },
         components:{
             Pagination

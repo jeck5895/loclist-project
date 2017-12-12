@@ -73,13 +73,15 @@
 
             },
             submitForm(scope) {
-                let company = {
-                    id: this.company.id,
-                    company_name: this.company.company_name,
-                    code: this.company.code
-                }
+                
                 this.$validator.validateAll(scope).then((result) => {
                     if (result) { // if true submit form else set serverResponse error
+                        let company = {
+                            id: this.company.id,
+                            company_name: this.company.company_name,
+                            code: this.company.code
+                        };
+                        
                         if (this.formType == 'CREATE_COMPANY') {
                             this.$store.dispatch('storeCompany', company).then(() => {
                                 this.$store.dispatch('loadCompanies', 'api/companies');

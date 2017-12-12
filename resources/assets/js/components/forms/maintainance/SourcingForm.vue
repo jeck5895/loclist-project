@@ -16,7 +16,7 @@
 
             <div class="form-group col-md-12">
                 <label for="">Name</label>
-                <input name="name" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="form-control form-control-sm"
+                <input name="name" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="uppercase form-control form-control-sm"
                     v-model="sourcing_practice.name">
                 <small class="form-text has-danger" v-show="errors.has('sourcingForm.name')">{{ errors.first('sourcingForm.name') }}</small>
             </div>
@@ -62,13 +62,15 @@
 
             },
             submitForm(scope) {
-                let sourcing_practice = {
-                    id: this.sourcing_practice.id,
-                    name: this.sourcing_practice.name
-                };
 
                 this.$validator.validateAll(scope).then((result) => {
+                    
                     if (result) { // if true submit form else set serverResponse error
+                        let sourcing_practice = {
+                            id: this.sourcing_practice.id,
+                            name: this.sourcing_practice.name.toUpperCase()
+                        };
+                        
                         if (this.formType == 'CREATE_SOURCING_PRACTICE') {
                             this.$store.dispatch('storeSourcingPractice', sourcing_practice).then(() => {
                                 this.$store.dispatch('loadSourcingPractices', 'api/sourcing_practices');

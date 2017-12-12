@@ -17,4 +17,9 @@ class Company extends Model
     {
         return $query->where('is_active', 0);
     }
+
+    public function clients()
+    {
+        return $this->hasMany(Client::class);
+    }
 }

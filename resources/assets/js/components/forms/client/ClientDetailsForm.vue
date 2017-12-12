@@ -372,41 +372,42 @@ export default {
         },
         submitDetailsForm(scope) {
             let user = Vue.auth.getter();
-            let client = {
-                entry_by: user.uid,
-                client_name: this.client.client_name.toUpperCase(),
-                industry: this.client.industry,
-                nationality: this.client.nationality,
-                iso_certf: this.client.iso_certf,
-                complete_mailing_address: this.client.complete_mailing_address,
-                techno_park: this.client.techno_park,
-                street_address: this.client.street_address,
-                province: this.client.province,
-                administrative_area_level_1: this.client.administrative_area_level_1,
-                postal_code: this.client.postal_code,
-                website: this.client.website,
-                primary_landline: this.client.primary_landline,
-                other_landline: this.client.other_landline,
-                mobile_number: this.client.mobile_number,
-                email_address: this.client.email_address,
-                contact_person: this.client.contact_person,
-                gender: this.client.gender,
-                department: this.client.department,
-                position: this.client.position,
-                proposal: this.client.proposal,
-                company: this.client.company,
-                manpower: this.client.manpower,
-                sourcing_practices: this.selected,
-                manpower_providers: this.client_manpower_providers,
-            };
            
             this.$validator.validateAll(scope).then((result) => {
                 if (result) {
+                    let client = {
+                        entry_by: user.uid,
+                        client_name: this.client.client_name.toUpperCase(),
+                        industry: this.client.industry,
+                        nationality: this.client.nationality,
+                        iso_certf: this.client.iso_certf,
+                        complete_mailing_address: this.client.complete_mailing_address,
+                        techno_park: this.client.techno_park,
+                        street_address: this.client.street_address,
+                        province: this.client.province,
+                        administrative_area_level_1: this.client.administrative_area_level_1,
+                        postal_code: this.client.postal_code,
+                        website: this.client.website,
+                        primary_landline: this.client.primary_landline,
+                        other_landline: this.client.other_landline,
+                        mobile_number: this.client.mobile_number,
+                        email_address: this.client.email_address,
+                        contact_person: this.client.contact_person,
+                        gender: this.client.gender,
+                        department: this.client.department,
+                        position: this.client.position,
+                        proposal: this.client.proposal,
+                        company: this.client.company,
+                        manpower: this.client.manpower,
+                        sourcing_practices: this.selected,
+                        manpower_providers: this.client_manpower_providers,
+                    };
                    
                     if (this.formType == 'CREATE_CLIENT') {
                         this.$store.dispatch('storeClient', client)
                         .then(response => {
                             console.log(response)
+                            //document.getElementById('clientDetailsForm').reset();
                             this.$store.dispatch('clearClient');
                             this.$store.dispatch('clearClientManpowerProviders');
                             this.selected = [];

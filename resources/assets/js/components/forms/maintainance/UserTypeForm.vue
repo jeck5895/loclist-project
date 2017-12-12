@@ -16,7 +16,7 @@
 
             <div class="form-group col-md-12">
                 <label for="">User type</label>
-                <input name="userType" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="form-control form-control-sm"
+                <input name="userType" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="uppercase form-control form-control-sm"
                     v-model="user_type.userType">
                 <small class="form-text has-danger" v-show="errors.has('userTypeForm.userType')">{{ errors.first('userTypeForm.userType') }}</small>
             </div>
@@ -62,13 +62,15 @@
 
             },
             submitForm(scope) {
-                let user_type = {
-                    id: this.user_type.id,
-                    userType: this.user_type.userType
-                };
 
                 this.$validator.validateAll(scope).then((result) => {
+                    
                     if (result) { // if true submit form else set serverResponse error
+                        let user_type = {
+                            id: this.user_type.id,
+                            userType: this.user_type.userType.toUpperCase()
+                        };
+
                         if (this.formType == 'CREATE_USERTYPE') {
                             this.$store.dispatch('storeUserType', user_type).then(() => {
                                 this.$store.dispatch('loadUserTypes', 'api/user_types');

@@ -23,7 +23,7 @@ let routes = [
         }
     },
     {
-        path:'/clients/details/:clientId',
+        path:'/clients/details/:companyName/:clientId',
         name:'viewClient',
         component: require('../components/profiles/client/ClientProfile.vue'),
         meta:{

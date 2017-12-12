@@ -57,9 +57,14 @@ export default{
             });
         },
         loadUser: (context, payload) => {
+            context.dispatch('setLoadingState', true);
+
             axios.get('/api/users/' + payload.id)
             .then(response => {
                 context.commit('setUser', response);
+                setTimeout(() => {
+                    context.dispatch('setLoadingState', false);
+                }, 1000);
             })
             .catch(errors => {
                 console.log(errors.response.data);

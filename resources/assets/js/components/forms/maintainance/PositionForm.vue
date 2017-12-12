@@ -16,7 +16,7 @@
 
             <div class="form-group col-md-12">
                 <label for="">Position</label>
-                <input name="position_name" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="form-control form-control-sm"
+                <input name="position_name" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="uppercase form-control form-control-sm"
                     v-model="position.position_name">
                 <small class="form-text has-danger" v-show="errors.has('positionForm.position_name')">{{ errors.first('positionForm.position_name') }}</small>
             </div>
@@ -61,12 +61,15 @@ export default {
             });
         },
         submitForm(scope) {
-            let position = {
-                id: this.position.id,
-                position_name: this.position.position_name
-            }
+            
             this.$validator.validateAll(scope).then((result) => {
+                
                 if (result) { // if true submit form else set serverResponse error
+                    let position = {
+                        id: this.position.id,
+                        position_name: this.position.position_name.toUpperCase()
+                    };
+                    
                     if (this.formType == 'CREATE_POSITION') {
                             this.$store.dispatch('storePosition', position).then(() => {
                                 this.$store.dispatch('loadPositions', 'api/positions');

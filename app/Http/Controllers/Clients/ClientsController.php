@@ -66,6 +66,7 @@ class ClientsController extends Controller
                 'position' => $request['position'],
                 'proposal' => $request['proposal'],
                 'company' => $request['company'],
+                'manpower' => $request['manpower'],
                 'updated_by' => $request['entry_by']
             ]
         )->id;
@@ -96,7 +97,18 @@ class ClientsController extends Controller
      */
     public function show($id)
     {
-        //
+        $client = Client::where('id', $id)
+                        ->with('user')
+                        ->with('department')
+                        ->with('industry')
+                        ->with('company')
+                        ->with('position')
+                        ->with('manpower_providers')
+                        ->with('manpower_type')
+                        ->with('sourcing_practices')
+                        ->first();
+
+        return $client;
     }
 
     /**

@@ -16,7 +16,7 @@
 
             <div class="form-group col-md-12">
                 <label for="">Type</label>
-                <input name="type" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="form-control form-control-sm"
+                <input name="type" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="uppercase form-control form-control-sm"
                     v-model="manpower.type">
                 <small class="form-text has-danger" v-show="errors.has('manpowerForm.type')">{{ errors.first('manpowerForm.type') }}</small>
             </div>
@@ -62,12 +62,16 @@
 
             },
             submitForm(scope) {
-                let manpower = {
-                    id: this.manpower.id,
-                    type: this.manpower.type
-                }
+
                 this.$validator.validateAll(scope).then((result) => {
+
                     if (result) { // if true submit form else set serverResponse error
+                        
+                        let manpower = {
+                            id: this.manpower.id,
+                            type: this.manpower.type.toUpperCase()
+                        };
+
                         if (this.formType == 'CREATE_MANPOWER') {
                             this.$store.dispatch('storeManpower', manpower).then(() => {
                                 this.$store.dispatch('loadManpowers', 'api/manpowers');
