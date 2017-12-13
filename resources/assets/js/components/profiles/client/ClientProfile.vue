@@ -29,7 +29,7 @@
                             Client Name
                         </dt>
                         <dd class="col-sm-9">
-                            {{ client.client_name }}
+                            <span class="lead">{{ client.client_name }}</span>
                         </dd>
                         <dt class="col-sm-3">
                             Industry
@@ -128,14 +128,20 @@
 
                         <dt class="col-sm-3">Souring Practices</dt>
                         <dd class="col-sm-9">
-                            <span v-for="(sp, index) in client.sourcing_practices" :key="index"> 
+                            <span v-if="client.sourcing_practices.length == 0">
+                                <em>No sourcing practices provided...</em>
+                            </span>
+                            <span v-else v-for="(sp, index) in client.sourcing_practices" :key="index"> 
                                 {{ (client.sourcing_practices.length-1 != index) ? sp.name + ', ' : sp.name }} 
                             </span>
                         </dd>
 
                         <dt class="col-sm-3">Manpower Provider</dt>
                         <dd class="col-sm-9">
-                            <span v-for="(provider, index) in client.manpower_providers" :key="index"> 
+                            <span v-if="client.manpower_providers.length == 0">
+                                <em>No manpower providers provided...</em>
+                            </span>
+                            <span v-else v-for="(provider, index) in client.manpower_providers" :key="index"> 
                                 {{ (client.manpower_providers.length-1 != index) ? provider.manpower_provider + ', ' : provider.manpower_provider }}
                             </span>
                         </dd>

@@ -47,7 +47,7 @@
                         this.$store.dispatch('loadNationalities', url);
                         break;
                     case "certificates":
-                        this.$store.dispatch('loadNationalities', url);
+                        this.$store.dispatch('loadCertificates', url);
                         break;
                     case "sourcing_practices":
                         this.$store.dispatch('loadSourcingPractices', url);
@@ -86,7 +86,7 @@
                         this.$store.dispatch('loadNationalities', url);
                         break;
                     case "certificates":
-                        this.$store.dispatch('loadNationalities', url);
+                        this.$store.dispatch('loadCertificates', url);
                         break;
                     case "sourcing_practices":
                         this.$store.dispatch('loadSourcingPractices', url);
@@ -125,7 +125,7 @@
                         this.$store.dispatch('loadNationalities', url);
                         break;
                     case "certificates":
-                        this.$store.dispatch('loadNationalities', url);
+                        this.$store.dispatch('loadCertificates', url);
                         break;
                     case "sourcing_practices":
                         this.$store.dispatch('loadSourcingPractices', url);
@@ -165,7 +165,7 @@
                         this.$store.dispatch('loadNationalities', url);
                         break;
                     case "certificates":
-                        this.$store.dispatch('loadNationalities', url);
+                        this.$store.dispatch('loadCertificates', url);
                         break;
                     case "sourcing_practices":
                         this.$store.dispatch('loadSourcingPractices', url);
@@ -205,7 +205,7 @@
                         this.$store.dispatch('loadNationalities', url);
                         break;
                     case "certificates":
-                        this.$store.dispatch('loadNationalities', url);
+                        this.$store.dispatch('loadCertificates', url);
                         break;
                     case "sourcing_practices":
                         this.$store.dispatch('loadSourcingPractices', url);

@@ -95,7 +95,7 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="clients" :object="clients" url="api/clients"></pagination>
+        <pagination scope="clients" :object="clients" url="api/clients" classSize="pagination-sm"></pagination>
     </div>
 </template>
 
@@ -103,8 +103,13 @@
     import Pagination from '../pagination/Pagination';
 
     export default {
-        mounted() {
+        created() {
             this.$store.dispatch("loadClients", "api/clients");
+            Echo.private('client-channel')
+            .listen('ClientEvent', (e) => {
+                console.log(e)
+                this.$store.dispatch("loadClients", "api/clients"); //reload the table
+            });
         },
         data() {
             return {};
@@ -119,7 +124,8 @@
         },
         methods: {
             toUrlFormat(param) {
-                return param.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
+                let temp = param.replace(/[^a-zA-Z0-9\s\-]/g, "");
+                return temp.replace(/\s+/g, "-").toLowerCase();
             },
             view(client) {
 

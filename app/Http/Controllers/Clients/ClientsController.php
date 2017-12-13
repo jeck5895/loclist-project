@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Clients\StoreClient;
 use App\Http\Requests\Clients\UpdateClient;
 use App\Http\Controllers\Controller;
+use App\Events\ClientEvent;
 use App\Client;
 use App\ClientSourcingPractice;
 use App\ClientManpowerProvider;
@@ -84,9 +85,12 @@ class ClientsController extends Controller
                 $client->sourcing_practices()->attach($sp);
             }
 
+            //dispatch event for new created client
+            event(new ClientEvent($client));
+
+            return ['message' => $request['client_name'] . ' has been saved.'];
         }
         
-        return ['message' => $request['client_name'] . ' has been saved.'];
     }
 
     /**
@@ -143,5 +147,26 @@ class ClientsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search() 
+    {
+        $keyword = $_GET['keyword'];
+        $from_date = $_GET['from_date'];
+        $to_date = $_GET['to_date'];
+        $location = $_GET['location'];
+        $status = $_GET['status'];
+        $industry = $_GET['industry'];
+
+        $clients = Client::where('client_name', 'LIKE', "%".$keyword."%");
+
+        return [
+            'keyword' => $keyword,
+            'from_date' => $from_date,
+            'to_date' => $to_date,
+            'location' => $location,
+            'status' => $status,
+            'industry' => $industry
+        ];
     }
 }

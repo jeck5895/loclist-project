@@ -24,7 +24,7 @@
                     <div class="col-sm-4 mr-auto">
                         <nav-buttons></nav-buttons>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <clients-filter></clients-filter>
                     </div>
                 </div>

@@ -1,12 +1,12 @@
 export default{
     state:{
         isLoading: false,
-        isSubmitted: false,
+        isSubmitting: false,
         serverResponse: false,
     },
     getters: {
         getSubmitState: state => {
-            return state.isSubmitted;
+            return state.isSubmitting;
         },
         getLoadingState: state => {
             return state.isLoading;
@@ -17,7 +17,7 @@ export default{
     },
     mutations: {
         setSubmitState: (state, payload) => {
-            state.isSubmitted = payload;
+            state.isSubmitting = payload;
         },
         setLoadingState: (state, payload) => {
             state.isLoading = payload;

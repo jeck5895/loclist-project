@@ -18,10 +18,10 @@ class CertificatesController extends Controller
     public function index()
     {
         if(isset($_GET['type']) && $_GET['type'] == 'all'){
-            $certificates = Certificate::active()->get();
+            $certificates = Certificate::active()->orderBy('iso_name','asc')->get();
         }
         else{
-            $certificates = Certificate::active()->paginate(5);
+            $certificates = Certificate::active()->orderBy('iso_name','asc')->paginate(5);
         }
         
         return $certificates;

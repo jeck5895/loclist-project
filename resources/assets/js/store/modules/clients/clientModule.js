@@ -102,30 +102,50 @@ export default {
             context.commit('setClientManpowerProviders', payload)
         },
         storeClient: (context, payload) => {
+            
+            context.commit('setSubmitState', true);
+
             return new Promise((resolve, reject) => {
                 axios.post('api/clients', payload)
                 .then(response => {
-                    context.commit('setServerResponse', response);
-                    toastr.success('Success', response.data.message);
-                    resolve(response)
+                    setTimeout(() => {
+                        context.commit('setServerResponse', response);
+                        context.commit('setSubmitState', false);
+                        toastr.success('Success', response.data.message);
+                        resolve(response)
+                    }, 2000);
                 })
                 .catch(error => {
-                    context.commit('setServerResponse', error.response);
-                    reject(error.response)
+                    setTimeout(() => {
+                        context.commit('setServerResponse', error.response);
+                        context.commit('setSubmitState', false);
+                        reject(error.response)
+                    }, 2000);
                 });
             })
         },
         updateClient: (context, payload) => {
-            axios.patch('api/clients/' + payload.id, payload)
-            .then( response => {
-                context.commit('setServerResponse', response);
-                toastr.success('Success', result.data.message);
-                context.commit('clearClient');
-                document.getElementById('clientDetailsForm').reset();
-            })
-            .catch(error => {
-                context.commit('setServerResponse', error.response);
-            })
+
+            context.commit('setSubmitState', true);
+            
+            return new Promise((resolve, reject) => {
+                axios.patch('api/clients/' + payload.id, payload)
+                .then( response => {
+                    setTimeout(() => {
+                        context.commit('setServerResponse', response);
+                        context.commit('setSubmitState', false);
+                        toastr.success('Success', response.data.message);
+                        resolve(response)
+                    }, 2000);
+                })
+                .catch(error => {
+                    setTimeout(() => {
+                        context.commit('setSubmitState', false);
+                        context.commit('setServerResponse', error.response);
+                        reject(error.response)
+                    }, 2000);
+                })
+            });
         },
         deleteClient: (context, payload) => {
             axios.delete('api/clients/', + payload.id)
@@ -134,6 +154,17 @@ export default {
             })
             .catch( error => {
                 context.commit('setServerResponse', error.response);
+            });
+        },
+        search: (context, payload) => {
+            return new Promise((resolve, reject) => {
+                axios.get('api/clients/search?keyword=' + payload.keyword + '&from_date=' + payload.from_date + '&to_date=' + payload.to_date + '&location=' + payload.location + '&status=' + payload.status + '&industry=' + payload.industry )
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.log(error.response)
+                });
             });
         }
     }

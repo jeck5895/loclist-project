@@ -84,7 +84,7 @@ export default {
             axios.patch('api/industries/' + payload.id, payload)
             .then(response => {
                 setTimeout(() => {
-                    context.commit('setServerResponse', result);
+                    context.commit('setServerResponse', response);
                     $("#createUserModal").modal('hide');
                     toastr.success('Success', result.data.message);
                     //document.getElementById('industryForm').reset();

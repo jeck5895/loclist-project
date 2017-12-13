@@ -18,10 +18,10 @@ class PositionsController extends Controller
     public function index()
     {
         if(isset($_GET['type']) && $_GET['type'] == 'all'){
-            $positions = Position::active()->get();
+            $positions = Position::active()->orderBy('position_name','asc')->get();
         }
         else{
-            $positions = Position::active()->paginate(5);
+            $positions = Position::active()->orderBy('position_name','asc')->paginate(5);
         }
 
         return $positions;

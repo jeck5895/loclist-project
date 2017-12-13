@@ -18,10 +18,10 @@ class DepartmentsController extends Controller
     public function index()
     {
         if(isset($_GET['type']) && $_GET['type'] == 'all'){
-            $deparments = Department::active()->get();
+            $deparments = Department::active()->orderBy('department_name','asc')->get();
         }
         else{
-            $deparments = Department::active()->paginate(5);
+            $deparments = Department::active()->orderBy('department_name','asc')->paginate(5);
         }
 
         return $deparments;

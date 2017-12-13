@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="" class="form-inline float-right mt-2 mb-2" style="">
+    <form @submit.prevent="search" class="form-inline float-right mt-2 mb-2" style="">
         <div class="form-group">
             <button class="mr-sm-2 btn btn-sm btn-default dropdown-toggle dropdown-remove-arrow" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
@@ -10,18 +10,18 @@
                 <div class="px-4 py-2">
                     <div class="form-group">
                         <label for="exampleDropdownFormEmail1">From</label>
-                        <input type="date" class="form-control form-control-sm" id="exampleDropdownFormEmail1" style="width:100%;">
+                        <input v-model="from_date" type="date" class="form-control form-control-sm" id="exampleDropdownFormEmail1" style="width:100%;">
                     </div>
                     <div class="form-group">
                         <label for="exampleDropdownFormPassword1">To</label>
-                        <input type="date" class="form-control form-control-sm" id="exampleDropdownFormPassword1" style="width:100%;">
+                        <input v-model="to_date" type="date" class="form-control form-control-sm" id="exampleDropdownFormPassword1" style="width:100%;">
                     </div>
                 </div>
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header py-0">Filter By Location</h6>
                 <div class="px-4 py-2">
                     <div class="form-group">
-                        <select class="form-control form-control-sm" id="exampleFormControlSelect1" style="width:100%;">
+                        <select v-model="location" class="form-control form-control-sm" id="exampleFormControlSelect1" style="width:100%;">
                             <option>Metro Manila</option>
                             <option>Abra</option>
                             <option>Bulacan</option>
@@ -34,7 +34,7 @@
                 <h6 class="dropdown-header py-0">Filter By Status</h6>
                 <div class="px-4 py-2">
                     <div class="form-group">
-                        <select class="form-control form-control-sm" id="exampleFormControlSelect1" style="width:100%;">
+                        <select v-model="status" class="form-control form-control-sm" id="exampleFormControlSelect1" style="width:100%;">
                             <option>For Confirmation Call</option>
                             <option>For Saturation</option>
                             <option>For Re-Saturation</option>
@@ -47,7 +47,7 @@
                 <h6 class="dropdown-header py-0">Filter By Industry</h6>
                 <div class="px-4 py-2">
                     <div class="form-group">
-                        <select class="form-control form-control-sm" id="exampleFormControlSelect1" style="width:100%;">
+                        <select v-model="industry" class="form-control form-control-sm" id="exampleFormControlSelect1" style="width:100%;">
                             <option>Coffe Store</option>
                             <option>Pizza Restaurant</option>
                             <option>Drug Store</option>
@@ -59,7 +59,7 @@
             </div>
         </div>
         <div class="form-group">
-            <input class="form-control form-control-sm mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <input v-model="keyword" style="width:250px;" class="form-control form-control-sm mr-sm-2" type="text" placeholder="Search" aria-label="Search">
             <button class="btn btn-success btn-sm my-2 my-sm-0" type="submit">
                 <span class="fa fa-search"></span>&nbsp; Search
             </button>
@@ -69,13 +69,41 @@
 
 <script>
 export default {
-  methods: {
-    dropdownMenuClick() {
-      $(".dropdown-filter").on("click", function(e) {
-        e.stopPropagation();
-      });
+    created() {
+
+    },
+    data() {
+        return {
+            keyword: '',
+            from_date: '',
+            to_date: '',
+            location:'',
+            status:'',
+            industry:''
+        }
+    },
+    computed:{
+
+    },
+    methods: {
+        dropdownMenuClick() {
+            $(".dropdown-filter").on("click", function(e) {
+                e.stopPropagation();
+            });
+        },
+        search() {
+            let query = {
+                keyword: this.keyword,
+                from_date: this.from_date,
+                to_date: this.to_date,
+                location: this.location,
+                status: this.status,
+                industry: this.industry
+            };
+            console.log(query)
+            this.$store.dispatch('search', query);
+        }
     }
-  }
 };
 </script>
 

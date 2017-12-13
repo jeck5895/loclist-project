@@ -19,10 +19,10 @@ class IndustriesController extends Controller
     {
         //
         if(isset($_GET['type']) && $_GET['type'] == 'all'){
-            $industries = Industry::active()->get();
+            $industries = Industry::active()->orderBy('industry_name','asc')->get();
         }
         else{
-            $industries = Industry::active()->paginate(5);
+            $industries = Industry::active()->orderBy('industry_name','asc')->paginate(5);
         }
 
         return $industries;

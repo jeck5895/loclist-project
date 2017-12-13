@@ -18,10 +18,10 @@ class UserTypesController extends Controller
     public function index()
     {
          if(isset($_GET['type']) && $_GET['type'] == 'all'){
-           $user_types = UserType::get();
+           $user_types = UserType::orderBy('userType','asc')->get();
         }
         else{
-           $user_types = UserType::paginate(5);
+           $user_types = UserType::orderBy('userType','asc')->paginate(5);
         }        
         return $user_types;
     }

@@ -44,7 +44,7 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="certificates" :object="certificates" url="api/industries" classSize="pagination-sm"></pagination>
+        <pagination scope="certificates" :object="certificates" url="api/certificates" classSize="pagination-sm"></pagination>
     </div>
 </template>
 

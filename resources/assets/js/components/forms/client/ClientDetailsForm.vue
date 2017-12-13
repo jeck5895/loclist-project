@@ -28,7 +28,7 @@
                             <span class="required-field">*</span>
                         </label>
                         <select v-model="client.industry" v-validate="{rules:{required:true}}" name="client_industry" class="form-control form-control-sm" id="companyIndustry">
-                            <option value="">--Select Industry--</option>
+                            <option :value="null">--Select Industry--</option>
                             <option v-for="(industry, index) in industries" :key="index" :value="industry.id">
                                 {{ industry.industry_name }}
                             </option>
@@ -132,6 +132,20 @@
                         <input v-model="client.mobile_number" v-validate="{rules:{required:true}}" name="mobile_number" type="text" class="form-control form-control-sm">
                         <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.mobile_number')">{{ errors.first('clientDetailsForm.mobile_number') }}</small>
                     </div>
+                    
+                    <div class="form-group col-md-3">
+                        <label for="">Gender</label>
+                        <select v-model="client.gender" v-validate="{rules:{required:true}}" name="gender" id="" class="form-control form-control-sm">
+                            <option value="">--Select Gender--</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.gender')">{{ errors.first('clientDetailsForm.gender') }}</small>
+                    </div>
+                </div>
+
+                <!-- 6th row -->
+                <div class="row">
                     <div class="form-group col-md-3">
                         <label for="">Department</label>
                         <select v-model="client.department" v-validate="{rules:{required:true}}" name="department" id="" class="form-control form-control-sm">
@@ -142,19 +156,7 @@
                         </select>
                         <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.department')">{{ errors.first('clientDetailsForm.department') }}</small>
                     </div>
-                </div>
-
-                <!-- 6th row -->
-                <div class="row">
-                    <div class="form-group col-md-3">
-                        <label for="">Gender</label>
-                        <select v-model="client.gender" v-validate="{rules:{required:true}}" name="gender" id="" class="form-control form-control-sm">
-                            <option value="">--Select Gender--</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.gender')">{{ errors.first('clientDetailsForm.gender') }}</small>
-                    </div>
+                    
                     <div class="form-group col-md-3">
                         <label for="">Position</label>
                         <select v-model="client.position" v-validate="{rules:{required:true}}" name="position" id="" class="form-control form-control-sm">
@@ -174,8 +176,8 @@
                         <label for="">Proposal</label>
                         <select v-model="client.proposal" v-validate="{rules:{required:true}}" name="proposal" id="" class="form-control form-control-sm">
                             <option value="">--Select Proposal--</option>
-                            <option value="DIRECT">Direct</option>
-                            <option value="OUTSOURCE">Outsourced</option>
+                            <option value="DIRECT">DIRECT</option>
+                            <option value="OUTSOURCE">OUTSOURCED</option>
                             <option value="LFC">LFC</option>
                         </select>
                         <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.proposal')">{{ errors.first('clientDetailsForm.proposal') }}</small>
@@ -185,7 +187,7 @@
                         <select v-model="client.company" v-validate="{rules:{required:true}}" name="company"  class="form-control form-control-sm">
                             <option value="">--Select Company--</option>
                             <option v-for="(company, index) in companies" :key="index" :value="company.id">
-                                {{ company.company_name }}
+                                {{ company.company_name.toUpperCase() }}
                             </option>
                         </select>
                         <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.company')">{{ errors.first('clientDetailsForm.company') }}</small>
@@ -262,7 +264,14 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-3">
-                        <button type="submit" class="btn btn-success btn-sm" >Save Client Details</button>
+                        <button type="submit" class="btn btn-success btn-sm" :disabled="isSubmitting">
+                            <span v-if="isSubmitting" >
+                                Saving...  <span class="fa fa-refresh fa-spin"></span>
+                            </span>
+                            <span v-else>
+                                Save Client Details
+                            </span>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -284,6 +293,9 @@ export default {
         }
     },
     computed: {
+        isSubmitting() {
+            return this.$store.getters.getSubmitState;
+        },
         isLoading() {
             return this.$store.getters.getLoadingState;
         },
@@ -426,6 +438,7 @@ export default {
                     }
                 }
                 else {
+                    toastr.error('Warning', 'Please fix errors to submit');
                     console.log(result)
                     console.log(this.errors)
                     let payload = {
