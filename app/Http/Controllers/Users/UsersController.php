@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
+use App\Events\UserEvent;
 use Illuminate\Http\Request;
 use App\User;
+use App\VwUserRole;
 use App\Http\Requests\Users\StoreNewUser;
 use App\Http\Requests\Users\UpdateUser;
 
@@ -17,20 +19,39 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::active()->with('userType')->paginate(5);
+        $request = app()->make('request');
 
-        // foreach($query as $user){
-        //     $users[] = array (
-                
-        //     );
-        // }
+        $users = VwUserRole::
+                    orderBy($request->sort_column, $request->order_by)
+                    ->where(function($query) use ($request) {
+                        if($request->has('keyword')){
+                            $query->where('name', 'LIKE', '%'.$request->keyword.'%');
+                        }
+                    })
+                    ->active()
+                    ->paginate($request->per_page);
+        // $users = User::
+        //             orderBy($request->sort_column, $request->order_by)
+        //             ->where(function($query) use ($request) {
+        //                 if($request->has('keyword')){
+        //                     $query->where('name', 'LIKE', '%'.$request->keyword.'%');
+        //                 }
+        //             })
+        //             ->active()
+        //             ->with('userType')
+        //             ->paginate($request->per_page);
 
+        return response()->json([
+            'model' => $users,
+            'columns' => User::$columns
+        ]);
+    
         // $paginator = $this->items()->where('position', '=', null)->paginate(15);
         // $paginator->getCollection()->transform(function ($value) {
         //     // Your code here    
         // })
 
-        return $users;
+        
     }
 
     /**
@@ -52,7 +73,7 @@ class UsersController extends Controller
     public function store(StoreNewUser $request)
     {
         //$this->authorize('create');
-        User::create(
+        $user_id = User::create(
             [
                 'name' => $request['name'],
                 'initial' => $request['initial'],
@@ -60,8 +81,12 @@ class UsersController extends Controller
                 'password' => bcrypt('secret'),
                 'userType' => $request['userType']
             ]
-        );
+        )->id;
+
+        $user = User::find($user_id);
         
+        event(new UserEvent($user));
+
         return ['message' => $request['name'] . ' has been saved.'];
     }
 

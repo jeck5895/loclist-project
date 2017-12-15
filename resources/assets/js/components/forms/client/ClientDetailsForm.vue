@@ -187,7 +187,7 @@
                         <select v-model="client.company" v-validate="{rules:{required:true}}" name="company"  class="form-control form-control-sm">
                             <option value="">--Select Company--</option>
                             <option v-for="(company, index) in companies" :key="index" :value="company.id">
-                                {{ company.company_name.toUpperCase() }}
+                                {{ company.company_name }}
                             </option>
                         </select>
                         <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.company')">{{ errors.first('clientDetailsForm.company') }}</small>
@@ -285,7 +285,16 @@ import formErrors from '../../errors/clientForm/clientFormError';
 
 export default {
     created() {
-        
+        let user = Vue.auth.getter();
+        /**@event Client Side Broadcasting
+         * Demonstrating Client Side broadcasting 
+         * notifying other users that someone is 
+         * creating new client details*/
+        Echo.private('client-channel')
+        .whisper('creating', {
+            user: user.name,
+            message: 'is adding new client now.'
+        });
     },
     data() {
         return {

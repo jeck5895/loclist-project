@@ -20,9 +20,41 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        $clients = Client::active()->with('user')->paginate(10);
+        $request = app()->make('request');
 
-        return $clients;
+        $clients = Client::
+                    orderBy($request->sort_column, $request->order_by)
+                    // ->orWhere('province', 'LIKE', '%'.$request->keywor.'%')
+                    // ->orWhere('administrative_area_level_1', 'LIKE', '%'.$request->keywor.'%')
+                    // ->orWhere('complete_mailing_address', 'LIKE', '%'.$request->keywor.'%')
+                    ->where(function($query) use ($request){
+                        if($request->has('keyword'))
+                        {
+                            $query->where('client_name', 'LIKE' ,'%'.$request->keyword.'%');
+                            // ->orWhere('province', 'LIKE' ,'%'.$request->keyword.'%')
+                            //         ->orWhere('administrative_area_level_1', 'LIKE' ,'%'.$request->keyword.'%');
+                            if($request->has('industry') && $request->industry != null)
+                            {
+                                $query->where('industry',$request->industry);
+                            }
+                            if($request->has('location') && $request->location != null)
+                            {
+                                $query->where('province', 'LIKE' , '%'.$request->location.'%');
+                            }
+                        }
+                        else{
+
+                        }
+                        
+                    })
+                    ->active()
+                    ->with('user')
+                    ->paginate($request->per_page);
+
+        return response()->json([
+            'model' => $clients,
+            'columns' => Client::$columns,
+        ]);
     }
 
     /**
@@ -151,22 +183,23 @@ class ClientsController extends Controller
 
     public function search() 
     {
-        $keyword = $_GET['keyword'];
-        $from_date = $_GET['from_date'];
-        $to_date = $_GET['to_date'];
-        $location = $_GET['location'];
-        $status = $_GET['status'];
-        $industry = $_GET['industry'];
+        $keyword = isset($_GET['keyword']) ? $_GET['keyword']: '';
+        $from_date = isset($_GET['from_date']) ? $_GET['from_date'] : '';
+        $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : '';
+        $location = isset($_GET['location']) ? $_GET['location'] : '';
+        $status = isset($_GET['status']) ? $_GET['status'] : '';
+        $industry = isset($_GET['industry']) ? $_GET['industry'] : '';
 
-        $clients = Client::where('client_name', 'LIKE', "%".$keyword."%");
-
-        return [
-            'keyword' => $keyword,
-            'from_date' => $from_date,
-            'to_date' => $to_date,
-            'location' => $location,
-            'status' => $status,
-            'industry' => $industry
-        ];
+        $clients = Client::where('client_name', 'LIKE', "%".$keyword."%")->active()->with('user')->paginate(10);
+        
+        return $clients;
+        // return [
+        //     'keyword' => $keyword,
+        //     'from_date' => $from_date,
+        //     'to_date' => $to_date,
+        //     'location' => $location,
+        //     'status' => $status,
+        //     'industry' => $industry
+        // ];
     }
 }

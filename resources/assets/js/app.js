@@ -8,6 +8,7 @@
 require('./bootstrap');
 import router from './router/routes';
 import {store} from './store/store';
+import Notification from './components/navigation/Notification';
 
 router.beforeEach((to, from, next) => {
     if(to.matched.some(record => record.meta.forAuthUsers)){
@@ -28,12 +29,17 @@ router.beforeEach((to, from, next) => {
 
 const app = new Vue({
     el: '#app',
+    created(){
+        
+    },
     data:{
 
     },
     store,
     router:router,
-    components:{},
+    components:{
+        Notification
+    },
     methods:{
         signOut(){
             localStorage.removeItem('_u');

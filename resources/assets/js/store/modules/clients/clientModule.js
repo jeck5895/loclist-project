@@ -6,7 +6,7 @@ export default {
         client_manpower_providers: [],
         client_manpower_provider: {},
         client_sourcing_practices: [],
-        client_sourcing_practice: {}
+        client_sourcing_practice: {},
     },
     getters:{
         getClients: state => {
@@ -42,7 +42,7 @@ export default {
             state.client_manpower_providers.splice(state.client_manpower_providers.indexOf(payload), 1);
         },
         setClients: (state, payload) => {
-            state.clients = payload.data;
+            state.clients = payload.data.model;
         },
         setClient: (state, payload) => {
             state.client = payload.data;
@@ -70,6 +70,7 @@ export default {
             
             axios.get('api/clients/' + payload.id)
             .then(response => {
+                
                 context.commit('setClient', response);
                 setTimeout(() => {
                     context.commit('setLoadingState', false);
@@ -83,7 +84,9 @@ export default {
             context.commit('setLoadingState', true);
             axios.get(payload)
             .then(response => {
+                console.log(response)
                 context.commit('setClients', response);
+                context.commit('setColumns', response.data.columns);
                 setTimeout(() => {
                     context.commit('setLoadingState', false);
                 }, 1000);
@@ -157,13 +160,23 @@ export default {
             });
         },
         search: (context, payload) => {
+            context.commit('setLoadingState', true);
             return new Promise((resolve, reject) => {
                 axios.get('api/clients/search?keyword=' + payload.keyword + '&from_date=' + payload.from_date + '&to_date=' + payload.to_date + '&location=' + payload.location + '&status=' + payload.status + '&industry=' + payload.industry )
                 .then(response => {
                     console.log(response)
+                    setTimeout(() => {
+                        context.commit('setClients', response);
+                        context.commit('setLoadingState', false);
+                        resolve(response)
+                    }, 1000);
                 })
                 .catch(error => {
                     console.log(error.response)
+                    setTimeout(() => {
+                        context.commit('setLoadingState', false);
+                        reject(error.response)
+                    }, 1000);
                 });
             });
         }

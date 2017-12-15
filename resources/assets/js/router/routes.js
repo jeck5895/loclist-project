@@ -31,6 +31,20 @@ let routes = [
         }
     },
     {
+        path: '/maintainance',
+        component: require('../components/containers/Maintainance.vue'),
+        meta: {
+            forAuthUsers: true
+        }
+    },
+    {
+        path: '/users',
+        component: require('../components/containers/Users.vue'),
+        meta: {
+            forAuthUsers: true
+        }
+    },
+    {
         path: "*",
          component: require('../components/errors/404.vue') 
     }

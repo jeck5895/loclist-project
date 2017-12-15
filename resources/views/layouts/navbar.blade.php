@@ -19,7 +19,8 @@
                 </a>
             </li>
             @else
-
+            <!-- Notification Section -->
+            <notification></notification>
             <li class="nav-item dropdown show">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ Auth::user()->name }}
@@ -32,6 +33,14 @@
                     <router-link class="dropdown-item" to="/home">
                         Home
                     </router-link>
+                    <router-link class="dropdown-item" to="/maintainance">
+                        Maintaince
+                    </router-link>
+                    @if(Auth::user()->userType == 1)
+                    <router-link class="dropdown-item" to="/users">
+                        Manage Users
+                    </router-link>
+                    @endif
                     <router-link class="dropdown-item" to="/user/profile">
                         Profile
                     </router-link>

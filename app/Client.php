@@ -9,6 +9,8 @@ class Client extends Model
     //
     protected $guarded = [];
 
+    public static $columns = ['id','entry_by','client_name','contact_person','mobile_number','email_address','created_at'];
+
     public function scopeActive($query)
     {
         return $query->where('is_active', 1);

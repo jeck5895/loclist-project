@@ -1,5 +1,57 @@
 <template>
     <div>
+        <div class="row">
+            <div class="col-md-12">
+                <form @submit.prevent="search" class="form-inline float-right mt-2 mb-2">
+                    <div class="form-group">
+                        <label for="staticEmail" class="col-form-label mr-1">ADVANCE</label>
+                        <button @click="dropdownMenuClick" class="mr-sm-2 btn btn-sm btn-default" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <span class="fa fa-th"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-filter">
+                            <h6 class="dropdown-header py-0">Filter By Entry Date</h6>
+                            <div class="px-4 py-2 form-inline">
+                                <div class="form-group">
+                                    <label for="exampleDropdownFormEmail1" class="mr-1">From</label>
+                                    <input v-model="user_query.from_date" type="date" class="form-control form-control-sm mr-sm-2" id="exampleDropdownFormEmail1">
+                                    <label for="exampleDropdownFormPassword1" class="mr-1">To</label>
+                                    <input v-model="user_query.to_date" type="date" class="form-control form-control-sm mr-sm-2" id="exampleDropdownFormPassword1">
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+
+                            <div class="px-4 py-2 form-inline">
+                                <div class="form-group">
+                                    <label for="staticEmail" class="col-form-label mr-1">PER PAGE</label>
+                                    <select @change="togglePerpage" v-model="user_query.per_page" name="" id="" class="form-control mr-2 form-control-sm">
+                                        <option v-for="(value, index) in page_display" :key="index" :value="value">{{ value }}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="staticEmail" class="col-form-label mr-1">COLUMN</label>
+                                    <select @change="toggleSort" v-model="user_query.sort_column" name="" id="" class="form-control mr-2 form-control-sm">
+                                        <option v-for="(column, index) in columns" :key="index" :value="column">{{ column }}</option>
+                                    </select>
+                                    <label for="staticEmail" class="col-form-label mr-1">ORDER</label>
+                                    <select @change="toggleSort" v-model="user_query.order_by" name="" id="" class="form-control mr-2 form-control-sm">
+                                        <option value="asc">ASCENDING</option>
+                                        <option value="desc">DESCENDING</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input v-model="user_query.search_keyword" style="width:250px;" class="form-control form-control-sm mr-sm-2" type="text" placeholder="Search"
+                            aria-label="Search">
+                        <button class="btn btn-success btn-sm my-2 my-sm-0" type="submit">
+                            <span class="fa fa-search"></span>&nbsp; Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <table class="table table-borderless table-striped m-b-none">
             <thead>
                 <tr>
@@ -47,7 +99,8 @@
                         {{ user.email }}
                     </td>
                     <td style="vertical-align: middle;">
-                        {{ user.user_type.userType }}
+                        {{ user.userType }}
+                        <!-- {{ user.user_type.userType }} ({{ user.user_type.id }}) -->
                     </td>
                     <td style="vertical-align: middle;">
                         {{ user.created_at | humanReadableFormat }}
@@ -71,7 +124,10 @@
             </tbody>
         </table>
         
-        <pagination scope="users" :object="users" url="api/users"></pagination>
+        <pagination scope="users" :object="users" 
+                :url="`api/users?keyword=${this.user_query.search_keyword}&order_by=${this
+                .user_query.order_by}&per_page=${this.user_query
+                .per_page}&sort_column=${this.user_query.sort_column}`"></pagination>
 
     </div>
 </template>
@@ -81,7 +137,13 @@
 
     export default {
         mounted(){
-            this.$store.dispatch('loadUsers', this.currUrl);
+            this.loadUsersData();
+
+            Echo.private('user-channel')
+            .listen('UserEvent', (e) => {
+                console.log(e);
+                this.loadUsersData();
+            });
         },
         data(){
             return {
@@ -89,6 +151,15 @@
             }
         },
         computed:{
+            user_query() {
+                return this.$store.getters.getUserApiQuery;
+            },
+            columns() {
+                return this.$store.getters.getColumns;
+            },
+            page_display() {
+                return this.$store.getters.getPageDisplay;
+            },
             isLoading() {
                 return this.$store.getters.getLoadingState;
             },
@@ -109,6 +180,46 @@
            
         },
         methods:{
+            dropdownMenuClick() {
+                $(".dropdown-filter").on("click", function (e) {
+                    e.stopPropagation();
+                });
+            },
+            toggleSort() {
+                // console.log(this.user_query.order_by)
+                let query = {
+                    search_keyword: this.user_query.search_keyword,
+                    order_by: this.user_query.order_by,
+                    per_page: this.user_query.per_page,
+                    sort_column: this.user_query.sort_column,
+                    
+                };
+
+                this.$store.dispatch("setUserApiQuery", query).then(() => {
+                   this.loadUsersData();
+                });
+            },
+            togglePerpage() {
+                // console.log(this.user_query.order_by)
+                let query = {
+                    search_keyword: this.user_query.search_keyword,
+                    order_by: this.user_query.order_by,
+                    per_page: this.user_query.per_page,
+                    sort_column: this.user_query.sort_column,
+                    
+                };
+
+                this.$store.dispatch("setUserApiQuery", query).then(() => {
+                    this.loadUsersData();
+                });
+            },
+            loadUsersData() {
+                return this.$store.dispatch('loadUsers', 
+                `api/users?keyword=${this.user_query.search_keyword}&order_by=${this
+                    .user_query.order_by}&per_page=${this.user_query
+                    .per_page}&sort_column=${this.user_query.sort_column}`
+                );
+            },
             edit(user){
                 this.$store.dispatch('setModalTitle', 'Edit User Details');
                 this.$store.dispatch('loadUser', user);
@@ -127,6 +238,19 @@
                 this.$store.dispatch('setModalTitle', "Delete " + user.name + " record?");
                 this.$store.dispatch('setDeletionType', deletionType);
                 this.$store.dispatch('showConfirmationModal');
+            },
+            search() {
+                let query = {
+                    search_keyword: this.user_query.search_keyword,
+                    order_by: this.user_query.order_by,
+                    per_page: this.user_query.per_page,
+                    sort_column: this.user_query.sort_column,
+                   
+                };
+
+                this.$store.dispatch("setUserApiQuery", query).then(() => {
+                    this.loadUsersData();
+                });
             }
         },
         components:{

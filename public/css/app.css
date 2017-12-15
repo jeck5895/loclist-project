@@ -9791,7 +9791,11 @@ a.text-dark:hover {
   background: #cfd8dc;
 }
 
-.bg- .bg-transparent {
+.bg-white {
+  background: #fff;
+}
+
+.bg-transparent {
   background: transparent;
 }
 

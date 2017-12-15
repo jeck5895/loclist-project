@@ -19,3 +19,8 @@ Broadcast::channel('client-channel', function ($user) {
     // return (int) $user->id === (int) $id;
     return !empty($user) ? true : false;
 });
+
+Broadcast::channel('user-channel', function ($user) {
+    // return (int) $user->id === (int) $id;
+    return !empty($user) ? true : false;
+});

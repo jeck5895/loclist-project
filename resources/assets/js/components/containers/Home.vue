@@ -1,13 +1,7 @@
 <template>
     <div class="row  justify-content-center">
         <div class="col-md-12">
-            <!-- <div class="flex-row mb-1">
-                <div class="card card-default rounded-0">
-                    <div class="card-body p-2">
-
-                    </div>
-                </div>
-            </div> -->
+            <nav-buttons></nav-buttons>
             <div class="card card-default rounded-0">
                 <div class="card-body home-tab p-2">
                     <nav-tabs></nav-tabs>
@@ -22,6 +16,7 @@
 <script>
 import NavTabs from "../navs/NavTabs.vue";
 import modal from '../modal/modal.vue';
+import NavButtons from '../nav-buttons/NavButtons';
 
 export default {
     created() {
@@ -29,6 +24,11 @@ export default {
          * Load/Dispatch loadClients action from store data on page load
          * this.$store.dispatch('loadClients');
          */
+        Echo.private('client-channel')
+        .listenForWhisper('creating', (e) => {
+            toastr.info('', e.user + ' ' + e.message)
+            console.log(e)
+        })
     },
     data() {
         return {
@@ -48,7 +48,8 @@ export default {
     },
     components: {
         NavTabs,
-        modal
+        modal,
+        NavButtons
     }
 }
 </script>

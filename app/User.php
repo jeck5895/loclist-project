@@ -28,6 +28,10 @@ class User extends Authenticatable
         'password', 'remember_token','api_token',
     ];
 
+    public static $columns = [
+        'id', 'name' , 'initial', 'email', 'userType', 'created_at'
+    ];
+
     public function scopeActive($query) //can pass 2nd argument as parameters for where condition i.e scopeActive($query, $param)
     {
         return $query->where('is_active', 1);

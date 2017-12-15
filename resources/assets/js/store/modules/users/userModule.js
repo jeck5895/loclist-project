@@ -22,7 +22,7 @@ export default{
     },
     mutations:{
         setUsers: (state, payload) => {
-            state.users = payload.data;
+            state.users = payload.data.model;
         },
         setUser: (state, payload) => {
             state.user = payload.data;
@@ -48,11 +48,15 @@ export default{
                 var pages = Math.round(response.data.total / response.data.per_page);
                 context.commit('setUsers', response);
                 context.commit('setTotalPage', pages);
+                context.commit('setColumns', response.data.columns);
                 setTimeout(() => {
-                    context.commit('setLoadingState', true);
+                    context.commit('setLoadingState', false);
                 }, 1000);
             })
             .catch(error => {
+                setTimeout(() => {
+                    context.dispatch('setLoadingState', false);
+                }, 1000);
                 console.log(error.response.data)
             });
         },
@@ -67,6 +71,9 @@ export default{
                 }, 1000);
             })
             .catch(errors => {
+                setTimeout(() => {
+                    context.dispatch('setLoadingState', false);
+                }, 1000);
                 console.log(errors.response.data);
             });
         },

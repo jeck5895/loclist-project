@@ -1,27 +1,35 @@
 <template>
-    <nav aria-label="...">
-        <ul :class="'pagination ' + classSize +' justify-content-center'">
-            <li :class="object.first_page_url == null ? 'page-item disabled' : '' ">
-                <a class="page-link" @click.prevent="firstPage(object.first_page_url)" href="#" tabindex="-1">
-                    <span class="fa fa-long-arrow-left"></span>
-                </a>
-            </li>
-            <li :class="object.prev_page_url == null ? 'page-item disabled' : 'page-item'">
-                <a class="page-link" @click.prevent="prevPage(object.prev_page_url)" href="#" tabindex="-1">Previous</a>
-            </li>
-            <li :class="object.current_page == i ? 'page-item active':'active'" v-for="i in object.last_page" :key="i">
-                <a class="page-link" @click.prevent="toPage(i)" href="#">{{ i }}</a>
-            </li>
-            <li :class="object.next_page_url == null ? 'page-item disabled' : 'page-item'">
-                <a class="page-link" @click.prevent="nextPage(object.next_page_url)" href="#">Next</a>
-            </li>
-            <li :class="object.last_page_url == null ? 'page-item disabled' : '' ">
-                <a class="page-link" @click.prevent="lastPage(object.last_page_url)" href="#">
-                    <span class="fa fa-long-arrow-right"></span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <div class="row clearfix">
+        <div class="col-md-4 float-left">
+           Displaying from {{ object.from }} to {{ object.to }} total of {{ object.total }}
+        </div>
+        
+        <div class="col-md-8 float-right">
+            <nav aria-label="...">
+                <ul :class="'pagination ' + classSize +' justify-content-end'">
+                    <li :class="object.first_page_url == null ? 'page-item disabled' : '' ">
+                        <a class="page-link" @click.prevent="firstPage(object.first_page_url)" href="#" tabindex="-1">
+                            <span class="fa fa-long-arrow-left"></span>
+                        </a>
+                    </li>
+                    <li :class="object.prev_page_url == null ? 'page-item disabled' : 'page-item'">
+                        <a class="page-link" @click.prevent="prevPage(object.prev_page_url)" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li :class="object.current_page == i ? 'page-item active':'active'" v-for="i in object.last_page" :key="i">
+                        <a class="page-link" @click.prevent="toPage(i)" href="#">{{ i }}</a>
+                    </li>
+                    <li :class="object.next_page_url == null ? 'page-item disabled' : 'page-item'">
+                        <a class="page-link" @click.prevent="nextPage(object.next_page_url)" href="#">Next</a>
+                    </li>
+                    <li :class="object.last_page_url == null ? 'page-item disabled' : '' ">
+                        <a class="page-link" @click.prevent="lastPage(object.last_page_url)" href="#">
+                            <span class="fa fa-long-arrow-right"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -35,7 +43,8 @@
         },
         methods:{
             toPage(page){
-                var url = this.url + "?page=" + page;
+                var bool = this.url.includes('?');
+                var url = bool ? this.url + "&page=" + page : this.url + "?page=" + page;
                 switch (this.scope) {
                     case "users":
                         this.$store.dispatch('loadUsers', url);

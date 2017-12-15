@@ -1,157 +1,198 @@
 <template>
-    <div>
-        <h4 class="py-2 mb-0">Form Keywords</h4>
-        <hr class="mt-0">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-default">
-                    <div class="card-header">
-                        <h6 class="float-left">Companies</h6>
-                        <div class="float-right">
-                            <button class="btn btn-sm btn-default" @click="showFormModal('COMPANY_FORM')">
-                                <span class="fa fa-plus"></span> Add Company
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <companies-table></companies-table>
-                    </div>
-                </div>
-            </div>
+    <div class="card card-default">
+        <div class="card-header bg-white">
+            <h4 class="py-2 mb-0">Form Keywords</h4>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-default">
-                    <div class="card-header">
-                        <h6 class="float-left">Industries</h6>
-                        <div class="float-right">
-                            <button class="btn btn-sm btn-default" @click="showFormModal('INDUSTRY_FORM')">
-                                <span class="fa fa-plus"></span> Add Industry
-                            </button>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h6 class="float-left">Companies</h6>
+                            <div class="float-right">
+                                <button class="btn btn-sm btn-default" @click="showFormModal('COMPANY_FORM')">
+                                    <span class="fa fa-plus"></span> Add Company
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <industry-table></industry-table>
+                        <div class="card-body p-0">
+                            <companies-table></companies-table>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card card-default">
-                    <div class="card-header clearfix">
-                        <h6 class="float-left">Nationalities</h6>
-                        <div class="float-right">
-                            <button class="btn btn-sm btn-default" @click="showFormModal('NATIONALITY_FORM')">
-                                <span class="fa fa-plus"></span> Add Nationality
-                            </button>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h6 class="float-left">Industries</h6>
+                            <div class="float-right">
+                                <button class="btn btn-sm btn-default" @click="showFormModal('INDUSTRY_FORM')">
+                                    <span class="fa fa-plus"></span> Add Industry
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <industry-table></industry-table>
                         </div>
                     </div>
-                    <div class="card-body p-0">
-                        <nationalities-table></nationalities-table>
+                </div>
+                <div class="col-md-6">
+                    <div class="card card-default">
+                        <div class="card-header clearfix">
+                            <h6 class="float-left">Nationalities</h6>
+                            <div class="float-right">
+                                <button class="btn btn-sm btn-default" @click="showFormModal('NATIONALITY_FORM')">
+                                    <span class="fa fa-plus"></span> Add Nationality
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <nationalities-table></nationalities-table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-default">
-                    <div class="card-header">
-                        <h6 class="float-left">ISO Certicates</h6>
-                        <div class="float-right">
-                            <button class="btn btn-sm btn-default" @click="showFormModal('ISO_FORM')">
-                                <span class="fa fa-plus"></span> Add Certificate
-                            </button>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h6 class="float-left">ISO Certicates</h6>
+                            <div class="float-right">
+                                <button class="btn btn-sm btn-default" @click="showFormModal('ISO_FORM')">
+                                    <span class="fa fa-plus"></span> Add Certificate
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <certificates-table></certificates-table>
                         </div>
                     </div>
-                    <div class="card-body p-0">
-                        <certificates-table></certificates-table>
+                </div>
+                <div class="col-md-6">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h6 class="float-left">Sourcing Practices</h6>
+                            <div class="float-right">
+                                <button class="btn btn-sm btn-default" @click="showFormModal('SOURCING_FORM')">
+                                    <span class="fa fa-plus"></span> Add Sourcing Practice
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <sourcing-table></sourcing-table>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card card-default">
-                    <div class="card-header">
-                        <h6 class="float-left">Sourcing Practices</h6>
-                        <div class="float-right">
-                            <button class="btn btn-sm btn-default" @click="showFormModal('SOURCING_FORM')">
-                                <span class="fa fa-plus"></span> Add Sourcing Practice
-                            </button>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h6 class="float-left">Departments</h6>
+                            <div class="float-right">
+                                <button class="btn btn-sm btn-default" @click="showFormModal('DEPARTMENT_FORM')">
+                                    <span class="fa fa-plus"></span> Add Departent
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <departments-table></departments-table>
                         </div>
                     </div>
-                    <div class="card-body p-0">
-                        <sourcing-table></sourcing-table>
+                </div>
+                <div class="col-md-6">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h6 class="float-left">Positions</h6>
+                            <div class="float-right">
+                                <button class="btn btn-sm btn-default" @click="showFormModal('POSITION_FORM')">
+                                    <span class="fa fa-plus"></span> Add Position
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <positions-table></positions-table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-default">
-                    <div class="card-header">
-                        <h6 class="float-left">Departments</h6>
-                        <div class="float-right">
-                            <button class="btn btn-sm btn-default" @click="showFormModal('DEPARTMENT_FORM')">
-                                <span class="fa fa-plus"></span> Add Departent
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <departments-table></departments-table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card card-default">
-                    <div class="card-header">
-                        <h6 class="float-left">Positions</h6>
-                        <div class="float-right">
-                            <button class="btn btn-sm btn-default" @click="showFormModal('POSITION_FORM')">
-                                <span class="fa fa-plus"></span> Add Position
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <positions-table></positions-table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
+            <br>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-default">
-                    <div class="card-header">
-                        <h6 class="float-left">Manpower Types</h6>
-                        <div class="float-right">
-                            <button class="btn btn-sm btn-default" @click="showFormModal('MANPOWER_FORM')">
-                                <span class="fa fa-plus"></span> Add Manpower
-                            </button>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h6 class="float-left">Manpower Types</h6>
+                            <div class="float-right">
+                                <button class="btn btn-sm btn-default" @click="showFormModal('MANPOWER_FORM')">
+                                    <span class="fa fa-plus"></span> Add Manpower
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <manpowers-table></manpowers-table>
+                        <div class="card-body p-0">
+                            <manpowers-table></manpowers-table>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card card-default">
-                    <div class="card-header">
-                        <h6 class="float-left">User Types</h6>
-                        <div class="float-right">
-                            <button class="btn btn-sm btn-default" @click="showFormModal('USERTYPE_FORM')">
-                                <span class="fa fa-plus"></span> Add User type
-                            </button>
+                <div class="col-md-6">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h6 class="float-left">User Types</h6>
+                            <div class="float-right">
+                                <button class="btn btn-sm btn-default" @click="showFormModal('USERTYPE_FORM')">
+                                    <span class="fa fa-plus"></span> Add User type
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <user-type-table></user-type-table>
+                        <div class="card-body p-0">
+                            <user-type-table></user-type-table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- MODAL SECTION -->
+        <modal>
+            <template slot="header">{{ modalTitle }}</template>
+
+            <div>
+                <div v-if="modalFormType == 'CREATE_COMPANY' || modalFormType == 'EDIT_COMPANY'">
+                    <company-form></company-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_INDUSTRY' || modalFormType == 'EDIT_INDUSTRY'">
+                    <industry-form></industry-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_NATIONALITY' || modalFormType == 'EDIT_NATIONALITY'">
+                    <nationality-form></nationality-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_ISO' || modalFormType == 'EDIT_ISO'">
+                    <iso-certificate-form></iso-certificate-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_SOURCING_PRACTICE' || modalFormType == 'EDIT_SOURCING_PRACTICE'">
+                    <sourcing-form></sourcing-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_DEPARTMENT' || modalFormType == 'EDIT_DEPARTMENT'">
+                    <department-form></department-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_POSITION' || modalFormType == 'EDIT_POSITION'">
+                    <position-form></position-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_MANPOWER' || modalFormType == 'EDIT_MANPOWER'">
+                    <manpower-form></manpower-form>
+                </div>
+                <div v-if="modalFormType == 'CREATE_USERTYPE' || modalFormType == 'EDIT_USERTYPE'">
+                    <user-type-form></user-type-form>
+                </div>
+            </div>
+        </modal>
+
+        <confirmation-modal>
+            <template slot="confirmationHeader"> {{ modalTitle }} </template>
+        </confirmation-modal>
     </div>
 </template>
 
@@ -165,6 +206,17 @@
     import ManpowersTable from '../tables/ManpowersTable';
     import UserTypeTable from '../tables/UserTypeTable';
     import CompaniesTable from '../tables/CompaniesTable';
+    import Modal from '../modal/modal';
+    import ConfirmationModal from '../modal/ConfirmationModal';
+    import IndustryForm from '../forms/maintainance/IndustryForm';
+    import NationalityForm from '../forms/maintainance/NationalityForm';
+    import IsoCertificateForm from '../forms/maintainance/IsoCertificateForm';
+    import SourcingForm from '../forms/maintainance/SourcingForm';
+    import DepartmentForm from '../forms/maintainance/DepartmentForm';
+    import PositionForm from '../forms/maintainance/PositionForm';
+    import ManpowerForm from '../forms/maintainance/ManpowerForm';
+    import UserTypeForm from '../forms/maintainance/UserTypeForm';
+    import CompanyForm from '../forms/company/CompanyForm';
 
     export default {
         mounted(){
@@ -178,6 +230,12 @@
         computed:{
             currForm(){
                 return this.$store.getters.getForm;
+            },
+            modalTitle(){
+                return this.$store.getters.getModalTitle;
+            },
+            modalFormType(){
+                return this.$store.getters.getModalFormType;
             },
         },
         methods:{
@@ -269,7 +327,18 @@
             PositionsTable,
             ManpowersTable,
             UserTypeTable,
-            CompaniesTable
+            CompaniesTable,
+            Modal,
+            ConfirmationModal,
+            IndustryForm,
+            NationalityForm,
+            IsoCertificateForm,
+            SourcingForm,
+            DepartmentForm,
+            PositionForm,
+            ManpowerForm,
+            UserTypeForm,
+            CompanyForm
         } 
     }
 </script>
