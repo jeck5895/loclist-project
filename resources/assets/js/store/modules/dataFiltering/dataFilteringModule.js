@@ -9,7 +9,8 @@ export default {
             from_date:'',
             to_date:'',
             location:'',
-            industry:''
+            industry:'',
+            status:''
         },
         user_query: {
             search_keyword: '',

@@ -62,10 +62,12 @@ export default {
             });
         },
         storeCertificate: (context, payload) => {
+            context.commit('setSubmitState', true);
             axios.post('api/certificates', payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
+                    context.commit('setSubmitState', false);
                     $("#createUserModal").modal('hide');
                     toastr.success('Success', response.data.message);
                     //document.getElementById('isoForm').reset();
@@ -74,15 +76,18 @@ export default {
             .catch(error => {
                 let errors = error.response;
                 context.commit('setServerResponse', errors);
+                context.commit('setSubmitState', false);
                 //toastr.error('Error', 'Oops! something went wrong');
                 console.log(errors);
             });
         },
         updateCertificate: (context, payload) => {
+            context.commit('setSubmitState', true);
             axios.patch('api/certificates/' + payload.id, payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
+                    context.commit('setSubmitState', false);
                     $("#createUserModal").modal('hide');
                     toastr.success('Success', response.data.message);
                     //document.getElementById('isoForm').reset();
@@ -90,6 +95,7 @@ export default {
             })
             .catch(error => {
                 context.commit('setServerResponse', error.response);
+                context.commit('setSubmitState', false);
                 console.log(error.response)
             });
         },

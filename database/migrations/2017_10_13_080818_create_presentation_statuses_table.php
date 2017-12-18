@@ -17,7 +17,7 @@ class CreatePresentationStatusesTable extends Migration
             $table->increments('id');
             $table->string('status', 60);
             $table->timestamps();
-            $table->tinyInteger('is_active');
+            $table->tinyInteger('is_active')->default(1);
         });
     }
 

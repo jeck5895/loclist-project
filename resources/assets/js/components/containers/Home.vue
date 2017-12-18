@@ -17,6 +17,7 @@
 import NavTabs from "../navs/NavTabs.vue";
 import modal from '../modal/modal.vue';
 import NavButtons from '../nav-buttons/NavButtons';
+import {store} from '../../store/store';
 
 export default {
     created() {
@@ -29,6 +30,13 @@ export default {
             toastr.info('', e.user + ' ' + e.message)
             console.log(e)
         })
+    },
+    beforeRouteEnter(to, from, next) {
+        store.dispatch('clearIndustries');
+        store.dispatch('clearStatuses');
+        store.dispatch("loadIndustries", "api/industries?type=all");
+        store.dispatch('loadStatuses','api/statuses?type=all');
+        next();
     },
     data() {
         return {

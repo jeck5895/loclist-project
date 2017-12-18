@@ -11,6 +11,15 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- <tr v-if="isLoading">
+                    <td colspan="11" class="text-center">
+                    <div v-if="isLoading" class="card-body">
+                            <div class="img-loading-container">
+                                <img src="/images/spinner.gif" class="img-sm">
+                            </div>   
+                        </div>
+                    </td>
+                </tr> -->
                 <tr v-if="positions.data == 0">
                     <td colspan="7" class="text-center">
                         No data to show...
@@ -59,6 +68,9 @@
         computed: {
             positions() {
                 return this.$store.getters.getPositions;
+            },
+            isLoading() {
+                return this.$store.getters.getLoadingState;
             }
         },
         methods: {

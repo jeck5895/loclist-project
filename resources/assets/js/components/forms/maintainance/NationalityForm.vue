@@ -37,6 +37,9 @@
 
         },
         computed: {
+            isSubmitting() {
+                return this.$store.getters.getSubmitState;
+            },  
             nationality() {
                 return this.$store.getters.getNationality;
             },

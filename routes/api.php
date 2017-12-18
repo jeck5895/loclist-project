@@ -22,7 +22,6 @@ Route::middleware('auth:api')->group(function() {
     // Route::get('/users/{id}', 'UsersController@show');
     // Route::post('/user', 'UsersController@store');
     // Route::patch('/user/{id}', 'UsersController@update');
-    Route::get('clients/search', 'clients\ClientsController@search');
     Route::apiResource('users', 'users\UsersController');
     Route::apiResource('user_types', 'maintainance\UserTypesController');
     Route::apiResource('companies', 'companies\CompaniesController');
@@ -34,10 +33,12 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('departments', 'maintainance\DepartmentsController');
     Route::apiResource('positions', 'maintainance\PositionsController');
     Route::apiResource('manpowers', 'maintainance\ManpowersController');
+    Route::apiResource('statuses', 'maintainance\StatusesController');
     
 });
 
 Route::get('/test',function(){
+   
     // return response()->json([
     //     "user" => [
     //         'lastname' => 'Jerick',

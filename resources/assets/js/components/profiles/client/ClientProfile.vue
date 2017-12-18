@@ -35,19 +35,19 @@
                             Industry
                         </dt>
                         <dd class="col-sm-9">
-                            Information Technology
+                            {{ client.company_industry.industry_name }}
                         </dd>
                         <dt class="col-sm-3">
                             Nationality
                         </dt>
                         <dd class="col-sm-9">
-                            American
+                            {{ client.company_nationality.nationality}}
                         </dd>
                         <dt class="col-sm-3">
                             ISO Certification
                         </dt>
                         <dd class="col-sm-9">
-                            ISO 9001
+                            {{ client.company_certificate.iso_name }}
                         </dd>
                         <dt class="col-sm-3">
                             Mailing Address
@@ -116,15 +116,15 @@
                         <dd class="col-sm-9">{{ client.gender }}</dd>
 
                         <dt class="col-sm-3">Deparment</dt>
-                        <dd class="col-sm-9">{{ client.department.department_name }}</dd>
+                        <dd class="col-sm-9">{{ client.company_department.department_name }}</dd>
 
                         <dt class="col-sm-3">Position</dt>
-                        <dd class="col-sm-9">{{ client.position.position_name }}</dd>
+                        <dd class="col-sm-9">{{ client.contact_person_position.position_name }}</dd>
                     </dl>
                     <hr>
                     <dl class="row">
                         <dt class="col-sm-3">Manpower</dt>
-                        <dd class="col-sm-9">{{ client.manpower_type.type }}</dd>
+                        <dd class="col-sm-9">{{ client.company_manpower_type.type }}</dd>
 
                         <dt class="col-sm-3">Souring Practices</dt>
                         <dd class="col-sm-9">
@@ -150,7 +150,7 @@
                         <dd class="col-sm-9">{{ client.proposal }}</dd>
 
                         <dt class="col-sm-3">Company</dt>
-                        <dd class="col-sm-9">{{ client.company.company_name }}</dd>
+                        <dd class="col-sm-9">{{ client.provider_company.company_name }}</dd>
                     </dl>
                 </div>
                 <div class="card-footer bg-white">

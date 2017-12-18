@@ -11,6 +11,15 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- <tr v-if="isLoading">
+                    <td colspan="11" class="text-center">
+                    <div v-if="isLoading" class="card-body">
+                            <div class="img-loading-container">
+                                <img src="/images/spinner.gif" class="img-sm">
+                            </div>   
+                        </div>
+                    </td>
+                </tr> -->
                  <tr v-if="user_types.data == 0">
                     <td colspan="7" class="text-center">
                         No data to show...
@@ -58,6 +67,9 @@
             this.$store.dispatch('loadUserTypes', 'api/user_types');
         },
         computed: {
+            isLoading() {
+            return this.$store.getters.getLoadingState;  
+            },
             user_types() {
                 return this.$store.getters.getUserTypes;
             },

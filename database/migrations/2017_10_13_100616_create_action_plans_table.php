@@ -17,7 +17,7 @@ class CreateActionPlansTable extends Migration
             $table->increments('id');
             $table->string('action_name',50);
             $table->timestamps();
-            $table->tinyInteger('is_active');
+            $table->tinyInteger('is_active')->default(1);
         });
     }
 

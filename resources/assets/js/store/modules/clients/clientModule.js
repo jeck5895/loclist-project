@@ -51,7 +51,10 @@ export default {
             state.client_manpower_providers.push(payload);
         },
         setClientManpowerProvider: (state, payload) => {
-            state.client_manpower_provider;
+            state.client_manpower_provider = payload;
+        },
+        setClientSourcingPractices: (state, payload) => {
+            state.client_sourcing_practices = payload;
         }
     },
     actions:{
@@ -70,8 +73,21 @@ export default {
             
             axios.get('api/clients/' + payload.id)
             .then(response => {
+                //let sourcing_practices = response.data.sourcing_practices;
+                let client_manpower_providers = response.data.manpower_providers;
+                // let selected_arr = [];
+                
+                
+                client_manpower_providers.map((item) => {
+                    context.commit('setClientManpowerProviders', item.manpower_provider);
+                })
+               
+                // sourcing_practices.map((item) => {
+                //     selected_arr.push(item.id);
+                // });
                 
                 context.commit('setClient', response);
+                // context.commit('setClientSourcingPractices', selected_arr);
                 setTimeout(() => {
                     context.commit('setLoadingState', false);
                 }, 1000);

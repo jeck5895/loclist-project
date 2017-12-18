@@ -28,7 +28,7 @@
                             <span class="required-field">*</span>
                         </label>
                         <select v-model="client.industry" v-validate="{rules:{required:true}}" name="client_industry" class="form-control form-control-sm" id="companyIndustry">
-                            <option :value="null">--Select Industry--</option>
+                            <option value="">--Select Industry--</option>
                             <option v-for="(industry, index) in industries" :key="index" :value="industry.id">
                                 {{ industry.industry_name }}
                             </option>
@@ -91,7 +91,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label for="companyIndustry">Zip Code</label>
-                        <input v-model="client.postal_code" v-validate="{rules:{required:true}}" id="postal_code" name="postal_code"type="text" class="form-control form-control-sm">
+                        <input v-model="client.postal_code" v-validate="{rules:{required:true}}" id="postal_code" name="postal_code" type="text" class="form-control form-control-sm">
                         <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.postal_code')">{{ errors.first('clientDetailsForm.postal_code') }}</small>
                     </div>
                 </div>
@@ -203,11 +203,18 @@
                         </select>
                         <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.manpower_type')">{{ errors.first('clientDetailsForm.manpower_type') }}</small>
                     </div> 
+
+                    <div class="form-group col-md-3">
+                        <label class="mr-1">Initial Status</label>
+                        <select v-model="client.overall_status" class="form-control form-control-sm mr-sm-2" id="exampleFormControlSelect1">
+                            <option value="">--Select Overall Status--</option>
+                            <option v-for="(status, index) in statuses" :key="index" :value="status.id">{{ status.status }}</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group col-md-12">
-                        
                         <label for="">Sourcing Practice</label>
                         <select2-multiple :options="options" v-model="selected">
                             <option disabled value="0">--Select Practices--</option>
@@ -249,7 +256,7 @@
                                 </tr>
                                 <tr v-else v-for="(m, index) in client_manpower_providers" :key="index">
                                     <td style="vertical-align: middle;">
-                                        {{ m.manpower_provider }}
+                                        {{ m }}
                                     </td>
                                     <td style="vertical-align: middle;">
                                         <button @click="removeProvider(m)" class="btn btn-sm btn-danger">
@@ -266,12 +273,13 @@
                     <div class="form-group col-md-3">
                         <button type="submit" class="btn btn-success btn-sm" :disabled="isSubmitting">
                             <span v-if="isSubmitting" >
-                                Saving...  <span class="fa fa-refresh fa-spin"></span>
+                                Saving...  <div class="loading"></div>
                             </span>
                             <span v-else>
                                 Save Client Details
                             </span>
                         </button>
+                        
                     </div>
                 </div>
             </form>
@@ -284,6 +292,7 @@
 import formErrors from '../../errors/clientForm/clientFormError';
 
 export default {
+    
     created() {
         let user = Vue.auth.getter();
         /**@event Client Side Broadcasting
@@ -295,6 +304,7 @@ export default {
             user: user.name,
             message: 'is adding new client now.'
         });
+
     },
     data() {
         return {
@@ -317,9 +327,14 @@ export default {
         client_manpower_provider() {
             return this.$store.getters.getClientManpowerProvider;
         },
-        client_sourcing_practices() {
-            return this.$store.getters.getClientSourcingPractices;
-        },
+        // selected: {
+        //     get: function(){
+        //         return this.$store.getters.getClientSourcingPractices
+        //     },
+        //     set: function(newvalue){
+                
+        //     }
+        // },
         companies() {
             return this.$store.getters.getCompanies;
         },
@@ -334,7 +349,6 @@ export default {
         },
         sourcing_practices() {
            return this.$store.getters.getSourcingPratices;
-            
         },
         departments() {
             return this.$store.getters.getDepartments;
@@ -344,6 +358,9 @@ export default {
         },
         manpowers() {
             return this.$store.getters.getManpowers;
+        },
+        statuses() {
+            return this.$store.getters.getStatuses;
         },
         formType() {
             return localStorage.getItem('f_type');
@@ -369,13 +386,24 @@ export default {
         //     //array of id's of selected sourcing practices e.g. return [1,2,3] - use push to insert
         // }
     },
+    watch: {
+        //watch for computed property changes then loadClietSP to transfer computed property to array
+        client:'loadClientSP',
+    },
     methods: {
+        loadClientSP(){
+            let sp = this.client.sourcing_practices;
+            console.log(sp)
+            
+            if(sp && sp.length != 0){
+                sp.map((item) => {
+                    this.selected.push(item.id);
+                });
+            }
+            console.log(this.selected)
+        },
         addProvider() {
-            let provider = {
-                id: this.client_manpower_provider.id,
-                client_id: this.client_manpower_provider.client_id,
-                manpower_provider: this.client_manpower_provider.manpower_provider
-            };
+            let provider = this.client_manpower_provider.manpower_provider;
 
             if(!this.client_manpower_provider.manpower_provider == ''){
                 this.$store.dispatch('storeClientManpowerProviders', provider)
@@ -397,23 +425,24 @@ export default {
             this.$validator.validateAll(scope).then((result) => {
                 if (result) {
                     let client = {
+                        id: this.client.id,
                         entry_by: user.uid,
-                        client_name: this.client.client_name.toUpperCase(),
+                        client_name: this.client.client_name.toUpperCase().trim(),
                         industry: this.client.industry,
                         nationality: this.client.nationality,
                         iso_certf: this.client.iso_certf,
-                        complete_mailing_address: this.client.complete_mailing_address,
-                        techno_park: this.client.techno_park,
-                        street_address: this.client.street_address,
-                        province: this.client.province,
-                        administrative_area_level_1: this.client.administrative_area_level_1,
+                        complete_mailing_address: this.client.complete_mailing_address.trim(),
+                        techno_park: this.client.techno_park.trim(),
+                        street_address: this.client.street_address.trim(),
+                        province: this.client.province.trim(),
+                        administrative_area_level_1: this.client.administrative_area_level_1.trim(),
                         postal_code: this.client.postal_code,
-                        website: this.client.website,
-                        primary_landline: this.client.primary_landline,
-                        other_landline: this.client.other_landline,
-                        mobile_number: this.client.mobile_number,
-                        email_address: this.client.email_address,
-                        contact_person: this.client.contact_person,
+                        website: this.client.website.trim(),
+                        primary_landline: this.client.primary_landline.trim(),
+                        other_landline: this.client.other_landline.trim(),
+                        mobile_number: this.client.mobile_number.trim(),
+                        email_address: this.client.email_address.trim(),
+                        contact_person: this.client.contact_person.trim(),
                         gender: this.client.gender,
                         department: this.client.department,
                         position: this.client.position,
@@ -422,6 +451,7 @@ export default {
                         manpower: this.client.manpower,
                         sourcing_practices: this.selected,
                         manpower_providers: this.client_manpower_providers,
+                        overall_status: this.client.overall_status
                     };
                    
                     if (this.formType == 'CREATE_CLIENT') {
@@ -439,7 +469,7 @@ export default {
                        
                     }
                     else if (this.formType == 'EDIT_CLIENT') {
-                        // this.$store.dispatch('updateUser', user);
+                        this.$store.dispatch('updateClient', client);
                         // this.$store.dispatch('loadUsers','/api/users');
                     }
                     else {

@@ -17,7 +17,7 @@ class CreatePositionsTable extends Migration
             $table->increments('id');
             $table->string('position_name', 60);
             $table->timestamps();
-            $table->tinyInteger('is_active');
+            $table->tinyInteger('is_active')->default(1);
         });
     }
 

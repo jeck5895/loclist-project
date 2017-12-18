@@ -35,7 +35,7 @@ class Client extends Model
         return $this->hasMany(ClientManpowerProvider::class);
     }
 
-    public function manpower_type() {
+    public function company_manpower_type() {
         return $this->belongsTo(ClientManpowerType::class, 'manpower')->select(['id','type']);
     }
 
@@ -44,32 +44,36 @@ class Client extends Model
         return $this->belongsToMany(SourcingPractice::class, 'client_sourcing_practices','client_id','sourcing_practice_id')->withTimestamps();
     }
 
-    public function certificate() 
+    public function company_certificate() 
     {
         return $this->belongsTo(Certificate::class, 'iso_certf')->select(['id','iso_name']);
     }
 
-    public function department()
+    public function company_department()
     {
         return $this->belongsTo(Department::class, 'department')->select(['id','department_name']);
     }
 
-    public function position()
+    public function contact_person_position()
     {
         return $this->belongsTo(Position::class, 'position')->select(['id','position_name']);
     }
 
-    public function nationality()
+    public function company_nationality()
     {
         return $this->belongsTo(Nationality::class, 'nationality')->select(['id','nationality']);
     }
 
-    public function company() 
+    public function provider_company() 
     {
         return $this->belongsTo(Company::class, 'company')->select(['id','company_name']);
     }
 
-    public function industry() {
+    public function company_industry() {
         return $this->belongsTo(Industry::class, 'industry')->select(['id','industry_name']);
+    }
+
+    public function company_overall_status() {
+        return $this->belongsTo(OverallStatus::class, 'overall_status');
     }
 }

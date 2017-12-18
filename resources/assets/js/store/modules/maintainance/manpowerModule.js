@@ -61,10 +61,12 @@ export default {
             })
         },
         storeManpower: (context, payload) => {
+            context.commit('setSubmitState', true);
             axios.post('api/manpowers', payload)
             .then( response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
+                    context.commit('setSubmitState', false);
                     $("#createUserModal").modal('hide');
                     toastr.success('Success', response.data.message);
                     //document.getElementById('manpowerForm').reset(); 
@@ -72,13 +74,16 @@ export default {
             })
             .catch(error =>{
                 context.commit('setServerResponse', error.response);
+                context.commit('setSubmitState', false);
             });
         },
         updateManpower: (context, payload) => {
+            context.commit('setSubmitState', true);
             axios.patch('api/manpowers/' + payload.id, payload)
             .then( response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
+                    context.commit('setSubmitState', false);
                     $("#createUserModal").modal('hide');
                     toastr.success('Success', response.data.message);
                     //document.getElementById('manpowerForm').reset(); 
@@ -86,6 +91,7 @@ export default {
             })
             .catch( error => {
                 context.commit('setServerResponse', error.response);
+                context.commit('setSubmitState', false);
             });
         },
         deleteManpower: (context, payload) => {

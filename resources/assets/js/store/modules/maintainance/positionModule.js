@@ -62,10 +62,12 @@ export default {
             });
         },
         storePosition: (context, payload) => {
+            context.commit('setSubmitState', true);
             axios.post('api/positions', payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
+                    context.commit('setSubmitState', false);
                     $("#createUserModal").modal('hide');
                     toastr.success('Success', response.data.message);
                     // document.getElementById('positionForm').reset();
@@ -73,13 +75,16 @@ export default {
             })
             .catch(error => {
                 context.commit('setServerResponse', error.response);
+                context.commit('setSubmitState', false);
             });
         },
         updatePosition: (context, payload) => {
+            context.commit('setSubmitState', true);
             axios.patch('api/positions/' + payload.id, payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
+                    context.commit('setSubmitState', false);
                     $("#createUserModal").modal('hide');
                     toastr.success('Success', response.data.message);
                     //document.getElementById('positionForm').reset();
@@ -87,6 +92,7 @@ export default {
             })
             .catch(error => {
                 context.commit('setServerResponse', error.response);
+                context.commit('setSubmitState', false);
             });
         },
         deletePosition: (context, payload) => {

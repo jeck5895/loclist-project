@@ -18,7 +18,7 @@ class CreateCompaniesTable extends Migration
             $table->string('company_name', 60);
             $table->string('code', 25);
             $table->timestamps();
-            $table->tinyInteger('is_active');
+            $table->tinyInteger('is_active')->default(1);
         });
     }
 

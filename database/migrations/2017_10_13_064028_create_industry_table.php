@@ -17,7 +17,7 @@ class CreateIndustryTable extends Migration
             $table->increments('id');
             $table->string('industry_name',150);
             $table->timestamps();
-            $table->tinyInteger('is_active');
+            $table->tinyInteger('is_active')->default(1);
         });
     }
 

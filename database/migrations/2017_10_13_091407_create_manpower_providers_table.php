@@ -17,7 +17,7 @@ class CreateManpowerProvidersTable extends Migration
             $table->increments('id');
             $table->string('provider_name', 60);
             $table->timestamps();
-            $table->tinyInteger('is_active');
+            $table->tinyInteger('is_active')->default(1);
         });
     }
 

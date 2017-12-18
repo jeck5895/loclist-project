@@ -56,7 +56,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>UID</th>
+                    <th>PROFILE</th>
                     <th>NAME</th>
                     <th>INITIAL</th>
                     <th>EMAIL</th>
@@ -125,9 +125,11 @@
         </table>
         
         <pagination scope="users" :object="users" 
-                :url="`api/users?keyword=${this.user_query.search_keyword}&order_by=${this
+                :url="`api/users?keyword=${this.user_query.search_keyword}&order_by=${this.user_query.order_by}&per_page=${this.user_query.per_page}&sort_column=${this.user_query.sort_column}`"
+                :query="`keyword=${this.user_query.search_keyword}&order_by=${this
                 .user_query.order_by}&per_page=${this.user_query
-                .per_page}&sort_column=${this.user_query.sort_column}`"></pagination>
+                .per_page}&sort_column=${this.user_query.sort_column}`"
+                classSize="pagination-sm"></pagination>
 
     </div>
 </template>

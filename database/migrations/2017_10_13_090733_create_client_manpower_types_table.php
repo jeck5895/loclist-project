@@ -17,7 +17,7 @@ class CreateClientManpowerTypesTable extends Migration
             $table->increments('id');
             $table->string('type', 60);
             $table->timestamps();
-            $table->tinyInteger('is_active');
+            $table->tinyInteger('is_active')->default(1);
         });
     }
 

@@ -63,11 +63,13 @@ export default {
                 });
         },
         storeIndustry: (context, payload) => {
+            context.commit('setSubmitState', true);
             axios.post('api/industries', payload)
             .then(response => {
                 let result = response;
                 setTimeout(() => {
                     context.commit('setServerResponse', result);
+                    context.commit('setSubmitState', false);
                     $("#createUserModal").modal('hide');
                     toastr.success('Success', result.data.message);
                     //document.getElementById('industryForm').reset();
@@ -76,15 +78,18 @@ export default {
             .catch(error => {
                 let errors = error.response;
                 context.commit('setServerResponse', errors);
+                context.commit('setSubmitState', false);
                 //toastr.error('Error', 'Oops! something went wrong');
                 console.log(errors);
             });
         },
         updateIndustry: (context, payload) => {
+            context.commit('setSubmitState', true);
             axios.patch('api/industries/' + payload.id, payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
+                    context.commit('setSubmitState', false);
                     $("#createUserModal").modal('hide');
                     toastr.success('Success', result.data.message);
                     //document.getElementById('industryForm').reset();
@@ -92,6 +97,7 @@ export default {
             })
             .catch(error => {
                 context.commit('setServerResponse', error.response);
+                context.commit('setSubmitState', false);
                 console.log(error.response.data)
             })
         },

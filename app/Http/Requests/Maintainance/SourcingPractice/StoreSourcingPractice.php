@@ -13,7 +13,7 @@ class StoreSourcingPractice extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->userType == 1? true : false;;
+        return $this->user()->userType == 1? true : false;
     }
 
     /**

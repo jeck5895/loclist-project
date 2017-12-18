@@ -18,7 +18,7 @@ class CreateLocationAreasTable extends Migration
             $table->string('area_name',25);
             $table->string('area_code',15);
             $table->timestamps();
-            $table->tinyInteger('is_active');
+            $table->tinyInteger('is_active')->default(1);
         });
     }
 

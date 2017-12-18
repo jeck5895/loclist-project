@@ -25,7 +25,8 @@ class UsersController extends Controller
                     orderBy($request->sort_column, $request->order_by)
                     ->where(function($query) use ($request) {
                         if($request->has('keyword')){
-                            $query->where('name', 'LIKE', '%'.$request->keyword.'%');
+                            $query->where('name', 'LIKE', '%'.$request->keyword.'%')
+                                    ->orWhere('userType','LIKE','%'.$request->keyword.'%');
                         }
                     })
                     ->active()

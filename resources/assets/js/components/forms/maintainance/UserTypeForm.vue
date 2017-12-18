@@ -22,7 +22,14 @@
             </div>
 
             <div class="form-group col">
-                <button type="submit" class="btn btn-sm btn-success">Save</button>
+                <button type="submit" class="btn btn-success btn-sm" :disabled="isSubmitting">
+                    <span v-if="isSubmitting">
+                        Saving... <div class="loading"></div>
+                    </span>
+                    <span v-else>
+                        Save
+                    </span>
+                </button>
                 <button type="button" @click="closeModal('userTypeForm')" class="btn btn-sm btn-danger">
                     Close
                 </button>
@@ -37,6 +44,9 @@
 
         },
         computed: {
+            isSubmitting() {
+                return this.$store.getters.getSubmitState;
+            },
             user_type() {
                 return this.$store.getters.getUserType;
             },

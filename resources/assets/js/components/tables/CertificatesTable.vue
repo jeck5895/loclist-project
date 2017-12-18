@@ -11,6 +11,16 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- <tr v-if="isLoading">
+                    <td colspan="11" class="text-center">
+                    <div v-if="isLoading" class="card-body">
+                            <div class="img-loading-container">
+                                <img src="/images/spinner.gif" class="img-sm">
+                            </div>   
+                        </div>
+                    </td>
+                </tr> -->
+
                 <tr v-if="certificates.data == 0">
                     <td colspan="7" class="text-center">
                         No data to show...
@@ -58,6 +68,9 @@
         computed: {
             certificates() {
                 return this.$store.getters.getIsoCertificates;
+            },
+            isLoading() {
+                return this.$store.getters.getLoadingState;
             }
         },
         methods: {

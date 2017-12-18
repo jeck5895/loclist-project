@@ -34,7 +34,7 @@
 
 <script>
     export default {
-        props:['scope','object', 'url', 'classSize'],
+        props:['scope','object', 'url', 'classSize', 'query'],
         created(){
             // console.log(this.$route)
         },
@@ -84,6 +84,7 @@
                 }
             },
             nextPage (url) {
+                var url = url + '&' + this.query;
                 switch (this.scope) {
                     case "users":
                         this.$store.dispatch('loadUsers', url);
@@ -123,6 +124,7 @@
                 }
             },
             prevPage (url) {
+                var url = url + '&' + this.query;
                 switch (this.scope) {
                     case "users":
                         this.$store.dispatch('loadUsers', url);
@@ -162,7 +164,7 @@
                 }
             },
             firstPage(url){
-                //console.log(url)
+                var url = url + '&' + this.query;
                 switch (this.scope) {
                     case "users":
                         this.$store.dispatch('loadUsers', url);
@@ -202,7 +204,7 @@
                 }
             },
             lastPage(url){
-                //console.log(url)
+                var url = url + '&' + this.query;
                 switch (this.scope) {
                     case "users":
                         this.$store.dispatch('loadUsers', url);

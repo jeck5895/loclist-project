@@ -62,10 +62,13 @@ export default {
             })
         },
         storeSourcingPractice: (context, payload) => {
+            context.commit('setSubmitState', true);
+
             axios.post('api/sourcing_practices', payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
+                    context.commit('setSubmitState', false);
                     $("#createUserModal").modal('hide');
                     toastr.success('Success', response.data.message);
                 // document.getElementById('sourcingForm').reset();
@@ -74,14 +77,18 @@ export default {
             .catch(error => {
                 let errors = error.response;
                 context.commit('setServerResponse', errors);
+                context.commit('setSubmitState', false);
                 console.log(errors);
             });
         },
         updateSourcingPractice: (context, payload) => {
+            context.commit('setSubmitState', true);
             axios.patch('api/sourcing_practices/' + payload.id, payload)
             .then(response => {
                 setTimeout(()=>{
                     context.commit('setServerResponse', response);
+                    context.commit('setSubmitState', false);
+
                     $("#createUserModal").modal('hide');
                     toastr.success('Success', response.data.message);
                 // document.getElementById('sourcingForm').reset()
@@ -90,6 +97,7 @@ export default {
             .catch(error => {
                 let errors = error.response;
                 context.commit('setServerResponse', errors);
+                context.commit('setSubmitState', false);
             })
         },
         deleteSourcingPractice: (context, payload) => {

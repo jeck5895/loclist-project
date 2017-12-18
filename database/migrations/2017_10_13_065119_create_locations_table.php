@@ -18,7 +18,7 @@ class CreateLocationsTable extends Migration
             $table->string('province',50);
             $table->integer('area')->foreign('area')->references('id')->on('location_areas');
             $table->timestamps();
-            $table->tinyInteger('is_active');
+            $table->tinyInteger('is_active')->default(1);
         });
     }
 

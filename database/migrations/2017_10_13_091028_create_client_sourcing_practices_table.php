@@ -17,7 +17,7 @@ class CreateClientSourcingPracticesTable extends Migration
             $table->increments('id');
             $table->text('name');
             $table->timestamps();
-            $table->tinyInteger('is_active');
+            $table->tinyInteger('is_active')->default(1);
         });
     }
 

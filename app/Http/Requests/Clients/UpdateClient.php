@@ -26,7 +26,7 @@ class UpdateClient extends FormRequest
     {
         return [
             'entry_by' => 'required',
-            'overall_status' => 'required',
+            // 'overall_status' => 'required',
             'client_name' => 'required|unique:clients,client_name,'.$this->get('id'),
             'industry' => 'required|numeric',
             'nationality' => 'required|numeric',

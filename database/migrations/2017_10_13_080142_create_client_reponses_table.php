@@ -24,7 +24,7 @@ class CreateClientReponsesTable extends Migration
             $table->string('reponse_name',120);
             $table->tinyInteger('response_type'); 
             $table->timestamps();
-            $table->tinyInteger('is_active');
+            $table->tinyInteger('is_active')->default(1);
         });
     }
 

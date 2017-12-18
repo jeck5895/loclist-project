@@ -1,4 +1,5 @@
 import VueRouter from 'vue-router';
+import maintainanceChildrenRoutes from './children/maintainance/maintainanceChildrenRoutes';
 
 let routes = [
     {
@@ -23,6 +24,14 @@ let routes = [
         }
     },
     {
+        path: '/clients/edit/:companyName/:clientId',
+        name: 'editClient',
+        component: require('../components/containers/AddClient.vue'),
+        meta: {
+            forAuthUsers: true
+        }
+    },
+    {
         path:'/clients/details/:companyName/:clientId',
         name:'viewClient',
         component: require('../components/profiles/client/ClientProfile.vue'),
@@ -35,7 +44,8 @@ let routes = [
         component: require('../components/containers/Maintainance.vue'),
         meta: {
             forAuthUsers: true
-        }
+        },
+        children: maintainanceChildrenRoutes
     },
     {
         path: '/users',
@@ -53,6 +63,6 @@ let routes = [
 export default new VueRouter({
     routes,
     mode:'history',
-    linkExactActiveClass: 'is-active',
-    linkActiveClass: 'is-active'
+    linkExactActiveClass: 'active',
+    linkActiveClass: 'active'
 });

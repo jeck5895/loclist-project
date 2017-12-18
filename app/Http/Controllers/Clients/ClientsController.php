@@ -10,6 +10,8 @@ use App\Events\ClientEvent;
 use App\Client;
 use App\ClientSourcingPractice;
 use App\ClientManpowerProvider;
+use Validator;
+use Illuminate\Support\Facades\DB;
 
 class ClientsController extends Controller
 {
@@ -19,42 +21,69 @@ class ClientsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        /**
+         * Make request 
+         */
         $request = app()->make('request');
 
-        $clients = Client::
-                    orderBy($request->sort_column, $request->order_by)
-                    // ->orWhere('province', 'LIKE', '%'.$request->keywor.'%')
-                    // ->orWhere('administrative_area_level_1', 'LIKE', '%'.$request->keywor.'%')
-                    // ->orWhere('complete_mailing_address', 'LIKE', '%'.$request->keywor.'%')
-                    ->where(function($query) use ($request){
-                        if($request->has('keyword'))
-                        {
-                            $query->where('client_name', 'LIKE' ,'%'.$request->keyword.'%');
-                            // ->orWhere('province', 'LIKE' ,'%'.$request->keyword.'%')
-                            //         ->orWhere('administrative_area_level_1', 'LIKE' ,'%'.$request->keyword.'%');
-                            if($request->has('industry') && $request->industry != null)
-                            {
-                                $query->where('industry',$request->industry);
-                            }
-                            if($request->has('location') && $request->location != null)
-                            {
-                                $query->where('province', 'LIKE' , '%'.$request->location.'%');
-                            }
-                        }
-                        else{
 
-                        }
-                        
-                    })
-                    ->active()
-                    ->with('user')
-                    ->paginate($request->per_page);
+        //Check if there's any request parameters
+        if(!empty($request->all()))
+        {
+            $validation = Validator::make($request->only([
+                        'per_page','order_by', 'sort_column'
+                    ]),[
+                        'per_page' => 'required|integer|min:1',
+                        'order_by' => 'required|in:asc,desc',
+                        'sort_column' => 'required'
+                    ]);
+        
+            if($validation->fails()) {
+                dd($validation->messages());
+            }
+            $clients = Client::
+                        orderBy($request->sort_column, $request->order_by)
+                        ->where(function($query) use ($request){
+                            if($request->has('keyword'))
+                            {
+                                $query->where('client_name', 'LIKE' ,'%'.$request->keyword.'%');
+                                // ->orWhere('province', 'LIKE' ,'%'.$request->keyword.'%')
+                                //         ->orWhere('administrative_area_level_1', 'LIKE' ,'%'.$request->keyword.'%');
+                                if($request->has('industry') && $request->industry != null)
+                                {
+                                    $query->where('industry',$request->industry);
+                                }
+                                if($request->has('location') && $request->location != null)
+                                {
+                                    $query->where('province', 'LIKE' , '%'.$request->location.'%');
+                                }
+                                if(($request->has('from_date') && $request->from_date != null) && ($request->has('to_date') && $request->to_date != null))
+                                {
+                                    $query->whereBetween('created_at',[$request->from_date, $request->to_date]);
+                                }
+                                if($request->has('status') && $request->status != null)
+                                {
+                                    $query->where('overall_status', $request->status);
+                                }
+                            }
+                            else{
 
-        return response()->json([
-            'model' => $clients,
-            'columns' => Client::$columns,
-        ]);
+                            }
+                            
+                        })
+                        ->active()
+                        ->with('user')
+                        ->paginate($request->per_page);
+
+            return response()->json([
+                'model' => $clients,
+                'columns' => Client::$columns,
+            ]);
+        }
+        else{
+            return Client::active()->get();
+        }
     }
 
     /**
@@ -100,7 +129,8 @@ class ClientsController extends Controller
                 'proposal' => $request['proposal'],
                 'company' => $request['company'],
                 'manpower' => $request['manpower'],
-                'updated_by' => $request['entry_by']
+                'updated_by' => $request['entry_by'],
+                'overall_status' => $request['overall_status']
             ]
         )->id;
         
@@ -109,7 +139,7 @@ class ClientsController extends Controller
             $client = Client::find($client_id);
 
             foreach($request['manpower_providers'] as $provider){
-                $client_provider = new ClientManpowerProvider(array('manpower_provider' => $provider['manpower_provider']));
+                $client_provider = new ClientManpowerProvider(array('manpower_provider' => $provider));
                 $client->manpower_providers()->save($client_provider);
             }
 
@@ -135,13 +165,16 @@ class ClientsController extends Controller
     {
         $client = Client::where('id', $id)
                         ->with('user')
-                        ->with('department')
-                        ->with('industry')
-                        ->with('company')
-                        ->with('position')
+                        ->with('company_department')
+                        ->with('company_industry')
+                        ->with('provider_company')
+                        ->with('company_nationality')
+                        ->with('company_certificate')
+                        ->with('contact_person_position')
                         ->with('manpower_providers')
-                        ->with('manpower_type')
+                        ->with('company_manpower_type')
                         ->with('sourcing_practices')
+                        ->with('company_overall_status')
                         ->first();
 
         return $client;
@@ -165,9 +198,58 @@ class ClientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateClient $request, $id)
     {
-        //
+        Client::find($id)->update([
+                'entry_by' => $request['entry_by'],
+                'client_name' => $request['client_name'],
+                'industry' => $request['industry'],
+                'nationality' => $request['nationality'],
+                'iso_certf' => $request['iso_certf'],
+                'complete_mailing_address' => $request['complete_mailing_address'],
+                'techno_park' => $request['techno_park'],
+                'street_address' => $request['street_address'],
+                'province' => $request['province'],
+                'administrative_area_level_1' => $request['administrative_area_level_1'],
+                'postal_code' => $request['postal_code'],
+                'website' => $request['website'],
+                'primary_landline' => $request['primary_landline'],
+                'other_landline' => $request['other_landline'],
+                'mobile_number' => $request['mobile_number'],
+                'email_address' => $request['email_address'],
+                'contact_person' => $request['contact_person'],
+                'gender' => $request['gender'],
+                'department' => $request['department'],
+                'position' => $request['position'],
+                'proposal' => $request['proposal'],
+                'company' => $request['company'],
+                'manpower' => $request['manpower'],
+                'updated_by' => $request['entry_by'],
+                'overall_status' => $request['overall_status']
+            ]);
+        
+        if($id) {
+
+            $client = Client::find($id);
+            //Delete all records first then insert it again whatever changes has done
+            DB::table('client_manpower_providers')->where('client_id', $id)->delete();
+            
+            foreach($request['manpower_providers'] as $provider){
+                $client_provider = new ClientManpowerProvider(array('manpower_provider' => $provider));
+                $client->manpower_providers()->save($client_provider);
+            }
+
+            DB::table('client_sourcing_practices')->where('client_id', $id)->delete();
+
+            foreach($request['sourcing_practices'] as $sp ){
+                $client->sourcing_practices()->attach($sp);
+            }
+
+            //dispatch event for new created client
+            event(new ClientEvent($client));
+
+            return ['message' => 'Changes has been saved.'];
+        }
     }
 
     /**
@@ -178,28 +260,11 @@ class ClientsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //delete clietn record
+
+        //delete sourcing practices records of client
+
+        //delete manpower providers records of client
     }
 
-    public function search() 
-    {
-        $keyword = isset($_GET['keyword']) ? $_GET['keyword']: '';
-        $from_date = isset($_GET['from_date']) ? $_GET['from_date'] : '';
-        $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : '';
-        $location = isset($_GET['location']) ? $_GET['location'] : '';
-        $status = isset($_GET['status']) ? $_GET['status'] : '';
-        $industry = isset($_GET['industry']) ? $_GET['industry'] : '';
-
-        $clients = Client::where('client_name', 'LIKE', "%".$keyword."%")->active()->with('user')->paginate(10);
-        
-        return $clients;
-        // return [
-        //     'keyword' => $keyword,
-        //     'from_date' => $from_date,
-        //     'to_date' => $to_date,
-        //     'location' => $location,
-        //     'status' => $status,
-        //     'industry' => $industry
-        // ];
-    }
 }

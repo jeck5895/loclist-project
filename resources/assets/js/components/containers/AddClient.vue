@@ -30,6 +30,7 @@
             store.dispatch('clearUserTypes');
             store.dispatch('clearCompanies');
             store.dispatch('clearClient');
+            store.dispatch('clearStatuses');
             store.dispatch('loadNationalities','api/nationalities?type=all');
             store.dispatch('loadCertificates','api/certificates?type=all');
             store.dispatch('loadIndustries','api/industries?type=all');
@@ -38,6 +39,17 @@
             store.dispatch('loadPositions', 'api/positions?type=all');
             store.dispatch('loadManpowers', 'api/manpowers?type=all');
             store.dispatch('loadCompanies', 'api/companies?type=all');
+            store.dispatch('loadStatuses','api/statuses?type=all');
+            if(Object.keys(to.params).length != 0 && to.params.clientId != null) {
+                let payload = {
+                    id: to.params.clientId
+                };
+                localStorage.setItem('f_type', 'EDIT_CLIENT');
+                store.dispatch('loadClient', payload);
+            }
+            else{
+                localStorage.setItem('f_type', 'CREATE_CLIENT');
+            }
             next();
         },
         computed: {},

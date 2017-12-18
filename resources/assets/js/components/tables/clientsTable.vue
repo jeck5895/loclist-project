@@ -45,11 +45,8 @@
             <div class="form-group">
                 <label class="mr-1">Filter By Status</label>
                 <select v-model="client_query.status" class="form-control form-control-sm mr-sm-2" id="exampleFormControlSelect1">
-                    <option>For Confirmation Call</option>
-                    <option>For Saturation</option>
-                    <option>For Re-Saturation</option>
-                    <option>For Follow-up Call</option>
-                    <option>For Presentation</option>
+                    <option value=""></option>
+                    <option v-for="(status, index) in statuses" :key="index" :value="status.id">{{ status.status }}</option>
                 </select>
             </div>
 
@@ -153,7 +150,7 @@
                     <!-- Edit Button -->
                     <td style="vertical-align: middle;">
                         <div class="btn-group btn-group-sm" role="group">
-                            <button type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(client)">
+                            <button @click="toEditClientForm(client)" :title="'Edit ' + client.client_name" class="btn btn-sm btn-default">
                                 <span class="fa fa-edit"></span>
                             </button>
 
@@ -171,18 +168,20 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="clients" :object="clients" :url="`api/clients?keyword=${this.client_query.search_keyword}&order_by=${this.client_query.order_by}&per_page=${this.client_query.per_page}&sort_column=${this.client_query.sort_column}&industry=${this.client_query.industry}&location=${this.client_query.location}`"
+        <pagination scope="clients" :object="clients" 
+            :url="`api/clients?keyword=${this.client_query.search_keyword}&order_by=${this.client_query.order_by}&per_page=${this.client_query.per_page}&sort_column=${this.client_query.sort_column}&industry=${this.client_query.industry}&location=${this.client_query.location}&from_date=${this.client_query.from_date}&to_date=${this.client_query.to_date}&status=${this.client_query.status}`"
+            :query="`keyword=${this.client_query.search_keyword}&order_by=${this.client_query.order_by}&per_page=${this.client_query.per_page}&sort_column=${this.client_query.sort_column}&industry=${this.client_query.industry}&location=${this.client_query.location}&from_date=${this.client_query.from_date}&to_date=${this.client_query.to_date}&status=${this.client_query.status}`"
             classSize="pagination-sm"></pagination>
     </div>
 </template>
 
 <script>
     import Pagination from "../pagination/Pagination";
+    import router from '../../router/routes';
 
     export default {
         created() {
             this.loadClientsData();
-            this.$store.dispatch("loadIndustries", "api/industries?type=all");
             Echo.private("client-channel").listen("ClientEvent", e => {
                 console.log(e);
                 this.loadClientsData();
@@ -209,9 +208,16 @@
             },
             industries() {
                 return this.$store.getters.getIndustries;
+            },
+            statuses() {
+                return this.$store.getters.getStatuses;
             }
         },
         methods: {
+            toEditClientForm(client) {
+                localStorage.setItem('f_type', 'EDIT_CLIENT')
+                this.$router.push({ name: 'editClient', params: { companyName:  this.toUrlFormat(client.client_name), clientId : client.id }})
+            },
             dropdownMenuClick() {
                 $(".dropdown-filter").on("click", function (e) {
                     e.stopPropagation();
@@ -225,7 +231,10 @@
                     per_page: this.client_query.per_page,
                     sort_column: this.client_query.sort_column,
                     location: this.client_query.location,
-                    industry: this.client_query.industry
+                    industry: this.client_query.industry,
+                    from_date: this.client_query.from_date,
+                    to_date: this.client_query.to_date,
+                    status: this.client_query.status
                 };
 
                 this.$store.dispatch("setClientApiQuery", query).then(() => {
@@ -240,7 +249,10 @@
                     per_page: this.client_query.per_page,
                     sort_column: this.client_query.sort_column,
                     location: this.client_query.location,
-                    industry: this.client_query.industry
+                    industry: this.client_query.industry,
+                    from_date: this.client_query.from_date,
+                    to_date: this.client_query.to_date,
+                    status: this.client_query.status
                 };
 
                 this.$store.dispatch("setClientApiQuery", query).then(() => {
@@ -255,10 +267,7 @@
                 //console.log(this.client_query);
                 return this.$store.dispatch(
                     "loadClients",
-                    `api/clients?keyword=${this.client_query.search_keyword}&order_by=${this
-                    .client_query.order_by}&per_page=${this.client_query
-                    .per_page}&sort_column=${this.client_query.sort_column}&industry=${this
-                    .client_query.industry}&location=${this.client_query.location}`
+                    `api/clients?keyword=${this.client_query.search_keyword}&order_by=${this.client_query.order_by}&per_page=${this.client_query.per_page}&sort_column=${this.client_query.sort_column}&industry=${this.client_query.industry}&location=${this.client_query.location}&from_date=${this.client_query.from_date}&to_date=${this.client_query.to_date}&status=${this.client_query.status}`
                 );
             },
             search() {
@@ -268,7 +277,10 @@
                     per_page: this.client_query.per_page,
                     sort_column: this.client_query.sort_column,
                     location: this.client_query.location,
-                    industry: this.client_query.industry
+                    industry: this.client_query.industry,
+                    from_date: this.client_query.from_date,
+                    to_date: this.client_query.to_date,
+                    status: this.client_query.status
                 };
 
                 this.$store.dispatch("setClientApiQuery", query).then(() => {

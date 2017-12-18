@@ -17,7 +17,7 @@ class CreateOverallStatusTable extends Migration
             $table->increments('id');
             $table->string('status', 50);
             $table->timestamps();
-            $table->tinyInteger('is_active');
+            $table->tinyInteger('is_active')->default(1);
         });
     }
 
