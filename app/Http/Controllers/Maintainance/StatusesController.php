@@ -21,7 +21,7 @@ class StatusesController extends Controller
             $statuses = OverallStatus::active()->orderBy('status','asc')->get();
         }
         else{
-            $statuses = OverallStatus::active()->orderBy('status','asc')->paginate(5);
+            $statuses = OverallStatus::active()->orderBy('status','asc')->paginate(10);
         }
         
         return $statuses;

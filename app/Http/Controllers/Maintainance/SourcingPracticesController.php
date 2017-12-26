@@ -22,7 +22,7 @@ class SourcingPracticesController extends Controller
             $sourcing_practices = SourcingPractice::select(['id','name'])->active()->orderBy('name','asc')->get();
         }
         else{
-            $sourcing_practices = SourcingPractice::active()->orderBy('name','asc')->paginate(5);
+            $sourcing_practices = SourcingPractice::active()->orderBy('name','asc')->paginate(10);
         }
 
         return $sourcing_practices;

@@ -21,7 +21,7 @@ class CertificatesController extends Controller
             $certificates = Certificate::active()->orderBy('iso_name','asc')->get();
         }
         else{
-            $certificates = Certificate::active()->orderBy('iso_name','asc')->paginate(5);
+            $certificates = Certificate::active()->orderBy('iso_name','asc')->paginate(10);
         }
         
         return $certificates;

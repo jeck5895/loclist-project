@@ -22,7 +22,7 @@ class IndustriesController extends Controller
             $industries = Industry::active()->orderBy('industry_name','asc')->get();
         }
         else{
-            $industries = Industry::active()->orderBy('industry_name','asc')->paginate(5);
+            $industries = Industry::active()->orderBy('industry_name','asc')->paginate(10);
         }
 
         return $industries;

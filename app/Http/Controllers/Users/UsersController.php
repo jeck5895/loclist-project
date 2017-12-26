@@ -19,38 +19,46 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $request = app()->make('request');
+        if(isset($_GET['type']) && $_GET['type'] == 'all')
+        {
+            $users = User::orderBy('initial','asc')->active()->get();
 
-        $users = VwUserRole::
-                    orderBy($request->sort_column, $request->order_by)
-                    ->where(function($query) use ($request) {
-                        if($request->has('keyword')){
-                            $query->where('name', 'LIKE', '%'.$request->keyword.'%')
-                                    ->orWhere('userType','LIKE','%'.$request->keyword.'%');
-                        }
-                    })
-                    ->active()
-                    ->paginate($request->per_page);
-        // $users = User::
-        //             orderBy($request->sort_column, $request->order_by)
-        //             ->where(function($query) use ($request) {
-        //                 if($request->has('keyword')){
-        //                     $query->where('name', 'LIKE', '%'.$request->keyword.'%');
-        //                 }
-        //             })
-        //             ->active()
-        //             ->with('userType')
-        //             ->paginate($request->per_page);
+            return ['model' => $users];
+        }
+        else{
+            $request = app()->make('request');
 
-        return response()->json([
-            'model' => $users,
-            'columns' => User::$columns
-        ]);
-    
-        // $paginator = $this->items()->where('position', '=', null)->paginate(15);
-        // $paginator->getCollection()->transform(function ($value) {
-        //     // Your code here    
-        // })
+            $users = VwUserRole::
+                        orderBy($request->sort_column, $request->order_by)
+                        ->where(function($query) use ($request) {
+                            if($request->has('keyword')){
+                                $query->where('name', 'LIKE', '%'.$request->keyword.'%')
+                                        ->orWhere('userType','LIKE','%'.$request->keyword.'%');
+                            }
+                        })
+                        ->active()
+                        ->paginate($request->per_page);
+            // $users = User::
+            //             orderBy($request->sort_column, $request->order_by)
+            //             ->where(function($query) use ($request) {
+            //                 if($request->has('keyword')){
+            //                     $query->where('name', 'LIKE', '%'.$request->keyword.'%');
+            //                 }
+            //             })
+            //             ->active()
+            //             ->with('userType')
+            //             ->paginate($request->per_page);
+
+            return response()->json([
+                'model' => $users,
+                'columns' => User::$columns
+            ]);
+        
+            // $paginator = $this->items()->where('position', '=', null)->paginate(15);
+            // $paginator->getCollection()->transform(function ($value) {
+            //     // Your code here    
+            // })
+        }
 
         
     }

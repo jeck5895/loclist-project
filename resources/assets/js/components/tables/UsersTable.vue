@@ -129,7 +129,8 @@
                 :query="`keyword=${this.user_query.search_keyword}&order_by=${this
                 .user_query.order_by}&per_page=${this.user_query
                 .per_page}&sort_column=${this.user_query.sort_column}`"
-                classSize="pagination-sm"></pagination>
+                classSize="pagination-sm">
+        </pagination>
 
     </div>
 </template>

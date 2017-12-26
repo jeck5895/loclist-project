@@ -76,4 +76,9 @@ class Client extends Model
     public function company_overall_status() {
         return $this->belongsTo(OverallStatus::class, 'overall_status');
     }
+
+    public function calls() 
+    {
+        return $this->hasMany(ClientCall::class);
+    }
 }

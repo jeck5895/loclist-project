@@ -5354,6 +5354,73 @@ module.exports = Component.exports
 
 /***/ }),
 /* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__children_maintainance_maintainanceChildrenRoutes__ = __webpack_require__(189);
+
+
+
+var routes = [{
+    path: '/home',
+    component: __webpack_require__(299),
+    meta: {
+        forAuthUsers: true
+    }
+}, {
+    path: '/api-clients',
+    component: __webpack_require__(347),
+    meta: {
+        forAuthUsers: true
+    }
+}, {
+    path: '/clients/create',
+    component: __webpack_require__(136),
+    meta: {
+        forAuthUsers: true
+    }
+}, {
+    path: '/clients/edit/:companyName/:clientId',
+    name: 'editClient',
+    component: __webpack_require__(136),
+    meta: {
+        forAuthUsers: true
+    }
+}, {
+    path: '/clients/details/:companyName/:clientId',
+    name: 'viewClient',
+    component: __webpack_require__(369),
+    meta: {
+        forAuthUsers: true
+    }
+}, {
+    path: '/maintainance',
+    component: __webpack_require__(390),
+    meta: {
+        forAuthUsers: true
+    },
+    children: __WEBPACK_IMPORTED_MODULE_1__children_maintainance_maintainanceChildrenRoutes__["a" /* default */]
+}, {
+    path: '/users',
+    component: __webpack_require__(450),
+    meta: {
+        forAuthUsers: true
+    }
+}, {
+    path: "*",
+    component: __webpack_require__(463)
+}];
+
+/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
+    routes: routes,
+    mode: 'history',
+    linkExactActiveClass: 'active',
+    linkActiveClass: 'active'
+}));
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -5401,7 +5468,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5424,6 +5491,8 @@ module.exports = Component.exports
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_companies_companyModule__ = __webpack_require__(343);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_dataFiltering_dataFilteringModule__ = __webpack_require__(344);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_maintainance_statusModule__ = __webpack_require__(345);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_clients_clientCallModule__ = __webpack_require__(475);
+
 
 
 
@@ -5460,12 +5529,13 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         manpowerModule: __WEBPACK_IMPORTED_MODULE_13__modules_maintainance_manpowerModule__["a" /* default */],
         companyModule: __WEBPACK_IMPORTED_MODULE_14__modules_companies_companyModule__["a" /* default */],
         dataFilteringModule: __WEBPACK_IMPORTED_MODULE_15__modules_dataFiltering_dataFilteringModule__["a" /* default */],
-        statusModule: __WEBPACK_IMPORTED_MODULE_16__modules_maintainance_statusModule__["a" /* default */]
+        statusModule: __WEBPACK_IMPORTED_MODULE_16__modules_maintainance_statusModule__["a" /* default */],
+        clientCallModule: __WEBPACK_IMPORTED_MODULE_17__modules_clients_clientCallModule__["a" /* default */]
     }
 });
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -15725,7 +15795,7 @@ return jQuery;
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15823,73 +15893,6 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = defaults;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(171)))
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__children_maintainance_maintainanceChildrenRoutes__ = __webpack_require__(189);
-
-
-
-var routes = [{
-    path: '/home',
-    component: __webpack_require__(299),
-    meta: {
-        forAuthUsers: true
-    }
-}, {
-    path: '/api-clients',
-    component: __webpack_require__(347),
-    meta: {
-        forAuthUsers: true
-    }
-}, {
-    path: '/clients/create',
-    component: __webpack_require__(136),
-    meta: {
-        forAuthUsers: true
-    }
-}, {
-    path: '/clients/edit/:companyName/:clientId',
-    name: 'editClient',
-    component: __webpack_require__(136),
-    meta: {
-        forAuthUsers: true
-    }
-}, {
-    path: '/clients/details/:companyName/:clientId',
-    name: 'viewClient',
-    component: __webpack_require__(369),
-    meta: {
-        forAuthUsers: true
-    }
-}, {
-    path: '/maintainance',
-    component: __webpack_require__(390),
-    meta: {
-        forAuthUsers: true
-    },
-    children: __WEBPACK_IMPORTED_MODULE_1__children_maintainance_maintainanceChildrenRoutes__["a" /* default */]
-}, {
-    path: '/users',
-    component: __webpack_require__(450),
-    meta: {
-        forAuthUsers: true
-    }
-}, {
-    path: "*",
-    component: __webpack_require__(463)
-}];
-
-/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
-    routes: routes,
-    mode: 'history',
-    linkExactActiveClass: 'active',
-    linkActiveClass: 'active'
-}));
 
 /***/ }),
 /* 12 */
@@ -40092,8 +40095,8 @@ module.exports = __webpack_require__(471);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__router_routes__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_store__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__router_routes__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_store__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_navigation_Notification__ = __webpack_require__(466);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_navigation_Notification___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_navigation_Notification__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -40207,7 +40210,7 @@ Vue.component('passport-personal-access-tokens', __webpack_require__(159));
  */
 
 try {
-    window.$ = window.jQuery = __webpack_require__(9);
+    window.$ = window.jQuery = __webpack_require__(10);
     window.Popper = __webpack_require__(164).default; //for bootstrap 4 dropdown
     //require('bootstrap-sass');
     __webpack_require__(165); //for bootstrap 4 setup
@@ -40580,7 +40583,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
  */
 /* global define */
 ; (function (define) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(10)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
         return (function () {
             var $container;
             var listener;
@@ -48174,10 +48177,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     /*
@@ -48378,8 +48377,8 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "tbody",
-                _vm._l(_vm.clients, function(client) {
-                  return _c("tr", [
+                _vm._l(_vm.clients, function(client, index) {
+                  return _c("tr", { key: index }, [
                     _c("td", { staticStyle: { "vertical-align": "middle" } }, [
                       _vm._v(
                         "\n                            " +
@@ -48465,8 +48464,8 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "ul",
-                      _vm._l(_vm.createForm.errors, function(error) {
-                        return _c("li", [
+                      _vm._l(_vm.createForm.errors, function(error, index) {
+                        return _c("li", { key: index }, [
                           _vm._v(
                             "\n                                " +
                               _vm._s(error) +
@@ -48482,7 +48481,7 @@ var render = function() {
                 "form",
                 { staticClass: "form-horizontal", attrs: { role: "form" } },
                 [
-                  _c("div", { staticClass: "form-group" }, [
+                  _c("div", { staticClass: "form-group col" }, [
                     _c("label", { staticClass: "control-label" }, [
                       _vm._v("Name")
                     ]),
@@ -48525,7 +48524,7 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
+                  _c("div", { staticClass: "form-group col" }, [
                     _c("label", { staticClass: "control-label" }, [
                       _vm._v("Redirect URL")
                     ]),
@@ -48620,8 +48619,8 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "ul",
-                      _vm._l(_vm.editForm.errors, function(error) {
-                        return _c("li", [
+                      _vm._l(_vm.editForm.errors, function(error, index) {
+                        return _c("li", { key: index }, [
                           _vm._v(
                             "\n                                " +
                               _vm._s(error) +
@@ -48638,92 +48637,88 @@ var render = function() {
                 { staticClass: "form-horizontal", attrs: { role: "form" } },
                 [
                   _c("div", { staticClass: "form-group" }, [
-                    _c("label", { staticClass: "col-md-3 control-label" }, [
+                    _c("label", { staticClass: "control-label" }, [
                       _vm._v("Name")
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-7" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.editForm.name,
-                            expression: "editForm.name"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { id: "edit-client-name", type: "text" },
-                        domProps: { value: _vm.editForm.name },
-                        on: {
-                          keyup: function($event) {
-                            if (
-                              !("button" in $event) &&
-                              _vm._k($event.keyCode, "enter", 13)
-                            ) {
-                              return null
-                            }
-                            _vm.update($event)
-                          },
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.editForm.name = $event.target.value
-                          }
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.editForm.name,
+                          expression: "editForm.name"
                         }
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "help-block" }, [
-                        _vm._v(
-                          "\n                                    Something your users will recognize and trust.\n                                "
-                        )
-                      ])
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "edit-client-name", type: "text" },
+                      domProps: { value: _vm.editForm.name },
+                      on: {
+                        keyup: function($event) {
+                          if (
+                            !("button" in $event) &&
+                            _vm._k($event.keyCode, "enter", 13)
+                          ) {
+                            return null
+                          }
+                          _vm.update($event)
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.editForm.name = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "help-block" }, [
+                      _vm._v(
+                        "\n                                    Something your users will recognize and trust.\n                                "
+                      )
                     ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _c("label", { staticClass: "col-md-3 control-label" }, [
+                    _c("label", { staticClass: "control-label" }, [
                       _vm._v("Redirect URL")
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-7" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.editForm.redirect,
-                            expression: "editForm.redirect"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", name: "redirect" },
-                        domProps: { value: _vm.editForm.redirect },
-                        on: {
-                          keyup: function($event) {
-                            if (
-                              !("button" in $event) &&
-                              _vm._k($event.keyCode, "enter", 13)
-                            ) {
-                              return null
-                            }
-                            _vm.update($event)
-                          },
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.editForm.redirect = $event.target.value
-                          }
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.editForm.redirect,
+                          expression: "editForm.redirect"
                         }
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "help-block" }, [
-                        _vm._v(
-                          "\n                                    Your application's authorization callback URL.\n                                "
-                        )
-                      ])
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", name: "redirect" },
+                      domProps: { value: _vm.editForm.redirect },
+                      on: {
+                        keyup: function($event) {
+                          if (
+                            !("button" in $event) &&
+                            _vm._k($event.keyCode, "enter", 13)
+                          ) {
+                            return null
+                          }
+                          _vm.update($event)
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.editForm.redirect = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "help-block" }, [
+                      _vm._v(
+                        "\n                                    Your application's authorization callback URL.\n                                "
+                      )
                     ])
                   ])
                 ]
@@ -48816,6 +48811,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
+      _c("h4", { staticClass: "modal-title" }, [
+        _vm._v("\n                        Edit Client\n                    ")
+      ]),
+      _vm._v(" "),
       _c(
         "button",
         {
@@ -48827,11 +48826,7 @@ var staticRenderFns = [
           }
         },
         [_vm._v("×")]
-      ),
-      _vm._v(" "),
-      _c("h4", { staticClass: "modal-title" }, [
-        _vm._v("\n                        Edit Client\n                    ")
-      ])
+      )
     ])
   },
   function() {
@@ -56272,7 +56267,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 ;(function (factory) {
   if (true) {
     // AMD. Register as an anonymous module.
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(9)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(10)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -62130,7 +62125,7 @@ module.exports = __webpack_require__(168);
 var utils = __webpack_require__(4);
 var bind = __webpack_require__(131);
 var Axios = __webpack_require__(170);
-var defaults = __webpack_require__(10);
+var defaults = __webpack_require__(11);
 
 /**
  * Create an instance of Axios
@@ -62213,7 +62208,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(10);
+var defaults = __webpack_require__(11);
 var utils = __webpack_require__(4);
 var InterceptorManager = __webpack_require__(180);
 var dispatchRequest = __webpack_require__(181);
@@ -62935,7 +62930,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(4);
 var transformData = __webpack_require__(182);
 var isCancel = __webpack_require__(134);
-var defaults = __webpack_require__(10);
+var defaults = __webpack_require__(11);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -74879,9 +74874,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__navs_NavTabs_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__navs_NavTabs_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modal_modal_vue__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modal_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__modal_modal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__nav_buttons_NavButtons__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__nav_buttons_NavButtons__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__nav_buttons_NavButtons___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__nav_buttons_NavButtons__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_store__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_store__ = __webpack_require__(9);
 //
 //
 //
@@ -75225,7 +75220,7 @@ exports.push([module.i, "\nbutton[data-v-5ba1f14e] {\n    cursor: pointer;\n}\n#
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__pagination_Pagination__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__router_routes__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__router_routes__ = __webpack_require__(7);
 //
 //
 //
@@ -76889,7 +76884,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__router_routes__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__router_routes__ = __webpack_require__(7);
 //
 //
 //
@@ -77053,7 +77048,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__router_routes__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__router_routes__ = __webpack_require__(7);
 //
 //
 //
@@ -78444,6 +78439,7 @@ var index_esm = {
             axios.get(payload).then(function (response) {
                 // console.log(response);
                 var pages = Math.round(response.data.total / response.data.per_page);
+                console.log(response);
                 context.commit('setUsers', response);
                 context.commit('setTotalPage', pages);
                 context.commit('setColumns', response.data.columns);
@@ -80019,11 +80015,11 @@ exports.push([module.i, "\na[data-v-1bfdd121]:hover {\n    text-decoration: none
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_client_ClientDetailsForm__ = __webpack_require__(353);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_client_ClientDetailsForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__forms_client_ClientDetailsForm__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__nav_buttons_NavButtons__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__nav_buttons_NavButtons__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__nav_buttons_NavButtons___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__nav_buttons_NavButtons__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__alerts_AlertReminder__ = __webpack_require__(363);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__alerts_AlertReminder___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__alerts_AlertReminder__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_store_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_store_js__ = __webpack_require__(9);
 //
 //
 //
@@ -80806,7 +80802,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -80817,6 +80813,33 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -81165,6 +81188,84 @@ var render = function() {
                         _vm.serverResponse.data.errors.proposal
                           ? _vm._l(
                               _vm.serverResponse.data.errors.proposal,
+                              function(e) {
+                                return _c("li", { key: e }, [
+                                  _vm._v(" " + _vm._s(e))
+                                ])
+                              }
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.serverResponse.data.errors.caller
+                          ? _vm._l(
+                              _vm.serverResponse.data.errors.caller,
+                              function(e) {
+                                return _c("li", { key: e }, [
+                                  _vm._v(" " + _vm._s(e))
+                                ])
+                              }
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.serverResponse.data.errors.date_of_call
+                          ? _vm._l(
+                              _vm.serverResponse.data.errors.date_of_call,
+                              function(e) {
+                                return _c("li", { key: e }, [
+                                  _vm._v(" " + _vm._s(e))
+                                ])
+                              }
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.serverResponse.data.errors.confirmation_preCall
+                          ? _vm._l(
+                              _vm.serverResponse.data.errors
+                                .confirmation_preCall,
+                              function(e) {
+                                return _c("li", { key: e }, [
+                                  _vm._v(" " + _vm._s(e))
+                                ])
+                              }
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.serverResponse.data.errors.productive_call
+                          ? _vm._l(
+                              _vm.serverResponse.data.errors.productive_call,
+                              function(e) {
+                                return _c("li", { key: e }, [
+                                  _vm._v(" " + _vm._s(e))
+                                ])
+                              }
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.serverResponse.data.errors.proposal_sent
+                          ? _vm._l(
+                              _vm.serverResponse.data.errors.proposal_sent,
+                              function(e) {
+                                return _c("li", { key: e }, [
+                                  _vm._v(" " + _vm._s(e))
+                                ])
+                              }
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.serverResponse.data.errors.client_response
+                          ? _vm._l(
+                              _vm.serverResponse.data.errors.client_response,
+                              function(e) {
+                                return _c("li", { key: e }, [
+                                  _vm._v(" " + _vm._s(e))
+                                ])
+                              }
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.serverResponse.data.errors.client_id
+                          ? _vm._l(
+                              _vm.serverResponse.data.errors.client_id,
                               function(e) {
                                 return _c("li", { key: e }, [
                                   _vm._v(" " + _vm._s(e))
@@ -83542,9 +83643,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__forms_client_ClientAcquisitionForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__forms_client_ClientAcquisitionForm__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modal_modal__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modal_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__modal_modal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__nav_buttons_NavButtons__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__nav_buttons_NavButtons__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__nav_buttons_NavButtons___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__nav_buttons_NavButtons__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store_store_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store_store_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tables_ClientCallsTable__ = __webpack_require__(476);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tables_ClientCallsTable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__tables_ClientCallsTable__);
 //
 //
 //
@@ -83778,6 +83881,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -83825,6 +83930,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 case 'NEW_CALL_RECORD':
                     this.$store.dispatch('setModalTitle', 'Call Details');
                     this.$store.dispatch('setModalFormType', 'NEW_CALL_RECORD');
+                    this.$store.dispatch('clearClientCall');
                     break;
 
                 case 'NEW_SATURATION_RECORD':
@@ -83854,7 +83960,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         ClientSaturationForm: __WEBPACK_IMPORTED_MODULE_2__forms_client_ClientSaturationForm___default.a,
         ClientPresentationForm: __WEBPACK_IMPORTED_MODULE_0__forms_client_ClientPresentationForm___default.a,
         ClientAcquisitionForm: __WEBPACK_IMPORTED_MODULE_3__forms_client_ClientAcquisitionForm___default.a,
-        NavButtons: __WEBPACK_IMPORTED_MODULE_5__nav_buttons_NavButtons___default.a
+        NavButtons: __WEBPACK_IMPORTED_MODULE_5__nav_buttons_NavButtons___default.a,
+        ClientCallsTable: __WEBPACK_IMPORTED_MODULE_7__tables_ClientCallsTable___default.a
     }
 });
 
@@ -84182,6 +84289,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__errors_clientForm_clientFormError__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__errors_clientForm_clientFormError___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__errors_clientForm_clientFormError__);
 //
 //
 //
@@ -84232,28 +84341,118 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {},
-
-  computed: {
-    modalFormValidation: function modalFormValidation() {
-      return this.$store.getters.getModalFormValidation;
-    }
-  },
-  methods: {
-    submitForm: function submitForm(form) {
-      alert();
+    beforeCreate: function beforeCreate() {
+        this.$store.dispatch('loadUsers', 'api/users?type=all');
     },
-    closeModal: function closeModal(scope) {
-      var payload = {
-        scope: scope,
-        errors: this.errors
-      };
-      this.$store.dispatch("setModalFormValidation", payload);
-      this.$store.dispatch("closeModal", this.modalFormValidation);
+    created: function created() {
+        console.log(this.$route.params);
+    },
+    data: function data() {
+        return {
+            date_of_call: ''
+        };
+    },
+
+    computed: {
+        isSubmitting: function isSubmitting() {
+            return this.$store.getters.getSubmitState;
+        },
+        modalFormValidation: function modalFormValidation() {
+            return this.$store.getters.getModalFormValidation;
+        },
+        formType: function formType() {
+            return this.$store.getters.getModalFormType;
+        },
+        users: function users() {
+            return this.$store.getters.loadUsers;
+        },
+        serverResponse: function serverResponse() {
+            return this.$store.getters.getServerResponse;
+        },
+        call: function call() {
+            return this.$store.getters.getClientCall;
+        }
+    },
+    watch: {
+        call: 'formatDate',
+        formType: 'clearDate'
+    },
+    methods: {
+        submitForm: function submitForm(scope) {
+            var _this = this;
+
+            this.$validator.validateAll(scope).then(function (result) {
+
+                if (result) {
+                    // if true submit form else set serverResponse error
+                    var call_record = {
+                        id: _this.call.id,
+                        client_id: _this.$route.params.clientId,
+                        caller: _this.call.caller,
+                        date_of_call: _this.date_of_call,
+                        confirmation_preCall: _this.call.confirmation_preCall,
+                        productive_call: _this.call.productive_call,
+                        proposal_sent: _this.call.proposal_sent,
+                        client_response: _this.call.client_response
+                    };
+
+                    if (_this.formType == 'NEW_CALL_RECORD') {
+                        _this.$store.dispatch('storeClientCall', call_record).then(function () {
+                            _this.$store.dispatch('loadClientCalls', 'api/clients/' + _this.client_id + '/calls?keyword=' + _this.query.search_keyword + '&order_by=' + _this.query.order_by + '&per_page=' + _this.query.per_page + '&sort_column=' + _this.query.sort_column);
+                        });
+                    } else if (_this.formType == 'EDIT_DEPARTMENT') {
+                        _this.$store.dispatch('updateClientCall', call_record).then(function () {
+                            _this.$store.dispatch('loadClientCalls', 'api/departments');
+                        });
+                    } else {
+                        toastr.error('Error', 'Unknown Command');
+                    }
+                } else {}
+            });
+        },
+        closeModal: function closeModal(scope) {
+            var payload = {
+                scope: scope,
+                errors: this.errors
+            };
+            this.$store.dispatch("setModalFormValidation", payload);
+            this.$store.dispatch("closeModal", this.modalFormValidation);
+        },
+        formatDate: function formatDate() {
+            this.date_of_call = moment(this.call.date_of_call).format('YYYY-MM-DD');
+        },
+        clearDate: function clearDate() {
+            if (this.formType == 'NEW_CALL_RECORD') {
+                this.date_of_call = moment().format('YYYY-MM-DD');
+            }
+        }
+    },
+    components: {
+        formErrors: __WEBPACK_IMPORTED_MODULE_0__errors_clientForm_clientFormError___default.a
     }
-  }
 });
 
 /***/ }),
@@ -84276,27 +84475,392 @@ var render = function() {
       }
     },
     [
+      _c("form-errors", { attrs: { serverResponse: _vm.serverResponse } }),
+      _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "form-group col-md-12" }, [
+          _c("label", { attrs: { for: "caller" } }, [_vm._v("Caller")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.call.caller,
+                  expression: "call.caller"
+                },
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: { rules: { required: true } },
+                  expression: "{rules:{required:true}}"
+                }
+              ],
+              staticClass: "form-control form-control-sm",
+              attrs: { name: "caller", id: "caller" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.call.caller = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _vm._v("]\n                "),
+              _c("option", { attrs: { value: "" } }, [
+                _vm._v("--Select Caller--")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.users, function(user, index) {
+                return _c(
+                  "option",
+                  { key: index, domProps: { value: user.id } },
+                  [
+                    _vm._v(
+                      " " +
+                        _vm._s(user.initial + " ( " + user.name + " ) ") +
+                        " "
+                    )
+                  ]
+                )
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "small",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.errors.has("callForm.caller"),
+                  expression: "errors.has('callForm.caller')"
+                }
+              ],
+              staticClass: "form-text has-danger"
+            },
+            [_vm._v(_vm._s(_vm.errors.first("callForm.caller")))]
+          )
+        ]),
         _vm._v(" "),
-        _vm._m(1),
+        _c("div", { staticClass: "form-group col-sm-12" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Date of Call")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.date_of_call,
+                expression: "date_of_call"
+              },
+              {
+                name: "validate",
+                rawName: "v-validate",
+                value: { rules: { required: true } },
+                expression: "{rules:{required:true}}"
+              }
+            ],
+            staticClass: "form-control form-control-sm",
+            attrs: { type: "date", name: "date_of_call", id: "" },
+            domProps: { value: _vm.date_of_call },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.date_of_call = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "small",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.errors.has("callForm.date_of_call"),
+                  expression: "errors.has('callForm.date_of_call')"
+                }
+              ],
+              staticClass: "form-text has-danger"
+            },
+            [_vm._v(_vm._s(_vm.errors.first("callForm.date_of_call")))]
+          )
+        ]),
         _vm._v(" "),
-        _vm._m(2),
+        _c("div", { staticClass: "form-group col-sm-12" }, [
+          _c("label", { attrs: { for: "" } }, [
+            _vm._v("Confirmation Pre-Call")
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.call.confirmation_preCall,
+                  expression: "call.confirmation_preCall"
+                },
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: { rules: { required: true } },
+                  expression: "{rules:{required:true}}"
+                }
+              ],
+              staticClass: "form-control form-control-sm",
+              attrs: { name: "confirmation_precall", id: "" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.call.confirmation_preCall = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "1" } }, [_vm._v("Yes")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "0" } }, [_vm._v("No")])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "small",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.errors.has("callForm.confirmation_precall"),
+                  expression: "errors.has('callForm.confirmation_precall')"
+                }
+              ],
+              staticClass: "form-text has-danger"
+            },
+            [_vm._v(_vm._s(_vm.errors.first("callForm.confirmation_precall")))]
+          )
+        ]),
         _vm._v(" "),
-        _vm._m(3),
+        _c("div", { staticClass: "form-group col-sm-12" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Productive Call")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.call.productive_call,
+                  expression: "call.productive_call"
+                },
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: { rules: { required: true } },
+                  expression: "{rules:{required:true}}"
+                }
+              ],
+              staticClass: "form-control form-control-sm",
+              attrs: { name: "productive_call", id: "" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.call.productive_call = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "1" } }, [_vm._v("Yes")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "0" } }, [_vm._v("No")])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "small",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.errors.has("callForm.productive_call"),
+                  expression: "errors.has('callForm.productive_call')"
+                }
+              ],
+              staticClass: "form-text has-danger"
+            },
+            [_vm._v(_vm._s(_vm.errors.first("callForm.productive_call")))]
+          )
+        ]),
         _vm._v(" "),
-        _vm._m(4),
+        _c("div", { staticClass: "form-group col-sm-12" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Proposal was send?")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.call.proposal_sent,
+                  expression: "call.proposal_sent"
+                },
+                {
+                  name: "validate",
+                  rawName: "v-validate",
+                  value: { rules: { required: true } },
+                  expression: "{rules:{required:true}}"
+                }
+              ],
+              staticClass: "form-control form-control-sm",
+              attrs: { name: "proposal", id: "" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.call.proposal_sent = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "1" } }, [_vm._v("Yes")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "0" } }, [_vm._v("No")])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "small",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.errors.has("callForm.proposal"),
+                  expression: "errors.has('callForm.proposal')"
+                }
+              ],
+              staticClass: "form-text has-danger"
+            },
+            [_vm._v(_vm._s(_vm.errors.first("callForm.proposal")))]
+          )
+        ]),
         _vm._v(" "),
-        _vm._m(5),
+        _c("div", { staticClass: "form-group col-sm-12" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Client Reponse")]),
+          _vm._v(" "),
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.call.client_response,
+                expression: "call.client_response"
+              },
+              {
+                name: "validate",
+                rawName: "v-validate",
+                value: { rules: { required: true } },
+                expression: "{rules:{required:true}}"
+              }
+            ],
+            staticClass: "form-control form-control-sm",
+            attrs: { name: "client_response", id: "", cols: "30", rows: "1" },
+            domProps: { value: _vm.call.client_response },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.call.client_response = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "small",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.errors.has("callForm.client_response"),
+                  expression: "errors.has('callForm.client_response')"
+                }
+              ],
+              staticClass: "form-text has-danger"
+            },
+            [_vm._v(_vm._s(_vm.errors.first("callForm.client_response")))]
+          )
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group col-sm-12" }, [
           _c(
             "button",
             {
-              staticClass: "btn btn-sm btn-success",
-              attrs: { type: "submit" }
+              staticClass: "btn btn-success btn-sm",
+              attrs: { type: "submit", disabled: _vm.isSubmitting }
             },
-            [_vm._v("Submit")]
+            [
+              _vm.isSubmitting
+                ? _c("span", [
+                    _vm._v(
+                      "\n                    Saving...\n                    "
+                    ),
+                    _c("div", { staticClass: "loading" })
+                  ])
+                : _c("span", [
+                    _vm._v(
+                      "\n                    Save Call Record\n                "
+                    )
+                  ])
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -84306,7 +84870,7 @@ var render = function() {
               attrs: { type: "button" },
               on: {
                 click: function($event) {
-                  _vm.closeModal("userForm")
+                  _vm.closeModal("callForm")
                 }
               }
             },
@@ -84314,113 +84878,11 @@ var render = function() {
           )
         ])
       ])
-    ]
+    ],
+    1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-md-12" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Caller")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control form-control-sm",
-        attrs: { type: "text" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-sm-12" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Date of Call")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control form-control-sm",
-        attrs: { type: "date", name: "", id: "" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-sm-12" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Confirmation Pre-Call")]),
-      _vm._v(" "),
-      _c(
-        "select",
-        {
-          staticClass: "form-control form-control-sm",
-          attrs: { name: "", id: "" }
-        },
-        [
-          _c("option", { attrs: { value: "yes" } }, [_vm._v("Yes")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "no" } }, [_vm._v("No")])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-sm-12" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Productive Call")]),
-      _vm._v(" "),
-      _c(
-        "select",
-        {
-          staticClass: "form-control form-control-sm",
-          attrs: { name: "", id: "" }
-        },
-        [
-          _c("option", { attrs: { value: "yes" } }, [_vm._v("Yes")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "no" } }, [_vm._v("No")])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-sm-12" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Proposal was send?")]),
-      _vm._v(" "),
-      _c(
-        "select",
-        {
-          staticClass: "form-control form-control-sm",
-          attrs: { name: "", id: "" }
-        },
-        [
-          _c("option", { attrs: { value: "yes" } }, [_vm._v("Yes")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "no" } }, [_vm._v("No")])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-sm-12" }, [
-      _c("label", { attrs: { for: "" } }, [_vm._v("Client Reponse")]),
-      _vm._v(" "),
-      _c("textarea", {
-        staticClass: "form-control form-control-sm",
-        attrs: { name: "", id: "", cols: "30", rows: "1" }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -85486,8 +85948,11 @@ var render = function() {
                             )
                           ]
                         )
-                      ])
-                    ]
+                      ]),
+                      _vm._v(" "),
+                      _c("client-calls-table")
+                    ],
+                    1
                   ),
                   _vm._v(" "),
                   _c(
@@ -85612,19 +86077,23 @@ var render = function() {
             _vm._v(_vm._s(_vm.modalTitle))
           ]),
           _vm._v(" "),
-          _vm.modalFormType == "NEW_CALL_RECORD"
+          _vm.modalFormType == "NEW_CALL_RECORD" ||
+          _vm.modalFormType == "EDIT_CALL_RECORD"
             ? _c("div", [_c("client-calls-form")], 1)
             : _vm._e(),
           _vm._v(" "),
-          _vm.modalFormType == "NEW_SATURATION_RECORD"
+          _vm.modalFormType == "NEW_SATURATION_RECORD" ||
+          _vm.modalFormType == "EDIT_SATURATION_RECORD"
             ? _c("div", [_c("client-saturation-form")], 1)
             : _vm._e(),
           _vm._v(" "),
-          _vm.modalFormType == "NEW_PRESENTATION_RECORD"
+          _vm.modalFormType == "NEW_PRESENTATION_RECORD" ||
+          _vm.modalFormType == "EDIT_PRESENTATION_RECORD"
             ? _c("div", [_c("client-presentation-form")], 1)
             : _vm._e(),
           _vm._v(" "),
-          _vm.modalFormType == "NEW_ACQUISITION_RECORD"
+          _vm.modalFormType == "NEW_ACQUISITION_RECORD" ||
+          _vm.modalFormType == "EDIT_ACQUISITION_RECORD"
             ? _c("div", [_c("client-acquisition-form")], 1)
             : _vm._e()
         ],
@@ -90122,7 +90591,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tables_UsersTable__ = __webpack_require__(454);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tables_UsersTable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__tables_UsersTable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__nav_buttons_NavButtons__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__nav_buttons_NavButtons__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__nav_buttons_NavButtons___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__nav_buttons_NavButtons__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_user_CreateUserForm__ = __webpack_require__(459);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_user_CreateUserForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__forms_user_CreateUserForm__);
@@ -90279,7 +90748,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -90292,6 +90761,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__pagination_Pagination__);
+//
 //
 //
 //
@@ -92109,6 +92579,572 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 472 */,
+/* 473 */,
+/* 474 */,
+/* 475 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: {
+        client_call: {},
+        client_calls: []
+    },
+    getters: {
+        getClientCall: function getClientCall(state) {
+            return state.client_call;
+        },
+        getClientCalls: function getClientCalls(state) {
+            return state.client_calls;
+        }
+    },
+    mutations: {
+        clearClientCall: function clearClientCall(state) {
+            state.client_call = {};
+        },
+        clientClientCalls: function clientClientCalls(state) {
+            state.client_calls = [];
+        },
+        setClientCall: function setClientCall(state, payload) {
+            state.client_call = payload.data;
+        },
+        setClientCalls: function setClientCalls(state, payload) {
+            state.client_calls = payload.data.model;
+        }
+    },
+    actions: {
+        clearClientCall: function clearClientCall(context) {
+            context.commit('clearClientCall');
+        },
+        clearClientCalls: function clearClientCalls(context) {
+            context.commit('clearClientCalls');
+        },
+        loadClientCalls: function loadClientCalls(context, payload) {
+            context.commit('setLoadingState', true);
+            axios.get(payload).then(function (response) {
+                context.commit('setClientCalls', response);
+                setTimeout(function () {
+                    context.commit('setLoadingState', false);
+                }, 1000);
+            }).catch(function (error) {
+                console.log(error.response.data);
+                setTimeout(function () {
+                    context.commit('setLoadingState', false);
+                }, 1000);
+            });
+        },
+        loadClientCall: function loadClientCall(context, payload) {
+            context.commit('setLoadingState', true);
+            axios.get('api/clients/' + payload.client_id + '/calls/' + payload.call_id).then(function (response) {
+                context.commit('setClientCall', response);
+                setTimeout(function () {
+                    context.commit('setLoadingState', false);
+                }, 1000);
+            }).catch(function (error) {
+                console.log(error.response.data);
+                setTimeout(function () {
+                    context.commit('setLoadingState', false);
+                }, 1000);
+            });
+        },
+        storeClientCall: function storeClientCall(context, payload) {
+            context.commit('setSubmitState', true);
+            return new Promise(function (resolve, reject) {
+                axios.post('api/clients/' + payload.client_id + '/calls', payload).then(function (response) {
+                    setTimeout(function () {
+                        context.commit('setServerResponse', response);
+                        context.commit('setSubmitState', false);
+                        $("#createUserModal").modal('hide');
+                        toastr.success('Success', response.data.message);
+                        resolve(response);
+                    }, 1000);
+                }).catch(function (error) {
+                    context.commit('setServerResponse', error.response);
+                    context.commit('setSubmitState', false);
+                    reject(error.response);
+                });
+            });
+        },
+        updateClientCall: function updateClientCall(context, payload) {},
+        deleteClientCall: function deleteClientCall(context, payload) {}
+    }
+});
+
+/***/ }),
+/* 476 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(481)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(479)
+/* template */
+var __vue_template__ = __webpack_require__(483)
+/* template functional */
+  var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-360588ec"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\tables\\ClientCallsTable.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-360588ec", Component.options)
+  } else {
+    hotAPI.reload("data-v-360588ec", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 477 */,
+/* 478 */,
+/* 479 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__pagination_Pagination__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    created: function created() {
+        this.loadClientCallsRecord();
+    },
+
+    computed: {
+        client_id: function client_id() {
+            return this.$route.params.clientId;
+        },
+        calls: function calls() {
+            return this.$store.getters.getClientCalls;
+        },
+        isLoading: function isLoading() {
+            return this.$store.getters.getLoadingState;
+        },
+        query: function query() {
+            return this.$store.getters.getUserApiQuery;
+        },
+        columns: function columns() {
+            return this.$store.getters.getColumns;
+        },
+        page_display: function page_display() {
+            return this.$store.getters.getPageDisplay;
+        }
+    },
+    methods: {
+        edit: function edit(call) {
+            var payload = {
+                client_id: this.$route.params.clientId,
+                call_id: call.id
+            };
+            this.$store.dispatch('loadClientCall', payload);
+            this.$store.dispatch('setModalFormType', 'EDIT_CALL_RECORD');
+            $("#createUserModal").modal("show");
+        },
+        loadClientCallsRecord: function loadClientCallsRecord() {
+            return this.$store.dispatch('loadClientCalls', 'api/clients/' + this.client_id + '/calls?keyword=' + this.query.search_keyword + '&order_by=' + this.query.order_by + '&per_page=' + this.query.per_page + '&sort_column=' + this.query.sort_column);
+        }
+    },
+    components: {
+        Pagination: __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a
+    }
+});
+
+/***/ }),
+/* 480 */,
+/* 481 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(482);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("c1061ab8", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-360588ec\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./ClientCallsTable.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-360588ec\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./ClientCallsTable.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 482 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\ntable.calls-table td[data-v-360588ec]{\n    font-size: 12px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 483 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "table",
+        {
+          staticClass:
+            "table table-borderless table-striped m-b-none calls-table"
+        },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            [
+              _vm.calls.data == 0
+                ? _c("tr", [
+                    _c(
+                      "td",
+                      { staticClass: "text-center", attrs: { colspan: "11" } },
+                      [
+                        _vm._v(
+                          "\n                    No data to show...\n                "
+                        )
+                      ]
+                    )
+                  ])
+                : _vm._l(_vm.calls.data, function(call, index) {
+                    return _c("tr", { key: index }, [
+                      _c(
+                        "td",
+                        { staticStyle: { "vertical-align": "middle" } },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(call.id) +
+                              "\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        { staticStyle: { "vertical-align": "middle" } },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(call.user.initial) +
+                              "\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        { staticStyle: { "vertical-align": "middle" } },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(
+                                _vm._f("humanReadableFormat")(call.date_of_call)
+                              ) +
+                              "\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        { staticStyle: { "vertical-align": "middle" } },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(
+                                call.confirmation_preCall == 1 ? "Yes" : "No"
+                              ) +
+                              "\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        { staticStyle: { "vertical-align": "middle" } },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(call.productive_call == 1 ? "Yes" : "No") +
+                              "\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        { staticStyle: { "vertical-align": "middle" } },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(call.proposal_sent == 1 ? "Yes" : "No") +
+                              "\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        { staticStyle: { "vertical-align": "middle" } },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(call.client_response) +
+                              "\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        { staticStyle: { "vertical-align": "middle" } },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "btn-group btn-group-sm",
+                              attrs: { role: "group" }
+                            },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-sm btn-default",
+                                  attrs: { type: "button", title: "Edit" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.edit(call)
+                                    }
+                                  }
+                                },
+                                [_c("span", { staticClass: "fa fa-edit" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-sm btn-default",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.destroy(call)
+                                    }
+                                  }
+                                },
+                                [_c("span", { staticClass: "fa fa-trash" })]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  })
+            ],
+            2
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("pagination", {
+        attrs: {
+          scope: "calls",
+          object: _vm.calls,
+          url:
+            "api/clients/" +
+            this.client_id +
+            "/calls?keyword=" +
+            this.query.search_keyword +
+            "&order_by=" +
+            this.query.order_by +
+            "&per_page=" +
+            this.query.per_page +
+            "&sort_column=" +
+            this.query.sort_column,
+          query:
+            "keyword=" +
+            this.query.search_keyword +
+            "&order_by=" +
+            this.query.order_by +
+            "&per_page=" +
+            this.query.per_page +
+            "&sort_column=" +
+            this.query.sort_column,
+          classSize: "pagination-sm"
+        }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Caller")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Date of Call")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Confirmation Pre-call")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Productive")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Proposal Sent")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Response")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Options")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-360588ec", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

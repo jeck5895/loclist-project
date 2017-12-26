@@ -21,7 +21,7 @@ class NationalitiesController extends Controller
             $nationalities = Nationality::active()->orderBy('nationality','asc')->get();   
         }
         else{
-            $nationalities = Nationality::active()->orderBy('nationality','asc')->paginate(5);
+            $nationalities = Nationality::active()->orderBy('nationality','asc')->paginate(10);
         }
             
         return $nationalities;

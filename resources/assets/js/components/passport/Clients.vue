@@ -41,7 +41,7 @@
                     </thead>
 
                     <tbody>
-                        <tr v-for="client in clients">
+                        <tr v-for="(client, index) in clients" :key="index">
                             <!-- ID -->
                             <td style="vertical-align: middle;">
                                 {{ client.id }}
@@ -84,7 +84,6 @@
                         <h4 class="modal-title">
                             Create Client
                         </h4>
-
                         <button type="button " class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
@@ -94,7 +93,7 @@
                                 <strong>Whoops!</strong> Something went wrong!</p>
                             <br>
                             <ul>
-                                <li v-for="error in createForm.errors">
+                                <li v-for="(error, index) in createForm.errors" :key="index">
                                     {{ error }}
                                 </li>
                             </ul>
@@ -103,7 +102,7 @@
                         <!-- Create Client Form -->
                         <form class="form-horizontal" role="form">
                             <!-- Name -->
-                            <div class="form-group">
+                            <div class="form-group col">
                                 <label class="control-label">Name</label>
 
                                 <input id="create-client-name" type="text" class="form-control" @keyup.enter="store" v-model="createForm.name">
@@ -115,7 +114,7 @@
                             </div>
 
                             <!-- Redirect URL -->
-                            <div class="form-group">
+                            <div class="form-group col">
                                 <label class="control-label">Redirect URL</label>
 
                                 <input type="text" class="form-control" name="redirect" @keyup.enter="store" v-model="createForm.redirect">
@@ -145,11 +144,11 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button " class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
                         <h4 class="modal-title">
                             Edit Client
                         </h4>
+
+                        <button type="button " class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
 
                     <div class="modal-body">
@@ -159,7 +158,7 @@
                                 <strong>Whoops!</strong> Something went wrong!</p>
                             <br>
                             <ul>
-                                <li v-for="error in editForm.errors">
+                                <li v-for="(error, index) in editForm.errors" :key="index">
                                     {{ error }}
                                 </li>
                             </ul>
@@ -169,28 +168,25 @@
                         <form class="form-horizontal" role="form">
                             <!-- Name -->
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Name</label>
-
-                                <div class="col-md-7">
+                                <label class="control-label">Name</label>
                                     <input id="edit-client-name" type="text" class="form-control" @keyup.enter="update" v-model="editForm.name">
 
                                     <span class="help-block">
                                         Something your users will recognize and trust.
                                     </span>
-                                </div>
                             </div>
 
                             <!-- Redirect URL -->
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Redirect URL</label>
+                                <label class="control-label">Redirect URL</label>
 
-                                <div class="col-md-7">
+                                
                                     <input type="text" class="form-control" name="redirect" @keyup.enter="update" v-model="editForm.redirect">
 
                                     <span class="help-block">
                                         Your application's authorization callback URL.
                                     </span>
-                                </div>
+                                
                             </div>
                         </form>
                     </div>

@@ -88,6 +88,33 @@
                         <template v-if="serverResponse.data.errors.proposal">
                             <li v-for="e in serverResponse.data.errors.proposal" :key="e"> {{ e }}</li>
                         </template>
+                        <!-- Client Call form errors-->
+                        <template v-if="serverResponse.data.errors.caller">
+                            <li v-for="e in serverResponse.data.errors.caller" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.date_of_call">
+                            <li v-for="e in serverResponse.data.errors.date_of_call" :key="e"> {{ e }}</li>
+                        </template>
+                        
+                        <template v-if="serverResponse.data.errors.confirmation_preCall">
+                            <li v-for="e in serverResponse.data.errors.confirmation_preCall" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.productive_call">
+                            <li v-for="e in serverResponse.data.errors.productive_call" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.proposal_sent">
+                            <li v-for="e in serverResponse.data.errors.proposal_sent" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.client_response">
+                            <li v-for="e in serverResponse.data.errors.client_response" :key="e"> {{ e }}</li>
+                        </template>
+                        <template v-if="serverResponse.data.errors.client_id">
+                            <li v-for="e in serverResponse.data.errors.client_id" :key="e"> {{ e }}</li>
+                        </template>
                     </ul>
                 </div>
 

@@ -60,4 +60,9 @@ class User extends Authenticatable
          */
         return $this->hasMany(Client::class ,'entry_by', 'uid'); 
     }
+
+    public function client_call() 
+    {
+        return $this->hasOne(ClientCall::class, 'caller', 'id');
+    }
 }

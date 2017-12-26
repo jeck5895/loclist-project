@@ -21,7 +21,7 @@ class UserTypesController extends Controller
            $user_types = UserType::orderBy('userType','asc')->get();
         }
         else{
-           $user_types = UserType::orderBy('userType','asc')->paginate(5);
+           $user_types = UserType::orderBy('userType','asc')->paginate(10);
         }        
         return $user_types;
     }

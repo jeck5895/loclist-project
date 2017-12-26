@@ -15,6 +15,7 @@ import manpowerModule from './modules/maintainance/manpowerModule';
 import companyModule from './modules/companies/companyModule';
 import dataFilteringModule from './modules/dataFiltering/dataFilteringModule';
 import statusModule from './modules/maintainance/statusModule';
+import clientCallModule from './modules/clients/clientCallModule';
 
 Vue.use(Vuex); 
 
@@ -34,6 +35,7 @@ export const store = new Vuex.Store({
         manpowerModule,
         companyModule,
         dataFilteringModule,
-        statusModule
+        statusModule,
+        clientCallModule
     }
 });

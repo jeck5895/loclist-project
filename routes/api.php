@@ -34,9 +34,8 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('positions', 'maintainance\PositionsController');
     Route::apiResource('manpowers', 'maintainance\ManpowersController');
     Route::apiResource('statuses', 'maintainance\StatusesController');
-    
+    Route::apiResource('clients.calls','clients\ClientCallController');
 });
-
 Route::get('/test',function(){
    
     // return response()->json([

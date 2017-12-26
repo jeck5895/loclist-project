@@ -178,6 +178,7 @@
                                   <span class="fa fa-phone-square"></span>  New Call Record
                                 </button>
                             </div>
+                            <client-calls-table></client-calls-table>
                         </div>
 
                         <div class="tab-pane fade" id="saturation" role="tabpanel" aria-labelledby="home-tab">
@@ -211,19 +212,19 @@
         <modal>
             <template slot="header">{{ modalTitle }}</template>
             
-            <div v-if="modalFormType == 'NEW_CALL_RECORD'">
+            <div v-if="modalFormType == 'NEW_CALL_RECORD' || modalFormType == 'EDIT_CALL_RECORD'">
                 <client-calls-form></client-calls-form>
             </div>
 
-            <div v-if="modalFormType == 'NEW_SATURATION_RECORD'">
+            <div v-if="modalFormType == 'NEW_SATURATION_RECORD' || modalFormType == 'EDIT_SATURATION_RECORD'">
                 <client-saturation-form></client-saturation-form>
             </div>
 
-            <div v-if="modalFormType == 'NEW_PRESENTATION_RECORD'">
+            <div v-if="modalFormType == 'NEW_PRESENTATION_RECORD' || modalFormType == 'EDIT_PRESENTATION_RECORD'">
                 <client-presentation-form></client-presentation-form>
             </div>
 
-            <div v-if="modalFormType == 'NEW_ACQUISITION_RECORD'">
+            <div v-if="modalFormType == 'NEW_ACQUISITION_RECORD' || modalFormType == 'EDIT_ACQUISITION_RECORD'">
                 <client-acquisition-form></client-acquisition-form>
             </div>
             
@@ -239,7 +240,8 @@
     import  Modal from '../../modal/modal';
     import NavButtons from '../../nav-buttons/NavButtons';
     import {store} from '../../../store/store.js';
-
+    import ClientCallsTable from '../../tables/ClientCallsTable';
+    
     export default {
         beforeRouteEnter(to, from, next) {
             let payload = {
@@ -277,6 +279,7 @@
                     case 'NEW_CALL_RECORD':
                         this.$store.dispatch('setModalTitle', 'Call Details');
                         this.$store.dispatch('setModalFormType', 'NEW_CALL_RECORD');
+                        this.$store.dispatch('clearClientCall');
                         break;
 
                     case 'NEW_SATURATION_RECORD':
@@ -306,7 +309,8 @@
             ClientSaturationForm,
             ClientPresentationForm,
             ClientAcquisitionForm,
-            NavButtons
+            NavButtons,
+            ClientCallsTable,
         }
     };
 </script>

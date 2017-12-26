@@ -46,6 +46,7 @@ export default{
             .then(response => {
                 // console.log(response);
                 var pages = Math.round(response.data.total / response.data.per_page);
+                console.log(response)
                 context.commit('setUsers', response);
                 context.commit('setTotalPage', pages);
                 context.commit('setColumns', response.data.columns);

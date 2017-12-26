@@ -21,7 +21,7 @@ class PositionsController extends Controller
             $positions = Position::active()->orderBy('position_name','asc')->get();
         }
         else{
-            $positions = Position::active()->orderBy('position_name','asc')->paginate(5);
+            $positions = Position::active()->orderBy('position_name','asc')->paginate(10);
         }
 
         return $positions;

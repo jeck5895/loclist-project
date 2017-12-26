@@ -21,7 +21,7 @@ class ManpowersController extends Controller
             $manpower_types = ClientManpowerType::active()->orderBy('type','asc')->get();
         }
         else{
-            $manpower_types = ClientManpowerType::active()->orderBy('type','asc')->paginate(5);
+            $manpower_types = ClientManpowerType::active()->orderBy('type','asc')->paginate(10);
         }
 
         return $manpower_types;

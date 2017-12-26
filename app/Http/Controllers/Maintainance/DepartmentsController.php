@@ -21,7 +21,7 @@ class DepartmentsController extends Controller
             $deparments = Department::active()->orderBy('department_name','asc')->get();
         }
         else{
-            $deparments = Department::active()->orderBy('department_name','asc')->paginate(5);
+            $deparments = Department::active()->orderBy('department_name','asc')->paginate(10);
         }
 
         return $deparments;
