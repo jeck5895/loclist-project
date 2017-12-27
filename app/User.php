@@ -65,4 +65,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(ClientCall::class, 'caller', 'id');
     }
+
+    public function client_saturation() 
+    {
+        return $this->hasOne(ClientSaturation::class, 'proposal_by', 'id');
+    }
 }

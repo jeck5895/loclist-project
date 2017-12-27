@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\clients;
+namespace App\Http\Requests\clients\Calls;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -13,7 +13,7 @@ class UpdateClientCall extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->userType != 3 ? true : false;
     }
 
     /**

@@ -1,6 +1,6 @@
 <template>
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-9">
 
             <nav-buttons></nav-buttons>
 
@@ -126,7 +126,7 @@
                         <dt class="col-sm-3">Manpower</dt>
                         <dd class="col-sm-9">{{ client.company_manpower_type.type }}</dd>
 
-                        <dt class="col-sm-3">Souring Practices</dt>
+                        <dt class="col-sm-3">Sourcing Practices</dt>
                         <dd class="col-sm-9">
                             <span v-if="client.sourcing_practices.length == 0">
                                 <em>No sourcing practices provided...</em>
@@ -187,6 +187,8 @@
                                   <span class="fa fa-file-text-o"></span>  New Saturation Record
                                 </button>
                             </div>
+
+                            <client-saturations-table></client-saturations-table>
                         </div>
                         
                         <div class="tab-pane fade" id="presentation" role="tabpanel" aria-labelledby="home-tab">
@@ -241,6 +243,7 @@
     import NavButtons from '../../nav-buttons/NavButtons';
     import {store} from '../../../store/store.js';
     import ClientCallsTable from '../../tables/ClientCallsTable';
+    import ClientSaturationsTable from '../../tables/ClientSaturationsTable';
     
     export default {
         beforeRouteEnter(to, from, next) {
@@ -311,6 +314,7 @@
             ClientAcquisitionForm,
             NavButtons,
             ClientCallsTable,
+            ClientSaturationsTable,
         }
     };
 </script>

@@ -116,16 +116,24 @@
                 </div>
                 <!-- 5th row -->
                 <hr>
+                <div class="row col-md-12">
+                    <h6 class="lead">Contact Person</h6>
+                </div>
                 <div class="row">
                     <div class="form-group col-md-3">
-                        <label for="">Contact Person</label>
+                        
+                        <!-- <label for="">Contact Person</label>
                         <input v-model="client.contact_person" v-validate="{rules:{required:true}}" name="contact_person" type="text" class="form-control form-control-sm">
-                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.contact_person')">{{ errors.first('clientDetailsForm.contact_person') }}</small>
+                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.contact_person')">{{ errors.first('clientDetailsForm.contact_person') }}</small> -->
+                        <label for="">First Name</label>
+                        <input v-model="client.first_name" v-validate="{rules:{required:true}}" name="contact_person_firstname" type="text" class="form-control form-control-sm">
+                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.contact_person_firstname')">{{ errors.first('clientDetailsForm.contact_person_firstname') }}</small>
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="">Email</label>
-                        <input v-model="client.email_address" v-validate="{rules:{required:true, email: true}}" name="email_address" type="email" class="form-control form-control-sm">
-                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.email_address')">{{ errors.first('clientDetailsForm.email_address') }}</small>
+                        <label for="">Last Name</label>
+                        <input v-model="client.last_name" v-validate="{rules:{required:true}}" name="contact_person_lastname" type="text" class="form-control form-control-sm">
+                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.contact_person_lastname')">{{ errors.first('clientDetailsForm.contact_person_lastname') }}</small>
+                        
                     </div>
                     <div class="form-group col-md-3">
                         <label for="">Mobile #</label>
@@ -134,13 +142,9 @@
                     </div>
                     
                     <div class="form-group col-md-3">
-                        <label for="">Gender</label>
-                        <select v-model="client.gender" v-validate="{rules:{required:true}}" name="gender" id="" class="form-control form-control-sm">
-                            <option value="">--Select Gender--</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.gender')">{{ errors.first('clientDetailsForm.gender') }}</small>
+                        <label for="">Email</label>
+                        <input v-model="client.email_address" v-validate="{rules:{required:true, email: true}}" name="email_address" type="email" class="form-control form-control-sm">
+                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.email_address')">{{ errors.first('clientDetailsForm.email_address') }}</small>
                     </div>
                 </div>
 
@@ -166,6 +170,16 @@
                             </option>
                         </select>
                         <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.position')">{{ errors.first('clientDetailsForm.position') }}</small>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="">Gender</label>
+                        <select v-model="client.gender" v-validate="{rules:{required:true}}" name="gender" id="" class="form-control form-control-sm">
+                            <option value="">--Select Gender--</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.gender')">{{ errors.first('clientDetailsForm.gender') }}</small>
                     </div>
                 </div>
                 <!-- 7th row -->
@@ -442,7 +456,9 @@ export default {
                         other_landline: this.client.other_landline.trim(),
                         mobile_number: this.client.mobile_number.trim(),
                         email_address: this.client.email_address.trim(),
-                        contact_person: this.client.contact_person.trim(),
+                        // contact_person: this.client.contact_person.trim(),
+                        first_name: this.client.first_name,
+                        last_name: this.client.last_name,
                         gender: this.client.gender,
                         department: this.client.department,
                         position: this.client.position,

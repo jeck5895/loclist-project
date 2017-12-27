@@ -88,33 +88,56 @@ export default{
             context.commit('clearUser');
         },
         storeUser: (context, payload) => {
-            axios.post('api/users', payload)
-            .then(response => {
-                let result = response;
-                context.commit('setServerResponse', result);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', result.data.message);
-                document.getElementById('userForm').reset();
-            
-            })
-            .catch(error => {
-                let errors = error.response;
-                context.commit('setServerResponse', errors);
-                //toastr.error('Error', 'Oops! something went wrong');
-                console.log(errors);
+            context.commit('setSubmitState', true);
+
+            return new Promise((resolve, reject) => {
+                axios.post('api/users', payload)
+                .then(response => {
+                    setTimeout(() => {
+                        let result = response;
+                        context.commit('setServerResponse', result);
+                        context.commit('setSubmitState', false);
+                        $("#createUserModal").modal('hide');
+                        toastr.success('Success', result.data.message);
+                        document.getElementById('userForm').reset();
+                        resolve(response)
+                    }, 1000);
+                
+                })
+                .catch(error => {
+                    setTimeout(() => {
+                       let errors = error.response;
+                       context.commit('setServerResponse', errors);
+                       context.commit('setSubmitState', false);
+                       //toastr.error('Error', 'Oops! something went wrong');
+                       console.log(errors);
+                       reject(error);
+                    }, 1000);
+                });
             });
         },
         updateUser: (context, payload) => {
-            axios.patch('api/users/' + payload.id, payload, payload)
-            .then(response => {
-                context.commit('setServerResponse', response);
-                $("#createUserModal").modal('hide');
-                toastr.success('Success', response.data.message);
-                document.getElementById('userForm').reset();
-            })
-            .catch(error => {
-                context.commit('setServerResponse', error.response);
-                console.log(error.response.data)
+            context.commit('setSubmitState', true);
+            return new Promise((resolve, reject) => {
+                axios.patch('api/users/' + payload.id, payload, payload)
+                    .then(response => {
+                        setTimeout(() => {
+                            context.commit('setServerResponse', response);
+                            context.commit('setSubmitState', false);
+                            $("#createUserModal").modal('hide');
+                            toastr.success('Success', response.data.message);
+                            document.getElementById('userForm').reset();
+                            resolve(response)
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        setTimeout(() => {
+                            context.commit('setServerResponse', error.response);
+                            context.commit('setSubmitState', false);
+                            console.log(error.response.data);
+                            reject(error);
+                        }, 1000);
+                    });
             });
         },
         deleteUser: (context, payload) => {

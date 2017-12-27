@@ -81,4 +81,9 @@ class Client extends Model
     {
         return $this->hasMany(ClientCall::class);
     }
+
+    public function saturations() 
+    {
+        return $this->hasMany(ClientSaturation::class);
+    }
 }

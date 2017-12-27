@@ -34,7 +34,10 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('positions', 'maintainance\PositionsController');
     Route::apiResource('manpowers', 'maintainance\ManpowersController');
     Route::apiResource('statuses', 'maintainance\StatusesController');
+    Route::apiResource('saturations','maintainance\SaturationController');
+    Route::apiResource('confirmations','maintainance\ConfirmationController');
     Route::apiResource('clients.calls','clients\ClientCallController');
+    Route::apiResource('clients.saturations','clients\ClientSaturationController');
 });
 Route::get('/test',function(){
    

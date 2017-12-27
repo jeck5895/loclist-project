@@ -9895,6 +9895,7 @@ a.text-dark:hover {
   list-style: none;
   margin: 0;
   padding: 0;
+  overflow-y: auto;
 }
 
 .sidebar-nav > li {

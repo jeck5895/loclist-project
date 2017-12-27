@@ -6,14 +6,14 @@
                     <div class="alert alert-danger" role="alert" v-if="serverResponse.status == 422">
                         <strong>Errors</strong> :{{ serverResponse.data.message }}
                         <ul v-if="serverResponse.data.errors">
-                             <template  v-if="serverResponse.data.errors.email">   
+                            <template v-if="serverResponse.data.errors.email">
                                 <li v-for="e in serverResponse.data.errors.email" :key="e">{{ e }}</li>
-                             </template>
+                            </template>
                         </ul>
                     </div>
 
                     <div class="alert alert-danger" role="alert" v-if="serverResponse.status == 403">
-                        <strong>You are not authorized to perform this action</strong> 
+                        <strong>You are not authorized to perform this action</strong>
                     </div>
                 </div>
                 <div class="form-group">
@@ -35,7 +35,8 @@
                     <label for="">Email
                         <span class="required-field">*</span>
                     </label>
-                    <input data-vv-validate-on="'blur'" v-validate="{rules:{required:true, email:true}}" name="email" type="email" v-model="user.email" class="form-control">
+                    <input data-vv-validate-on="'blur'" v-validate="{rules:{required:true, email:true}}" name="email" type="email" v-model="user.email"
+                        class="form-control">
                     <small class="form-text has-danger" v-show="errors.has('userForm.email')">{{ errors.first('userForm.email') }}</small>
                 </div>
                 <div class="form-group">
@@ -49,11 +50,18 @@
                     <small class="form-text has-danger" v-show="errors.has('userForm.user_type')">{{ errors.first('userForm.user_type') }}</small>
                 </div>
                 <div class="form-group clearfix">
-                    <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                    <button type="submit" class="btn btn-success btn-sm" :disabled="isSubmitting">
+                            <span v-if="isSubmitting" >
+                                Saving...  <div class="loading"></div>
+                            </span>
+                            <span v-else>
+                                Save User
+                            </span>
+                        </button>
                     <button type="button" @click="closeModal('userForm')" class="btn btn-sm btn-danger">
                         Close
                     </button>
-            
+
                 </div>
             </form>
         </div>
@@ -61,87 +69,100 @@
 </template>
 
 <script>
-/**@constant
- *  Perform an ajax validation to the server     
- * const isUniqueEmail = (value) => {
- *  return axios.post('/api/')
-}; */
-// import { Validator } from 'vee-validate';
+    /**@constant
+     *  Perform an ajax validation to the server     
+     * const isUniqueEmail = (value) => {
+     *  return axios.post('/api/')
+    }; */
+    // import { Validator } from 'vee-validate';
 
-// const uniqueEmail = 
+    // const uniqueEmail = 
 
-export default {
-    mounted() {
-        this.$store.dispatch('loadUserTypes', 'api/user_types?type=all');
-    },
-    data() {
-        return {
+    export default {
+        mounted() {
+            this.$store.dispatch('loadUserTypes', 'api/user_types?type=all');
+        },
+        data() {
+            return {
 
-        }
-    },
-    computed: {
-        user() {
-            return this.$store.getters.loadUser;
+            }
         },
-        user_types() {
-            return this.$store.getters.getUserTypes;
+        computed: {
+            user() {
+                return this.$store.getters.loadUser;
+            },
+            user_types() {
+                return this.$store.getters.getUserTypes;
+            },
+            modalFormValidation() {
+                return this.$store.getters.getModalFormValidation;
+            },
+            formType() {
+                return this.$store.getters.getModalFormType;
+            },
+            serverResponse() {
+                return this.$store.getters.getServerResponse;
+            },
+            user_query() {
+                return this.$store.getters.getUserApiQuery;
+            },
+            columns() {
+                return this.$store.getters.getColumns;
+            },
+            page_display() {
+                return this.$store.getters.getPageDisplay;
+            },
+            isSubmitting() {
+                return this.$store.getters.getSubmitState;
+            },
         },
-        modalFormValidation() {
-            return this.$store.getters.getModalFormValidation;
-        },
-        formType() {
-            return this.$store.getters.getModalFormType;
-        },
-        serverResponse() {
-            return this.$store.getters.getServerResponse;
-        }
-    },
-    methods: {
-        closeModal(scope) {
-            //console.log(scope);
-            //this.errors.clear(scope);
-            let payload = {
-                scope: scope,
-                errors: this.errors
-            };
-            this.$store.dispatch('setModalFormValidation', payload);
-            this.$store.dispatch('closeModal', this.modalFormValidation);
-        },
-        submitUserForm(scope) {
-            let user = {
-                id: this.user.id,
-                uid: this.user.uid,
-                name: this.user.name,
-                initial: this.user.initial,
-                email: this.user.email,
-                userType: this.user.userType
-            };
-            this.$validator.validateAll(scope).then((result) => {
-                if (result) {
-                    // console.log(result); //result returns true / false
-                    // console.log(user);
-                    if (this.formType == 'CreateUser') {
-                        this.$store.dispatch('storeUser', user);
-                        this.$store.dispatch('loadUsers','/api/users');
+        methods: {
+            closeModal(scope) {
+                //console.log(scope);
+                //this.errors.clear(scope);
+                let payload = {
+                    scope: scope,
+                    errors: this.errors
+                };
+                this.$store.dispatch('setModalFormValidation', payload);
+                this.$store.dispatch('closeModal', this.modalFormValidation);
+            },
+            submitUserForm(scope) {
+                let user = {
+                    id: this.user.id,
+                    uid: this.user.uid,
+                    name: this.user.name,
+                    initial: this.user.initial,
+                    email: this.user.email,
+                    userType: this.user.userType
+                };
+                this.$validator.validateAll(scope).then((result) => {
+                    if (result) {
+                        // console.log(result); //result returns true / false
+                        // console.log(user);
+                        if (this.formType == 'CreateUser') {
+                            this.$store.dispatch('storeUser', user);
+                            this.$store.dispatch('loadUsers',
+                                `api/users?keyword=${this.user_query.search_keyword}&order_by=${this.user_query.order_by}&per_page=${this.user_query.per_page}&sort_column=${this.user_query.sort_column}`
+                            );
+                        } else if (this.formType == 'EditUser') {
+                            this.$store.dispatch('updateUser', user);
+                            this.$store.dispatch('loadUsers',
+                                `api/users?keyword=${this.user_query.search_keyword}&order_by=${this.user_query.order_by}&per_page=${this.user_query.per_page}&sort_column=${this.user_query.sort_column}`
+                            );
+                        } else {
+                            alert('unknown action')
+                        }
+                    } else {
+                        console.log(result)
+                        let payload = {
+                            scope: scope,
+                            errors: this.errors
+                        };
+                        this.$store.dispatch('setModalFormValidation', payload);
                     }
-                    else if (this.formType == 'EditUser') {
-                        this.$store.dispatch('updateUser', user);
-                        this.$store.dispatch('loadUsers','/api/users');
-                    }
-                    else {
-                        alert('unknown action')
-                    }
-                }
-                else {
-                    console.log(result)
-                    let payload = {
-                        scope: scope,
-                        errors: this.errors
-                    };
-                    this.$store.dispatch('setModalFormValidation', payload);
-                }
-            });
+                });
+            }
         }
     }
-}
 </script>

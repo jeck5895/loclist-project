@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Clients;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Clients\StoreClientCall;
-use App\Http\Requests\Clients\UpdateClientCall;
+use App\Http\Requests\Clients\Calls\StoreClientCall;
+use App\Http\Requests\Clients\Calls\UpdateClientCall;
 use App\Client;
 use App\ClientCall;
 use Illuminate\Support\Facades\Auth;
@@ -102,7 +102,21 @@ class ClientCallController extends Controller
      */
     public function update(UpdateClientCall $request, $clientId, $callId)
     {
-        //
+        ClientCall::findOrFail($callId)
+                    ->update([
+                        'caller' => $request['caller'],
+                        'date_of_call' => $request['date_of_call'],
+                        'confirmation_preCall' => $request['confirmation_preCall'],
+                        'productive_call' => $request['productive_call'],
+                        'proposal_sent' => $request['proposal_sent'],
+                        'client_response' => $request['client_response'],
+                        'updated_by' => Auth::user()->id
+                    ]);
+        return [
+            'message' => 'Changes has been saved.',
+            'client_id' => $clientId,
+            'call_id' => $callId
+        ];
     }
 
     /**

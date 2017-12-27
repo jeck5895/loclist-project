@@ -85,7 +85,27 @@ export default {
             });
         },
         updateClientCall: (context, payload) => {
-            
+            context.commit('setSubmitState', true);
+            return new Promise((resolve, reject) => {
+                axios.patch('api/clients/' + payload.client_id + '/calls/' + payload.id, payload)
+                .then(response => {
+                    setTimeout(() => {
+                        context.commit('setServerResponse', response);
+                        context.commit('setSubmitState', false);
+                        $("#createUserModal").modal('hide');
+                        toastr.success('Success', response.data.message);
+                        resolve(response);
+                        //document.getElementById('departmentForm').reset();
+                    }, 1000);
+                })
+                .catch(error => {
+                    setTimeout(() => {
+                        context.commit('setServerResponse', error.response);
+                        context.commit('setSubmitState', false);
+                        reject(error);
+                    }, 1000);
+                });
+            });
         },
         deleteClientCall: (context, payload) => {
 

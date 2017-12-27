@@ -27,7 +27,17 @@
         computed:{
             deletionType () {
                 return this.$store.getters.getDeletionType;
-            }
+            },
+            user_query() {
+                return this.$store.getters.getUserApiQuery;
+            },
+            columns() {
+                return this.$store.getters.getColumns;
+            },
+            page_display() {
+                return this.$store.getters.getPageDisplay;
+            },
+
         },
         methods:{
             submitConfirmation () {
@@ -39,7 +49,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadUsers','/api/users');
+                            this.$store.dispatch('loadUsers', `api/users?keyword=${this.user_query.search_keyword}&order_by=${this.user_query.order_by}&per_page=${this.user_query.per_page}&sort_column=${this.user_query.sort_column}`);
                         });
                         break;
                     case "industries":
@@ -110,6 +120,24 @@
                         })
                         .then(() => {
                             this.$store.dispatch('loadCompanies','api/companies');
+                        });
+                        break;
+                    case "saturations":
+                        this.$store.dispatch('deleteSaturation', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadSaturations','api/saturations');
+                        });
+                        break;
+                    case "confirmations":
+                        this.$store.dispatch('deleteConfirmation', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadConfirmations','api/confirmations');
                         });
                         break;
                     default:

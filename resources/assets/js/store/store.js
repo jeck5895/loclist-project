@@ -16,6 +16,9 @@ import companyModule from './modules/companies/companyModule';
 import dataFilteringModule from './modules/dataFiltering/dataFilteringModule';
 import statusModule from './modules/maintainance/statusModule';
 import clientCallModule from './modules/clients/clientCallModule';
+import clientSaturationModule from './modules/clients/clientSaturationModule';
+import saturationModule from './modules/maintainance/saturationModule';
+import mannerOfConfirmationModule from './modules/maintainance/mannerOfConfirmationModule';
 
 Vue.use(Vuex); 
 
@@ -36,6 +39,9 @@ export const store = new Vuex.Store({
         companyModule,
         dataFilteringModule,
         statusModule,
-        clientCallModule
+        clientCallModule,
+        clientSaturationModule,
+        saturationModule,
+        mannerOfConfirmationModule,
     }
 });

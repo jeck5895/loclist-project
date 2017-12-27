@@ -3,7 +3,7 @@
         <table class="table table-borderless table-striped m-b-none calls-table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <!-- <th>ID</th> -->
                     <th>Caller</th>
                     <th>Date of Call</th>
                     <th>Confirmation Pre-call</th>
@@ -31,9 +31,9 @@
                 </tr>
 
                 <tr v-else v-for="(call, index) in calls.data" :key="index">
-                   <td style="vertical-align: middle;">
+                   <!-- <td style="vertical-align: middle;">
                         {{ call.id }}
-                    </td>
+                    </td> -->
                     <td style="vertical-align: middle;">
                         {{ call.user.initial }}
                     </td>
@@ -114,6 +114,7 @@
                     call_id: call.id
                 }
                 this.$store.dispatch('loadClientCall', payload);
+                this.$store.dispatch('setModalTitle', 'Call Details');
                 this.$store.dispatch('setModalFormType', 'EDIT_CALL_RECORD');
                 $("#createUserModal").modal("show")
             },

@@ -100,7 +100,19 @@
             },
             call() {
                 return this.$store.getters.getClientCall;
-            }
+            },
+            query() {
+                return this.$store.getters.getUserApiQuery;
+            },
+            columns() {
+                return this.$store.getters.getColumns;
+            },
+            page_display() {
+                return this.$store.getters.getPageDisplay;
+            },
+            client_id() {
+                return this.$route.params.clientId;
+            },
         },
         watch: {
             call: 'formatDate',
@@ -127,11 +139,10 @@
                                 this.$store.dispatch('storeClientCall', call_record).then(() => {
                                     this.$store.dispatch('loadClientCalls', `api/clients/${this.client_id}/calls?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`);
                                 });
-                        } else if (this.formType == 'EDIT_DEPARTMENT') {
-                                this.$store.dispatch('updateClientCall', call_record)
-                                .then(() => {
-                                this.$store.dispatch('loadClientCalls', 'api/departments');
-                            });
+                        } else if (this.formType == 'EDIT_CALL_RECORD') {
+                                this.$store.dispatch('updateClientCall', call_record).then(() => {
+                                    this.$store.dispatch('loadClientCalls', `api/clients/${this.client_id}/calls?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`);
+                                });
                         } else {
                             toastr.error('Error', 'Unknown Command');
                         }
@@ -156,7 +167,7 @@
                     this.date_of_call = moment().format('YYYY-MM-DD');
                 }
                     
-            }
+            },
         },
         components: {
             formErrors,

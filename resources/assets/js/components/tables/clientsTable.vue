@@ -215,7 +215,8 @@
         },
         methods: {
             toEditClientForm(client) {
-                localStorage.setItem('f_type', 'EDIT_CLIENT')
+                localStorage.setItem('f_type', 'EDIT_CLIENT');
+                this.$store.dispatch('clearClientManpowerProviders');
                 this.$router.push({ name: 'editClient', params: { companyName:  this.toUrlFormat(client.client_name), clientId : client.id }})
             },
             dropdownMenuClick() {

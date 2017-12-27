@@ -34,6 +34,12 @@
                 <li>
                     <router-link to="/maintainance/user-types">User Types</router-link>
                 </li>
+                <li>
+                    <router-link to="/maintainance/mode-of-saturations">Mode of Saturations</router-link>
+                </li>
+                <li>
+                    <router-link to="/maintainance/manner-of-confirmations">Manner of Confirmations</router-link>
+                </li>
             </ul>
         </div>
     </div>

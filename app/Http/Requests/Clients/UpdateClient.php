@@ -13,7 +13,7 @@ class UpdateClient extends FormRequest
      */
     public function authorize()
     {
-        return !empty($this->user())  ? true : false;
+        return !empty($this->user()) && ($this->user()->userType != 3)  ? true : false;
         // return $this->user()->userType == 1 ? true : false;
     }
 
@@ -42,7 +42,9 @@ class UpdateClient extends FormRequest
             'other_landline' => 'required',
             'mobile_number' => 'required',
             'email_address' => 'required|email',
-            'contact_person' => 'required',
+            // 'contact_person' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
             'gender' => 'required',
             'department' => 'required|numeric',
             'position' => 'required|numeric',

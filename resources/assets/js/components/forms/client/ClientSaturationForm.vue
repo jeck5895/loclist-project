@@ -8,14 +8,14 @@
             <div class="form-group col-sm-12">
                 <label for="">Mode of Saturation</label>
                 <select name="" id="" class="form-control form-control-sm">
-                    <option value=""></option>
-                    <option value="">Fax</option>
-                    <option value="">Personal</option>
-                    <option value="">Via-email</option>
+                    <option value="">--Select Mode of Saturation--</option>
+                    <option value="Fax">Fax</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Via-email">Via-email</option>
                 </select>
             </div>
             <div class="form-group col-sm-12">
-                <label for="">Proposal by</label>
+                <label for="">Proposal made by</label>
                 <input type="text" name="proposal_by" id="" class="form-control form-control-sm">
             </div>
             
@@ -23,8 +23,8 @@
                 <label for="">Proposal Received & Accepted</label>
                 <select name="" id="" class="form-control form-control-sm">
                     <option value=""></option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
                 </select>
             </div>
             <div class="form-group col-sm-12">
@@ -34,10 +34,10 @@
             <div class="form-group col-sm-12">
                 <label for="">Manner of Confirmation</label>
                 <select name="" id="" class="form-control form-control-sm">
-                    <option value=""></option>
-                    <option value="">Email</option>
-                    <option value="">Personal</option>
-                    <option value="">Phone Call</option>
+                    <option value="">--Select Confirmation--</option>
+                    <option value="Email">Email</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Phone-call">Phone Call</option>
                 </select>
             </div>
             
@@ -45,8 +45,8 @@
                 <label for="">Follow Up Calls Made</label>
                 <select name="" id="" class="form-control form-control-sm">
                     <option value=""></option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
                 </select>
             </div>
             

@@ -75,5 +75,19 @@ export default [
         meta: {
             forAuthUsers: true
         },
+    },
+    {
+        path: 'mode-of-saturations',
+        component: require('../../../components/sub-containers/maintainance/SaturationContainer'),
+        meta: {
+            forAuthUsers: true
+        },
+    },
+    {
+        path: 'manner-of-confirmations',
+        component: require('../../../components/sub-containers/maintainance/ConfirmationContainer'),
+        meta: {
+            forAuthUsers: true
+        },
     }
 ]
