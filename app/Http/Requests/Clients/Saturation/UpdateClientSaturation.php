@@ -32,7 +32,7 @@ class UpdateClientSaturation extends FormRequest
             'date_received' => 'required',
             'proposal_accepted' => 'required',
             'manner_of_confirmation' => 'required',
-            'client_response' => 'required',
+            'client_response1' => 'required',
             'ff_calls_made' => 'required',
             // 'last_ffup_date' => 'required',
         ];

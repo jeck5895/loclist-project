@@ -231,6 +231,10 @@
             </div>
             
         </modal>
+
+        <confirmation-modal>
+            <template slot="confirmationHeader"> {{ modalTitle }} </template>
+        </confirmation-modal>
     </div>
 </template>
 
@@ -244,6 +248,7 @@
     import {store} from '../../../store/store.js';
     import ClientCallsTable from '../../tables/ClientCallsTable';
     import ClientSaturationsTable from '../../tables/ClientSaturationsTable';
+    import ConfirmationModal from '../../modal/ConfirmationModal';
     
     export default {
         beforeRouteEnter(to, from, next) {
@@ -316,6 +321,7 @@
             NavButtons,
             ClientCallsTable,
             ClientSaturationsTable,
+            ConfirmationModal
         }
     };
 </script>

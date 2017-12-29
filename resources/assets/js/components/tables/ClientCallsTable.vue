@@ -118,6 +118,16 @@
                 this.$store.dispatch('setModalFormType', 'EDIT_CALL_RECORD');
                 $("#createUserModal").modal("show")
             },
+            destroy(call) {
+                let deletionType = {
+                    scope: "client_calls",
+                    client_call: call
+                };
+
+                this.$store.dispatch('setModalTitle', "Delete Call record ?");
+                this.$store.dispatch('setDeletionType', deletionType);
+                this.$store.dispatch('showConfirmationModal');
+            },
             loadClientCallsRecord() {
                 return this.$store.dispatch('loadClientCalls', `api/clients/${this.client_id}/calls?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`)
             },

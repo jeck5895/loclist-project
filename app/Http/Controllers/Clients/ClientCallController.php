@@ -125,8 +125,10 @@ class ClientCallController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($client_id, $call_id)
     {
-        //
+        ClientCall::destroy($call_id);
+
+        return ['message' => 'Record has been deleted'];
     }
 }

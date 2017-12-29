@@ -141,7 +141,7 @@
                     client_saturation: client_saturation
                 };
 
-                this.$store.dispatch('setModalTitle', "Delete " + saturation.saturation_mode + " ?");
+                this.$store.dispatch('setModalTitle', "Delete saturation record?");
                 this.$store.dispatch('setDeletionType', deletionType);
                 this.$store.dispatch('showConfirmationModal');
             },

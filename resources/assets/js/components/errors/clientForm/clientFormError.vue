@@ -115,6 +115,42 @@
                         <template v-if="serverResponse.data.errors.client_id">
                             <li v-for="e in serverResponse.data.errors.client_id" :key="e"> {{ e }}</li>
                         </template>
+
+                        <!-- Client Saturation Error -->
+                        <template v-if="serverResponse.data.errors.proposal_by">
+                            <li v-for="e in serverResponse.data.errors.proposal_by" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.saturation_date">
+                            <li v-for="e in serverResponse.data.errors.saturation_date" :key="e"> {{ e }}</li>
+                        </template>
+                        
+                        <template v-if="serverResponse.data.errors.saturation_mode">
+                            <li v-for="e in serverResponse.data.errors.saturation_mode" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.call_slip">
+                            <li v-for="e in serverResponse.data.errors.call_slip" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.proposal_accepted">
+                            <li v-for="e in serverResponse.data.errors.proposal_accepted" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.client_response1">
+                            <li v-for="e in serverResponse.data.errors.client_response1" :key="e"> {{ e }}</li>
+                        </template>
+                        <template v-if="serverResponse.data.errors.date_received">
+                            <li v-for="e in serverResponse.data.errors.date_received" :key="e"> {{ e }}</li>
+                        </template>
+                        
+                        <template v-if="serverResponse.data.errors.ff_calls_made">
+                            <li v-for="e in serverResponse.data.errors.ff_calls_made" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.last_ffup_date">
+                            <li v-for="e in serverResponse.data.errors.last_ffup_date" :key="e"> {{ e }}</li>
+                        </template>
                     </ul>
                 </div>
 

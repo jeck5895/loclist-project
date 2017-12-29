@@ -265,10 +265,12 @@ class ClientsController extends Controller
     public function destroy($id)
     {
         //delete clietn record
-
         //delete sourcing practices records of client
-
         //delete manpower providers records of client
+        //delete saturation record
+        //delete call record 
+        //delete presentation record
+        //delete acquisition record
     }
 
 }

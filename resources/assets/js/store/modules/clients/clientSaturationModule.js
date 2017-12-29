@@ -110,7 +110,17 @@ export default {
             });
         },
         deleteClientSaturation: (context, payload) => {
-
+            axios.delete('api/clients/' + payload.client_saturation.client_id + '/saturations/' + payload.client_saturation.id)
+            .then(response => {
+                toastr.success('Success', response.data.message);
+            })
+            .catch(error => {
+                context.commit('setServerResponse', error.response.data);
+                if (error.response.status == 403) {
+                    toastr.error('Error', error.response.data);
+                }
+                console.log(error)
+            });
         }
     }
 }

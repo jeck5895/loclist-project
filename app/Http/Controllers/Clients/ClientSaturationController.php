@@ -108,7 +108,26 @@ class ClientSaturationController extends Controller
      */
     public function update(UpdateClientSaturation $request, $client_id, $saturation_id)
     {
-        //
+        
+        ClientSaturation::findOrFail($saturation_id)
+                            ->update([
+                                'saturation_date' => $request['saturation_date'],
+                                'saturation_mode' => $request['saturation_mode'],
+                                'proposal_by' => $request['proposal_by'],
+                                'call_slip' => $request['call_slip'],
+                                'date_received' => $request['date_received'],
+                                'proposal_accepted' => $request['proposal_accepted'],
+                                'manner_of_confirmation' => $request['manner_of_confirmation'],
+                                'client_response1' => $request['client_response1'],
+                                'ff_calls_made' => $request['ff_calls_made'],
+                                'last_ffup_date' => $request['last_ffup_date'],
+                                'updated_by' => auth()->user()->id,
+                            ]);
+        return  [
+                'message' => 'Changes has been saved',
+                'client_id' => $client_id,
+                'saturation' => $saturation_id
+            ];
     }
 
     /**
@@ -117,8 +136,18 @@ class ClientSaturationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($client_id, $saturation_id)
     {
-        //
+        if(auth()->user()->userType != 1)
+        {
+            // abort(403,'Request Unauthorized');
+            return response('Unauthorized action', 403);
+        }
+
+        ClientSaturation::destroy($saturation_id);
+
+        return [
+            'message' => 'Record has been deleted', 
+        ];
     }
 }

@@ -1,5 +1,6 @@
 <template>
     <form id="saturationForm" @submit.prevent="submitForm('saturationForm')" data-vv-scope="saturationForm">
+        <form-errors :serverResponse="serverResponse"></form-errors>
         <div class="row">
             <div class="form-group col-sm-12">
                 <label for="">Date of Saturation</label>
@@ -54,7 +55,7 @@
             
             <div class="form-group col-sm-12">
                 <label for="">Made follow up calls? </label>
-                <select v-model="client_saturation.ff_calls_made" name="ff_calls_made" id="" v-validate="{rules:{required:true}}" class="form-control form-control-sm">
+                <select @change="disableInput" v-model="client_saturation.ff_calls_made" name="ff_calls_made" id="" v-validate="{rules:{required:true}}" class="form-control form-control-sm">
                     <option value=""></option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -63,8 +64,8 @@
             </div>
             
             <div class="form-group col-sm-12">
-                <label for="">Date of Last FF Call</label>
-                <input v-model="last_ffup_date" type="date" name="last_ffup_date" id="" class="form-control form-control-sm">
+                <label for="">Date of Last Follow up Call</label>
+                <input v-model="last_ffup_date" type="date" name="last_ffup_date" id="" class="form-control form-control-sm" :disabled="disable">
                 <!-- <small class="form-text has-danger" v-show="errors.has('saturationForm.last_ffup_date')">{{ errors.first('saturationForm.last_ffup_date') }}</small> -->
             </div>
             <div class="form-group col-md-12">
@@ -93,6 +94,8 @@
 </template>
 
 <script>
+    import formErrors from '../../errors/clientForm/clientFormError';
+
     export default {
         mounted() {
             this.$store.dispatch('loadSaturations', 'api/saturations?type=all');
@@ -102,7 +105,8 @@
             return {
                 saturation_date: '',
                 date_received: '',
-                last_ffup_date: ''
+                last_ffup_date: '',
+                disable: false
             }
         },
         computed: {
@@ -202,6 +206,17 @@
                 }
                     
             },
+            disableInput(){
+                if(this.client_saturation.ff_calls_made == 0){
+                    this.disable = true;
+                }
+                else{
+                    this.disable = false;
+                }
+            }
+        },
+        components: {
+            formErrors
         }
     };
 </script>

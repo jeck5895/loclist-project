@@ -28,7 +28,7 @@
             deletionType () {
                 return this.$store.getters.getDeletionType;
             },
-            user_query() {
+            query() {
                 return this.$store.getters.getUserApiQuery;
             },
             columns() {
@@ -49,7 +49,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadUsers', `api/users?keyword=${this.user_query.search_keyword}&order_by=${this.user_query.order_by}&per_page=${this.user_query.per_page}&sort_column=${this.user_query.sort_column}`);
+                            this.$store.dispatch('loadUsers', `api/users?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`);
                         });
                         break;
                     case "industries":
@@ -120,6 +120,24 @@
                         })
                         .then(() => {
                             this.$store.dispatch('loadCompanies','api/companies');
+                        });
+                        break;
+                    case "client_saturations":
+                        this.$store.dispatch('deleteClientSaturation', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadClientSaturations', `api/clients/${deletionInfo.client_saturation.client_id}/saturations?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`);
+                        });
+                        break;
+                    case "client_calls":
+                        this.$store.dispatch('deleteClientCall', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadClientCalls', `api/clients/${deletionInfo.client_call.client_id}/calls?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`);
                         });
                         break;
                     case "saturations":

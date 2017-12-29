@@ -110,7 +110,17 @@ export default {
             });
         },
         deleteClientCall: (context, payload) => {
-
+            axios.delete('api/clients/' + payload.client_call.client_id + '/calls/' + payload.client_call.id)
+            .then(response => {
+                toastr.success('Success', response.data.message);
+            })
+            .catch(error => {
+                context.commit('setServerResponse', error.response.data);
+                if (error.response.status == 403) {
+                    toastr.error('Error', error.response.data);
+                }
+                console.log(error)
+            });
         }
     }
 }

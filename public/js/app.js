@@ -77685,7 +77685,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deletionType: function deletionType() {
             return this.$store.getters.getDeletionType;
         },
-        user_query: function user_query() {
+        query: function query() {
             return this.$store.getters.getUserApiQuery;
         },
         columns: function columns() {
@@ -77705,7 +77705,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     this.$store.dispatch('deleteUser', deletionInfo).then(function () {
                         _this.$store.dispatch('closeConfirmationModal');
                     }).then(function () {
-                        _this.$store.dispatch('loadUsers', 'api/users?keyword=' + _this.user_query.search_keyword + '&order_by=' + _this.user_query.order_by + '&per_page=' + _this.user_query.per_page + '&sort_column=' + _this.user_query.sort_column);
+                        _this.$store.dispatch('loadUsers', 'api/users?keyword=' + _this.query.search_keyword + '&order_by=' + _this.query.order_by + '&per_page=' + _this.query.per_page + '&sort_column=' + _this.query.sort_column);
                     });
                     break;
                 case "industries":
@@ -77760,6 +77760,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         _this.$store.dispatch('closeConfirmationModal');
                     }).then(function () {
                         _this.$store.dispatch('loadCompanies', 'api/companies');
+                    });
+                    break;
+                case "client_saturations":
+                    this.$store.dispatch('deleteClientSaturation', deletionInfo).then(function () {
+                        _this.$store.dispatch('closeConfirmationModal');
+                    }).then(function () {
+                        _this.$store.dispatch('loadClientSaturations', 'api/clients/' + deletionInfo.client_saturation.client_id + '/saturations?keyword=' + _this.query.search_keyword + '&order_by=' + _this.query.order_by + '&per_page=' + _this.query.per_page + '&sort_column=' + _this.query.sort_column);
+                    });
+                    break;
+                case "client_calls":
+                    this.$store.dispatch('deleteClientCall', deletionInfo).then(function () {
+                        _this.$store.dispatch('closeConfirmationModal');
+                    }).then(function () {
+                        _this.$store.dispatch('loadClientCalls', 'api/clients/' + deletionInfo.client_call.client_id + '/calls?keyword=' + _this.query.search_keyword + '&order_by=' + _this.query.order_by + '&per_page=' + _this.query.per_page + '&sort_column=' + _this.query.sort_column);
                     });
                     break;
                 case "saturations":
@@ -81202,7 +81216,17 @@ var index_esm = {
                 });
             });
         },
-        deleteClientCall: function deleteClientCall(context, payload) {}
+        deleteClientCall: function deleteClientCall(context, payload) {
+            axios.delete('api/clients/' + payload.client_call.client_id + '/calls/' + payload.client_call.id).then(function (response) {
+                toastr.success('Success', response.data.message);
+            }).catch(function (error) {
+                context.commit('setServerResponse', error.response.data);
+                if (error.response.status == 403) {
+                    toastr.error('Error', error.response.data);
+                }
+                console.log(error);
+            });
+        }
     }
 });
 
@@ -81314,7 +81338,17 @@ var index_esm = {
                 });
             });
         },
-        deleteClientSaturation: function deleteClientSaturation(context, payload) {}
+        deleteClientSaturation: function deleteClientSaturation(context, payload) {
+            axios.delete('api/clients/' + payload.client_saturation.client_id + '/saturations/' + payload.client_saturation.id).then(function (response) {
+                toastr.success('Success', response.data.message);
+            }).catch(function (error) {
+                context.commit('setServerResponse', error.response.data);
+                if (error.response.status == 403) {
+                    toastr.error('Error', error.response.data);
+                }
+                console.log(error);
+            });
+        }
     }
 });
 
@@ -82497,7 +82531,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -82508,6 +82542,42 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -82961,6 +83031,105 @@ var render = function() {
                         _vm.serverResponse.data.errors.client_id
                           ? _vm._l(
                               _vm.serverResponse.data.errors.client_id,
+                              function(e) {
+                                return _c("li", { key: e }, [
+                                  _vm._v(" " + _vm._s(e))
+                                ])
+                              }
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.serverResponse.data.errors.proposal_by
+                          ? _vm._l(
+                              _vm.serverResponse.data.errors.proposal_by,
+                              function(e) {
+                                return _c("li", { key: e }, [
+                                  _vm._v(" " + _vm._s(e))
+                                ])
+                              }
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.serverResponse.data.errors.saturation_date
+                          ? _vm._l(
+                              _vm.serverResponse.data.errors.saturation_date,
+                              function(e) {
+                                return _c("li", { key: e }, [
+                                  _vm._v(" " + _vm._s(e))
+                                ])
+                              }
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.serverResponse.data.errors.saturation_mode
+                          ? _vm._l(
+                              _vm.serverResponse.data.errors.saturation_mode,
+                              function(e) {
+                                return _c("li", { key: e }, [
+                                  _vm._v(" " + _vm._s(e))
+                                ])
+                              }
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.serverResponse.data.errors.call_slip
+                          ? _vm._l(
+                              _vm.serverResponse.data.errors.call_slip,
+                              function(e) {
+                                return _c("li", { key: e }, [
+                                  _vm._v(" " + _vm._s(e))
+                                ])
+                              }
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.serverResponse.data.errors.proposal_accepted
+                          ? _vm._l(
+                              _vm.serverResponse.data.errors.proposal_accepted,
+                              function(e) {
+                                return _c("li", { key: e }, [
+                                  _vm._v(" " + _vm._s(e))
+                                ])
+                              }
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.serverResponse.data.errors.client_response1
+                          ? _vm._l(
+                              _vm.serverResponse.data.errors.client_response1,
+                              function(e) {
+                                return _c("li", { key: e }, [
+                                  _vm._v(" " + _vm._s(e))
+                                ])
+                              }
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.serverResponse.data.errors.date_received
+                          ? _vm._l(
+                              _vm.serverResponse.data.errors.date_received,
+                              function(e) {
+                                return _c("li", { key: e }, [
+                                  _vm._v(" " + _vm._s(e))
+                                ])
+                              }
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.serverResponse.data.errors.ff_calls_made
+                          ? _vm._l(
+                              _vm.serverResponse.data.errors.ff_calls_made,
+                              function(e) {
+                                return _c("li", { key: e }, [
+                                  _vm._v(" " + _vm._s(e))
+                                ])
+                              }
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.serverResponse.data.errors.last_ffup_date
+                          ? _vm._l(
+                              _vm.serverResponse.data.errors.last_ffup_date,
                               function(e) {
                                 return _c("li", { key: e }, [
                                   _vm._v(" " + _vm._s(e))
@@ -85422,6 +85591,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tables_ClientCallsTable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__tables_ClientCallsTable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__tables_ClientSaturationsTable__ = __webpack_require__(418);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__tables_ClientSaturationsTable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__tables_ClientSaturationsTable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__modal_ConfirmationModal__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__modal_ConfirmationModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__modal_ConfirmationModal__);
 //
 //
 //
@@ -85658,6 +85829,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
@@ -85740,7 +85916,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         ClientAcquisitionForm: __WEBPACK_IMPORTED_MODULE_3__forms_client_ClientAcquisitionForm___default.a,
         NavButtons: __WEBPACK_IMPORTED_MODULE_5__nav_buttons_NavButtons___default.a,
         ClientCallsTable: __WEBPACK_IMPORTED_MODULE_7__tables_ClientCallsTable___default.a,
-        ClientSaturationsTable: __WEBPACK_IMPORTED_MODULE_8__tables_ClientSaturationsTable___default.a
+        ClientSaturationsTable: __WEBPACK_IMPORTED_MODULE_8__tables_ClientSaturationsTable___default.a,
+        ConfirmationModal: __WEBPACK_IMPORTED_MODULE_9__modal_ConfirmationModal___default.a
     }
 });
 
@@ -86735,6 +86912,9 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__errors_clientForm_clientFormError__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__errors_clientForm_clientFormError___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__errors_clientForm_clientFormError__);
+//
 //
 //
 //
@@ -86830,6 +87010,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
         this.$store.dispatch('loadSaturations', 'api/saturations?type=all');
@@ -86839,7 +87021,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             saturation_date: '',
             date_received: '',
-            last_ffup_date: ''
+            last_ffup_date: '',
+            disable: false
         };
     },
 
@@ -86939,7 +87122,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.formType == 'NEW_CALL_RECORD') {
                 this.date_of_call = moment().format('YYYY-MM-DD');
             }
+        },
+        disableInput: function disableInput() {
+            if (this.client_saturation.ff_calls_made == 0) {
+                this.disable = true;
+            } else {
+                this.disable = false;
+            }
         }
+    },
+    components: {
+        formErrors: __WEBPACK_IMPORTED_MODULE_0__errors_clientForm_clientFormError___default.a
     }
 });
 
@@ -86963,6 +87156,8 @@ var render = function() {
       }
     },
     [
+      _c("form-errors", { attrs: { serverResponse: _vm.serverResponse } }),
+      _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "form-group col-sm-12" }, [
           _c("label", { attrs: { for: "" } }, [_vm._v("Date of Saturation")]),
@@ -87428,19 +87623,22 @@ var render = function() {
               staticClass: "form-control form-control-sm",
               attrs: { name: "ff_calls_made", id: "" },
               on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.client_saturation.ff_calls_made = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                }
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.client_saturation.ff_calls_made = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  _vm.disableInput
+                ]
               }
             },
             [
@@ -87470,7 +87668,9 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group col-sm-12" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Date of Last FF Call")]),
+          _c("label", { attrs: { for: "" } }, [
+            _vm._v("Date of Last Follow up Call")
+          ]),
           _vm._v(" "),
           _c("input", {
             directives: [
@@ -87482,7 +87682,12 @@ var render = function() {
               }
             ],
             staticClass: "form-control form-control-sm",
-            attrs: { type: "date", name: "last_ffup_date", id: "" },
+            attrs: {
+              type: "date",
+              name: "last_ffup_date",
+              id: "",
+              disabled: _vm.disable
+            },
             domProps: { value: _vm.last_ffup_date },
             on: {
               input: function($event) {
@@ -87585,7 +87790,8 @@ var render = function() {
           )
         ])
       ])
-    ]
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -88138,6 +88344,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$store.dispatch('setModalFormType', 'EDIT_CALL_RECORD');
             $("#createUserModal").modal("show");
         },
+        destroy: function destroy(call) {
+            var deletionType = {
+                scope: "client_calls",
+                client_call: call
+            };
+
+            this.$store.dispatch('setModalTitle', "Delete Call record ?");
+            this.$store.dispatch('setDeletionType', deletionType);
+            this.$store.dispatch('showConfirmationModal');
+        },
         loadClientCallsRecord: function loadClientCallsRecord() {
             return this.$store.dispatch('loadClientCalls', 'api/clients/' + this.client_id + '/calls?keyword=' + this.query.search_keyword + '&order_by=' + this.query.order_by + '&per_page=' + this.query.per_page + '&sort_column=' + this.query.sort_column);
         }
@@ -88618,7 +88834,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 client_saturation: client_saturation
             };
 
-            this.$store.dispatch('setModalTitle', "Delete " + saturation.saturation_mode + " ?");
+            this.$store.dispatch('setModalTitle', "Delete saturation record?");
             this.$store.dispatch('setDeletionType', deletionType);
             this.$store.dispatch('showConfirmationModal');
         },
@@ -89511,6 +89727,21 @@ var render = function() {
           _vm.modalFormType == "EDIT_ACQUISITION_RECORD"
             ? _c("div", [_c("client-acquisition-form")], 1)
             : _vm._e()
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c(
+        "confirmation-modal",
+        [
+          _c(
+            "template",
+            {
+              attrs: { slot: "confirmationHeader" },
+              slot: "confirmationHeader"
+            },
+            [_vm._v(" " + _vm._s(_vm.modalTitle) + " ")]
+          )
         ],
         2
       )
