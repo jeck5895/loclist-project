@@ -60,7 +60,7 @@ class SaturationController extends Controller
      */
     public function show(Saturation $saturation)
     {
-        //
+        return $saturation;
     }
 
     /**
@@ -83,7 +83,12 @@ class SaturationController extends Controller
      */
     public function update(UpdateSaturation $request, Saturation $saturation)
     {
-        return $saturation;
+        /**
+         * UPDATE method with model binding 
+         */
+        $saturation->update($request->all());
+
+        return ['message' => 'Changes has been saved'];
     }
 
     /**
@@ -94,6 +99,14 @@ class SaturationController extends Controller
      */
     public function destroy(Saturation $saturation)
     {
-        //
+        if(auth()->user()->userType != 1)
+        {
+            // abort(403,'Request Unauthorized');
+            return response('Unauthorized action', 403);
+        }
+
+        $saturation->delete();
+        
+        return ['message' => 'Record has been deleted'];
     }
 }

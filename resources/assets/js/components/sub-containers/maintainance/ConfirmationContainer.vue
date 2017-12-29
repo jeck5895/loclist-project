@@ -3,7 +3,7 @@
         <div class="card-header">
             <h6 class="float-left">Manner of Confirmation</h6>
             <div class="float-right">
-                <button class="btn btn-sm btn-default" @click="showFormModal('DEPARTMENT_FORM')">
+                <button class="btn btn-sm btn-default" @click="showFormModal('CONFIRMATION_FORM')">
                     <span class="fa fa-plus"></span> Add Confirmation code
                 </button>
             </div>

@@ -20,7 +20,7 @@ class SourcingPractice extends Model
 
     public function clients() 
     {   /**
-        *   use in retrieving clients with roles
+        *   use in retrieving clients
         */
         return $this->belongsToMany(Client::class,'client_sourcing_practices','client_id','sourcing_practice_id')->using(ClientSourcingPractice::class)->withTimestamps(); 
     }

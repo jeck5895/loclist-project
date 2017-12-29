@@ -60,7 +60,7 @@ class ConfirmationController extends Controller
      */
     public function show(Confirmation $confirmation)
     {
-        //
+        return $confirmation;
     }
 
     /**
@@ -83,7 +83,9 @@ class ConfirmationController extends Controller
      */
     public function update(UpdateConfirmation $request, Confirmation $confirmation)
     {
-        //
+       $confirmation->update($request->all());
+
+       return ['message' => 'Changes has been saved'];
     }
 
     /**
@@ -94,6 +96,14 @@ class ConfirmationController extends Controller
      */
     public function destroy(Confirmation $confirmation)
     {
-        //
+        if(auth()->user()->userType != 1)
+        {
+            // abort(403,'Request Unauthorized');
+            return response('Unauthorized action', 403);
+        }
+
+        $confirmation->delete();
+        
+        return ['message' => 'Record has been deleted'];
     }
 }

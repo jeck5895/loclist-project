@@ -10,4 +10,10 @@ class Saturation extends Model
 
     protected $fillable = ['saturation_mode'];
 
+    public function client_saturation() 
+    {   /**
+        *   use in retrieving clients
+        */
+        return $this->hasOne(ClientSaturation::class,'saturation_mode','id'); 
+    }
 }

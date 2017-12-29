@@ -27,59 +27,59 @@
                     </td>
                 </tr> -->
 
-                <tr v-if="saturations.data == 0">
+                <tr v-if="client_saturations.data == 0">
                     <td colspan="11" class="text-center">
                         No data to show...
                     </td>
                 </tr>
 
-                <tr v-else v-for="(saturation, index) in saturations.data" :key="index">
+                <tr v-else v-for="(client_saturation, index) in client_saturations.data" :key="index">
                    <!-- <td style="vertical-align: middle;">
                         {{ call.id }}
                     </td> -->
                     <td style="vertical-align: middle;">
-                        {{ saturation.user.initial }}
+                        {{ client_saturation.user.initial }}
                     </td>
 
                     <td style="vertical-align: middle;">
-                        {{ saturation.saturation_date | humanReadableFormat }}
+                        {{ client_saturation.saturation_date | humanReadableFormat }}
                     </td>
                     
                     <td style="vertical-align: middle;">
-                        {{ saturation.saturation_mode }}
+                        {{ client_saturation.saturation.saturation_mode }}
                     </td>
 
                     <td style="vertical-align: middle;">
-                        {{ saturation.call_slip }}
+                        {{ client_saturation.call_slip }}
                     </td>
 
                     <td style="vertical-align: middle;">
-                        {{ saturation.proposal_accepted == 1 ? 'Yes' : 'No' }}
+                        {{ client_saturation.proposal_accepted == 1 ? 'Yes' : 'No' }}
                     </td>
                    
                     <td style="vertical-align: middle;">
-                        {{ saturation.manner_of_confirmation }}
+                        {{ client_saturation.confirmation.confirmation_name }}
                     </td>
 
                     <td style="vertical-align: middle;">
-                        {{ saturation.client_response}}
+                        {{ client_saturation.client_response1}}
                     </td>
 
                     <td style="vertical-align: middle;">
-                        {{ saturation.ff_calls_made == 1 ? 'Yes' : 'No' }}
+                        {{ client_saturation.ff_calls_made == 1 ? 'Yes' : 'No' }}
                     </td>
 
                     <td style="vertical-align: middle;">
-                        {{ saturation.last_ffup_date | humanReadableFormat }}
+                        {{ client_saturation.last_ffup_date | humanReadableFormat }}
                     </td>
 
                     <td style="vertical-align: middle;">
                         <div class="btn-group btn-group-sm" role="group">
-                            <button type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(saturation)">
+                            <button type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(client_saturation)">
                                 <span class="fa fa-edit"></span>
                             </button>
 
-                            <button @click="destroy(saturation)" type="button" class="btn btn-sm btn-default">
+                            <button @click="destroy(client_saturation)" type="button" class="btn btn-sm btn-default">
                                 <span class="fa fa-trash"></span>
                             </button>
                         </div>
@@ -108,7 +108,7 @@
             client_id() {
                 return this.$route.params.clientId;
             },
-            saturations() {
+            client_saturations() {
                 return this.$store.getters.getClientSaturations;
             },
             isLoading() {
@@ -125,20 +125,20 @@
             }
         },
         methods: {
-            edit(saturation) {
+            edit(client_saturation) {
                 let payload = {
                     client_id: this.$route.params.clientId,
-                    saturation_id: saturation.id
+                    saturation_id: client_saturation.id
                 }
                 this.$store.dispatch('loadClientSaturation', payload);
                 this.$store.dispatch('setModalTitle', 'Saturation Details');
-                this.$store.dispatch('setModalFormType', 'EDIT_SATURATION_RECORD');
+                this.$store.dispatch('setModalFormType', 'EDIT_CLIENT_SATURATION_RECORD');
                 $("#createUserModal").modal("show")
             },
-            destroy(saturation) {
+            destroy(client_saturation) {
                 let deletionType = {
                     scope: "client_saturations",
-                    client_saturation: saturation
+                    client_saturation: client_saturation
                 };
 
                 this.$store.dispatch('setModalTitle', "Delete " + saturation.saturation_mode + " ?");
@@ -156,7 +156,7 @@
 </script>
 
 <style scoped>
-    table.saturation-table th{
+    table.saturation-table th, td{
         font-size: 11px;
     }
 </style>

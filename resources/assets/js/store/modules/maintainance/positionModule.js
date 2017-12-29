@@ -102,6 +102,9 @@ export default {
             })
             .catch(error => {
                 context.commit('setServerResponse', error.response.data);
+                if (error.response.status == 403) {
+                    toastr.error('Error', error.response.data);
+                }
                 console.log(error)
             });
         }

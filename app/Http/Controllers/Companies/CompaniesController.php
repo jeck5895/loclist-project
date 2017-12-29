@@ -102,6 +102,11 @@ class CompaniesController extends Controller
      */
     public function destroy($id)
     {
+        if(auth()->user()->userType != 1)
+        {
+            // abort(403,'Request Unauthorized');
+            return response('Unauthorized action', 403);
+        }
         Company::destroy($id);
 
         return ['message' => 'Record has been deleted'];

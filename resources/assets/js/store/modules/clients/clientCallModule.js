@@ -78,9 +78,11 @@ export default {
                     }, 1000);
                 })
                 .catch(error => {
-                    context.commit('setServerResponse', error.response);
-                    context.commit('setSubmitState', false);
-                    reject(error.response);
+                    setTimeout(() => {
+                        context.commit('setServerResponse', error.response);
+                        context.commit('setSubmitState', false);
+                        reject(error.response);
+                    }, 1000);
                 });
             });
         },

@@ -59,6 +59,53 @@ export default {
             .catch(error => {
                 console.log(error.response)
             });
+        },
+        storeConfirmation: (context, payload) => {
+            context.commit('setSubmitState', true);
+            axios.post('api/confirmations', payload)
+            .then(response => {
+                setTimeout(() => {
+                    context.commit('setServerResponse', response);
+                    context.commit('setSubmitState', false);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', response.data.message);
+                    //document.getElementById('departmentForm').reset();
+                }, 1000);
+            })
+            .catch(error => {
+                context.commit('setServerResponse', error.response);
+                context.commit('setSubmitState', false);
+            });
+        },
+        updateConfirmation: (context, payload) => {
+            context.commit('setSubmitState', true);
+            axios.patch('api/confirmations/' + payload.id, payload)
+            .then(response => {
+                setTimeout(() => {
+                    context.commit('setServerResponse', response);
+                    context.commit('setSubmitState', false);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', response.data.message);
+                    //document.getElementById('departmentForm').reset();
+                }, 1000);
+            })
+            .catch(error => {
+                context.commit('setServerResponse', error.response);
+                context.commit('setSubmitState', false);
+            });
+        },
+        deleteConfirmation: (context, payload) => {
+            axios.delete('api/confirmations/' + payload.confirmation.id)
+            .then(response => {
+                toastr.success('Success', response.data.message);
+            })
+            .catch(error => {
+                context.commit('setServerResponse', error.response.data);
+                if (error.response.status == 403) {
+                    toastr.error('Error', error.response.data);
+                }
+                console.log(error)
+            });
         }
     }
 }

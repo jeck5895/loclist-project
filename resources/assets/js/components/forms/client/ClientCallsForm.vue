@@ -72,7 +72,7 @@
 
     export default {
         beforeCreate() {
-            this.$store.dispatch('loadUsers', 'api/users?type=all');
+            
         },
         created() {
             console.log(this.$route.params)

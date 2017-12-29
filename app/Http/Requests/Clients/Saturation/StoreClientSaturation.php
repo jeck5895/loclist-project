@@ -13,7 +13,7 @@ class StoreClientSaturation extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,17 @@ class StoreClientSaturation extends FormRequest
     public function rules()
     {
         return [
-            //
+            'client_id' => 'required',
+            'saturation_date' => 'required',
+            'saturation_mode' => 'required',
+            'proposal_by' => 'required',
+            // 'call_slip' => 'required',
+            'date_received' => 'required',
+            'proposal_accepted' => 'required',
+            'manner_of_confirmation' => 'required',
+            'client_response1' => 'required',
+            'ff_calls_made' => 'required',
+            // 'last_ffup_date' => 'required',
         ];
     }
 }

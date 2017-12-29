@@ -19,6 +19,16 @@ class ClientSaturation extends Model
         return  $this->belongsTo(Client::class);
     }
 
+    public function saturation() 
+    {
+        return $this->belongsTo(Saturation::class, 'saturation_mode','id');
+    }
+
+    public function confirmation() 
+    {
+        return $this->belongsTo(Confirmation::class,'manner_of_confirmation', 'id');
+    }
+
     public function user() 
     {
         return $this->belongsTo(User::class, 'proposal_by', 'id');

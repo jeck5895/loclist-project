@@ -183,7 +183,7 @@
 
                         <div class="tab-pane fade" id="saturation" role="tabpanel" aria-labelledby="home-tab">
                             <div class="mb-2 mt-2">
-                                <button class="btn btn-sm btn-default" @click="showModalForm(clientId, 'NEW_SATURATION_RECORD')">
+                                <button class="btn btn-sm btn-default" @click="showModalForm(clientId, 'NEW_CLIENT_SATURATION_RECORD')">
                                   <span class="fa fa-file-text-o"></span>  New Saturation Record
                                 </button>
                             </div>
@@ -218,7 +218,7 @@
                 <client-calls-form></client-calls-form>
             </div>
 
-            <div v-if="modalFormType == 'NEW_SATURATION_RECORD' || modalFormType == 'EDIT_SATURATION_RECORD'">
+            <div v-if="modalFormType == 'NEW_CLIENT_SATURATION_RECORD' || modalFormType == 'EDIT_CLIENT_SATURATION_RECORD'">
                 <client-saturation-form></client-saturation-form>
             </div>
 
@@ -252,6 +252,7 @@
             };
 
             store.dispatch('loadClient', payload);
+            store.dispatch('loadUsers', 'api/users?type=all');
             next();
         },
         created() {
@@ -285,9 +286,9 @@
                         this.$store.dispatch('clearClientCall');
                         break;
 
-                    case 'NEW_SATURATION_RECORD':
+                    case 'NEW_CLIENT_SATURATION_RECORD':
                         this.$store.dispatch('setModalTitle', 'Saturation Details');
-                        this.$store.dispatch('setModalFormType', 'NEW_SATURATION_RECORD');
+                        this.$store.dispatch('setModalFormType', 'NEW_CLIENT_SATURATION_RECORD');
                         break;
 
                     case 'NEW_PRESENTATION_RECORD':

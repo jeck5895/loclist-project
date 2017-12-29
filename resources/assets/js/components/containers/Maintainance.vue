@@ -41,6 +41,12 @@
                     <div v-if="modalFormType == 'CREATE_USERTYPE' || modalFormType == 'EDIT_USERTYPE'">
                         <user-type-form></user-type-form>
                     </div>
+                    <div v-if="modalFormType == 'CREATE_SATURATION' || modalFormType == 'EDIT_SATURATION'">
+                        <saturation-form></saturation-form>
+                    </div>
+                    <div v-if="modalFormType == 'CREATE_CONFIRMATION' || modalFormType == 'EDIT_CONFIRMATION'">
+                        <confirmation-form></confirmation-form>
+                    </div>
                 </div>
             </modal>
 
@@ -65,6 +71,8 @@
     import UserTypeForm from '../forms/maintainance/UserTypeForm';
     import CompanyForm from '../forms/company/CompanyForm';
     import StatusForm from '../forms/maintainance/StatusForm';
+    import SaturationForm from '../forms/maintainance/SaturationForm';
+    import ConfirmationForm from '../forms/maintainance/ConfirmationForm';
     import Sidenav from '../navs/SideNav';
 
     export default {
@@ -103,6 +111,8 @@
             UserTypeForm,
             CompanyForm,
             StatusForm,
+            SaturationForm,
+            ConfirmationForm,
             Sidenav
         } 
     }

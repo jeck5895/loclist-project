@@ -44,6 +44,11 @@ class Client extends Model
         return $this->belongsToMany(SourcingPractice::class, 'client_sourcing_practices','client_id','sourcing_practice_id')->withTimestamps();
     }
 
+    public function client_saturation() 
+    {
+        return $this->hasOne(ClientSaturation::class);
+    }
+
     public function company_certificate() 
     {
         return $this->belongsTo(Certificate::class, 'iso_certf')->select(['id','iso_name']);

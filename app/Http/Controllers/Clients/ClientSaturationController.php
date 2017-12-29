@@ -4,8 +4,8 @@ namespace App\Http\Controllers\clients;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Clients\Saturations\StoreClientSaturation;
-use App\Http\Requests\Clients\Saturations\UpdateClientSaturation;
+use App\Http\Requests\Clients\Saturation\StoreClientSaturation;
+use App\Http\Requests\Clients\Saturation\UpdateClientSaturation;
 use App\Client;
 use App\ClientSaturation;
 
@@ -29,6 +29,8 @@ class ClientSaturationController extends Controller
                             })
                             ->where('client_id', $clientId)
                             ->with('user')
+                            ->with('saturation')
+                            ->with('confirmation')
                             ->paginate($request->per_page);
         
         return response()->json([
@@ -53,9 +55,24 @@ class ClientSaturationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreClientSaturation $request)
     {
-        //
+        ClientSaturation::create([
+            'client_id' => $request['client_id'],
+            'saturation_date' => $request['saturation_date'],
+            'saturation_mode' => $request['saturation_mode'],
+            'proposal_by' => $request['proposal_by'],
+            'call_slip' => $request['call_slip'],
+            'date_received' => $request['date_received'],
+            'proposal_accepted' => $request['proposal_accepted'],
+            'manner_of_confirmation' => $request['manner_of_confirmation'],
+            'client_response1' => $request['client_response1'],
+            'ff_calls_made' => $request['ff_calls_made'],
+            'last_ffup_date' => $request['last_ffup_date'],
+            'updated_by' => auth()->user()->id,
+        ]);
+        
+        return ['message' => 'New client saturation has been saved'];
     }
 
     /**
@@ -64,9 +81,11 @@ class ClientSaturationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($client_id, $saturation_id)
     {
-        //
+        $client_saturation = ClientSaturation::where('client_id' , $client_id)->where('id', $saturation_id)->first();
+
+        return $client_saturation;
     }
 
     /**
@@ -87,7 +106,7 @@ class ClientSaturationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateClientSaturation $request, $client_id, $saturation_id)
     {
         //
     }

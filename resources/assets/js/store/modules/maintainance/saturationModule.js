@@ -5,7 +5,7 @@ export default {
     },
     getters: {
         getSaturations: state => {
-            return state.saturations
+            return state.saturations;
         },
         getSaturation: state => {
             return state.saturation;
@@ -57,6 +57,54 @@ export default {
                 }, 1000);
             })
             .catch(error => {
+                console.log(error.response)
+            });
+        },
+        storeSaturation: (context, payload) => {
+            context.commit('setSubmitState', true);
+            axios.post('api/saturations', payload)
+            .then(response => {
+                setTimeout(() => {
+                    context.commit('setServerResponse', response);
+                    context.commit('setSubmitState', false);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', response.data.message);
+                    //document.getElementById('departmentForm').reset();
+                }, 1000);
+            })
+            .catch(error => {
+                context.commit('setServerResponse', error.response);
+                context.commit('setSubmitState', false);
+            });
+        },
+        updateSaturation: (context, payload) => {
+            context.commit('setSubmitState', true);
+            axios.patch('api/saturations/' + payload.id, payload)
+            .then(response => {
+                setTimeout(() => {
+                    context.commit('setServerResponse', response);
+                    context.commit('setSubmitState', false);
+                    $("#createUserModal").modal('hide');
+                    toastr.success('Success', response.data.message);
+                    //document.getElementById('departmentForm').reset();
+                }, 1000);
+            })
+            .catch(error => {
+                context.commit('setServerResponse', error.response);
+                context.commit('setSubmitState', false);
+            });
+        },
+        deleteSaturation: (context, payload) => {
+            axios.delete('api/saturations/' + payload.saturation.id)
+            .then(response => {
+                toastr.success('Success', response.data.message);
+            })
+            .catch(error => {
+                context.commit('setServerResponse', error.response.data);
+                if(error.response.status == 403){
+                    toastr.error('Error', error.response.data);
+                }
+                //toastr.error('Forbidden')
                 console.log(error.response)
             });
         }
