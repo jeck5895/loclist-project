@@ -73,7 +73,7 @@
     import StatusForm from '../forms/maintainance/StatusForm';
     import SaturationForm from '../forms/maintainance/SaturationForm';
     import ConfirmationForm from '../forms/maintainance/ConfirmationForm';
-    import Sidenav from '../navs/SideNav';
+    import Sidenav from '../navs/Sidenav';
 
     export default {
         beforeCreate(){

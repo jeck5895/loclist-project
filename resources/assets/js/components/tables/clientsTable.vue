@@ -155,7 +155,8 @@
                             </button>
 
                             <router-link :to="{ name: 'viewClient', params: { companyName:  toUrlFormat(client.client_name), clientId : client.id }}"
-                                class="btn btn-sm btn-default">
+                                class="btn btn-sm btn-default"
+                                target="_blank">
                                 <span class="fa fa-eye"></span>
                             </router-link>
 
