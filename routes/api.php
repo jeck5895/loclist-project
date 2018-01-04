@@ -22,22 +22,22 @@ Route::middleware('auth:api')->group(function() {
     // Route::get('/users/{id}', 'UsersController@show');
     // Route::post('/user', 'UsersController@store');
     // Route::patch('/user/{id}', 'UsersController@update');
-    Route::apiResource('users', 'users\UsersController');
-    Route::apiResource('user_types', 'maintainance\UserTypesController');
-    Route::apiResource('companies', 'companies\CompaniesController');
-    Route::apiResource('industries', 'maintainance\IndustriesController');
-    Route::apiResource('nationalities', 'maintainance\NationalitiesController');
-    Route::apiResource('certificates','maintainance\CertificatesController');
-    Route::apiResource('clients', 'clients\ClientsController');
-    Route::apiResource('sourcing_practices','maintainance\SourcingPracticesController');
-    Route::apiResource('departments', 'maintainance\DepartmentsController');
-    Route::apiResource('positions', 'maintainance\PositionsController');
-    Route::apiResource('manpowers', 'maintainance\ManpowersController');
-    Route::apiResource('statuses', 'maintainance\StatusesController');
-    Route::apiResource('saturations','maintainance\SaturationController');
-    Route::apiResource('confirmations','maintainance\ConfirmationController');
-    Route::apiResource('clients.calls','clients\ClientCallController');
-    Route::apiResource('clients.saturations','clients\ClientSaturationController');
+    Route::apiResource('users', 'Users\UsersController');
+    Route::apiResource('user_types', 'Maintainance\UserTypesController');
+    Route::apiResource('companies', 'Companies\CompaniesController');
+    Route::apiResource('industries', 'Maintainance\IndustriesController');
+    Route::apiResource('nationalities', 'Maintainance\NationalitiesController');
+    Route::apiResource('certificates','Maintainance\CertificatesController');
+    Route::apiResource('clients', 'Clients\ClientsController');
+    Route::apiResource('sourcing_practices','Maintainance\SourcingPracticesController');
+    Route::apiResource('departments', 'Maintainance\DepartmentsController');
+    Route::apiResource('positions', 'Maintainance\PositionsController');
+    Route::apiResource('manpowers', 'Maintainance\ManpowersController');
+    Route::apiResource('statuses', 'Maintainance\StatusesController');
+    Route::apiResource('saturations','Maintainance\SaturationController');
+    Route::apiResource('confirmations','Maintainance\ConfirmationController');
+    Route::apiResource('clients.calls','Clients\ClientCallController');
+    Route::apiResource('clients.saturations','Clients\ClientSaturationController');
 });
 Route::get('/test',function(){
    
