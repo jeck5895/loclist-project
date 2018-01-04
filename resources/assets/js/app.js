@@ -30,7 +30,7 @@ router.beforeEach((to, from, next) => {
 const app = new Vue({
     el: '#app',
     created(){
-        
+        Vue.auth.setter();
     },
     data:{
 
@@ -43,11 +43,8 @@ const app = new Vue({
     methods:{
         signOut(){
             localStorage.removeItem('_u');
-            window.location = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:8000/logout";
+            window.location = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://loctest.jtci.ph/logout";
         }
-    },
-    created(){
-        Vue.auth.setter();
     },
 });
 
