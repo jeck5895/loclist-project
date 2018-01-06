@@ -11,7 +11,6 @@
 |
 */
 
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -27,8 +26,10 @@ Route::get('/','Auth\LoginController@redirectToProvider');
 Route::get('auth/google/fallback','Auth\LoginController@handleProviderCallback');
 
 Route::get('auth/sri-loclist/callback', 'Auth\LoginController@handleLoclistCallback');
-
-Route::get('logout','Auth\LoginController@logout');
+Route::get('login', function(){
+  return redirect('/');
+});
+//Route::get('logout','Auth\LoginController@logout');
 
 Route::get('/{vue_capture?}', function () {
     return view('home');

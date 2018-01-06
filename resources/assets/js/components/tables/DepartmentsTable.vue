@@ -55,7 +55,7 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="departments" :object="departments" url="api/departments" classSize="pagination-sm"></pagination>
+        <pagination scope="departments" :object="departments" url="api/maintainance/departments" classSize="pagination-sm"></pagination>
     </div>
 </template>
 
@@ -64,7 +64,7 @@
 
     export default {
         created() {
-            this.$store.dispatch('loadDepartments','api/departments');
+            this.$store.dispatch('loadDepartments','api/maintainance/departments');
         },
         computed: {
             departments() {

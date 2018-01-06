@@ -55,7 +55,7 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="confirmations" :object="confirmations" url="api/confirmations" classSize="pagination-sm"></pagination>
+        <pagination scope="confirmations" :object="confirmations" url="api/maintainance/confirmations" classSize="pagination-sm"></pagination>
     </div>
 </template>
 
@@ -64,7 +64,7 @@
 
     export default {
         created() {
-            this.$store.dispatch('loadConfirmations','api/confirmations');
+            this.$store.dispatch('loadConfirmations','api/maintainance/confirmations');
         },
         computed: {
             confirmations() {

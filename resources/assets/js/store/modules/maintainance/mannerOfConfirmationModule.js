@@ -49,7 +49,7 @@ export default {
             }); 
         },
         loadConfirmation: (context, payload) => {
-            axios.get('api/confirmations/' + payload.id)
+            axios.get('api/maintainance/confirmations/' + payload.id)
             .then(response => {
                 context.commit('setConfirmation', response);
                 setTimeout(() => {
@@ -62,7 +62,7 @@ export default {
         },
         storeConfirmation: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.post('api/confirmations', payload)
+            axios.post('api/maintainance/confirmations', payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -79,7 +79,7 @@ export default {
         },
         updateConfirmation: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.patch('api/confirmations/' + payload.id, payload)
+            axios.patch('api/maintainance/confirmations/' + payload.id, payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -95,7 +95,7 @@ export default {
             });
         },
         deleteConfirmation: (context, payload) => {
-            axios.delete('api/confirmations/' + payload.confirmation.id)
+            axios.delete('api/maintainance/confirmations/' + payload.confirmation.id)
             .then(response => {
                 toastr.success('Success', response.data.message);
             })

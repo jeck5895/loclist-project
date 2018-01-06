@@ -176,17 +176,6 @@ $pulse-duration: 750ms;
     }
 }
 
-.sidebar{
-    position: fixed;
-    border-right:1px solid #e2e2e2;
-    top: 0;
-    left: 0;
-    padding-top: 75px;
-    min-height: 100%;
-    z-index: 1000;
-    overflow-y: auto;
-    width: 231px;
-}
 
 .sidebar-nav{
     list-style: none;
@@ -214,8 +203,17 @@ $pulse-duration: 750ms;
     letter-spacing: 0.6px;
 }
 
-.sidebar ul.sidebar-nav>li>a:hover {
+.sidebar ul.sidebar-nav>li>a:hover, .sidebar ul.sidebar-nav>li>a.active{
     background-color: #0062cc;
     color: #fff;
     transition: 0.9s;
+}
+
+.sidebar ul.sidebar-nav > li li a.active {
+    color: #303030;
+    font-weight: bold;
+}
+
+.wrapper {
+    position: relative;
 }

@@ -45,6 +45,8 @@ class LoginController extends Controller
      *
      * @return Response
      */
+
+
      public function redirectToProvider()
      {
          //it can be facebook twitter/github
@@ -110,8 +112,5 @@ class LoginController extends Controller
          //Perform some logic here
      }
 
-    public function logout(){
-        Auth::logout();
-        return redirect('/');
-    }
+    
 }

@@ -89,5 +89,26 @@ export default [
         meta: {
             forAuthUsers: true
         },
+    },
+    {
+        path: 'mode-of-presentations',
+        component: require('../../../components/sub-containers/maintainance/ModeOfPresentationsContainer'),
+        meta: {
+            forAuthUsers: true
+        }
+    },
+    {
+        path: 'presentation-statuses',
+        component: require('../../../components/sub-containers/maintainance/PresentationStatusesContainer'),
+        meta: {
+            forAuthUsers: true
+        }
+    },
+    {
+        path: 'action-plans',
+        component: require('../../../components/sub-containers/maintainance/ActionPlansContainer'),
+        meta: {
+            forAuthUsers: true
+        }
     }
 ]

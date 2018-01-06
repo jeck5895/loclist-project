@@ -35,7 +35,7 @@ export default {
             context.commit('clearStatuses');
         },
         loadStatus: (context, payload) => {
-            axios.get('api/statuses/' + payload.id)
+            axios.get('api/maintainance/statuses/' + payload.id)
             .then(response => {
                 context.commit('setStatus', response);
                 setTimeout(() => {
@@ -62,7 +62,7 @@ export default {
         storeStatus: (context, payload) => {
             context.commit('setSubmitState', true);
             
-            axios.post('api/statuses', payload)
+            axios.post('api/maintainance/statuses', payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -81,7 +81,7 @@ export default {
         updateStatus: (context, payload) => {
             context.commit('setSubmitState', true);
 
-            axios.patch('api/statuses/' + payload.id, payload)
+            axios.patch('api/maintainance/statuses/' + payload.id, payload)
             .then(response => {
                 setTimeout(()=>{
                     context.commit('setServerResponse', response);
@@ -97,7 +97,7 @@ export default {
             })
         },
         deleteStatus: (context, payload) => {
-            axios.delete('api/statuses/' + payload.status.id)
+            axios.delete('api/maintainance/statuses/' + payload.status.id)
             .then(response => {
                 toastr.success('Success', response.data.message);
             })

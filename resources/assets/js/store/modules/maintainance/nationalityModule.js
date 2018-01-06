@@ -34,7 +34,7 @@ export default {
             commit('clearNationality');
         },
         loadNationality: (context, payload) => {
-            axios.get('api/nationalities/' + payload.id)
+            axios.get('api/maintainance/nationalities/' + payload.id)
             .then(response => {
                 context.commit('setNationality', response);
                 setTimeout(() => {
@@ -63,7 +63,7 @@ export default {
         },
         storeNationality : (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.post('api/nationalities', payload)
+            axios.post('api/maintainance/nationalities', payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -83,7 +83,7 @@ export default {
         },
         updateNationality: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.patch('api/nationalities/' + payload.id, payload)
+            axios.patch('api/maintainance/nationalities/' + payload.id, payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -100,7 +100,7 @@ export default {
             });
         },
         deleteNationality: (context, payload) => {
-            axios.delete('api/nationalities/' + payload.nationality.id)
+            axios.delete('api/maintainance/nationalities/' + payload.nationality.id)
             .then(response => {
                 toastr.success('Success', response.data.message);
             })

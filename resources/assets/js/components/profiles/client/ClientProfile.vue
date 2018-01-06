@@ -197,6 +197,8 @@
                                   <span class="fa fa-television"></span>  New Presentation Record
                                 </button>
                             </div>
+
+                            <!-- <client-presentations-table></client-presentations-table> -->
                         </div>
                         
                         <div class="tab-pane fade" id="acquisition" role="tabpanel" aria-labelledby="home-tab">
@@ -248,6 +250,7 @@
     import {store} from '../../../store/store.js';
     import ClientCallsTable from '../../tables/ClientCallsTable';
     import ClientSaturationsTable from '../../tables/ClientSaturationsTable';
+    import ClientPresentationsTable from '../../tables/ClientPresentationsTable';
     import ConfirmationModal from '../../modal/ConfirmationModal';
     
     export default {
@@ -321,6 +324,7 @@
             NavButtons,
             ClientCallsTable,
             ClientSaturationsTable,
+            ClientPresentationsTable,
             ConfirmationModal
         }
     };

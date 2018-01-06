@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/plugins/select2/css/select2.min.css"/>
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="wrapper">
         @include('layouts.navbar')
 
         @yield('content')

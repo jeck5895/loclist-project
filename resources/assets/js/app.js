@@ -16,9 +16,11 @@ router.beforeEach((to, from, next) => {
             // next({
             //     path:'/'
             // })
+            
             window.location = window.location.origin;
         }
         else{
+            
             next();
         }
     }

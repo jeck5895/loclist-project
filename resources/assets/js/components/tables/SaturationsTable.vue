@@ -55,7 +55,7 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="saturations" :object="saturations" url="api/saturations" classSize="pagination-sm"></pagination>
+        <pagination scope="saturations" :object="saturations" url="api/maintainance/saturations" classSize="pagination-sm"></pagination>
     </div>
 </template>
 
@@ -64,7 +64,7 @@
 
     export default {
         created() {
-            this.$store.dispatch('loadSaturations','api/saturations');
+            this.$store.dispatch('loadSaturations','api/maintainance/saturations');
         },
         computed: {
             saturations() {

@@ -25,19 +25,22 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('users', 'Users\UsersController');
     Route::apiResource('user_types', 'Maintainance\UserTypesController');
     Route::apiResource('companies', 'Companies\CompaniesController');
-    Route::apiResource('industries', 'Maintainance\IndustriesController');
-    Route::apiResource('nationalities', 'Maintainance\NationalitiesController');
-    Route::apiResource('certificates','Maintainance\CertificatesController');
+    Route::apiResource('maintainance/industries', 'Maintainance\IndustriesController');
+    Route::apiResource('maintainance/nationalities', 'Maintainance\NationalitiesController');
+    Route::apiResource('maintainance/certificates','Maintainance\CertificatesController');
     Route::apiResource('clients', 'Clients\ClientsController');
-    Route::apiResource('sourcing_practices','Maintainance\SourcingPracticesController');
-    Route::apiResource('departments', 'Maintainance\DepartmentsController');
-    Route::apiResource('positions', 'Maintainance\PositionsController');
-    Route::apiResource('manpowers', 'Maintainance\ManpowersController');
-    Route::apiResource('statuses', 'Maintainance\StatusesController');
-    Route::apiResource('saturations','Maintainance\SaturationController');
-    Route::apiResource('confirmations','Maintainance\ConfirmationController');
+    Route::apiResource('maintainance/sourcing_practices','Maintainance\SourcingPracticesController');
+    Route::apiResource('maintainance/departments', 'Maintainance\DepartmentsController');
+    Route::apiResource('maintainance/positions', 'Maintainance\PositionsController');
+    Route::apiResource('maintainance/manpowers', 'Maintainance\ManpowersController');
+    Route::apiResource('maintainance/statuses', 'Maintainance\StatusesController');
+    Route::apiResource('maintainance/saturations','Maintainance\SaturationController');
+    Route::apiResource('maintainance/confirmations','Maintainance\ConfirmationController');
     Route::apiResource('clients.calls','Clients\ClientCallController');
     Route::apiResource('clients.saturations','Clients\ClientSaturationController');
+    Route::apiResource('maintainance/mode-of-presentations','Maintainance\PresentationModesController');
+    Route::apiResource('maintainance/presentation-statuses', 'Maintainance\PresentationStatusesController');
+    Route::apiResource('maintainance/action-plans', 'Maintainance\ActionPlansController');
 });
 Route::get('/test',function(){
    

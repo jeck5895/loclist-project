@@ -58,7 +58,7 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="nationalities" :object="nationalities" url="api/nationalities" classSize="pagination-sm"></pagination>
+        <pagination scope="nationalities" :object="nationalities" url="api/maintainance/nationalities" classSize="pagination-sm"></pagination>
     </div>
 </template>
 
@@ -67,7 +67,7 @@
 
     export default {
         created() {
-            this.$store.dispatch('loadNationalities','api/nationalities');
+            this.$store.dispatch('loadNationalities','api/maintainance/nationalities');
         },
         computed: {
             nationalities() {

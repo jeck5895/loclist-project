@@ -58,7 +58,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadIndustries','api/industries');
+                            this.$store.dispatch('loadIndustries','api/maintainance/industries');
                         });
                         break;
                     case "nationalities":
@@ -67,7 +67,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadNationalities','api/nationalities');
+                            this.$store.dispatch('loadNationalities','api/maintainance/nationalities');
                         });
                         break;
                     case "certificates":
@@ -76,7 +76,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadCertificates','api/certificates');
+                            this.$store.dispatch('loadCertificates','api/maintainance/certificates');
                         });
                     case "departments":
                         this.$store.dispatch('deleteDepartment', deletionInfo)
@@ -84,7 +84,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadDepartments','api/departments');
+                            this.$store.dispatch('loadDepartments','api/maintainance/departments');
                         });
                         break;
                     case "positions":
@@ -93,7 +93,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadPositions','api/positions');
+                            this.$store.dispatch('loadPositions','api/maintainance/positions');
                         });
                         break;
                     case "manpowers":
@@ -102,7 +102,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadManpowers','api/manpowers');
+                            this.$store.dispatch('loadManpowers','api/maintainance/manpowers');
                         });
                         break;
                     case "user_types":
@@ -146,7 +146,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadSaturations','api/saturations');
+                            this.$store.dispatch('loadSaturations','api/maintainance/saturations');
                         });
                         break;
                     case "confirmations":
@@ -155,7 +155,34 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadConfirmations','api/confirmations');
+                            this.$store.dispatch('loadConfirmations','api/maintainance/confirmations');
+                        });
+                        break;
+                    case "action_plans":
+                        this.$store.dispatch('deleteConfirmation', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadActionPlans','api/maintainance/action-plans');
+                        });
+                        break;
+                    case "mode_of_presentations":
+                        this.$store.dispatch('deleteConfirmation', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadModeOfPresentations','api/maintainance/mode-of-presentations');
+                        });
+                        break;
+                    case "presentation_statuses":
+                        this.$store.dispatch('deleteConfirmation', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadPresentationStatuses','api/maintainance/presentation-statuses');
                         });
                         break;
                     default:

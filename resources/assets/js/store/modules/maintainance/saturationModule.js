@@ -49,7 +49,7 @@ export default {
             }); 
         },
         loadSaturation: (context, payload) => {
-            axios.get('api/saturations/' + payload.id)
+            axios.get('api/maintainance/saturations/' + payload.id)
             .then(response => {
                 context.commit('setSaturation', response);
                 setTimeout(() => {
@@ -62,7 +62,7 @@ export default {
         },
         storeSaturation: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.post('api/saturations', payload)
+            axios.post('api/maintainance/saturations', payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -79,7 +79,7 @@ export default {
         },
         updateSaturation: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.patch('api/saturations/' + payload.id, payload)
+            axios.patch('api/maintainance/saturations/' + payload.id, payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -95,7 +95,7 @@ export default {
             });
         },
         deleteSaturation: (context, payload) => {
-            axios.delete('api/saturations/' + payload.saturation.id)
+            axios.delete('api/maintainance/saturations/' + payload.saturation.id)
             .then(response => {
                 toastr.success('Success', response.data.message);
             })

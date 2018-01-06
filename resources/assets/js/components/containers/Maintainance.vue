@@ -1,11 +1,8 @@
 <template>
-    <div>
+    <div style="position: relative;">
         <sidenav></sidenav>
-        <div class="aside-left">
-            
-                
-                <router-view></router-view>
-        
+        <div style="margin-left: 14.5rem">
+            <router-view></router-view>
             <!-- MODAL SECTION -->
             <modal>
                 <template slot="header">{{ modalTitle }}</template>
@@ -73,6 +70,9 @@
     import StatusForm from '../forms/maintainance/StatusForm';
     import SaturationForm from '../forms/maintainance/SaturationForm';
     import ConfirmationForm from '../forms/maintainance/ConfirmationForm';
+    import ModeOfPresentationForm from '../forms/maintainance/ModeOfPresentationForm';
+    import PresentationStatusForm from '../forms/maintainance/PresentationStatusForm';
+    import ActionPlanForm from '../forms/maintainance/ActionPlanForm';
     import Sidenav from '../navs/Sidenav';
 
     export default {
@@ -113,6 +113,9 @@
             StatusForm,
             SaturationForm,
             ConfirmationForm,
+            ModeOfPresentationForm,
+            PresentationStatusForm,
+            ActionPlanForm,
             Sidenav
         } 
     }
@@ -122,4 +125,5 @@
     .aside-left{
         margin-left: 14rem;
     }
+    
 </style>

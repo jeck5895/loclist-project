@@ -49,7 +49,7 @@ export default {
             });
         },
         loadManpower: (context, payload) => {
-            axios.get('api/manpowers/' + payload.id)
+            axios.get('api/maintainance/manpowers/' + payload.id)
             .then(response => {
                 context.commit('setManpower', response);
                 setTimeout(() => {
@@ -62,7 +62,7 @@ export default {
         },
         storeManpower: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.post('api/manpowers', payload)
+            axios.post('api/maintainance/manpowers', payload)
             .then( response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -79,7 +79,7 @@ export default {
         },
         updateManpower: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.patch('api/manpowers/' + payload.id, payload)
+            axios.patch('api/maintainance/manpowers/' + payload.id, payload)
             .then( response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -95,7 +95,7 @@ export default {
             });
         },
         deleteManpower: (context, payload) => {
-            axios.delete('api/manpowers/' + payload.manpower.id)
+            axios.delete('api/maintainance/manpowers/' + payload.manpower.id)
             .then( response => {
                 toastr.success('Success', response.data.message);
             })

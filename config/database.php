@@ -52,6 +52,12 @@ return [
             'prefix' => '',
             'strict' => true,
             'engine' => null,
+            /**
+             * ADD This when deploying to Server for querying in database `views
+             */
+            // 'options' => [
+            //             \PDO::ATTR_EMULATE_PREPARES => true
+            //         ],
         ],
 
         'pgsql' => [

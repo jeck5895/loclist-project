@@ -85,6 +85,15 @@
                     case "client_saturations":
                         this.$store.dispatch('loadClientSaturations', url);
                         break;
+                    case "client_presentations":
+                        this.$store.dispatch('loadClientPresentations', url);
+                        break;
+                    case "saturations":
+                        this.$store.dispatch('loadSaturations', url);
+                        break;
+                    case "confirmations":
+                        this.$store.dispatch('loadConfirmations', url);
+                        break;
                     default:
                         break;
                 }
@@ -130,6 +139,15 @@
                         break;
                     case "client_saturations":
                         this.$store.dispatch('loadClientSaturations', url);
+                        break;
+                    case "client_presentations":
+                        this.$store.dispatch('loadClientPresentations', url);
+                        break;
+                    case "saturations":
+                        this.$store.dispatch('loadSaturations', url);
+                        break;
+                    case "confirmations":
+                        this.$store.dispatch('loadConfirmations', url);
                         break;
                     default:
                         break;
@@ -177,6 +195,15 @@
                     case "client_saturations":
                         this.$store.dispatch('loadClientSaturations', url);
                         break;
+                    case "client_presentations":
+                        this.$store.dispatch('loadClientPresentations', url);
+                        break;
+                    case "saturations":
+                        this.$store.dispatch('loadSaturations', url);
+                        break;
+                    case "confirmations":
+                        this.$store.dispatch('loadConfirmations', url);
+                        break;
                     default:
                         break;
                 }
@@ -223,6 +250,15 @@
                     case "client_saturations":
                         this.$store.dispatch('loadClientSaturations', url);
                         break;
+                    case "client_presentations":
+                        this.$store.dispatch('loadClientPresentations', url);
+                        break;
+                    case "saturations":
+                        this.$store.dispatch('loadSaturations', url);
+                        break;
+                    case "confirmations":
+                        this.$store.dispatch('loadConfirmations', url);
+                        break;
                     default:
                         break;
                 }
@@ -268,6 +304,9 @@
                         break;
                     case "client_saturations":
                         this.$store.dispatch('loadClientSaturations', url);
+                        break;
+                    case "client_presentations":
+                        this.$store.dispatch('loadClientPresentations', url);
                         break;
                     case "saturations":
                         this.$store.dispatch('loadSaturations', url);

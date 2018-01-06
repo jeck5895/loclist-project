@@ -46,7 +46,7 @@ export default{
             });
         },
         loadUserType: (context, payload) => {
-            axios.get('api/user_types/' + payload.id)
+            axios.get('api/maintainance/user_types/' + payload.id)
             .then( response => {
                 context.commit('setUserType', response);
                 setTimeout(() => {
@@ -59,7 +59,7 @@ export default{
         },
         storeUserType: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.post('api/user_types', payload)
+            axios.post('api/maintainance/user_types', payload)
             .then( response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -76,7 +76,7 @@ export default{
         },
         updateUserType: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.patch('api/user_types/' + payload.id, payload)
+            axios.patch('api/maintainance/user_types/' + payload.id, payload)
             .then( response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -92,7 +92,7 @@ export default{
             });
         },
         deleteUserType: (context, payload) => {
-            axios.delete('api/user_types/' + payload.user_type.id)
+            axios.delete('api/maintainance/user_types/' + payload.user_type.id)
             .then( response => {
                 toastr.success('Success', response.data.message);
             })
