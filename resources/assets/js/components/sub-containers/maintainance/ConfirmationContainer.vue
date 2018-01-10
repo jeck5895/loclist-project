@@ -17,6 +17,9 @@
 <script>
     import ConfirmationsTable from '../../tables/ConfirmationsTable';
     export default {
+        beforeCreate(){
+            this.$store.dispatch('setModalFormType', 'CREATE_CONFIRMATION');
+        },
         computed:{
             currForm(){
                 return this.$store.getters.getForm;
@@ -24,12 +27,10 @@
         },
         methods: {
             showFormModal(scope) {
-                this.$store.dispatch('setModalFormType', 'CREATE_CONFIRMATION').then(() => {
-                    this.$store.dispatch('setForm', document.getElementById('confirmationForm'));
-                    this.$store.dispatch('setModalTitle', "Manner of Confirmation Details");
-                    this.$store.dispatch('clearConfirmation');
-                    this.$store.dispatch('showModal', this.currForm);
-                });
+                this.$store.dispatch('setForm', document.getElementById('confirmationForm'));
+                this.$store.dispatch('setModalTitle', "Manner of Confirmation Details");
+                this.$store.dispatch('clearConfirmation');
+                this.$store.dispatch('showModal', this.currForm);
             }
         },
         components: {

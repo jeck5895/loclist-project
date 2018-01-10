@@ -18,6 +18,9 @@
     import CertificatesTable from '../../tables/CertificatesTable';
 
     export default {
+        beforeCreate(){
+            this.$store.dispatch('setModalFormType', 'CREATE_ISO');
+        },
         computed: {
             currForm(){
                 return this.$store.getters.getForm;
@@ -25,12 +28,10 @@
         },
         methods: {
             showFormModal(scope){
-                this.$store.dispatch('setModalFormType', 'CREATE_ISO').then(() => {
-                    this.$store.dispatch('setForm', document.getElementById('isoForm'));
-                    this.$store.dispatch('setModalTitle', "ISO Certificate Details");
-                    this.$store.dispatch('clearIsoCertificate');
-                    this.$store.dispatch('showModal', this.currForm);
-                });
+                this.$store.dispatch('setForm', document.getElementById('isoForm'));
+                this.$store.dispatch('setModalTitle', "ISO Certificate Details");
+                this.$store.dispatch('clearIsoCertificate');
+                this.$store.dispatch('showModal', this.currForm);
             }
         },
         components:{

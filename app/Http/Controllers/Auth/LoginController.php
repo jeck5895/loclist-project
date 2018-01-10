@@ -46,6 +46,11 @@ class LoginController extends Controller
      * @return Response
      */
 
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/');
+    }
 
      public function redirectToProvider()
      {

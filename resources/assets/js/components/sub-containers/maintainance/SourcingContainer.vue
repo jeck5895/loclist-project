@@ -17,6 +17,9 @@
 <script>
     import SourcingTable from '../../tables/SourcingTable';
     export default {
+        beforeCreate(){
+            this.$store.dispatch('setModalFormType', 'CREATE_SOURCING_PRACTICE');
+        },
         computed:{
             currForm(){
                 return this.$store.getters.getForm;
@@ -24,12 +27,10 @@
         },
         methods: {
             showFormModal(scope) {
-                this.$store.dispatch('setModalFormType', 'CREATE_SOURCING_PRACTICE').then(() => {
-                    this.$store.dispatch('setForm', document.getElementById('sourcingForm'));
-                    this.$store.dispatch('setModalTitle', "Sourcing Practice Details");
-                    this.$store.dispatch('clearSourcingPractice');
-                    this.$store.dispatch('showModal', this.currForm);
-                });
+                this.$store.dispatch('setForm', document.getElementById('sourcingForm'));
+                this.$store.dispatch('setModalTitle', "Sourcing Practice Details");
+                this.$store.dispatch('clearSourcingPractice');
+                this.$store.dispatch('showModal', this.currForm);
             }
         },
         components: {

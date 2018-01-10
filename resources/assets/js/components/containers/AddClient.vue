@@ -31,15 +31,15 @@
             store.dispatch('clearCompanies');
             store.dispatch('clearClient');
             store.dispatch('clearStatuses');
-            store.dispatch('loadNationalities','api/nationalities?type=all');
-            store.dispatch('loadCertificates','api/certificates?type=all');
-            store.dispatch('loadIndustries','api/industries?type=all');
-            store.dispatch('loadSourcingPractices','api/sourcing_practices?type=all');
-            store.dispatch('loadDepartments','api/departments?type=all');
-            store.dispatch('loadPositions', 'api/positions?type=all');
-            store.dispatch('loadManpowers', 'api/manpowers?type=all');
+            store.dispatch('loadNationalities','api/maintainance/nationalities?type=all');
+            store.dispatch('loadCertificates','api/maintainance/certificates?type=all');
+            store.dispatch('loadIndustries','api/maintainance/industries?type=all');
+            store.dispatch('loadSourcingPractices','api/maintainance/sourcing_practices?type=all');
+            store.dispatch('loadDepartments','api/maintainance/departments?type=all');
+            store.dispatch('loadPositions', 'api/maintainance/positions?type=all');
+            store.dispatch('loadManpowers', 'api/maintainance/manpowers?type=all');
             store.dispatch('loadCompanies', 'api/companies?type=all');
-            store.dispatch('loadStatuses','api/statuses?type=all');
+            store.dispatch('loadStatuses','api/maintainance/statuses?type=all');
             if(Object.keys(to.params).length != 0 && to.params.clientId != null) {
                 let payload = {
                     id: to.params.clientId

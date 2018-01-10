@@ -18,6 +18,9 @@
     import ModeOfPresentationTable from '../../tables/maintainance/ModeOfPresentationTable';
 
     export default {
+        beforeCreate(){
+            this.$store.dispatch('setModalFormType', 'CREATE_MODE_OF_PRESENTATION');
+        },
         computed:{
             currForm(){
                 return this.$store.getters.getForm;
@@ -25,12 +28,10 @@
         },
         methods: {
             showFormModal(scope) {
-                this.$store.dispatch('setModalFormType', 'CREATE_MODE_OF_PRESENTATION').then(() => {
-                    this.$store.dispatch('setForm', document.getElementById('modeOfPresentationForm'));
-                    this.$store.dispatch('setModalTitle', "Mode of Presentation Details");
-                    this.$store.dispatch('clearModeOfPresentation');
-                    this.$store.dispatch('showModal', this.currForm);
-                });
+                this.$store.dispatch('setForm', document.getElementById('modeOfPresentationForm'));
+                this.$store.dispatch('setModalTitle', "Mode of Presentation Details");
+                this.$store.dispatch('clearModeOfPresentation');
+                this.$store.dispatch('showModal', this.currForm);
             }
         },
         components: {

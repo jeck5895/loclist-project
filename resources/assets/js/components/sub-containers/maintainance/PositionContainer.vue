@@ -17,6 +17,9 @@
 <script>
     import PositionsTable from '../../tables/PositionsTable';
     export default {
+        beforeCreate(){
+            this.$store.dispatch('setModalFormType', 'CREATE_POSITION');
+        },
         computed: {
             currForm(){
                 return this.$store.getters.getForm;
@@ -24,12 +27,10 @@
         },
         methods: {
             showFormModal(scope) {
-                this.$store.dispatch('setModalFormType', 'CREATE_POSITION').then(() => {
-                    this.$store.dispatch('setForm', document.getElementById('positionForm'));
-                    this.$store.dispatch('setModalTitle', "Position Details");
-                    this.$store.dispatch('clearPosition');
-                    this.$store.dispatch('showModal', this.currForm);
-                });
+                this.$store.dispatch('setForm', document.getElementById('positionForm'));
+                this.$store.dispatch('setModalTitle', "Position Details");
+                this.$store.dispatch('clearPosition');
+                this.$store.dispatch('showModal', this.currForm);
             }
         },
         components: {

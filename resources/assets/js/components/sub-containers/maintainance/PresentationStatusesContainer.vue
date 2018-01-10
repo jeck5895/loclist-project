@@ -18,6 +18,9 @@
     import PresentationStatusesTable from '../../tables/maintainance/PresentationStatusesTable';
 
     export default {
+        beforeCreate(){
+            this.$store.dispatch('setModalFormType', 'CREATE_PRESENTATION_STATUS');
+        },
         computed:{
             currForm(){
                 return this.$store.getters.getForm;
@@ -25,12 +28,10 @@
         },
         methods: {
             showFormModal(scope) {
-                this.$store.dispatch('setModalFormType', 'CREATE_PRESENTATION_STATUS').then(() => {
-                    this.$store.dispatch('setForm', document.getElementById('presentationStatusForm'));
-                    this.$store.dispatch('setModalTitle', "Status Details");
-                    this.$store.dispatch('clearPresentationStatus');
-                    this.$store.dispatch('showModal', this.currForm);
-                });
+                this.$store.dispatch('setForm', document.getElementById('presentationStatusForm'));
+                this.$store.dispatch('setModalTitle', "Status Details");
+                this.$store.dispatch('clearPresentationStatus');
+                this.$store.dispatch('showModal', this.currForm);
             }
         },
         components: {

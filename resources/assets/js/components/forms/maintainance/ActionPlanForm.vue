@@ -77,17 +77,17 @@ export default {
                 if (result) { // if true submit form else set serverResponse error
                     let action_plan = {
                         id: this.action_plan.id,
-                        saturation_mode: this.action_plan.action_name.toUpperCase()
+                        action_name: this.action_plan.action_name.toUpperCase()
                     };
 
                     if (this.formType == 'CREATE_ACTION_PLAN') {
                             this.$store.dispatch('storeActionPlan', action_plan).then(() => {
-                                this.$store.dispatch('loadActionPlans', 'api/action-plans');
+                                this.$store.dispatch('loadActionPlans', 'api/maintainance/action-plans');
                             });
                     } else if (this.formType == 'EDIT_ACTION_PLAN') {
                             this.$store.dispatch('updateActionPlan', action_plan)
                             .then(() => {
-                            this.$store.dispatch('loadActionPlans', 'api/action-plans');
+                            this.$store.dispatch('loadActionPlans', 'api/maintainance/action-plans');
                         });
                     } else {
                         toastr.error('Error', 'Unknown Command');

@@ -18,6 +18,9 @@
     import ActionPlansTable from '../../tables/maintainance/ActionPlansTable';
 
     export default {
+        beforeCreate() {
+            this.$store.dispatch('setModalFormType', 'CREATE_ACTION_PLAN')
+        },
         computed:{
             currForm(){
                 return this.$store.getters.getForm;
@@ -25,12 +28,10 @@
         },
         methods: {
             showFormModal(scope) {
-                this.$store.dispatch('setModalFormType', 'CREATE_ACTION_PLAN').then(() => {
-                    this.$store.dispatch('setForm', document.getElementById('actionPlanForm'));
-                    this.$store.dispatch('setModalTitle', "Action Plan Details");
-                    this.$store.dispatch('clearActionPlan');
-                    this.$store.dispatch('showModal', this.currForm);
-                });
+                this.$store.dispatch('setForm', document.getElementById('actionPlanForm'));
+                this.$store.dispatch('setModalTitle', "Action Plan Details");
+                this.$store.dispatch('clearActionPlan');
+                this.$store.dispatch('showModal', this.currForm);
             }
         },
         components: {

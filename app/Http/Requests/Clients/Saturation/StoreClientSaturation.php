@@ -25,6 +25,7 @@ class StoreClientSaturation extends FormRequest
     {
         return [
             'client_id' => 'required',
+            'company_id' => 'required',
             'saturation_date' => 'required',
             'saturation_mode' => 'required',
             'proposal_by' => 'required',

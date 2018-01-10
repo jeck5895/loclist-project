@@ -10,6 +10,7 @@
                     <th>Call Slip</th>
                     <th>Proposal Received & Accepted</th>
                     <th>Manner of Confirmation</th>
+                    <th>Company</th>
                     <th>Client Response</th>
                     <th>FF-calls made</th>
                     <th>Date of Last FF-up</th>
@@ -59,6 +60,10 @@
                    
                     <td style="vertical-align: middle;">
                         {{ client_saturation.confirmation.confirmation_name }}
+                    </td>
+
+                    <td style="vertical-align: middle;">
+                        {{ client_saturation.company.code }}
                     </td>
 
                     <td style="vertical-align: middle;">

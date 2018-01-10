@@ -30,7 +30,8 @@ class UpdateClientCall extends FormRequest
             'productive_call' => 'required',
             'proposal_sent' => 'required',
             'client_response' => 'required',
-            'client_id' => 'required'
+            'client_id' => 'required',
+            'company_id' => 'required',
         ];
     }
 }

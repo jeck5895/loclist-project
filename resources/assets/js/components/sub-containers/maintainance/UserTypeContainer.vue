@@ -17,6 +17,9 @@
 <script>
     import UserTypeTable from '../../tables/UserTypeTable';
     export default {
+        beforeCreate(){
+            this.$store.dispatch('setModalFormType', 'CREATE_USERTYPE');
+        },
         computed:{
             currForm(){
                 return this.$store.getters.getForm;
@@ -24,12 +27,10 @@
         },
         methods: {
             showFormModal(scope) {
-                this.$store.dispatch('setModalFormType', 'CREATE_USERTYPE').then(() => {
-                    this.$store.dispatch('setForm', document.getElementById('userTypeForm'));
-                    this.$store.dispatch('setModalTitle', "User type Details");
-                    this.$store.dispatch('clearUserType');
-                    this.$store.dispatch('showModal', this.currForm);
-                });
+                this.$store.dispatch('setForm', document.getElementById('userTypeForm'));
+                this.$store.dispatch('setModalTitle', "User type Details");
+                this.$store.dispatch('clearUserType');
+                this.$store.dispatch('showModal', this.currForm);
             }
         },
         components: {

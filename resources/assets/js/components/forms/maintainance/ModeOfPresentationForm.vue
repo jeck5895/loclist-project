@@ -77,17 +77,17 @@ export default {
                 if (result) { // if true submit form else set serverResponse error
                     let mode_of_presentation = {
                         id: this.mode_of_presentation.id,
-                        saturation_mode: this.mode_of_presentation.presentation_mode.toUpperCase()
+                        presentation_mode: this.mode_of_presentation.presentation_mode.toUpperCase()
                     };
 
                     if (this.formType == 'CREATE_MODE_OF_PRESENTATION') {
                             this.$store.dispatch('storeModeOfPresentation', mode_of_presentation).then(() => {
-                                this.$store.dispatch('loadModeOfPresentations', 'api/mode-of-presentations');
+                                this.$store.dispatch('loadModeOfPresentations', 'api/maintainance/mode-of-presentations');
                             });
                     } else if (this.formType == 'EDIT_MODE_OF_PRESENTATION') {
                             this.$store.dispatch('updateModeOfPresentation', mode_of_presentation)
                             .then(() => {
-                            this.$store.dispatch('loadModeOfPresentations', 'api/mode-of-presentations');
+                            this.$store.dispatch('loadModeOfPresentations', 'api/maintainance/mode-of-presentations');
                         });
                     } else {
                         toastr.error('Error', 'Unknown Command');

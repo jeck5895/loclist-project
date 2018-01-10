@@ -22,6 +22,9 @@
     import CompaniesTable from '../../tables/CompaniesTable';
 
     export default {
+        beforeCreate(){
+            this.$store.dispatch('setModalFormType', 'CREATE_COMPANY');
+        },
         created() {
 
         },
@@ -32,12 +35,10 @@
         },
         methods: {
             showFormModal(scope) {
-                this.$store.dispatch('setModalFormType', 'CREATE_COMPANY').then(() => {
                     this.$store.dispatch('setForm', document.getElementById('companyForm'));
                     this.$store.dispatch('setModalTitle', "Company Details");
                     this.$store.dispatch('clearCompany');
                     this.$store.dispatch('showModal', this.currForm);
-                });
             }
         },
         components: {

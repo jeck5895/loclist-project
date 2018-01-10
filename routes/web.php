@@ -26,6 +26,9 @@ Route::get('/','Auth\LoginController@redirectToProvider');
 Route::get('auth/google/fallback','Auth\LoginController@handleProviderCallback');
 
 Route::get('auth/sri-loclist/callback', 'Auth\LoginController@handleLoclistCallback');
+
+Route::get('auth/logout','Auth\LoginController@logout');
+
 Route::get('login', function(){
   return redirect('/');
 });

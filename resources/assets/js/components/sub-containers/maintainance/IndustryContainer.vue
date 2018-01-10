@@ -18,6 +18,9 @@
     import IndustryTable from '../../tables/IndustryTable';
 
     export default {
+        beforeCreate(){
+            this.$store.dispatch('setModalFormType', 'CREATE_INDUSTRY');
+        },
         created() {
 
         },
@@ -28,12 +31,10 @@
         },
         methods: {
             showFormModal(scope) {
-                this.$store.dispatch('setModalFormType', 'CREATE_INDUSTRY').then(() => {
-                    this.$store.dispatch('setForm', document.getElementById('industryForm'));
-                    this.$store.dispatch('setModalTitle', "Industry Details");
-                    this.$store.dispatch('clearIndustry');
-                    this.$store.dispatch('showModal', this.currForm);
-                });
+                this.$store.dispatch('setForm', document.getElementById('industryForm'));
+                this.$store.dispatch('setModalTitle', "Industry Details");
+                this.$store.dispatch('clearIndustry');
+                this.$store.dispatch('showModal', this.currForm);
             }
         },
         components: {

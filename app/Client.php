@@ -91,4 +91,9 @@ class Client extends Model
     {
         return $this->hasMany(ClientSaturation::class);
     }
+
+    public function presentations()
+    {
+        return $this->hasMany(ClientPresentation::class);
+    }
 }

@@ -12,8 +12,16 @@
             </div>
 
             <div class="form-group col-sm-12">
+                <label for="">Company</label>
+                <select v-model="call.company_id" name="company" v-validate="{rules:{required:true}}" id="" class="form-control form-control-sm">
+                    <option v-for="(company, index) in companies" :key="index" :value="company.id"> {{ company.company_name + "(" + company.code + ")" }} </option>
+                </select>
+                <small class="form-text has-danger" v-show="errors.has('callForm.company_id')">{{ errors.first('callForm.company_id') }}</small>
+            </div>
+
+            <div class="form-group col-sm-12">
                 <label for="">Date of Call</label>
-                <input v-model="date_of_call" v-validate="{rules:{required:true}}" type="date" name="date_of_call" id="" class="form-control form-control-sm">
+                <input v-model="date_of_call" v-validate="{rules:{required:true}}" type="date" id="date_of_call" name="date_of_call" class="form-control form-control-sm">
                 <small class="form-text has-danger" v-show="errors.has('callForm.date_of_call')">{{ errors.first('callForm.date_of_call') }}</small>
             </div>
 
@@ -75,7 +83,7 @@
             
         },
         created() {
-            console.log(this.$route.params)
+
         },
         data() {
             return {
@@ -94,6 +102,9 @@
             },
             users() {
                 return this.$store.getters.loadUsers;
+            },
+            companies() {
+                return this.$store.getters.getCompanies;  
             },
             serverResponse() {
                 return this.$store.getters.getServerResponse;
@@ -116,7 +127,7 @@
         },
         watch: {
             call: 'formatDate',
-            formType: 'clearDate'
+            //formType: 'clearDate'
         },
         methods: {
             submitForm(scope) {
@@ -127,6 +138,7 @@
                         let call_record = {
                             id: this.call.id,
                             client_id: this.$route.params.clientId,
+                            company_id: this.call.company_id,
                             caller: this.call.caller,
                             date_of_call: this.date_of_call,
                             confirmation_preCall: this.call.confirmation_preCall,
@@ -160,13 +172,12 @@
                 this.$store.dispatch("closeModal", this.modalFormValidation);
             },
             formatDate() {
-                this.date_of_call = moment(this.call.date_of_call).format('YYYY-MM-DD');
-            },
-            clearDate() {
-                if(this.formType == 'NEW_CALL_RECORD'){    
+                if(this.formType == 'EDIT_CALL_RECORD'){    
+                    this.date_of_call = moment(this.call.date_of_call).format('YYYY-MM-DD');
+                }
+                else if(this.formType == 'NEW_CALL_RECORD'){    
                     this.date_of_call = moment().format('YYYY-MM-DD');
                 }
-                    
             },
         },
         components: {

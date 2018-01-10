@@ -9,6 +9,7 @@
                     <th>Confirmation Pre-call</th>
                     <th>Productive</th>
                     <th>Proposal Sent</th>
+                    <th>Company</th>
                     <th>Response</th>
                     <th>Options</th>
                 </tr>
@@ -50,6 +51,10 @@
                    
                     <td style="vertical-align: middle;">
                         {{ call.proposal_sent == 1 ? 'Yes' : 'No' }}
+                    </td>
+
+                    <td style="vertical-align: middle;">
+                        {{ call.company.code }}
                     </td>
 
                     <td style="vertical-align: middle;">

@@ -68,6 +68,15 @@
                 <input v-model="last_ffup_date" type="date" name="last_ffup_date" id="" class="form-control form-control-sm" :disabled="disable">
                 <!-- <small class="form-text has-danger" v-show="errors.has('saturationForm.last_ffup_date')">{{ errors.first('saturationForm.last_ffup_date') }}</small> -->
             </div>
+            
+            <div class="form-group col-sm-12">
+                <label for="">Company</label>
+                <select v-model="client_saturation.company_id" name="company" v-validate="{rules:{required:true}}" id="" class="form-control form-control-sm">
+                    <option v-for="(company, index) in companies" :key="index" :value="company.id"> {{ company.company_name + "(" + company.code + ")" }} </option>
+                </select>
+                <small class="form-text has-danger" v-show="errors.has('saturationForm.company_id')">{{ errors.first('saturationForm.company_id') }}</small>
+            </div>
+
             <div class="form-group col-md-12">
                 <label for="">Client Reponse</label>
                 <textarea v-model="client_saturation.client_response1" name="client_response1" id="" cols="30" v-validate="{rules:{required:true}}" rows="1" class="form-control form-control-sm"></textarea>
@@ -98,8 +107,8 @@
 
     export default {
         mounted() {
-            this.$store.dispatch('loadSaturations', 'api/saturations?type=all');
-            this.$store.dispatch('loadConfirmations', 'api/confirmations?type=all');
+            this.$store.dispatch('loadSaturations', 'api/maintainance/saturations?type=all');
+            this.$store.dispatch('loadConfirmations', 'api/maintainance/confirmations?type=all');
         },
         data() {
             return {
@@ -110,6 +119,9 @@
             }
         },
         computed: {
+            companies() {
+                return this.$store.getters.getCompanies;  
+            },
             isSubmitting() {
                 return this.$store.getters.getSubmitState;
             },
@@ -149,7 +161,7 @@
         },
         watch: {
             client_saturation: 'formatDate',
-            formType: 'clearDate'
+            //formType: 'clearDate'
         },
         methods: {
             submitForm(scope) {
@@ -159,6 +171,7 @@
                         let call_record = {
                             id: this.client_saturation.id,
                             client_id: this.$route.params.clientId,
+                            company_id: this.client_saturation.company_id,
                             proposal_by: this.client_saturation.proposal_by,
                             call_slip: this.client_saturation.call_slip,
                             saturation_date: this.saturation_date,
@@ -196,15 +209,16 @@
                 this.$store.dispatch("closeModal", this.modalFormValidation);
             },
             formatDate() {
-                this.saturation_date = moment(this.client_saturation.saturation_date).format('YYYY-MM-DD');
-                this.date_received = moment(this.client_saturation.date_received).format('YYYY-MM-DD');
-                this.last_ffup_date = moment(this.client_saturation.last_ffup_date).format('YYYY-MM-DD');;
-            },
-            clearDate() {
-                if(this.formType == 'NEW_CALL_RECORD'){    
-                    this.date_of_call = moment().format('YYYY-MM-DD');
+                if(this.formType == 'EDIT_CLIENT_SATURATION_CALL_RECORD'){
+                    this.saturation_date = moment(this.client_saturation.saturation_date).format('YYYY-MM-DD');
+                    this.date_received = moment(this.client_saturation.date_received).format('YYYY-MM-DD');
+                    this.last_ffup_date = moment(this.client_saturation.last_ffup_date).format('YYYY-MM-DD');
                 }
-                    
+                else if(this.formType == 'NEW_CLIENT_SATURATION_CALL_RECORD'){    
+                    this.saturation_date = moment().format('YYYY-MM-DD');
+                    this.date_received = moment().format('YYYY-MM-DD');
+                    this.last_ffup_date = moment().format('YYYY-MM-DD');
+                }
             },
             disableInput(){
                 if(this.client_saturation.ff_calls_made == 0){

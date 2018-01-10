@@ -17,6 +17,9 @@
 <script>
     import DepartmentsTable from '../../tables/DepartmentsTable';
     export default {
+        beforeCreate(){
+            this.$store.dispatch('setModalFormType', 'CREATE_DEPARTMENT');
+        },
         computed:{
             currForm(){
                 return this.$store.getters.getForm;
@@ -24,12 +27,10 @@
         },
         methods: {
             showFormModal(scope) {
-                this.$store.dispatch('setModalFormType', 'CREATE_DEPARTMENT').then(() => {
-                    this.$store.dispatch('setForm', document.getElementById('departmentForm'));
-                    this.$store.dispatch('setModalTitle', "Department Details");
-                    this.$store.dispatch('clearDepartment');
-                    this.$store.dispatch('showModal', this.currForm);
-                });
+                this.$store.dispatch('setForm', document.getElementById('departmentForm'));
+                this.$store.dispatch('setModalTitle', "Department Details");
+                this.$store.dispatch('clearDepartment');
+                this.$store.dispatch('showModal', this.currForm);
             }
         },
         components: {

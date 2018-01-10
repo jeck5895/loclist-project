@@ -37,23 +37,25 @@
                     <td style="vertical-align: middle;">
                         {{ presentation.user.initial }}
                     </td>
+                    
                     <td style="vertical-align: middle;">
-                        {{ presentation.date_of_call | humanReadableFormat }}
-                    </td>
-                    <td style="vertical-align: middle;">
-                        {{ presentation.confirmation_preCall == 1 ? 'Yes' : 'No' }}
+                        {{ presentation.mode_of_presentation.presentation_mode }}
                     </td>
 
                     <td style="vertical-align: middle;">
-                        {{ presentation.productive_call == 1 ? 'Yes' : 'No' }}
+                        {{ presentation.date_presented | humanReadableFormat }}
+                    </td>
+
+                    <td style="vertical-align: middle;">
+                        {{ presentation.call_slip2 }}
                     </td>
                    
                     <td style="vertical-align: middle;">
-                        {{ presentation.proposal_sent == 1 ? 'Yes' : 'No' }}
+                        {{ presentation.presentation_status.status }}
                     </td>
 
                     <td style="vertical-align: middle;">
-                        {{ presentation.client_response}}
+                        {{ presentation.client_response2}}
                     </td>
 
                     <td style="vertical-align: middle;">

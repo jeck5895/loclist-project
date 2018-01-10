@@ -62,50 +62,63 @@ export default {
         },
         storePresentationStatus: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.post('api/maintainance/presentation-statuses', payload)
-            .then(response => {
-                setTimeout(() => {
-                    context.commit('setServerResponse', response);
+            return new Promise((resolve, reject) => {
+                axios.post('api/maintainance/presentation-statuses', payload)
+                .then(response => {
+                    setTimeout(() => {
+                        
+                        context.commit('setServerResponse', response);
+                        context.commit('setSubmitState', false);
+                        $("#createUserModal").modal('hide');
+                        toastr.success('Success', response.data.message);
+                        //document.getElementById('departmentForm').reset();
+                        resolve(response);
+                    }, 1000);
+                })
+                .catch(error => {
+                    reject(error)
+                    context.commit('setServerResponse', error.response);
                     context.commit('setSubmitState', false);
-                    $("#createUserModal").modal('hide');
-                    toastr.success('Success', response.data.message);
-                    //document.getElementById('departmentForm').reset();
-                }, 1000);
+                });
             })
-            .catch(error => {
-                context.commit('setServerResponse', error.response);
-                context.commit('setSubmitState', false);
-            });
         },
         updatePresentationStatus: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.patch('api/maintainance/presentation-statuses/' + payload.id, payload)
-            .then(response => {
-                setTimeout(() => {
-                    context.commit('setServerResponse', response);
+            return new Promise((resolve, reject) => {
+                axios.patch('api/maintainance/presentation-statuses/' + payload.id, payload)
+                .then(response => {
+                    setTimeout(() => {
+                        resolve(response);
+                        context.commit('setServerResponse', response);
+                        context.commit('setSubmitState', false);
+                        $("#createUserModal").modal('hide');
+                        toastr.success('Success', response.data.message);
+                        //document.getElementById('departmentForm').reset();
+                    }, 1000);
+                })
+                .catch(error => {
+                    reject(error)
+                    context.commit('setServerResponse', error.response);
                     context.commit('setSubmitState', false);
-                    $("#createUserModal").modal('hide');
-                    toastr.success('Success', response.data.message);
-                    //document.getElementById('departmentForm').reset();
-                }, 1000);
-            })
-            .catch(error => {
-                context.commit('setServerResponse', error.response);
-                context.commit('setSubmitState', false);
+                });
             });
         },
         deletePresentationStatus: (context, payload) => {
-            axios.delete('api/maintainance/presentation-statuses/' + payload.presentation_status.id)
-            .then(response => {
-                toastr.success('Success', response.data.message);
-            })
-            .catch(error => {
-                context.commit('setServerResponse', error.response.data);
-                if(error.response.status == 403){
-                    toastr.error('Error', error.response.data);
-                }
-                //toastr.error('Forbidden')
-                console.log(error.response)
+            return new Promise((resolve, reject) => {
+                axios.delete('api/maintainance/presentation-statuses/' + payload.presentation_status.id)
+                .then(response => {
+                    resolve(response)
+                    toastr.success('Success', response.data.message);
+                })
+                .catch(error => {
+                    reject(error);
+                    context.commit('setServerResponse', error.response.data);
+                    if(error.response.status == 403){
+                        toastr.error('Error', error.response.data);
+                    }
+                    //toastr.error('Forbidden')
+                    console.log(error.response)
+                });
             });
         }
     }

@@ -77,17 +77,17 @@ export default {
                 if (result) { // if true submit form else set serverResponse error
                     let presentation_status = {
                         id: this.presentation_status.id,
-                        saturation_mode: this.presentation_status.status.toUpperCase()
+                        status: this.presentation_status.status.toUpperCase()
                     };
 
                     if (this.formType == 'CREATE_PRESENTATION_STATUS') {
                             this.$store.dispatch('storePresentationStatus', presentation_status).then(() => {
-                                this.$store.dispatch('loadPresentationStatuss', 'api/presentation-statuses');
+                                this.$store.dispatch('loadPresentationStatuses', 'api/maintainance/presentation-statuses');
                             });
                     } else if (this.formType == 'EDIT_PRESENTATION_STATUS') {
                             this.$store.dispatch('updatePresentationStatus', presentation_status)
                             .then(() => {
-                            this.$store.dispatch('loadPresentationStatuss', 'api/presentation-statuses');
+                            this.$store.dispatch('loadPresentationStatuses', 'api/maintainance/presentation-statuses');
                         });
                     } else {
                         toastr.error('Error', 'Unknown Command');

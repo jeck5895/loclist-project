@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Maintainance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\PresentationStatus;
-use App\Http\Requests\Maintainance\ActionPlan\StorePresentationStatus;
-use App\Http\Requests\Maintainance\ActionPlan\UpdatePresentationStatus;
+use App\Http\Requests\Maintainance\Presentation\StorePresentationStatus;
+use App\Http\Requests\Maintainance\Presentation\UpdatePresentationStatus;
 
 class PresentationStatusesController extends Controller
 {

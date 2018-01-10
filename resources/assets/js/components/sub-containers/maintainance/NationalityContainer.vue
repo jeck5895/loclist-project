@@ -17,6 +17,9 @@
 <script>
     import NationalitiesTable from '../../tables/NationalitiesTable';
     export default {
+        beforeCreate(){
+            this.$store.dispatch('setModalFormType', 'CREATE_NATIONALITY');
+        },
         created() {
 
         },
@@ -27,12 +30,10 @@
         },
         methods: {
             showFormModal(scope) {
-                this.$store.dispatch('setModalFormType', 'CREATE_NATIONALITY').then(() => {
-                    this.$store.dispatch('setForm', document.getElementById('nationalityForm'));
-                    this.$store.dispatch('setModalTitle', "Nationality Details");
-                    this.$store.dispatch('clearNationality');
-                    this.$store.dispatch('showModal', this.currForm);
-                });
+                this.$store.dispatch('setForm', document.getElementById('nationalityForm'));
+                this.$store.dispatch('setModalTitle', "Nationality Details");
+                this.$store.dispatch('clearNationality');
+                this.$store.dispatch('showModal', this.currForm);
             }
         },
         components: {

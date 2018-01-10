@@ -22,4 +22,19 @@ class Company extends Model
     {
         return $this->hasMany(Client::class);
     }
+
+    public function client_calls() 
+    {
+        return $this->hasMany(ClientCall::class);
+    }
+
+    public function client_saturations()
+    {
+        return $this->hasMany(ClientSaturation::class);
+    }
+
+    public function client_presentations()
+    {
+        return $this->hasMany(ClientPresentation::class);
+    }
 }

@@ -198,7 +198,7 @@
                                 </button>
                             </div>
 
-                            <!-- <client-presentations-table></client-presentations-table> -->
+                            <client-presentations-table></client-presentations-table>
                         </div>
                         
                         <div class="tab-pane fade" id="acquisition" role="tabpanel" aria-labelledby="home-tab">
@@ -261,6 +261,10 @@
 
             store.dispatch('loadClient', payload);
             store.dispatch('loadUsers', 'api/users?type=all');
+            store.dispatch('loadCompanies', 'api/companies?type=all');
+            store.dispatch('loadModeOfPresentations', 'api/maintainance/mode-of-presentations?type=all');
+            store.dispatch('loadPresentationStatuses', 'api/maintainance/presentation-statuses?type=all');
+            store.dispatch('loadActionPlans', 'api/maintainance/action-plans?type=all');
             next();
         },
         created() {

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\clients\Calls;
+namespace App\Http\Requests\Clients\Presentations;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreClientCall extends FormRequest
+class StoreClientPresentation extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,14 @@ class StoreClientCall extends FormRequest
     public function rules()
     {
         return [
-            'caller' => 'required',
-            'date_of_call' => 'required',
-            'confirmation_preCall' => 'required',
-            'productive_call' => 'required',
-            'proposal_sent' => 'required',
-            'client_response' => 'required',
             'client_id' => 'required',
             'company_id' => 'required',
+            'presentation_mode' => 'required',
+            'presentor' => 'required',
+            'date_presented' => 'required|unique:client_presentations',
+            'client_response2' => 'required',
+            'presentation_status' => 'required',
+            'action_plan' => 'required',
         ];
     }
 }

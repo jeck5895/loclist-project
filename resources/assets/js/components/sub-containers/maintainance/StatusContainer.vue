@@ -23,7 +23,7 @@
 
     export default {
         created() {
-
+            this.$store.dispatch('setModalFormType', 'CREATE_STATUS');
         },
         computed: {
             currForm(){
@@ -32,12 +32,11 @@
         },
         methods:{
             showFormModal(scope) {
-                this.$store.dispatch('setModalFormType', 'CREATE_STATUS').then(() => {
-                    this.$store.dispatch('setForm', document.getElementById('statusForm'));
-                    this.$store.dispatch('setModalTitle', "Status Details");
-                    this.$store.dispatch('clearStatus');
-                    this.$store.dispatch('showModal', this.currForm);
-                });
+                this.$store.dispatch('setForm', document.getElementById('statusForm'));
+                this.$store.dispatch('setModalTitle', "Status Details");
+                this.$store.dispatch('clearStatus');
+                this.$store.dispatch('showModal', this.currForm);
+            
             }
         },
         components:{

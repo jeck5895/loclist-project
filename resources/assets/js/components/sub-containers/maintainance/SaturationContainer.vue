@@ -17,6 +17,9 @@
 <script>
     import SaturationsTable from '../../tables/SaturationsTable';
     export default {
+        beforeCreate(){
+            this.$store.dispatch('setModalFormType', 'CREATE_SATURATION');
+        },
         computed:{
             currForm(){
                 return this.$store.getters.getForm;
@@ -24,12 +27,10 @@
         },
         methods: {
             showFormModal(scope) {
-                this.$store.dispatch('setModalFormType', 'CREATE_SATURATION').then(() => {
-                    this.$store.dispatch('setForm', document.getElementById('saturationForm'));
-                    this.$store.dispatch('setModalTitle', "Mode of Saturation Details");
-                    this.$store.dispatch('clearSaturation');
-                    this.$store.dispatch('showModal', this.currForm);
-                });
+                this.$store.dispatch('setForm', document.getElementById('saturationForm'));
+                this.$store.dispatch('setModalTitle', "Mode of Saturation Details");
+                this.$store.dispatch('clearSaturation');
+                this.$store.dispatch('showModal', this.currForm);
             }
         },
         components: {

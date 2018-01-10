@@ -44,6 +44,15 @@
                     <div v-if="modalFormType == 'CREATE_CONFIRMATION' || modalFormType == 'EDIT_CONFIRMATION'">
                         <confirmation-form></confirmation-form>
                     </div>
+                    <div v-if="modalFormType == 'CREATE_MODE_OF_PRESENTATION' || modalFormType == 'EDIT_MODE_OF_PRESENTATION'">
+                        <mode-of-presentation-form></mode-of-presentation-form>
+                    </div>
+                    <div v-if="modalFormType == 'CREATE_PRESENTATION_STATUS' || modalFormType == 'EDIT_PRESENTATION_STATUS'">
+                        <presentation-status-form></presentation-status-form>
+                    </div>
+                    <div v-if="modalFormType == 'CREATE_ACTION_PLAN' || modalFormType == 'EDIT_ACTION_PLAN'">
+                        <action-plan-form></action-plan-form>
+                    </div>
                 </div>
             </modal>
 

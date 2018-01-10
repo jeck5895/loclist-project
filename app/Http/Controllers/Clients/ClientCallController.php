@@ -30,6 +30,7 @@ class ClientCallController extends Controller
                             })
                             ->where('client_id', $clientId)
                             ->with('user')
+                            ->with('company')
                             ->paginate($request->per_page);
         
         return response()->json([
@@ -58,6 +59,7 @@ class ClientCallController extends Controller
     {
         ClientCall::create([
             'caller' => $request['caller'],
+            'company_id' => $request['company_id'],
             'date_of_call' => $request['date_of_call'],
             'confirmation_preCall' => $request['confirmation_preCall'],
             'productive_call' => $request['productive_call'],
@@ -105,12 +107,13 @@ class ClientCallController extends Controller
         ClientCall::findOrFail($callId)
                     ->update([
                         'caller' => $request['caller'],
+                        'company_id' => $request['company_id'],
                         'date_of_call' => $request['date_of_call'],
                         'confirmation_preCall' => $request['confirmation_preCall'],
                         'productive_call' => $request['productive_call'],
                         'proposal_sent' => $request['proposal_sent'],
                         'client_response' => $request['client_response'],
-                        'updated_by' => Auth::user()->id
+                        'updated_by' => auth()->user()->id,
                     ]);
         return [
             'message' => 'Changes has been saved.',

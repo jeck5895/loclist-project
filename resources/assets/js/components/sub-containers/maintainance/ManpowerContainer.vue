@@ -18,6 +18,9 @@
 import ManpowersTable from '../../tables/ManpowersTable';
 
 export default {
+    beforeCreate(){
+        this.$store.dispatch('setModalFormType', 'CREATE_MANPOWER');
+    },
     computed:{
         currForm(){
                 return this.$store.getters.getForm;
@@ -25,12 +28,10 @@ export default {
     },
     methods: {
         showFormModal(scope) {
-            this.$store.dispatch('setModalFormType', 'CREATE_MANPOWER').then(() => {
-                this.$store.dispatch('setForm', document.getElementById('manpowerForm'));
-                this.$store.dispatch('setModalTitle', "Manpower Details");
-                this.$store.dispatch('clearManpower');
-                this.$store.dispatch('showModal', this.currForm);
-            });
+            this.$store.dispatch('setForm', document.getElementById('manpowerForm'));
+            this.$store.dispatch('setModalTitle', "Manpower Details");
+            this.$store.dispatch('clearManpower');
+            this.$store.dispatch('showModal', this.currForm);
         }
     },
     components:{

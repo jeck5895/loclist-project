@@ -31,6 +31,7 @@ class ClientSaturationController extends Controller
                             ->with('user')
                             ->with('saturation')
                             ->with('confirmation')
+                            ->with('company')
                             ->paginate($request->per_page);
         
         return response()->json([
@@ -59,6 +60,7 @@ class ClientSaturationController extends Controller
     {
         ClientSaturation::create([
             'client_id' => $request['client_id'],
+            'company_id' => $request['company_id'],
             'saturation_date' => $request['saturation_date'],
             'saturation_mode' => $request['saturation_mode'],
             'proposal_by' => $request['proposal_by'],
@@ -112,6 +114,7 @@ class ClientSaturationController extends Controller
         ClientSaturation::findOrFail($saturation_id)
                             ->update([
                                 'saturation_date' => $request['saturation_date'],
+                                'company_id' => $request['company_id'],
                                 'saturation_mode' => $request['saturation_mode'],
                                 'proposal_by' => $request['proposal_by'],
                                 'call_slip' => $request['call_slip'],

@@ -38,6 +38,7 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('maintainance/confirmations','Maintainance\ConfirmationController');
     Route::apiResource('clients.calls','Clients\ClientCallController');
     Route::apiResource('clients.saturations','Clients\ClientSaturationController');
+    Route::apiResource('clients.presentations','Clients\ClientPresentationController');
     Route::apiResource('maintainance/mode-of-presentations','Maintainance\PresentationModesController');
     Route::apiResource('maintainance/presentation-statuses', 'Maintainance\PresentationStatusesController');
     Route::apiResource('maintainance/action-plans', 'Maintainance\ActionPlansController');
