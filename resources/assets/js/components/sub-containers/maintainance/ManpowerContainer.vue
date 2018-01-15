@@ -28,6 +28,7 @@ export default {
     },
     methods: {
         showFormModal(scope) {
+            this.$store.dispatch('setModalFormType', 'CREATE_MANPOWER');
             this.$store.dispatch('setForm', document.getElementById('manpowerForm'));
             this.$store.dispatch('setModalTitle', "Manpower Details");
             this.$store.dispatch('clearManpower');

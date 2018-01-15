@@ -92,6 +92,10 @@
                         <template v-if="serverResponse.data.errors.caller">
                             <li v-for="e in serverResponse.data.errors.caller" :key="e"> {{ e }}</li>
                         </template>
+                        
+                        <template v-if="serverResponse.data.errors.company">
+                            <li v-for="e in serverResponse.data.errors.company" :key="e"> {{ e }}</li>
+                        </template>
 
                         <template v-if="serverResponse.data.errors.date_of_call">
                             <li v-for="e in serverResponse.data.errors.date_of_call" :key="e"> {{ e }}</li>
@@ -121,6 +125,11 @@
                             <li v-for="e in serverResponse.data.errors.proposal_by" :key="e"> {{ e }}</li>
                         </template>
 
+                        <!-- Already declared in client calls  (same name so doesn't need to declare again)
+                        <template v-if="serverResponse.data.errors.company">
+                            <li v-for="e in serverResponse.data.errors.company" :key="e"> {{ e }}</li>
+                        </template> -->
+
                         <template v-if="serverResponse.data.errors.saturation_date">
                             <li v-for="e in serverResponse.data.errors.saturation_date" :key="e"> {{ e }}</li>
                         </template>
@@ -140,6 +149,7 @@
                         <template v-if="serverResponse.data.errors.client_response1">
                             <li v-for="e in serverResponse.data.errors.client_response1" :key="e"> {{ e }}</li>
                         </template>
+
                         <template v-if="serverResponse.data.errors.date_received">
                             <li v-for="e in serverResponse.data.errors.date_received" :key="e"> {{ e }}</li>
                         </template>
@@ -150,6 +160,66 @@
 
                         <template v-if="serverResponse.data.errors.last_ffup_date">
                             <li v-for="e in serverResponse.data.errors.last_ffup_date" :key="e"> {{ e }}</li>
+                        </template>
+                        
+                        <!-- CLIENT PRESENTATION -->
+                        <template v-if="serverResponse.data.errors.date_presented">
+                            <li v-for="e in serverResponse.data.errors.date_presented" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.presentor">
+                            <li v-for="e in serverResponse.data.errors.presentor" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <!-- Already declared in client calls  (same name so doesn't need to declare again)
+                        <template v-if="serverResponse.data.errors.company">
+                            <li v-for="e in serverResponse.data.errors.company" :key="e"> {{ e }}</li>
+                        </template> -->
+                        
+                        <template v-if="serverResponse.data.errors.presentation_mode">
+                            <li v-for="e in serverResponse.data.errors.presentation_mode" :key="e"> {{ e }}</li>
+                        </template>
+                        
+                        <template v-if="serverResponse.data.errors.presentation_status">
+                            <li v-for="e in serverResponse.data.errors.presentation_status" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.client_response2">
+                            <li v-for="e in serverResponse.data.errors.client_response2" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.action_plan">
+                            <li v-for="e in serverResponse.data.errors.action_plan" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <!-- Client Acquisition -->
+
+                        <template v-if="serverResponse.data.errors.status_as_of">
+                            <li v-for="e in serverResponse.data.errors.status_as_of" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.acquired_by">
+                            <li v-for="e in serverResponse.data.errors.acquired_by" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.date_acquired">
+                            <li v-for="e in serverResponse.data.errors.date_acquired" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.signed_contract">
+                            <li v-for="e in serverResponse.data.errors.signed_contract" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.manner_of_acquisition">
+                            <li v-for="e in serverResponse.data.errors.manner_of_acquisition" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.initial_hc_acquired">
+                            <li v-for="e in serverResponse.data.errors.initial_hc_acquired" :key="e"> {{ e }}</li>
+                        </template>
+
+                        <template v-if="serverResponse.data.errors.remarks">
+                            <li v-for="e in serverResponse.data.errors.remarks" :key="e"> {{ e }}</li>
                         </template>
                     </ul>
                 </div>

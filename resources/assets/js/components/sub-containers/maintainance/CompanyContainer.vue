@@ -35,6 +35,7 @@
         },
         methods: {
             showFormModal(scope) {
+                    this.$store.dispatch('setModalFormType', 'CREATE_COMPANY');
                     this.$store.dispatch('setForm', document.getElementById('companyForm'));
                     this.$store.dispatch('setModalTitle', "Company Details");
                     this.$store.dispatch('clearCompany');

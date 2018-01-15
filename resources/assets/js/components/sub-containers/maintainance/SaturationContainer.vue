@@ -27,6 +27,7 @@
         },
         methods: {
             showFormModal(scope) {
+                this.$store.dispatch('setModalFormType', 'CREATE_SATURATION');
                 this.$store.dispatch('setForm', document.getElementById('saturationForm'));
                 this.$store.dispatch('setModalTitle', "Mode of Saturation Details");
                 this.$store.dispatch('clearSaturation');

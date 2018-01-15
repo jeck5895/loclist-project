@@ -5,6 +5,7 @@
                 <tr>
                     <!-- <th>ID</th> -->
                     <th>Presentor</th>
+                    <th>Company</th>
                     <th>Mode of Presentation</th>
                     <th>Date of Presented</th>
                     <th>Call Slip</th>
@@ -36,6 +37,10 @@
                     </td> -->
                     <td style="vertical-align: middle;">
                         {{ presentation.user.initial }}
+                    </td>
+
+                    <td style="vertical-align: middle;">
+                        {{ presentation.company.code }}
                     </td>
                     
                     <td style="vertical-align: middle;">

@@ -27,6 +27,7 @@
         },
         methods: {
             showFormModal(scope) {
+                this.$store.dispatch('setModalFormType', 'CREATE_CONFIRMATION');
                 this.$store.dispatch('setForm', document.getElementById('confirmationForm'));
                 this.$store.dispatch('setModalTitle', "Manner of Confirmation Details");
                 this.$store.dispatch('clearConfirmation');

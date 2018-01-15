@@ -75,4 +75,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(ClientPresentation::class, 'presentor', 'id');
     }
+
+    public function client_acquisition() 
+    {
+        return $this->hasOne(ClientAcquisition::class, 'acquired_by', 'id');
+    }
 }

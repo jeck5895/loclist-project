@@ -83,12 +83,12 @@
 
                         if (this.formType == 'CREATE_USERTYPE') {
                             this.$store.dispatch('storeUserType', user_type).then(() => {
-                                this.$store.dispatch('loadUserTypes', 'api/user_types');
+                                this.$store.dispatch('loadUserTypes', 'api/maintainance/user_types');
                             });
                         } else if (this.formType == 'EDIT_USERTYPE') {
                             this.$store.dispatch('updateUserType', user_type)
                             .then(() => {
-                                this.$store.dispatch('loadUserTypes', 'api/user_types');
+                                this.$store.dispatch('loadUserTypes', 'api/maintainance/user_types');
                             });
                         } else {
                             toastr.error('Error', 'Unknown Command');

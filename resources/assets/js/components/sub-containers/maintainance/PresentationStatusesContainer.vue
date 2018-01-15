@@ -28,6 +28,7 @@
         },
         methods: {
             showFormModal(scope) {
+                this.$store.dispatch('setModalFormType', 'CREATE_PRESENTATION_STATUS');
                 this.$store.dispatch('setForm', document.getElementById('presentationStatusForm'));
                 this.$store.dispatch('setModalTitle', "Status Details");
                 this.$store.dispatch('clearPresentationStatus');

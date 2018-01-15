@@ -96,4 +96,9 @@ class Client extends Model
     {
         return $this->hasMany(ClientPresentation::class);
     }
+
+    public function acquisitions() 
+    {
+        return $this->hasMany(ClientAcquisition::class);
+    }
 }

@@ -28,6 +28,7 @@
         },
         methods: {
             showFormModal(scope) {
+                this.$store.dispatch('setModalFormType', 'CREATE_MODE_OF_PRESENTATION');
                 this.$store.dispatch('setForm', document.getElementById('modeOfPresentationForm'));
                 this.$store.dispatch('setModalTitle', "Mode of Presentation Details");
                 this.$store.dispatch('clearModeOfPresentation');

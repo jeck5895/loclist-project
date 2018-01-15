@@ -31,6 +31,7 @@
         },
         methods: {
             showFormModal(scope) {
+                this.$store.dispatch('setModalFormType', 'CREATE_INDUSTRY');
                 this.$store.dispatch('setForm', document.getElementById('industryForm'));
                 this.$store.dispatch('setModalTitle', "Industry Details");
                 this.$store.dispatch('clearIndustry');

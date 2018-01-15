@@ -37,4 +37,9 @@ class Company extends Model
     {
         return $this->hasMany(ClientPresentation::class);
     }
+
+    public function client_acquisitions() 
+    {
+        return $this->hasMany(ClientAcquisition::class);
+    }
 }

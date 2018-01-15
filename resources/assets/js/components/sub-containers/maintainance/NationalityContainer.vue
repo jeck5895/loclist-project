@@ -30,6 +30,7 @@
         },
         methods: {
             showFormModal(scope) {
+                this.$store.dispatch('setModalFormType', 'CREATE_NATIONALITY');
                 this.$store.dispatch('setForm', document.getElementById('nationalityForm'));
                 this.$store.dispatch('setModalTitle', "Nationality Details");
                 this.$store.dispatch('clearNationality');

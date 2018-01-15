@@ -82,12 +82,12 @@ export default {
                     
                     if (this.formType == 'CREATE_POSITION') {
                             this.$store.dispatch('storePosition', position).then(() => {
-                                this.$store.dispatch('loadPositions', 'api/positions');
+                                this.$store.dispatch('loadPositions', 'api/maintainance/positions');
                             });
                     } else if (this.formType == 'EDIT_POSITION') {
                             this.$store.dispatch('updatePosition', position)
                             .then(() => {
-                            this.$store.dispatch('loadPositions', 'api/positions');
+                            this.$store.dispatch('loadPositions', 'api/maintainance/positions');
                         });
                     } else {
                         toastr.error('Error', 'Unknown Command');

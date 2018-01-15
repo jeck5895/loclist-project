@@ -3,6 +3,7 @@
 namespace App\Http\Requests\clients\Calls;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\UniqueClientRecord;
 
 class UpdateClientCall extends FormRequest
 {
@@ -25,7 +26,13 @@ class UpdateClientCall extends FormRequest
     {
         return [
             'caller' => 'required',
-            'date_of_call' => 'required',
+            'date_of_call' => ['required', 
+                new UniqueClientRecord('client_calls', 
+                'client_id' , 
+                'company_id', 
+                'caller',
+                $this->get('id') 
+            )],
             'confirmation_preCall' => 'required',
             'productive_call' => 'required',
             'proposal_sent' => 'required',

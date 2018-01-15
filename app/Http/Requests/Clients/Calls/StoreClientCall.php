@@ -3,6 +3,7 @@
 namespace App\Http\Requests\clients\Calls;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\UniqueClientRecord;
 
 class StoreClientCall extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreClientCall extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return !empty($this->user()) ? true : false;;
     }
 
     /**
@@ -25,7 +26,12 @@ class StoreClientCall extends FormRequest
     {
         return [
             'caller' => 'required',
-            'date_of_call' => 'required',
+            'date_of_call' => ['required', 
+                new UniqueClientRecord('client_calls', 
+                'client_id' , 
+                'company_id', 
+                'caller' 
+            )],
             'confirmation_preCall' => 'required',
             'productive_call' => 'required',
             'proposal_sent' => 'required',

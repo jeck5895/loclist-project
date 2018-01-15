@@ -74,8 +74,12 @@
                         {{ client_saturation.ff_calls_made == 1 ? 'Yes' : 'No' }}
                     </td>
 
-                    <td style="vertical-align: middle;">
+                    <td v-if="client_saturation.last_ffup_date != null" style="vertical-align: middle;">
                         {{ client_saturation.last_ffup_date | humanReadableFormat }}
+                    </td>
+
+                    <td v-else style="vertical-align: middle;">
+                        N/A
                     </td>
 
                     <td style="vertical-align: middle;">

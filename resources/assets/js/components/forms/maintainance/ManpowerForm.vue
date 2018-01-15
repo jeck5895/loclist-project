@@ -84,12 +84,12 @@
 
                         if (this.formType == 'CREATE_MANPOWER') {
                             this.$store.dispatch('storeManpower', manpower).then(() => {
-                                this.$store.dispatch('loadManpowers', 'api/manpowers');
+                                this.$store.dispatch('loadManpowers', 'api/maintainance/manpowers');
                             });
                         } else if (this.formType == 'EDIT_MANPOWER') {
                             this.$store.dispatch('updateManpower', manpower)
                             .then(() => {
-                                this.$store.dispatch('loadManpowers', 'api/manpowers');
+                                this.$store.dispatch('loadManpowers', 'api/maintainance/manpowers');
                             });
                         } else {
                             toastr.error('Error', 'Unknown Command');

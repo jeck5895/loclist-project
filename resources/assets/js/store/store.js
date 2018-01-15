@@ -18,11 +18,13 @@ import statusModule from './modules/maintainance/statusModule';
 import clientCallModule from './modules/clients/clientCallModule';
 import clientSaturationModule from './modules/clients/clientSaturationModule';
 import clientPresentationModule from './modules/clients/clientPresentationModule';
+import clientAcquisitionModule from './modules/clients/clientAcquisitionModule';
 import saturationModule from './modules/maintainance/saturationModule';
 import mannerOfConfirmationModule from './modules/maintainance/mannerOfConfirmationModule';
 import modeOfPresentationModule from './modules/maintainance/modeOfPresentationModule';
 import presentationStatusModule from './modules/maintainance/presentationStatusModule';
 import actionPlanModule from './modules/maintainance/actionPlanModule';
+import mannerOfAcquisitionModule from './modules/maintainance/mannerOfAcquisitionModule';
 
 Vue.use(Vuex); 
 
@@ -46,10 +48,12 @@ export const store = new Vuex.Store({
         clientCallModule,
         clientSaturationModule,
         clientPresentationModule,
+        clientAcquisitionModule,
         saturationModule,
         mannerOfConfirmationModule,
         modeOfPresentationModule,
         presentationStatusModule,
-        actionPlanModule
+        actionPlanModule,
+        mannerOfAcquisitionModule
     }
 });

@@ -17,4 +17,9 @@ class OverallStatus extends Model
     {
         return $this->hasOne(Client::class);
     }
+
+    public function client_acquisitions()
+    {
+        return $this->hasMany(ClientAcquisition::class,'status');
+    }
 }

@@ -58,21 +58,23 @@ class ClientSaturationController extends Controller
      */
     public function store(StoreClientSaturation $request)
     {
-        ClientSaturation::create([
-            'client_id' => $request['client_id'],
-            'company_id' => $request['company_id'],
-            'saturation_date' => $request['saturation_date'],
-            'saturation_mode' => $request['saturation_mode'],
-            'proposal_by' => $request['proposal_by'],
-            'call_slip' => $request['call_slip'],
-            'date_received' => $request['date_received'],
-            'proposal_accepted' => $request['proposal_accepted'],
-            'manner_of_confirmation' => $request['manner_of_confirmation'],
-            'client_response1' => $request['client_response1'],
-            'ff_calls_made' => $request['ff_calls_made'],
-            'last_ffup_date' => $request['last_ffup_date'],
-            'updated_by' => auth()->user()->id,
-        ]);
+        $saturation = new ClientSaturation;
+        $saturation->client_id = $request['client_id'];
+        $saturation->company_id = $request['company_id'];
+        $saturation->saturation_date = $request['saturation_date'];
+        $saturation->saturation_mode = $request['saturation_mode'];
+        $saturation->proposal_by = $request['proposal_by'];
+        $saturation->call_slip = $request['call_slip'];
+        $saturation->date_received = $request['date_received'];
+        $saturation->proposal_accepted = $request['proposal_accepted'];
+        $saturation->manner_of_confirmation = $request['manner_of_confirmation'];
+        $saturation->client_response1 = $request['client_response1'];
+        $saturation->ff_calls_made = $request['ff_calls_made'];
+        if($request['ff_calls_made'] == 1){
+            $saturation->last_ffup_date = $request['last_ffup_date'];
+        }
+        $saturation->updated_by = auth()->user()->id;
+        $saturation->save();
         
         return ['message' => 'New client saturation has been saved'];
     }
@@ -110,22 +112,25 @@ class ClientSaturationController extends Controller
      */
     public function update(UpdateClientSaturation $request, $client_id, $saturation_id)
     {
+
+        $saturation = ClientSaturation::findOrFail($saturation_id);
+        $saturation->client_id = $request['client_id'];
+        $saturation->company_id = $request['company_id'];
+        $saturation->saturation_date = $request['saturation_date'];
+        $saturation->saturation_mode = $request['saturation_mode'];
+        $saturation->proposal_by = $request['proposal_by'];
+        $saturation->call_slip = $request['call_slip'];
+        $saturation->date_received = $request['date_received'];
+        $saturation->proposal_accepted = $request['proposal_accepted'];
+        $saturation->manner_of_confirmation = $request['manner_of_confirmation'];
+        $saturation->client_response1 = $request['client_response1'];
+        $saturation->ff_calls_made = $request['ff_calls_made'];
+        if($request['ff_calls_made'] == 1){
+            $saturation->last_ffup_date = $request['last_ffup_date'];
+        }
+        $saturation->updated_by = auth()->user()->id;
+        $saturation->save();
         
-        ClientSaturation::findOrFail($saturation_id)
-                            ->update([
-                                'saturation_date' => $request['saturation_date'],
-                                'company_id' => $request['company_id'],
-                                'saturation_mode' => $request['saturation_mode'],
-                                'proposal_by' => $request['proposal_by'],
-                                'call_slip' => $request['call_slip'],
-                                'date_received' => $request['date_received'],
-                                'proposal_accepted' => $request['proposal_accepted'],
-                                'manner_of_confirmation' => $request['manner_of_confirmation'],
-                                'client_response1' => $request['client_response1'],
-                                'ff_calls_made' => $request['ff_calls_made'],
-                                'last_ffup_date' => $request['last_ffup_date'],
-                                'updated_by' => auth()->user()->id,
-                            ]);
         return  [
                 'message' => 'Changes has been saved',
                 'client_id' => $client_id,

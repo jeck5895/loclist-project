@@ -83,12 +83,12 @@
 
                         if (this.formType == 'CREATE_STATUS') {
                             this.$store.dispatch('storeStatus', status).then(() => {
-                                this.$store.dispatch('loadStatuses', 'api/statuses');
+                                this.$store.dispatch('loadStatuses', 'api/maintainance/statuses');
                             });
                         } else if (this.formType == 'EDIT_STATUS') {
                             this.$store.dispatch('updateStatus', status)
                                 .then(() => {
-                                    this.$store.dispatch('loadStatuses', 'api/statuses');
+                                    this.$store.dispatch('loadStatuses', 'api/maintainance/statuses');
                                 });
                         } else {
                             toastr.error('Error', 'Unknown Command');

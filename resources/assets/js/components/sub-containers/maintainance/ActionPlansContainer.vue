@@ -28,6 +28,7 @@
         },
         methods: {
             showFormModal(scope) {
+                this.$store.dispatch('setModalFormType', 'CREATE_ACTION_PLAN');
                 this.$store.dispatch('setForm', document.getElementById('actionPlanForm'));
                 this.$store.dispatch('setModalTitle', "Action Plan Details");
                 this.$store.dispatch('clearActionPlan');

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\clients\Saturation;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\UniqueClientRecord;
 
 class UpdateClientSaturation extends FormRequest
 {
@@ -26,7 +27,13 @@ class UpdateClientSaturation extends FormRequest
         return [
             'client_id' => 'required',
             'company_id' => 'required',
-            'saturation_date' => 'required',
+            'saturation_date' => ['required', 
+                new UniqueClientRecord('client_saturations', 
+                'client_id' , 
+                'company_id', 
+                'proposal_by',
+                $this->get('id') 
+            )],
             'saturation_mode' => 'required',
             'proposal_by' => 'required',
             // 'call_slip' => 'required',

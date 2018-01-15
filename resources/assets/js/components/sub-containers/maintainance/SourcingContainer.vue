@@ -27,6 +27,7 @@
         },
         methods: {
             showFormModal(scope) {
+                this.$store.dispatch('setModalFormType', 'CREATE_SOURCING_PRACTICE');
                 this.$store.dispatch('setForm', document.getElementById('sourcingForm'));
                 this.$store.dispatch('setModalTitle', "Sourcing Practice Details");
                 this.$store.dispatch('clearSourcingPractice');

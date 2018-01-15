@@ -203,10 +203,12 @@
                         
                         <div class="tab-pane fade" id="acquisition" role="tabpanel" aria-labelledby="home-tab">
                             <div class="mb-2 mt-2">
-                                <button class="btn btn-sm btn-default" @click="showModalForm(clientId, 'NEW_ACQUISITION_RECORD')">
+                                <button class="btn btn-sm btn-default" @click="showModalForm(clientId, 'NEW_CLIENT_ACQUISITION_RECORD')">
                                   <span class="fa fa-handshake-o"></span>  New Acquisition Record
                                 </button>
                             </div> 
+
+                            <client-acquisitions-table></client-acquisitions-table>
                         </div>
                     </div>
                 </div>
@@ -228,7 +230,7 @@
                 <client-presentation-form></client-presentation-form>
             </div>
 
-            <div v-if="modalFormType == 'NEW_ACQUISITION_RECORD' || modalFormType == 'EDIT_ACQUISITION_RECORD'">
+            <div v-if="modalFormType == 'NEW_CLIENT_ACQUISITION_RECORD' || modalFormType == 'EDIT_CLIENT_ACQUISITION_RECORD'">
                 <client-acquisition-form></client-acquisition-form>
             </div>
             
@@ -251,6 +253,7 @@
     import ClientCallsTable from '../../tables/ClientCallsTable';
     import ClientSaturationsTable from '../../tables/ClientSaturationsTable';
     import ClientPresentationsTable from '../../tables/ClientPresentationsTable';
+    import ClientAcquisitionsTable from '../../tables/client/ClientAcquisitionsTable';
     import ConfirmationModal from '../../modal/ConfirmationModal';
     
     export default {
@@ -265,6 +268,8 @@
             store.dispatch('loadModeOfPresentations', 'api/maintainance/mode-of-presentations?type=all');
             store.dispatch('loadPresentationStatuses', 'api/maintainance/presentation-statuses?type=all');
             store.dispatch('loadActionPlans', 'api/maintainance/action-plans?type=all');
+            store.dispatch('loadAcquisitions', 'api/maintainance/acquisitions?type=all');
+            store.dispatch('loadStatuses', 'api/maintainance/statuses?type=all');
             next();
         },
         created() {
@@ -301,16 +306,19 @@
                     case 'NEW_CLIENT_SATURATION_RECORD':
                         this.$store.dispatch('setModalTitle', 'Saturation Details');
                         this.$store.dispatch('setModalFormType', 'NEW_CLIENT_SATURATION_RECORD');
+                        this.$store.dispatch('clearClientSaturation');
                         break;
 
                     case 'NEW_PRESENTATION_RECORD':
                         this.$store.dispatch('setModalTitle', 'Presentation Details');
                         this.$store.dispatch('setModalFormType', 'NEW_PRESENTATION_RECORD');
+                        this.$store.dispatch('clearClientPresentation');
                         break;
 
-                    case 'NEW_ACQUISITION_RECORD':
+                    case 'NEW_CLIENT_ACQUISITION_RECORD':
                         this.$store.dispatch('setModalTitle', 'Acquisition Details');
-                        this.$store.dispatch('setModalFormType', 'NEW_ACQUISITION_RECORD');
+                        this.$store.dispatch('setModalFormType', 'NEW_CLIENT_ACQUISITION_RECORD');
+                        this.$store.dispatch('clearClientAcquisition');
                         break;    
                     default:
                         break;
@@ -329,6 +337,7 @@
             ClientCallsTable,
             ClientSaturationsTable,
             ClientPresentationsTable,
+            ClientAcquisitionsTable,
             ConfirmationModal
         }
     };

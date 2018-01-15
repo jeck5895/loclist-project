@@ -39,9 +39,11 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('clients.calls','Clients\ClientCallController');
     Route::apiResource('clients.saturations','Clients\ClientSaturationController');
     Route::apiResource('clients.presentations','Clients\ClientPresentationController');
+    Route::apiResource('clients.acquisitions','Clients\ClientAcquisitionController');
     Route::apiResource('maintainance/mode-of-presentations','Maintainance\PresentationModesController');
     Route::apiResource('maintainance/presentation-statuses', 'Maintainance\PresentationStatusesController');
     Route::apiResource('maintainance/action-plans', 'Maintainance\ActionPlansController');
+    Route::apiResource('maintainance/acquisitions', 'Maintainance\AcquisitionsController');
 });
 Route::get('/test',function(){
    

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Clients\Presentations;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\UniqueClientRecord;
 
 class StoreClientPresentation extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreClientPresentation extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return !empty($this->user()) ? true : false;
     }
 
     /**
@@ -28,7 +29,12 @@ class StoreClientPresentation extends FormRequest
             'company_id' => 'required',
             'presentation_mode' => 'required',
             'presentor' => 'required',
-            'date_presented' => 'required|unique:client_presentations',
+            'date_presented' => ['required', 
+                new UniqueClientRecord('client_presentations', 
+                'client_id' , 
+                'company_id', 
+                'presentor' 
+            )], //$user->id
             'client_response2' => 'required',
             'presentation_status' => 'required',
             'action_plan' => 'required',

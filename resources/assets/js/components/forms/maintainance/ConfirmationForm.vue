@@ -16,7 +16,7 @@
 
             <div class="form-group col-md-12">
                 <label for="">Confirmation code</label>
-                <input name="saturation_mode" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="uppercase form-control form-control-sm"
+                <input name="confirmation_name" data-vv-validate-on="'blur'" v-validate="{rules:{required:true}}" type="text" class="uppercase form-control form-control-sm"
                     v-model="confirmation.confirmation_name">
                 <small class="form-text has-danger" v-show="errors.has('confirmationForm.confirmation_name')">{{ errors.first('confirmationForm.confirmation_name') }}</small>
             </div>
@@ -82,12 +82,12 @@ export default {
 
                     if (this.formType == 'CREATE_CONFIRMATION') {
                             this.$store.dispatch('storeConfirmation', department).then(() => {
-                                this.$store.dispatch('loadConfirmations', 'api/confirmations');
+                                this.$store.dispatch('loadConfirmations', 'api/maintainance/confirmations');
                             });
                     } else if (this.formType == 'EDIT_CONFIRMATION') {
                             this.$store.dispatch('updateConfirmation', department)
                             .then(() => {
-                            this.$store.dispatch('loadConfirmations', 'api/confirmations');
+                            this.$store.dispatch('loadConfirmations', 'api/maintainance/confirmations');
                         });
                     } else {
                         toastr.error('Error', 'Unknown Command');

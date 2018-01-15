@@ -91,6 +91,13 @@ export default [
         },
     },
     {
+        path: 'manner-of-acquisitions',
+        component: require('../../../components/sub-containers/maintainance/AcquisitionContainer'),
+        meta: {
+            forAuthUsers: true
+        },
+    },
+    {
         path: 'mode-of-presentations',
         component: require('../../../components/sub-containers/maintainance/ModeOfPresentationsContainer'),
         meta: {

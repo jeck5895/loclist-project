@@ -27,6 +27,7 @@
         },
         methods: {
             showFormModal(scope) {
+                this.$store.dispatch('setModalFormType', 'CREATE_POSITION');
                 this.$store.dispatch('setForm', document.getElementById('positionForm'));
                 this.$store.dispatch('setModalTitle', "Position Details");
                 this.$store.dispatch('clearPosition');

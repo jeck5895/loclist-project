@@ -88,11 +88,26 @@
                     case "client_presentations":
                         this.$store.dispatch('loadClientPresentations', url);
                         break;
+                    case "client_acquisitions":
+                        this.$store.dispatch('loadClientAcquisitions', url);
+                        break;
                     case "saturations":
                         this.$store.dispatch('loadSaturations', url);
                         break;
                     case "confirmations":
                         this.$store.dispatch('loadConfirmations', url);
+                        break;
+                    case "acquisitions":
+                        this.$store.dispatch('loadAcquisitions', url);
+                        break;
+                    case "action_plans":
+                        this.$store.dispatch('loadActionPlans', url);
+                        break;
+                    case "mode_of_presentations":
+                        this.$store.dispatch('loadModeOfPresentations', url);
+                        break;
+                    case "presentation_statuses":
+                        this.$store.dispatch('loadPresentationStatuses', url);
                         break;
                     default:
                         break;
@@ -143,11 +158,26 @@
                     case "client_presentations":
                         this.$store.dispatch('loadClientPresentations', url);
                         break;
+                    case "client_acquisitions":
+                        this.$store.dispatch('loadClientAcquisitions', url);
+                        break;
                     case "saturations":
                         this.$store.dispatch('loadSaturations', url);
                         break;
                     case "confirmations":
                         this.$store.dispatch('loadConfirmations', url);
+                        break;
+                    case "acquisitions":
+                        this.$store.dispatch('loadAcquisitions', url);
+                        break;
+                    case "action_plans":
+                        this.$store.dispatch('loadActionPlans', url);
+                        break;
+                    case "mode_of_presentations":
+                        this.$store.dispatch('loadModeOfPresentations', url);
+                        break;
+                    case "presentation_statuses":
+                        this.$store.dispatch('loadPresentationStatuses', url);
                         break;
                     default:
                         break;
@@ -198,11 +228,26 @@
                     case "client_presentations":
                         this.$store.dispatch('loadClientPresentations', url);
                         break;
+                    case "client_acquisitions":
+                        this.$store.dispatch('loadClientAcquisitions', url);
+                        break;
                     case "saturations":
                         this.$store.dispatch('loadSaturations', url);
                         break;
                     case "confirmations":
                         this.$store.dispatch('loadConfirmations', url);
+                        break;
+                    case "acquisitions":
+                        this.$store.dispatch('loadAcquisitions', url);
+                        break;
+                    case "action_plans":
+                        this.$store.dispatch('loadActionPlans', url);
+                        break;
+                    case "mode_of_presentations":
+                        this.$store.dispatch('loadModeOfPresentations', url);
+                        break;
+                    case "presentation_statuses":
+                        this.$store.dispatch('loadPresentationStatuses', url);
                         break;
                     default:
                         break;
@@ -253,11 +298,26 @@
                     case "client_presentations":
                         this.$store.dispatch('loadClientPresentations', url);
                         break;
+                    case "client_acquisitions":
+                        this.$store.dispatch('loadClientAcquisitions', url);
+                        break;
                     case "saturations":
                         this.$store.dispatch('loadSaturations', url);
                         break;
                     case "confirmations":
                         this.$store.dispatch('loadConfirmations', url);
+                        break;
+                    case "acquisitions":
+                        this.$store.dispatch('loadAcquisitions', url);
+                        break;
+                    case "action_plans":
+                        this.$store.dispatch('loadActionPlans', url);
+                        break;
+                    case "mode_of_presentations":
+                        this.$store.dispatch('loadModeOfPresentations', url);
+                        break;
+                    case "presentation_statuses":
+                        this.$store.dispatch('loadPresentationStatuses', url);
                         break;
                     default:
                         break;
@@ -308,11 +368,26 @@
                     case "client_presentations":
                         this.$store.dispatch('loadClientPresentations', url);
                         break;
+                    case "client_acquisitions":
+                        this.$store.dispatch('loadClientAcquisitions', url);
+                        break;
                     case "saturations":
                         this.$store.dispatch('loadSaturations', url);
                         break;
                     case "confirmations":
                         this.$store.dispatch('loadConfirmations', url);
+                        break;
+                    case "acquisitions":
+                        this.$store.dispatch('loadAcquisitions', url);
+                        break;
+                    case "action_plans":
+                        this.$store.dispatch('loadActionPlans', url);
+                        break;
+                    case "mode_of_presentations":
+                        this.$store.dispatch('loadModeOfPresentations', url);
+                        break;
+                    case "presentation_statuses":
+                        this.$store.dispatch('loadPresentationStatuses', url);
                         break;
                     default:
                         break;

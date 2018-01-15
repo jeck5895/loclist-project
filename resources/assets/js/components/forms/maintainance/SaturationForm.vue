@@ -82,12 +82,12 @@ export default {
 
                     if (this.formType == 'CREATE_SATURATION') {
                             this.$store.dispatch('storeSaturation', department).then(() => {
-                                this.$store.dispatch('loadSaturations', 'api/saturations');
+                                this.$store.dispatch('loadSaturations', 'api/maintainance/saturations');
                             });
                     } else if (this.formType == 'EDIT_SATURATION') {
                             this.$store.dispatch('updateSaturation', department)
                             .then(() => {
-                            this.$store.dispatch('loadSaturations', 'api/saturations');
+                            this.$store.dispatch('loadSaturations', 'api/maintainance/saturations');
                         });
                     } else {
                         toastr.error('Error', 'Unknown Command');

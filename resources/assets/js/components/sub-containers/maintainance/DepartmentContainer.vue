@@ -27,6 +27,7 @@
         },
         methods: {
             showFormModal(scope) {
+                this.$store.dispatch('setModalFormType', 'CREATE_DEPARTMENT');
                 this.$store.dispatch('setForm', document.getElementById('departmentForm'));
                 this.$store.dispatch('setModalTitle', "Department Details");
                 this.$store.dispatch('clearDepartment');

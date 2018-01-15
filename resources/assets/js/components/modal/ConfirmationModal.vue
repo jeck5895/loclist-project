@@ -140,6 +140,24 @@
                             this.$store.dispatch('loadClientCalls', `api/clients/${deletionInfo.client_call.client_id}/calls?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`);
                         });
                         break;
+                    case "client_presentations":
+                        this.$store.dispatch('deleteClientPresentation', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadClientPresentations', `api/clients/${deletionInfo.client_presentation.client_id}/presentations?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`);
+                        });
+                        break;
+                    case "client_acquisitions":
+                        this.$store.dispatch('deleteClientAcquisition', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadClientAcquisitions', `api/clients/${deletionInfo.client_acquisition.client_id}/acquisitions?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`);
+                        });
+                        break;
                     case "saturations":
                         this.$store.dispatch('deleteSaturation', deletionInfo)
                         .then(() => {
@@ -183,6 +201,15 @@
                         })
                         .then(() => {
                             this.$store.dispatch('loadPresentationStatuses','api/maintainance/presentation-statuses');
+                        });
+                        break;
+                    case "acquisitions":
+                        this.$store.dispatch('deleteAcquisition', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadAcquisitions','api/maintainance/acquisitions');
                         });
                         break;
                     default:

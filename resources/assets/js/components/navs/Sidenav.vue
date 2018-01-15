@@ -49,6 +49,9 @@
                     <router-link to="/maintainance/manner-of-confirmations">Manner of Confirmations</router-link>
                 </li>
                 <li>
+                    <router-link to="/maintainance/manner-of-acquisitions">Manner of Acquisitions</router-link>
+                </li>
+                <li>
                     <router-link to="/maintainance/mode-of-presentations">Mode of Presentations</router-link>
                 </li>
                 <li>
