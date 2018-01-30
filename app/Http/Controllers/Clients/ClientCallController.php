@@ -9,6 +9,8 @@ use App\Http\Requests\Clients\Calls\UpdateClientCall;
 use App\Client;
 use App\ClientCall;
 use Illuminate\Support\Facades\Auth;
+use App\Events\ClientEvent;
+use App\Events\ClientCallEvent;
 
 class ClientCallController extends Controller
 {
@@ -68,6 +70,16 @@ class ClientCallController extends Controller
             'client_id' => $request['client_id'],
             'updated_by' => Auth::user()->id
         ]);
+        
+        $client = Client::find($clientId);
+
+        $message = [
+                'user' => auth()->user(),
+                'response' => auth()->user()->name . " has added call record to ".$client->client_name,
+                'new_client' => $client  
+            ];
+            
+        event(new ClientCallEvent($message));
 
         return ['message' => 'Call record has been saved.'];
     }
@@ -115,6 +127,19 @@ class ClientCallController extends Controller
                         'client_response' => $request['client_response'],
                         'updated_by' => auth()->user()->id,
                     ]);
+
+        $client = Client::find($clientId);
+
+        $message = [
+                'user' => auth()->user(),
+                //'response' => auth()->user()->name . " has updated ".$client->client_name." call record  ",
+                'response' => "Call record ".$callId." has updated by " . auth()->user()->name,
+                'client' => $client,
+                'call_id' => $callId   
+            ];
+            
+        event(new ClientCallEvent($message));
+
         return [
             'message' => 'Changes has been saved.',
             'client_id' => $clientId,

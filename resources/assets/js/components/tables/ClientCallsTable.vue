@@ -3,7 +3,7 @@
         <table class="table table-borderless table-striped m-b-none calls-table">
             <thead>
                 <tr>
-                    <!-- <th>ID</th> -->
+                    <th>ID</th>
                     <th>Caller</th>
                     <th>Date of Call</th>
                     <th>Confirmation Pre-call</th>
@@ -11,7 +11,7 @@
                     <th>Proposal Sent</th>
                     <th>Company</th>
                     <th>Response</th>
-                    <th>Options</th>
+                    <th v-if="displayOptions">Options</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,9 +32,9 @@
                 </tr>
 
                 <tr v-else v-for="(call, index) in calls.data" :key="index">
-                   <!-- <td style="vertical-align: middle;">
+                   <td style="vertical-align: middle;">
                         {{ call.id }}
-                    </td> -->
+                    </td>
                     <td style="vertical-align: middle;">
                         {{ call.user.initial }}
                     </td>
@@ -61,7 +61,7 @@
                         {{ call.client_response}}
                     </td>
 
-                    <td style="vertical-align: middle;">
+                    <td v-if="displayOptions" style="vertical-align: middle;">
                         <div class="btn-group btn-group-sm" role="group">
                             <button type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(call)">
                                 <span class="fa fa-edit"></span>
@@ -76,7 +76,7 @@
             </tbody>
         </table>
         <pagination scope="calls" :object="calls" 
-                :url="`api/clients/${this.client_id}/calls?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`"
+                :url="`api/clients/${this.clientId}/calls?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`"
                 :query="`keyword=${this.query.search_keyword}&order_by=${this
                 .query.order_by}&per_page=${this.query
                 .per_page}&sort_column=${this.query.sort_column}`"
@@ -89,13 +89,32 @@
     import Pagination from '../pagination/Pagination';
 
     export default {
+        props:['clientId','displayOptions'],
         created() {
             this.loadClientCallsRecord();
+            // Echo.private("client-channel").listen("ClientEvent", e => {
+            //     console.log(e);
+                
+            //     this.loadClientCallsRecord();
+            //     toastr.info('', e.message.response);
+                
+            // });
+
+            /**
+             * Listen for call record update 
+             */
+            Echo.private("client-call-channel").listen("ClientCallEvent", e => {
+                console.log(e);
+                //if(e.message.client.id == this.clientId){
+                    this.loadClientCallsRecord();
+                    toastr.info('', e.message.response);
+                //}
+            });
         },
         computed: {
-            client_id() {
-                return this.$route.params.clientId;
-            },
+            // client_id() {
+            //     return this.$route.params.clientId;
+            // },
             calls() {
                 return this.$store.getters.getClientCalls;
             },
@@ -115,7 +134,7 @@
         methods: {
             edit(call) {
                 let payload = {
-                    client_id: this.$route.params.clientId,
+                    client_id: this.clientId,//this.$route.params.clientId,
                     call_id: call.id
                 }
                 this.$store.dispatch('loadClientCall', payload);
@@ -134,8 +153,11 @@
                 this.$store.dispatch('showConfirmationModal');
             },
             loadClientCallsRecord() {
-                return this.$store.dispatch('loadClientCalls', `api/clients/${this.client_id}/calls?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`)
+                return this.$store.dispatch('loadClientCalls', `api/clients/${this.clientId}/calls?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`)
             },
+        },
+        watch:{
+            clientId: 'loadClientCallsRecord',
         },
         components: {
             Pagination

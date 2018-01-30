@@ -25,7 +25,11 @@ Vue.use(Auth);
 Vue.component('v-select', vSelect);
 
 Vue.filter('humanReadableFormat', function(date){
-    return moment(date).format('MMMM Do, YYYY');
+    return moment(date).format('MMMM D, YYYY');
+});
+
+Vue.filter('shortDateTime', function(date){
+    return moment(date).format('MMM D, YYYY');
 });
 
 Vue.component(

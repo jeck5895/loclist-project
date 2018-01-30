@@ -313,11 +313,11 @@ export default {
          * Demonstrating Client Side broadcasting 
          * notifying other users that someone is 
          * creating new client details*/
-        Echo.private('client-channel')
-        .whisper('creating', {
-            user: user.name,
-            message: 'is adding new client now.'
-        });
+        // Echo.private('client-channel')
+        // .whisper('creating', {
+        //     user: user.name,
+        //     message: 'is adding new client now.'
+        // });
 
     },
     data() {

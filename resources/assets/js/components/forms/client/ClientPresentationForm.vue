@@ -46,7 +46,7 @@
 
             <div class="form-group form-group-sm col-sm-12">
                 <label for="">Date of follow-up meeting</label>
-                <input v-model="client_presentation.follow_up_meeting_date" v-validate="{rules:{required:false}}" type="date" name="follow_up_meeting_date"
+                <input v-model="follow_up_meeting_date" v-validate="{rules:{required:false}}" type="date" name="follow_up_meeting_date"
                     id="" class="form-control form-control-sm">
                 <small class="form-text has-danger" v-show="errors.has('presentationForm.follow_up_meeting_date')">{{ errors.first('presentationForm.follow_up_meeting_date') }}</small>
             </div>

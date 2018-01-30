@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Clients\Presentations\StoreClientPresentation;
 use App\Http\Requests\Clients\Presentations\UpdateClientPresentation;
 use App\ClientPresentation;
+use App\Client;
+use App\Events\ClientPresentationEvent;
 
 class ClientPresentationController extends Controller
 {
@@ -71,6 +73,15 @@ class ClientPresentationController extends Controller
             'action_plan' => $request['action_plan'],
             'updated_by' => auth()->user()->id,
         ]);
+        
+        $client = Client::find($request['client_id']);
+
+        $message = [
+                'user' => auth()->user(),
+                'response' => auth()->user()->name . " has added presentation record to ".$client->client_name,
+                'client' => $client  
+            ];
+        event(new ClientPresentationEvent($message));
 
         return ['message' => 'New client saturation has been saved'];
     }
@@ -122,6 +133,15 @@ class ClientPresentationController extends Controller
                             'action_plan' => $request['action_plan'],
                             'updated_by' => auth()->user()->id,
                         ]);
+
+        $client = Client::find($client_id);
+
+        $message = [
+                'user' => auth()->user(),
+                'response' => auth()->user()->name . " has updated a presentation record of ".$client->client_name,
+                'client' => $client  
+            ];
+        event(new ClientPresentationEvent($message));
 
         return  [
                 'message' => 'Changes has been saved',

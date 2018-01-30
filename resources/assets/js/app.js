@@ -35,7 +35,7 @@ const app = new Vue({
         
     },
     data:{
-
+        onlineStatus: navigator.onLine,
     },
     store,
     router:router,

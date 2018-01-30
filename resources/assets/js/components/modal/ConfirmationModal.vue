@@ -3,7 +3,9 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="mb-0"><slot name="confirmationHeader"></slot></h5>
+                    <h5 class="mb-0" style="font-size:16px;">
+                        <slot name="confirmationHeader"></slot>
+                    </h5>
                 </div>
                 <div class="modal-body">
                     <div class="clearfix">

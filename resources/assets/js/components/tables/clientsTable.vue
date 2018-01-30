@@ -110,10 +110,13 @@
                     </td>
 
                     <!-- Name -->
-                    <td style="vertical-align: middle;">
-                        {{ client.user.initial }}
+                    <td v-if="client.user != null" style="vertical-align: middle;">
+                        {{ client.user_initial }}
                     </td>
 
+                    <td v-else style="vertical-align: middle;">
+                        Removed
+                    </td>
                     <!-- Secret -->
                     <td style="vertical-align: middle;">
                         {{ client.client_name }}
@@ -131,20 +134,32 @@
                         {{ client.email_address }}
                     </td>
 
-                    <td style="vertical-align: middle;">
-                        {{ client.date_call }}
+                    <td v-if="client.latest_call != null" style="vertical-align: middle;">
+                        {{ client.latest_call | shortDateTime }}&nbsp;<button @click="showTable(client, 'CALLS_TABLE')" class="btn btn-sm btn-default btn-xs"><span class="fa fa-list"></span></button> 
+                    </td>
+                    <td v-else style="vertical-align: middle;">
+                        No record
                     </td>
 
-                    <td style="vertical-align: middle;">
-                        {{ client.saturation_date }}
+                    <td v-if="client.latest_saturation != null" style="vertical-align: middle;">
+                        {{ client.latest_saturation | shortDateTime }}&nbsp;<button @click="showTable(client, 'SATURATIONS_TABLE')" class="btn btn-sm btn-default btn-xs"><span class="fa fa-list"></span></button>
+                    </td>
+                    <td v-else style="vertical-align: middle;">
+                        No record
                     </td>
 
-                    <td style="vertical-align: middle;">
-                        {{ client.presentation_date }}
+                    <td v-if="client.latest_presentation != null" style="vertical-align: middle;">
+                        {{ client.latest_presentation | shortDateTime }}&nbsp;<button @click="showTable(client, 'PRESENTATIONS_TABLE')" class="btn btn-sm btn-default btn-xs"><span class="fa fa-list"></span></button>
+                    </td>
+                    <td v-else style="vertical-align: middle;">
+                        No record
                     </td>
 
-                    <td style="vertical-align: middle;">
-                        {{ client.followup_date }}
+                    <td v-if="client.latest_follow_up_date != null" style="vertical-align: middle;">
+                        {{ client.latest_follow_up_date | shortDateTime }}
+                    </td>
+                    <td v-else style="vertical-align: middle;">
+                        No record
                     </td>
 
                     <!-- Edit Button -->
@@ -186,6 +201,7 @@
             Echo.private("client-channel").listen("ClientEvent", e => {
                 console.log(e);
                 this.loadClientsData();
+                toastr.info('', e.message.response);
             });
         },
         data() {
@@ -288,12 +304,38 @@
                 this.$store.dispatch("setClientApiQuery", query).then(() => {
                     this.loadClientsData();
                 });
+            },
+            showTable(client, table){
+                switch (table) {
+                    case 'CALLS_TABLE':
+                        this.$store.dispatch('setModalTitle', client.client_name + ' CALL HISTORY');
+                        this.$store.dispatch('setModalFormType', 'SHOW_CALLS_TABLE');
+                        this.$store.dispatch('setModalParams', client.id);
+                        $("#table-modal").modal("show");
+                    break;
+                    
+                    case 'SATURATIONS_TABLE':
+                        this.$store.dispatch('setModalTitle', client.client_name + ' SATURATION HISTORY');
+                        this.$store.dispatch('setModalFormType', 'SHOW_SATURATIONS_TABLE');
+                        this.$store.dispatch('setModalParams', client.id);
+                        $("#table-modal").modal("show");
+                    break;
+
+                    case 'PRESENTATIONS_TABLE':
+                        this.$store.dispatch('setModalTitle', client.client_name + ' PRESENTATION HISTORY');
+                        this.$store.dispatch('setModalFormType', 'SHOW_PRESENTATIONS_TABLE');
+                        this.$store.dispatch('setModalParams', client.id);
+                        $("#table-modal").modal("show");
+                    break;
+                
+                    default:
+                        break;
+                }
             }
         },
         components: {
             Pagination
         },
-        filters: {}
     };
 </script>
 
@@ -315,4 +357,7 @@
         display: none;
     }
 
+    .btn-xs {
+        padding: 0.05rem 0.25rem !important;
+    }
 </style>

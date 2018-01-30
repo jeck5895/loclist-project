@@ -19,6 +19,21 @@ Broadcast::channel('client-channel', function ($user) {
     // return (int) $user->id === (int) $id;
     return !empty($user) ? true : false;
 });
+//For broadcasting authentication, who can listen to a channel
+Broadcast::channel('client-call-channel', function ($user) {
+    // return (int) $user->id === (int) $id;
+    return !empty($user) ? true : false;
+});
+
+Broadcast::channel('client-saturation-channel', function ($user) {
+    // return (int) $user->id === (int) $id;
+    return !empty($user) ? true : false;
+});
+
+Broadcast::channel('client-presentation-channel', function ($user) {
+    // return (int) $user->id === (int) $id;
+    return !empty($user) ? true : false;
+});
 
 Broadcast::channel('user-channel', function ($user) {
     // return (int) $user->id === (int) $id;

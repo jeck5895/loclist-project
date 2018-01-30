@@ -83,8 +83,8 @@
                             Official Website
                         </dt>
                         <dd class="col-sm-9">
-                            {{ client.website }}
-                            <a v-if="client.website != 'N/A'" :href="client.website" style="color:black;" :target="client.website"><span class="fa fa-external-link-square"></span></a>
+                            {{ website }}
+                            <a v-if="client.website != 'N/A'" :href="website" style="color:black;" :target="client.website"><span class="fa fa-external-link-square"></span></a>
                         </dd>
 
                         <dt class="col-sm-3">
@@ -178,7 +178,7 @@
                                   <span class="fa fa-phone-square"></span>  New Call Record
                                 </button>
                             </div>
-                            <client-calls-table></client-calls-table>
+                            <client-calls-table :clientId="clientId" :displayOptions="true"></client-calls-table>
                         </div>
 
                         <div class="tab-pane fade" id="saturation" role="tabpanel" aria-labelledby="home-tab">
@@ -188,7 +188,7 @@
                                 </button>
                             </div>
 
-                            <client-saturations-table></client-saturations-table>
+                            <client-saturations-table :clientId="clientId" :displayOptions="true"></client-saturations-table>
                         </div>
                         
                         <div class="tab-pane fade" id="presentation" role="tabpanel" aria-labelledby="home-tab">
@@ -198,7 +198,7 @@
                                 </button>
                             </div>
 
-                            <client-presentations-table></client-presentations-table>
+                            <client-presentations-table :clientId="clientId" :displayOptions="true"></client-presentations-table>
                         </div>
                         
                         <div class="tab-pane fade" id="acquisition" role="tabpanel" aria-labelledby="home-tab">
@@ -274,10 +274,22 @@
         },
         created() {
             console.log(this.$route.params.clientId);
+            Echo.private("client-channel").listen("ClientEvent", e => {
+                console.log(e);
+                let payload = {
+                    id: this.$route.params.clientId
+                };
+                //if(this.$route.params.clientId == e.message.client.id){
+                    console.log(this.$route.params.clientId + "||" + e.message.client.id)
+                    this.$store.dispatch('loadClient', payload);
+                    toastr.info('', e.message.response);
+                //}
+            });
         },
         data(){
             return{
-                clientId: this.$route.params.clientId
+                clientId: this.$route.params.clientId,
+                website:''
             };
         },
         computed: {
@@ -325,6 +337,9 @@
                 }
                 $("#createUserModal").modal("show");
                 // alert(clientId);
+            },
+            checkWebsite() {
+                this.website = this.website = this.client.website.indexOf("http") !== -1 || this.client.website.indexOf("https") !== -1 ? this.client.website : 'http://' + this.client.website ;
             }
         },
         components:{
@@ -339,6 +354,9 @@
             ClientPresentationsTable,
             ClientAcquisitionsTable,
             ConfirmationModal
+        },
+        watch: {
+            client:  'checkWebsite'
         }
     };
 </script>

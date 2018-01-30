@@ -14,7 +14,7 @@
                     <th>Client Response</th>
                     <th>FF-calls made</th>
                     <th>Date of Last FF-up</th>
-                    <th>Options</th>
+                    <th v-if="displayOptions">Options</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,7 +82,7 @@
                         N/A
                     </td>
 
-                    <td style="vertical-align: middle;">
+                    <td v-if="displayOptions" style="vertical-align: middle;">
                         <div class="btn-group btn-group-sm" role="group">
                             <button type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(client_saturation)">
                                 <span class="fa fa-edit"></span>
@@ -97,7 +97,7 @@
             </tbody>
         </table>
         <pagination scope="client_saturations" :object="client_saturations" 
-                :url="`api/clients/${this.client_id}/saturations?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`"
+                :url="`api/clients/${this.clientId}/saturations?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`"
                 :query="`keyword=${this.query.search_keyword}&order_by=${this
                 .query.order_by}&per_page=${this.query
                 .per_page}&sort_column=${this.query.sort_column}`"
@@ -110,13 +110,19 @@
     import Pagination from '../pagination/Pagination';
 
     export default {
+        props:['clientId','displayOptions'],
         created() {
             this.loadClientSaturationRecord();
+            Echo.private("client-saturation-channel").listen("ClientSaturationEvent", e => {
+                console.log(e);
+                this.loadClientSaturationRecord();
+                toastr.info('', e.message.response);
+            });
         },
         computed: {
-            client_id() {
-                return this.$route.params.clientId;
-            },
+            // client_id() {
+            //     return this.$route.params.clientId;
+            // },
             client_saturations() {
                 return this.$store.getters.getClientSaturations;
             },
@@ -136,7 +142,7 @@
         methods: {
             edit(client_saturation) {
                 let payload = {
-                    client_id: this.$route.params.clientId,
+                    client_id: this.clientId,//this.$route.params.clientId,
                     saturation_id: client_saturation.id
                 }
                 this.$store.dispatch('loadClientSaturation', payload);
@@ -155,7 +161,7 @@
                 this.$store.dispatch('showConfirmationModal');
             },
             loadClientSaturationRecord() {
-                return this.$store.dispatch('loadClientSaturations', `api/clients/${this.client_id}/saturations?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`)
+                return this.$store.dispatch('loadClientSaturations', `api/clients/${this.clientId}/saturations?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`)
             },
         },
         components: {

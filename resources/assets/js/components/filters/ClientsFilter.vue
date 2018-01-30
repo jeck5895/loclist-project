@@ -84,7 +84,7 @@ export default {
     },
     computed:{
         api_query() {
-            return this.$store.getters.getApiQuery;
+            return this.$store.getters.getClientApiQuery;
         }
     },
     methods: {
@@ -100,7 +100,7 @@ export default {
                 per_page: 10
             };
             
-            this.$store.dispatch('setApiQuery', query)
+            this.$store.dispatch('setClientApiQuery', query)
             .then(response => {
                 console.log(response)
                 this.$store.dispatch("loadClients", `api/clients?keyword=${this.api_query.search_keyword}&order_by=${this.api_query.order_by}&per_page=${this.api_query.per_page}`)

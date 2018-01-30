@@ -238,7 +238,10 @@
                     user: user
                 };
 
-                this.$store.dispatch('setModalTitle', "Delete " + user.name + " record?");
+                let message = `This user may be related to existing client record(s)!
+                Delete ${user.name} record anyway?`;
+
+                this.$store.dispatch("setModalTitle", message);
                 this.$store.dispatch('setDeletionType', deletionType);
                 this.$store.dispatch('showConfirmationModal');
             },

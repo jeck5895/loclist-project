@@ -8,6 +8,7 @@ use App\Http\Requests\Clients\Saturation\StoreClientSaturation;
 use App\Http\Requests\Clients\Saturation\UpdateClientSaturation;
 use App\Client;
 use App\ClientSaturation;
+use App\Events\ClientSaturationEvent;
 
 class ClientSaturationController extends Controller
 {
@@ -75,6 +76,15 @@ class ClientSaturationController extends Controller
         }
         $saturation->updated_by = auth()->user()->id;
         $saturation->save();
+
+        $client = Client::find($request['client_id']);
+
+        $message = [
+                'user' => auth()->user(),
+                'response' => auth()->user()->name . " has added saturation record to ".$client->client_name,
+                'client' => $client  
+            ];
+        event(new ClientSaturationEvent($message));
         
         return ['message' => 'New client saturation has been saved'];
     }
@@ -130,6 +140,16 @@ class ClientSaturationController extends Controller
         }
         $saturation->updated_by = auth()->user()->id;
         $saturation->save();
+
+        $client = Client::find($client_id);
+
+        $message = [
+                'user' => auth()->user(),
+                'response' => auth()->user()->name . " has updated a saturation record of ".$client->client_name,
+                'client' => $client  
+            ];
+
+        event(new ClientSaturationEvent($message));
         
         return  [
                 'message' => 'Changes has been saved',

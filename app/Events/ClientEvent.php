@@ -10,7 +10,11 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class ClientEvent implements ShouldBroadcast
+/**
+ * NOTE: for implements ShouldBroadcast to be able to receive notification
+ */
+
+class ClientEvent implements ShouldBroadcast 
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

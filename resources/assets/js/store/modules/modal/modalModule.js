@@ -11,7 +11,8 @@ export default {
         deletionType: {
             scope: '',
             user: {}
-        }
+        },
+        params:'',
     },
     getters:{
         getModalTitle: state => {
@@ -28,6 +29,9 @@ export default {
         },
         getDeletionType: state => {
             return state.deletionType;
+        },
+        getModalParams: state => {
+            return state.params;
         }
     },
     mutations:{
@@ -46,9 +50,18 @@ export default {
         },
         setDeletionType: (state, payload) => {
             state.deletionType = payload;
+        },
+        setModalParams: (state, payload) => {
+            state.params = payload;
         }
     },
     actions:{
+        setModalParams: (context, payload) => {
+            return new Promise((resolve, reject) => {
+                context.commit('setModalParams', payload);
+                resolve();
+            });
+        },
         setDeletionType: (context, payload) => {
             // const {commit} = context; //using ES6 deconstruction 
             // commit('setDeletionType', payload);

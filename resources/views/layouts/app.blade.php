@@ -33,6 +33,6 @@
     <script type="text/javascript" src="/plugins/select2/js/select2.full.min.js"></script>
     <script src="https://unpkg.com/vue-toasted"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzuR3C9fwpMSVr51bQv-Y-zEVvVjFoytc&libraries=places"></script>
-   
+    <!-- <script type="text/javascript" src="/plugins/offline-0.7.13/offline.min.js"></script> -->
 </body>
 </html>

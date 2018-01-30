@@ -8,6 +8,7 @@ use App\Http\Requests\Clients\UpdateClient;
 use App\Http\Controllers\Controller;
 use App\Events\ClientEvent;
 use App\Client;
+use App\VwClient;
 use App\ClientSourcingPractice;
 use App\ClientManpowerProvider;
 use Validator;
@@ -42,14 +43,14 @@ class ClientsController extends Controller
             if($validation->fails()) {
                 dd($validation->messages());
             }
-            $clients = Client::
+            $clients = VwClient::
                         orderBy($request->sort_column, $request->order_by)
                         ->where(function($query) use ($request){
                             if($request->has('keyword'))
                             {
                                 $query->where('client_name', 'LIKE' ,'%'.$request->keyword.'%');
-                                // ->orWhere('province', 'LIKE' ,'%'.$request->keyword.'%')
-                                //         ->orWhere('administrative_area_level_1', 'LIKE' ,'%'.$request->keyword.'%');
+                                    //->orWhere('user_initial', 'LIKE' ,'%'.$request->keyword.'%');
+                                    // ->orWhere('administrative_area_level_1', 'LIKE' ,'%'.$request->keyword.'%');
                                 if($request->has('industry') && $request->industry != null)
                                 {
                                     $query->where('industry',$request->industry);
@@ -72,8 +73,8 @@ class ClientsController extends Controller
                             }
                             
                         })
-                        ->active()
-                        ->with('user')
+                        // ->active()
+                        // ->with('user')
                         ->paginate($request->per_page);
 
             return response()->json([
@@ -150,7 +151,12 @@ class ClientsController extends Controller
             }
 
             //dispatch event for new created client
-            event(new ClientEvent($client));
+            $message = [
+                'user' => auth()->user(),
+                'response' => auth()->user()->name . " has added new client ".$client->client_name,
+                'new_client' => $client  
+            ];
+            event(new ClientEvent($message));
 
             return ['message' => $request['client_name'] . ' has been saved.'];
         }
@@ -250,7 +256,12 @@ class ClientsController extends Controller
             }
 
             //dispatch event for new created client
-            event(new ClientEvent($client));
+            $message = [
+                'user' => auth()->user(),
+                'response' => auth()->user()->name . " has updated ".$client->client_name." record",
+                'client' => $client  
+            ];
+            event(new ClientEvent($message));
 
             return ['message' => 'Changes has been saved.'];
         }
