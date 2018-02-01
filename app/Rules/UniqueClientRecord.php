@@ -60,8 +60,8 @@ class UniqueClientRecord implements Rule
             $query->where('id', $param4);
         })
         ->where($attribute, $value)->first();
-
-        return (count($count) == 0 AND $param4 == null) ? true : (count($count) >= 1 AND $param4 != null) ? true : false ;
+        //dd($param4);
+        return (count($count) == 0 AND $param4 == null) ? true : (count($count) >= 0 AND $param4 != NULL) ? true : false ;
     }
 
     /**

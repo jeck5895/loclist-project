@@ -215,9 +215,9 @@
                     this.last_ffup_date = moment(this.client_saturation.last_ffup_date).format('YYYY-MM-DD');
                 }
                 else if(this.formType == 'NEW_CLIENT_SATURATION_RECORD'){    
-                    this.saturation_date = moment().format('YYYY-MM-DD');
-                    this.date_received = moment().format('YYYY-MM-DD');
-                    this.last_ffup_date = moment().format('YYYY-MM-DD');
+                    // this.saturation_date = moment().format('YYYY-MM-DD');
+                    // this.date_received = moment().format('YYYY-MM-DD');
+                    // this.last_ffup_date = moment().format('YYYY-MM-DD');
                 }
             },
             disableInput(){

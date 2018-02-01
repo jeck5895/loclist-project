@@ -313,6 +313,7 @@
                         this.$store.dispatch('setModalTitle', 'Call Details');
                         this.$store.dispatch('setModalFormType', 'NEW_CALL_RECORD');
                         this.$store.dispatch('clearClientCall');
+                        
                         break;
 
                     case 'NEW_CLIENT_SATURATION_RECORD':

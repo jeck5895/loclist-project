@@ -85439,28 +85439,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['clientId', 'displayOptions'],
-    created: function created() {
-        var _this = this;
-
-        this.loadClientCallsRecord();
-        // Echo.private("client-channel").listen("ClientEvent", e => {
-        //     console.log(e);
-
-        //     this.loadClientCallsRecord();
-        //     toastr.info('', e.message.response);
-
-        // });
-
-        /**
-         * Listen for call record update 
-         */
-        Echo.private("client-call-channel").listen("ClientCallEvent", function (e) {
-            console.log(e);
-            //if(e.message.client.id == this.clientId){
-            _this.loadClientCallsRecord();
-            toastr.info('', e.message.response);
-            //}
-        });
+    data: function data() {
+        return {
+            //client_id: this.$route.params.clientId,
+        };
     },
 
     computed: {
@@ -85483,6 +85465,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.$store.getters.getPageDisplay;
         }
     },
+    created: function created() {
+        var _this = this;
+
+        this.loadClientCallsRecord();
+        console.log(this.clientId + " created");
+        /**
+         * Listen for call record update 
+         */
+        Echo.private('client-call-channel-' + this.clientId).listen("ClientCallEvent", function (e) {
+            console.log(e);
+            //if(e.message.client.id == this.clientId){
+            _this.loadClientCallsRecord();
+            toastr.info('', e.message.response);
+            //}
+        });
+    },
+
     methods: {
         edit: function edit(call) {
             var payload = {
@@ -85511,6 +85510,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     watch: {
         clientId: 'loadClientCallsRecord'
     },
+    destroyed: function destroyed() {
+        console.log(this.clientId + " destroyed");
+        Echo.leave('client-call-channel-' + this.clientId);
+    },
+
     components: {
         Pagination: __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a
     }
@@ -85927,17 +85931,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['clientId', 'displayOptions'],
-    created: function created() {
-        var _this = this;
-
-        this.loadClientSaturationRecord();
-        Echo.private("client-saturation-channel").listen("ClientSaturationEvent", function (e) {
-            console.log(e);
-            _this.loadClientSaturationRecord();
-            toastr.info('', e.message.response);
-        });
-    },
-
     computed: {
         // client_id() {
         //     return this.$route.params.clientId;
@@ -85958,6 +85951,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.$store.getters.getPageDisplay;
         }
     },
+    created: function created() {
+        var _this = this;
+
+        this.loadClientSaturationRecord();
+        Echo.private('client-saturation-channel-' + this.clientId).listen("ClientSaturationEvent", function (e) {
+            console.log(e);
+            _this.loadClientSaturationRecord();
+            toastr.info('', e.message.response);
+        });
+    },
+
     methods: {
         edit: function edit(client_saturation) {
             var payload = {
@@ -85983,6 +85987,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.$store.dispatch('loadClientSaturations', 'api/clients/' + this.clientId + '/saturations?keyword=' + this.query.search_keyword + '&order_by=' + this.query.order_by + '&per_page=' + this.query.per_page + '&sort_column=' + this.query.sort_column);
         }
     },
+    destroyed: function destroyed() {
+        Echo.leave('client-saturation-channel-' + this.clientId);
+    },
+
     components: {
         Pagination: __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a
     }
@@ -86441,17 +86449,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['clientId', 'displayOptions'],
-    created: function created() {
-        var _this = this;
-
-        this.loadClientPresentationsRecord();
-        Echo.private("client-presentation-channel").listen("ClientPresentationEvent", function (e) {
-            console.log(e);
-            _this.loadClientPresentationsRecord();
-            toastr.info('', e.message.response);
-        });
-    },
-
     computed: {
         // client_id() {
         //     return this.$route.params.clientId;
@@ -86472,6 +86469,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.$store.getters.getPageDisplay;
         }
     },
+    created: function created() {
+        var _this = this;
+
+        this.loadClientPresentationsRecord();
+        Echo.private('client-presentation-channel-' + this.clientId).listen("ClientPresentationEvent", function (e) {
+            console.log(e);
+            _this.loadClientPresentationsRecord();
+            toastr.info('', e.message.response);
+        });
+    },
+
     methods: {
         edit: function edit(presentation) {
             var payload = {
@@ -86497,6 +86505,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.$store.dispatch('loadClientPresentations', 'api/clients/' + this.clientId + '/presentations?keyword=' + this.query.search_keyword + '&order_by=' + this.query.order_by + '&per_page=' + this.query.per_page + '&sort_column=' + this.query.sort_column);
         }
     },
+    destroyed: function destroyed() {
+        Echo.leave('client-presentation-channel-' + this.clientId);
+    },
+
     components: {
         Pagination: __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a
     }
@@ -91375,6 +91387,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     this.$store.dispatch('setModalTitle', 'Call Details');
                     this.$store.dispatch('setModalFormType', 'NEW_CALL_RECORD');
                     this.$store.dispatch('clearClientCall');
+
                     break;
 
                 case 'NEW_CLIENT_SATURATION_RECORD':
@@ -91717,8 +91730,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.date_presented = moment(this.client_presentation.date_presented).format('YYYY-MM-DD');
                 this.follow_up_meeting_date = moment(this.client_presentation.follow_up_meeting_date).format('YYYY-MM-DD');
             } else if (this.formType == 'NEW_PRESENTATION_RECORD') {
-                this.date_presented = moment().format('YYYY-MM-DD');
-                this.follow_up_meeting_date = moment().format('YYYY-MM-DD');
+                //this.date_presented = moment().format('YYYY-MM-DD');
+                //this.follow_up_meeting_date = moment().format('YYYY-MM-DD');
             }
         }
     },
@@ -92567,8 +92580,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         formatDate: function formatDate() {
             if (this.formType == 'EDIT_CALL_RECORD') {
                 this.date_of_call = moment(this.call.date_of_call).format('YYYY-MM-DD');
-            } else if (this.formType == 'NEW_CALL_RECORD') {
-                this.date_of_call = moment().format('YYYY-MM-DD');
             }
         }
     },
@@ -93358,9 +93369,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.date_received = moment(this.client_saturation.date_received).format('YYYY-MM-DD');
                 this.last_ffup_date = moment(this.client_saturation.last_ffup_date).format('YYYY-MM-DD');
             } else if (this.formType == 'NEW_CLIENT_SATURATION_RECORD') {
-                this.saturation_date = moment().format('YYYY-MM-DD');
-                this.date_received = moment().format('YYYY-MM-DD');
-                this.last_ffup_date = moment().format('YYYY-MM-DD');
+                // this.saturation_date = moment().format('YYYY-MM-DD');
+                // this.date_received = moment().format('YYYY-MM-DD');
+                // this.last_ffup_date = moment().format('YYYY-MM-DD');
             }
         },
         disableInput: function disableInput() {

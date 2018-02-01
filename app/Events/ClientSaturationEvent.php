@@ -15,14 +15,16 @@ class ClientSaturationEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+    public $client_id;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($message, $client_id)
     {
         $this->message = $message;
+        $this->client_id = $client_id;
     }
 
     /**
@@ -32,6 +34,6 @@ class ClientSaturationEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('client-saturation-channel');
+        return new PrivateChannel('client-saturation-channel-'.$this->client_id);
     }
 }

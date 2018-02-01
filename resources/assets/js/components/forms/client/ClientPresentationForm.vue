@@ -197,8 +197,8 @@
                     this.follow_up_meeting_date = moment(this.client_presentation.follow_up_meeting_date).format(
                         'YYYY-MM-DD');
                 } else if (this.formType == 'NEW_PRESENTATION_RECORD') {
-                    this.date_presented = moment().format('YYYY-MM-DD');
-                    this.follow_up_meeting_date = moment().format('YYYY-MM-DD');
+                    //this.date_presented = moment().format('YYYY-MM-DD');
+                    //this.follow_up_meeting_date = moment().format('YYYY-MM-DD');
                 }
             },
         },

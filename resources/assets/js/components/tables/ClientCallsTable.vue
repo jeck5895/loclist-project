@@ -90,26 +90,10 @@
 
     export default {
         props:['clientId','displayOptions'],
-        created() {
-            this.loadClientCallsRecord();
-            // Echo.private("client-channel").listen("ClientEvent", e => {
-            //     console.log(e);
-                
-            //     this.loadClientCallsRecord();
-            //     toastr.info('', e.message.response);
-                
-            // });
-
-            /**
-             * Listen for call record update 
-             */
-            Echo.private("client-call-channel").listen("ClientCallEvent", e => {
-                console.log(e);
-                //if(e.message.client.id == this.clientId){
-                    this.loadClientCallsRecord();
-                    toastr.info('', e.message.response);
-                //}
-            });
+        data() {
+            return {
+                //client_id: this.$route.params.clientId,
+            }
         },
         computed: {
             // client_id() {
@@ -130,6 +114,20 @@
             page_display() {
                 return this.$store.getters.getPageDisplay;
             }
+        },
+        created() {
+            this.loadClientCallsRecord();
+            console.log(this.clientId + " created")
+            /**
+             * Listen for call record update 
+             */
+            Echo.private(`client-call-channel-${this.clientId}`).listen("ClientCallEvent", e => {
+                console.log(e);
+                //if(e.message.client.id == this.clientId){
+                    this.loadClientCallsRecord();
+                    toastr.info('', e.message.response);
+                //}
+            });
         },
         methods: {
             edit(call) {
@@ -158,6 +156,10 @@
         },
         watch:{
             clientId: 'loadClientCallsRecord',
+        },
+        destroyed() {
+            console.log(this.clientId + " destroyed")
+            Echo.leave(`client-call-channel-${this.clientId}`);
         },
         components: {
             Pagination

@@ -20,10 +20,12 @@ class ClientCallEvent implements ShouldBroadcast
      * @return void
      */
     public $message;
+    public $client_id;
 
-    public function __construct($message)
+    public function __construct($message, $client_id)
     {
         $this->message = $message;
+        $this->client_id = $client_id;
     }
 
     /**
@@ -33,6 +35,6 @@ class ClientCallEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('client-call-channel');
+        return new PrivateChannel('client-call-channel-'.$this->client_id);
     }
 }

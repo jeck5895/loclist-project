@@ -175,9 +175,6 @@
                 if(this.formType == 'EDIT_CALL_RECORD'){    
                     this.date_of_call = moment(this.call.date_of_call).format('YYYY-MM-DD');
                 }
-                else if(this.formType == 'NEW_CALL_RECORD'){    
-                    this.date_of_call = moment().format('YYYY-MM-DD');
-                }
             },
         },
         components: {

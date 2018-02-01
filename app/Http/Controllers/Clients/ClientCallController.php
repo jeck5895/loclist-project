@@ -79,7 +79,7 @@ class ClientCallController extends Controller
                 'new_client' => $client  
             ];
             
-        event(new ClientCallEvent($message));
+        broadcast(new ClientCallEvent($message,$clientId))->toOthers();
 
         return ['message' => 'Call record has been saved.'];
     }
@@ -138,7 +138,7 @@ class ClientCallController extends Controller
                 'call_id' => $callId   
             ];
             
-        event(new ClientCallEvent($message));
+        broadcast(new ClientCallEvent($message,$clientId))->toOthers();
 
         return [
             'message' => 'Changes has been saved.',

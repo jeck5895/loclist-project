@@ -58,7 +58,7 @@ class ClientPresentationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreClientPresentation $request)
+    public function store(StoreClientPresentation $request, $clientId)
     {
         ClientPresentation::create([
             'client_id' => $request['client_id'],
@@ -81,7 +81,7 @@ class ClientPresentationController extends Controller
                 'response' => auth()->user()->name . " has added presentation record to ".$client->client_name,
                 'client' => $client  
             ];
-        event(new ClientPresentationEvent($message));
+        broadcast(new ClientPresentationEvent($message,$clientId))->toOthers();
 
         return ['message' => 'New client saturation has been saved'];
     }
@@ -117,7 +117,7 @@ class ClientPresentationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateClientPresentation $request, $client_id, $presentation_id)
+    public function update(UpdateClientPresentation $request, $clientId, $presentation_id)
     {
         ClientPresentation::findOrFail($presentation_id)
                         ->update([
@@ -134,14 +134,14 @@ class ClientPresentationController extends Controller
                             'updated_by' => auth()->user()->id,
                         ]);
 
-        $client = Client::find($client_id);
+        $client = Client::find($clientId);
 
         $message = [
                 'user' => auth()->user(),
                 'response' => auth()->user()->name . " has updated a presentation record of ".$client->client_name,
                 'client' => $client  
             ];
-        event(new ClientPresentationEvent($message));
+        broadcast(new ClientPresentationEvent($message,$clientId))->toOthers();
 
         return  [
                 'message' => 'Changes has been saved',

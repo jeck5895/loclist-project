@@ -111,14 +111,6 @@
 
     export default {
         props:['clientId','displayOptions'],
-        created() {
-            this.loadClientSaturationRecord();
-            Echo.private("client-saturation-channel").listen("ClientSaturationEvent", e => {
-                console.log(e);
-                this.loadClientSaturationRecord();
-                toastr.info('', e.message.response);
-            });
-        },
         computed: {
             // client_id() {
             //     return this.$route.params.clientId;
@@ -138,6 +130,14 @@
             page_display() {
                 return this.$store.getters.getPageDisplay;
             }
+        },
+         created() {
+            this.loadClientSaturationRecord();
+            Echo.private(`client-saturation-channel-${this.clientId}`).listen("ClientSaturationEvent", e => {
+                console.log(e);
+                this.loadClientSaturationRecord();
+                toastr.info('', e.message.response);
+            });
         },
         methods: {
             edit(client_saturation) {
@@ -163,6 +163,9 @@
             loadClientSaturationRecord() {
                 return this.$store.dispatch('loadClientSaturations', `api/clients/${this.clientId}/saturations?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`)
             },
+        },
+        destroyed() {
+            Echo.leave(`client-saturation-channel-${this.clientId}`);
         },
         components: {
             Pagination

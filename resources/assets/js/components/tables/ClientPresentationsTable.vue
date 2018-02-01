@@ -96,14 +96,6 @@
 
     export default {
         props:['clientId','displayOptions'],
-        created() {
-            this.loadClientPresentationsRecord();
-            Echo.private("client-presentation-channel").listen("ClientPresentationEvent", e => {
-                console.log(e);
-                this.loadClientPresentationsRecord();
-                toastr.info('', e.message.response);
-            });
-        },
         computed: {
             // client_id() {
             //     return this.$route.params.clientId;
@@ -123,6 +115,14 @@
             page_display() {
                 return this.$store.getters.getPageDisplay;
             }
+        },
+        created() {
+            this.loadClientPresentationsRecord();
+            Echo.private(`client-presentation-channel-${this.clientId}`).listen("ClientPresentationEvent", e => {
+                console.log(e);
+                this.loadClientPresentationsRecord();
+                toastr.info('', e.message.response);
+            });
         },
         methods: {
             edit(presentation) {
@@ -148,6 +148,9 @@
             loadClientPresentationsRecord() {
                 return this.$store.dispatch('loadClientPresentations', `api/clients/${this.clientId}/presentations?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`)
             },
+        },
+        destroyed() {
+            Echo.leave(`client-presentation-channel-${this.clientId}`);
         },
         components: {
             Pagination

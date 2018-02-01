@@ -57,7 +57,7 @@ class ClientSaturationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreClientSaturation $request)
+    public function store(StoreClientSaturation $request, $clientId)
     {
         $saturation = new ClientSaturation;
         $saturation->client_id = $request['client_id'];
@@ -84,7 +84,8 @@ class ClientSaturationController extends Controller
                 'response' => auth()->user()->name . " has added saturation record to ".$client->client_name,
                 'client' => $client  
             ];
-        event(new ClientSaturationEvent($message));
+        
+        broadcast(new ClientSaturationEvent($message, $clientId))->toOthers();
         
         return ['message' => 'New client saturation has been saved'];
     }
@@ -120,7 +121,7 @@ class ClientSaturationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateClientSaturation $request, $client_id, $saturation_id)
+    public function update(UpdateClientSaturation $request, $clientId, $saturation_id)
     {
 
         $saturation = ClientSaturation::findOrFail($saturation_id);
@@ -141,7 +142,7 @@ class ClientSaturationController extends Controller
         $saturation->updated_by = auth()->user()->id;
         $saturation->save();
 
-        $client = Client::find($client_id);
+        $client = Client::find($clientId);
 
         $message = [
                 'user' => auth()->user(),
@@ -149,11 +150,11 @@ class ClientSaturationController extends Controller
                 'client' => $client  
             ];
 
-        event(new ClientSaturationEvent($message));
+        broadcast(new ClientSaturationEvent($message, $clientId))->toOthers();
         
         return  [
                 'message' => 'Changes has been saved',
-                'client_id' => $client_id,
+                'client_id' => $clientId,
                 'saturation' => $saturation_id
             ];
     }
