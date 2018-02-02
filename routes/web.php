@@ -29,7 +29,7 @@ Route::get('auth/sri-loclist/callback', 'Auth\LoginController@handleLoclistCallb
 
 Route::get('auth/logout','Auth\LoginController@logout');
 
-Route::get('login', function(){
+Route::get('login', array('as' => 'login'),function(){
   return redirect('/');
 });
 //Route::get('logout','Auth\LoginController@logout');
