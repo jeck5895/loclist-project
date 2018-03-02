@@ -221,6 +221,29 @@
                         <template v-if="serverResponse.data.errors.remarks">
                             <li v-for="e in serverResponse.data.errors.remarks" :key="e"> {{ e }}</li>
                         </template>
+
+                        <!-- Report target list -->
+                        <template v-if="serverResponse.data.errors.month_id">
+                            <li v-for="e in serverResponse.data.errors.month_id" :key="e"> {{ e }}</li>
+                        </template>
+                        <template v-if="serverResponse.data.errors.target_increase_potential_client">
+                            <li v-for="e in serverResponse.data.errors.target_increase_potential_client" :key="e"> {{ e }}</li>
+                        </template>
+                        <template v-if="serverResponse.data.errors.target_no_of_calls_made">
+                            <li v-for="e in serverResponse.data.errors.target_no_of_calls_made" :key="e"> {{ e }}</li>
+                        </template>
+                        <template v-if="serverResponse.data.errors.target_proposal_tobe_sent">
+                            <li v-for="e in serverResponse.data.errors.target_proposal_tobe_sent" :key="e"> {{ e }}</li>
+                        </template>
+                        <template v-if="serverResponse.data.errors.target_no_formal_presentation">
+                            <li v-for="e in serverResponse.data.errors.target_no_formal_presentation" :key="e"> {{ e }}</li>
+                        </template>
+                        <template v-if="serverResponse.data.errors.target_client_tobe_acquired">
+                            <li v-for="e in serverResponse.data.errors.target_client_tobe_acquired" :key="e"> {{ e }}</li>
+                        </template>
+                        <template v-if="serverResponse.data.errors.target_year">
+                            <li v-for="e in serverResponse.data.errors.target_year" :key="e"> {{ e }}</li>
+                        </template>
                     </ul>
                 </div>
 

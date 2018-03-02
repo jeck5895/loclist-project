@@ -13,14 +13,14 @@
                 <template slot="header">{{ modalTitle }}</template>
 
                 <div>
-                    <div v-if="modalFormType == 'EditUser' || modalFormType == 'CreateUser'">
+                    <div v-if="modalFormType == 'CREATE_USER' || modalFormType == 'EDIT_USER'">
                         <create-user-form></create-user-form>
                     </div>
                 </div>
                 
             </modal>
             <confirmation-modal>
-                <template slot="confirmationHeader"> {{ modalTitle }} </template>
+                <div slot="confirmationHeader" v-html="modalTitle"> </div>
             </confirmation-modal>
         </div>
     </div>
@@ -34,10 +34,16 @@
     import ConfirmationModal from '../modal/ConfirmationModal';
 
     export default {
+        beforeCreate() {
+            this.$store.dispatch('setModalFormType', 'CREATE_USER');
+        },
         created() {
 
         },
         computed: {
+            currForm(){
+                return this.$store.getters.getForm;
+            },
             modalFormType(){
                 return this.$store.getters.getModalFormType;
             },

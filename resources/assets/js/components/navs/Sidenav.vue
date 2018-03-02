@@ -4,6 +4,9 @@
             <ul class="sidebar-nav">
                 <li><h5 class="text-center">Form Keywords</h5></li>
                 <li>
+                    <router-link to="/maintainance/reports">Report Settings</router-link>
+                </li>
+                <li>
                     <a @click="addClass" :class="active" id="sidebar-toggle" data-toggle="collapse" href="#general-settings" aria-expanded="false">General Settings</a>
                     <div id="general-settings" class="collapse">
                         <div class="card border-0">

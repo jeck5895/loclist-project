@@ -7,6 +7,13 @@ export default [
         },
     },
     {
+        path: 'reports',
+        component: require('../../../components/sub-containers/maintainance/ReportContainer'),
+        meta: {
+            forAuthUsers: true
+        }
+    },
+    {
         path: 'companies',
         component: require('../../../components/sub-containers/maintainance/CompanyContainer'),
         meta: {

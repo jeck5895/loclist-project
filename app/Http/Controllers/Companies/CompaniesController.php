@@ -7,6 +7,7 @@ use App\Company;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Companies\StoreCompany;
 use App\Http\Requests\Companies\UpdateCompany;
+use App\Events\MaintainanceEvent;
 
 class CompaniesController extends Controller
 {
@@ -50,6 +51,8 @@ class CompaniesController extends Controller
             'code' => $request['code']
         ]);
 
+        event(new MaintainanceEvent('companies'));
+
         return ['message' => 'Company has been saved'];
     }
 
@@ -91,6 +94,7 @@ class CompaniesController extends Controller
                         'company_name' => $request['company_name'],
                         'code' => $request['code']
                     ]);
+        event(new MaintainanceEvent('companies'));
         return ['message' => 'Changes has been saved'];
     }
 
@@ -108,7 +112,7 @@ class CompaniesController extends Controller
             return response('Unauthorized action', 403);
         }
         Company::destroy($id);
-
+        event(new MaintainanceEvent('companies'));
         return ['message' => 'Record has been deleted'];
     }
 }

@@ -28,6 +28,7 @@ class StoreNewUser extends FormRequest
             //
             'email' => 'required|unique:users|email',
             'userType' => 'required',
+            'division' => 'integer',
             'name' => 'required'
         ];
     }

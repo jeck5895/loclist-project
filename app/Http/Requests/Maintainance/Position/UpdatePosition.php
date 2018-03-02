@@ -24,7 +24,17 @@ class UpdatePosition extends FormRequest
     public function rules()
     {
         return [
+            'department_id' => 'required',
             'position_name' => 'required|unique:positions,position_name,'.$this->get('id')
+        ];
+    }
+
+    public function messages() 
+    {
+        return [
+            'department_id.required' => 'Department field is required',
+            'position_name.required' => 'Position field is required',
+            'position_name.unique' => 'Position already exists'
         ];
     }
 }

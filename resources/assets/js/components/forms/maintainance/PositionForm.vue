@@ -7,11 +7,22 @@
                     <ul v-if="serverResponse.data.errors.position_name">
                         <li v-for="e in serverResponse.data.errors.position_name" :key="e">{{ e }}</li>
                     </ul>
+                    <ul v-if="serverResponse.data.errors.department_id">
+                        <li v-for="e in serverResponse.data.errors.department_id" :key="e">{{ e }}</li>
+                    </ul>
                 </div>
 
                 <div class="alert alert-danger" role="alert" v-if="serverResponse.status == 403">
                     <strong>You are not authorized to perform this action</strong>
                 </div>
+            </div>  
+
+            <div class="form-group col-md-12">
+                <label for="">Department</label>
+                <select v-model="position.department_id" v-validate="{rules:{required:true}}" name="department" id="department" class="form-control form-control-sm">
+                    <option v-for="(department, index) in departments" :key="index" :value="department.id">{{ department.department_name }}</option>
+                </select>
+                <small class="form-text has-danger" v-show="errors.has('positionForm.department')">{{ errors.first('positionForm.department') }}</small>
             </div>
 
             <div class="form-group col-md-12">
@@ -47,6 +58,9 @@ export default {
         isSubmitting() {
             return this.$store.getters.getSubmitState;
         },
+        departments() {
+            return this.$store.getters.getDepartments;
+        },
         position() {
             return this.$store.getters.getPosition;
         },
@@ -77,6 +91,7 @@ export default {
                 if (result) { // if true submit form else set serverResponse error
                     let position = {
                         id: this.position.id,
+                        department_id: this.position.department_id,
                         position_name: this.position.position_name.toUpperCase()
                     };
                     

@@ -159,7 +159,7 @@
                             call_slip2: this.client_presentation.call_slip2,
                             client_response2: this.client_presentation.client_response2,
                             presentation_status: this.client_presentation.presentation_status,
-                            follow_up_meeting_date: this.client_presentation.follow_up_meeting_date,
+                            follow_up_meeting_date: this.follow_up_meeting_date,
                             action_plan: this.client_presentation.action_plan
                         };
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Maintainance\Certificate\StoreCertificate;
 use App\Http\Requests\Maintainance\Certificate\UpdateCertificate;
 use App\Certificate;
+use App\Events\MaintainanceEvent;
 
 class CertificatesController extends Controller
 {
@@ -48,6 +49,8 @@ class CertificatesController extends Controller
         Certificate::create([
             'iso_name' => $request['iso_name']
         ]);
+        
+        event(new MaintainanceEvent('certificates'));
 
         return ['message' => 'Certificate has been saved'];
     }
@@ -89,6 +92,8 @@ class CertificatesController extends Controller
                         ->update([
                             'iso_name' => $request['iso_name']
                         ]);
+        
+        event(new MaintainanceEvent('certificates'));
 
         return ['message' => 'Changes has been saved'];
     }
@@ -108,6 +113,8 @@ class CertificatesController extends Controller
         }
 
         Certificate::destroy($id);
+
+        event(new MaintainanceEvent('certificates'));
 
         return  [
             'message' => 'Record has been deleted',

@@ -29,3 +29,6 @@
         <env name="QUEUE_DRIVER" value="sync"/>
     </php>
 </phpunit>
+<listeners>
+    <listener class="NunoMaduro\Collision\Adapters\Phpunit\Listener" />
+</listeners>

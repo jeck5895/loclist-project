@@ -7,6 +7,7 @@ use App\Http\Requests\Maintainance\Department\StoreDepartment;
 use App\Http\Requests\Maintainance\Department\UpdateDepartment;
 use App\Http\Controllers\Controller;
 use App\Department;
+use App\Events\MaintainanceEvent;
 
 class DepartmentsController extends Controller
 {
@@ -48,6 +49,8 @@ class DepartmentsController extends Controller
         $department = Department::create([
             'department_name' => $request['department_name']
         ]);
+        
+        event(new MaintainanceEvent('departments'));
 
         return ['message' => 'Department has been saved'];
     }
@@ -89,6 +92,7 @@ class DepartmentsController extends Controller
                         ->update([
                             'department_name' => $request['department_name']
                         ]);
+        event(new MaintainanceEvent('departments'));
         return ['message' => 'Changes has been saved'];
     }
 
@@ -107,7 +111,7 @@ class DepartmentsController extends Controller
         }
 
         Department::destroy($id);
-
+        event(new MaintainanceEvent('departments'));
         return  [
             'message' => 'Record has been deleted',
             'status' => 'OK'

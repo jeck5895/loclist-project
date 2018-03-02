@@ -46,6 +46,14 @@ import ClientSaturationsTable from '../tables/ClientSaturationsTable';
 import ClientPresentationsTable from '../tables/ClientPresentationsTable';
 
 export default {
+    beforeRouteEnter(to, from, next) {
+        store.dispatch('clearIndustries');
+        store.dispatch('clearStatuses');
+        store.dispatch("loadIndustries", "api/maintainance/industries?type=all");
+        store.dispatch('loadStatuses','api/maintainance/statuses?type=all');
+        store.dispatch('loadTargetListYears');
+        next();
+    },
     created() {
         /**@argument
          * Load/Dispatch loadClients action from store data on page load
@@ -56,13 +64,6 @@ export default {
         //     toastr.info('', e.user + ' ' + e.message)
         //     console.log(e)
         // })
-    },
-    beforeRouteEnter(to, from, next) {
-        store.dispatch('clearIndustries');
-        store.dispatch('clearStatuses');
-        store.dispatch("loadIndustries", "api/maintainance/industries?type=all");
-        store.dispatch('loadStatuses','api/maintainance/statuses?type=all');
-        next();
     },
     data() {
         return {

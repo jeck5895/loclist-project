@@ -61,6 +61,7 @@
                     <th>INITIAL</th>
                     <th>EMAIL</th>
                     <th>USER TYPE</th>
+                    <th>DIVISION</th>
                     <th>DATE CREATED</th>
                     <th>OPTIONS</th>
                 </tr>
@@ -101,6 +102,11 @@
                     <td style="vertical-align: middle;">
                         {{ user.userType }}
                         <!-- {{ user.user_type.userType }} ({{ user.user_type.id }}) -->
+                    </td>
+                    <td style="vertical-align: middle;">
+                        {{ 
+                            user.division == 1 ? "North Luzon / GMA" : user.division == 2 ? "South Luzon" : ""
+                         }}
                     </td>
                     <td style="vertical-align: middle;">
                         {{ user.created_at | humanReadableFormat }}
@@ -226,7 +232,7 @@
             edit(user){
                 this.$store.dispatch('setModalTitle', 'Edit User Details');
                 this.$store.dispatch('loadUser', user);
-                this.$store.dispatch('setModalFormType', 'EditUser');
+                this.$store.dispatch('setModalFormType', 'EDIT_USER');
                 $("#createUserModal").modal("show");
             },
             view(user){
@@ -238,8 +244,13 @@
                     user: user
                 };
 
-                let message = `This user may be related to existing client record(s)!
-                Delete ${user.name} record anyway?`;
+                let message = `
+                <div class="alert alert-danger mb-1" role="alert">
+                    <h6 class="alert-heading">Warning <i class="fa fa-exclamation-circle"></i></h6>
+                    <small>This user may be related to existing client record/s !</small>
+                </div>
+                <br>
+                <p class="lead">Delete ${user.name} record anyway?</p>`;
 
                 this.$store.dispatch("setModalTitle", message);
                 this.$store.dispatch('setDeletionType', deletionType);

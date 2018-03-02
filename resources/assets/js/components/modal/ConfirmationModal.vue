@@ -214,6 +214,15 @@
                             this.$store.dispatch('loadAcquisitions','api/maintainance/acquisitions');
                         });
                         break;
+                    case "target_lists":
+                        this.$store.dispatch('deleteAcquisition', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch('loadTargetLists','api/reports/target-lists');
+                        });
+                        break;
                     default:
                         break;
                 }

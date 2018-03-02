@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Maintainance\Nationality\StoreNationality;
 use App\Http\Requests\Maintainance\Nationality\UpdateNationality;
 use App\Nationality;
+use App\Events\MaintainanceEvent;
 
 class NationalitiesController extends Controller
 {
@@ -48,6 +49,8 @@ class NationalitiesController extends Controller
         Nationality::create([
             'nationality' => $request['nationality']
         ]);
+        
+        event(new MaintainanceEvent('nationalities'));
 
         return ['message' => 'Nationality has been saved'];
     }
@@ -89,6 +92,9 @@ class NationalitiesController extends Controller
                             ->update([
                                 'nationality' => $request['nationality']
                             ]);
+        
+        event(new MaintainanceEvent('nationalities'));
+
         return  [
                     'message' => 'Changes has been saved',
                     'request' => $id
@@ -110,6 +116,8 @@ class NationalitiesController extends Controller
         }
         
         Nationality::destroy($id);
+
+        event(new MaintainanceEvent('nationalities'));
 
         return  [
             'message' => 'Record has been deleted',

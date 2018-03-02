@@ -43,3 +43,7 @@ Broadcast::channel('user-channel', function ($user) {
     // return (int) $user->id === (int) $id;
     return !empty($user) ? true : false;
 });
+
+Broadcast::channel('maintainance-channel', function ($user) {
+    return true;
+});

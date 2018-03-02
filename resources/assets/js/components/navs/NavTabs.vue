@@ -2,7 +2,7 @@
     <div>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#home" role="tab"> <strong> <span class="fa fa-briefcase"></span> CLIENTS</strong></a>
+                <a class="nav-link active" data-toggle="tab" href="#home" role="tab"> <strong> <span class="fa fa-users"></span> CLIENTS</strong></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#definition" role="tab"><strong> <span class="fa fa-book"></span> DEFINITION OF TERMS</strong></a>
@@ -19,22 +19,7 @@
                 This is Definition of Terms Tab
             </div>
             <div class="tab-pane fade" id="reports" role="tabpanel" aria-labelledby="reports-tab">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                Design UI for 2 types of reports
-                            </div>
-                            <div class="card-body">
-                                KPI REPORT 
-                                Quarterly
-                                Weekly
-                                Annulay
-                                with date Filters
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <report></report>
             </div>
         </div>
         
@@ -48,7 +33,7 @@
     import clientsTable from '../tables/clientsTable.vue';
     import Modal from '../modal/modal';
     import ConfirmationModal from '../modal/ConfirmationModal';
-    
+    import Report from '../reports/report';
     // import ClientsFilter from '../filters/ClientsFilter';
 
     export default {
@@ -73,7 +58,7 @@
         },
         components:{
             clientsTable,
-          
+            Report,
             ConfirmationModal,
         },
         filters:{

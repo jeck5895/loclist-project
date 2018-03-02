@@ -88,7 +88,8 @@ class UsersController extends Controller
                 'initial' => $request['initial'],
                 'email' => $request['email'],
                 'password' => bcrypt('secret'),
-                'userType' => $request['userType']
+                'userType' => $request['userType'],
+                'division' => $request['division']
             ]
         )->id;
 
@@ -138,12 +139,13 @@ class UsersController extends Controller
                         'name' => $request['name'],
                         'initial' => $request['initial'],
                         'email' => $request['email'],
-                        'userType' => $request['userType']
+                        'userType' => $request['userType'],
+                        'division' => $request['division']
                     ]);
 
         return  [
                     'message' => 'Changes has been saved.',
-                    'request' => $id
+                    // 'request' => $request['division'],
                 ];
     }
 

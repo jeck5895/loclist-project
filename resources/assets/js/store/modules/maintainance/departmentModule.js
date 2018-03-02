@@ -49,6 +49,7 @@ export default {
             });
         },
         loadDepartment: (context, payload) => {
+            context.commit('setLoadingState', true);
             axios.get('api/maintainance/departments/' + payload.id)
             .then(response => {
                 context.commit('setDepartment', response);
@@ -57,7 +58,10 @@ export default {
                 }, 1000);
             })
             .catch(error => {
-                console.log(error.response)
+                console.log(error.response);
+                setTimeout(() => {
+                    context.commit('setLoadingState', false);
+                }, 1000);
             });
         },
         storeDepartment: (context, payload) => {

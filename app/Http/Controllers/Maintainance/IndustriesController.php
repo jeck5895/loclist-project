@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Maintainance\Industry\StoreIndustry;
 use App\Http\Requests\Maintainance\Industry\UpdateIndustry;
 use \App\Industry;
+use App\Events\MaintainanceEvent;
 
 class IndustriesController extends Controller
 {
@@ -50,7 +51,9 @@ class IndustriesController extends Controller
         Industry::create([
             'industry_name' => $request['industry_name']
         ]);
-        
+         
+        event(new MaintainanceEvent('industries'));
+
         return ['message' => 'Industry has been saved'];
     }
 
@@ -92,6 +95,8 @@ class IndustriesController extends Controller
                             'industry_name' => $request['industry_name']
                         ]);
         
+        event(new MaintainanceEvent('industries'));
+
         return  [
                     'message' => 'Changes has been saved.',
                     'request' => $id
@@ -113,6 +118,8 @@ class IndustriesController extends Controller
         }
 
         Industry::destroy($id);
+
+        event(new MaintainanceEvent('industries'));
         
         return  [
             'message' => 'Record has been deleted',

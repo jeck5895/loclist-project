@@ -16,7 +16,14 @@
 
 <script>
     import PositionsTable from '../../tables/PositionsTable';
+    import {store} from '../../../store/store';
+
     export default {
+        beforeRouteEnter(to, from, next) {
+            store.dispatch('clearDepartments');
+            store.dispatch('loadDepartments','api/maintainance/departments?type=all');
+            next();
+        },
         beforeCreate(){
             this.$store.dispatch('setModalFormType', 'CREATE_POSITION');
         },

@@ -1,20 +1,13 @@
-// {
-//     "version": "0.2.0",
-//     "configurations": [
-//         {
-//             "name": "Launch localhost",
-//             "type": "chrome",
-//             "request": "launch",
-//             "url": "http://localhost/mypage.html",
-//             "webRoot": "${workspaceFolder}/wwwroot"
-//         },
-//         {
-//             "name": "Launch index.html (disable sourcemaps)",
-//             "type": "chrome",
-//             "request": "launch",
-//             "sourceMaps": false,
-//             "file": "${workspaceFolder}/index.html"
-//         }
-//     ],
-//     "compounds": []
-// }
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch localhost",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:8000",
+            "webRoot": "${workspaceFolder}/wwwroot"
+        },
+    ],
+    "compounds": []
+}

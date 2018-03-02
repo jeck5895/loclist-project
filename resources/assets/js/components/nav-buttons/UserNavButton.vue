@@ -15,10 +15,10 @@
         methods: {
             showModal() {
                 this.$store.dispatch('clearUserTypes');
-                this.$store.dispatch('setModalFormType', 'CreateUser').then(() => {
-                    this.$store.dispatch('setForm', document.getElementById('userForm'));
+                this.$store.dispatch('setModalFormType', 'CREATE_USER').then(() => {
                     this.$store.dispatch('setModalTitle', "New User Details");
                     this.$store.dispatch('clearUser');
+                    this.$store.dispatch('setForm', document.getElementById('userForm'));
                     this.$store.dispatch('showModal', this.currForm);
                 });
             }

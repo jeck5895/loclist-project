@@ -198,8 +198,8 @@
                     }
                     this.status_as_of = moment(this.client_acquisition.status_as_of).format('YYYY-MM-DD');
                 } else if (this.formType == 'NEW_CLIENT_ACQUISITION_RECORD') {
-                    this.date_acquired = moment().format('YYYY-MM-DD');
-                    this.status_as_of = moment().format('YYYY-MM-DD');
+                    // this.date_acquired = moment().format('YYYY-MM-DD');
+                    // this.status_as_of = moment().format('YYYY-MM-DD');
                 }
             },
         },

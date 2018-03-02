@@ -22,6 +22,7 @@ Route::middleware('auth:api')->group(function() {
     // Route::get('/users/{id}', 'UsersController@show');
     // Route::post('/user', 'UsersController@store');
     // Route::patch('/user/{id}', 'UsersController@update');
+    Route::get('reports/target-lists/years', 'Reports\TargetListsController@years');
     Route::apiResource('users', 'Users\UsersController');
     Route::apiResource('user_types', 'Maintainance\UserTypesController');
     Route::apiResource('companies', 'Companies\CompaniesController');
@@ -44,6 +45,11 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('maintainance/presentation-statuses', 'Maintainance\PresentationStatusesController');
     Route::apiResource('maintainance/action-plans', 'Maintainance\ActionPlansController');
     Route::apiResource('maintainance/acquisitions', 'Maintainance\AcquisitionsController');
+    Route::apiResource('reports/report-months', 'Reports\ReportMonthsController');
+    Route::apiResource('reports/target-lists','Reports\TargetListsController');
+    
+    Route::post('reports/kpi-analysis/export','Reports\KPIAnalysisReportController@export');
+    // Route::get('reports/kpi-analysis/export/from_date/{from_date}/to_date/{to_date}','Reports\KPIAnalysisReportController@export');
 });
 Route::get('/test',function(){
    

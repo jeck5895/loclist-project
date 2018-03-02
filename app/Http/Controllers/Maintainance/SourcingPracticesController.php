@@ -7,6 +7,7 @@ use App\Http\Requests\Maintainance\SourcingPractice\StoreSourcingPractice;
 use App\Http\Requests\Maintainance\SourcingPractice\UpdateSourcingPractice;
 use App\Http\Controllers\Controller;
 use App\SourcingPractice;
+use App\Events\MaintainanceEvent;
 
 class SourcingPracticesController extends Controller
 {
@@ -49,6 +50,8 @@ class SourcingPracticesController extends Controller
         $sourcing_practice = SourcingPractice::create([
                                 'name' => $request['name']
                             ]);
+
+        event(new Maintainance('sourcing_practices'));
         return ['message' => 'Sourcing Practice has been saved'];
     }
 
@@ -89,6 +92,8 @@ class SourcingPracticesController extends Controller
                                 ->update([
                                     'name' => $request['name']
                                 ]);
+        event(new Maintainance('sourcing_practices'));
+
         return ['message' => 'Changes has been save'];
     }   
 
@@ -107,6 +112,8 @@ class SourcingPracticesController extends Controller
         }
 
         SourcingPractice::destroy($id);
+        
+        event(new Maintainance('sourcing_practices'));
 
         return ['Record has been deleted'];
     }

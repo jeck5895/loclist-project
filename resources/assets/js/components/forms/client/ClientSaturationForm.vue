@@ -78,7 +78,7 @@
             </div>
 
             <div class="form-group col-md-12">
-                <label for="">Client Reponse</label>
+                <label for="">Client Response</label>
                 <textarea v-model="client_saturation.client_response1" name="client_response1" id="" cols="30" v-validate="{rules:{required:true}}" rows="1" class="form-control form-control-sm"></textarea>
                 <small class="form-text has-danger" v-show="errors.has('saturationForm.client_response1')">{{ errors.first('saturationForm.client_response1') }}</small>
             </div>

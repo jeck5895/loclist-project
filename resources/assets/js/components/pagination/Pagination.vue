@@ -109,6 +109,9 @@
                     case "presentation_statuses":
                         this.$store.dispatch('loadPresentationStatuses', url);
                         break;
+                    case "target_lists":
+                        this.$store.dispatch('loadTargetLists', url);
+                        break;
                     default:
                         break;
                 }
@@ -178,6 +181,9 @@
                         break;
                     case "presentation_statuses":
                         this.$store.dispatch('loadPresentationStatuses', url);
+                        break;
+                    case "target_lists":
+                        this.$store.dispatch('loadTargetLists', url);
                         break;
                     default:
                         break;
@@ -249,6 +255,9 @@
                     case "presentation_statuses":
                         this.$store.dispatch('loadPresentationStatuses', url);
                         break;
+                    case "target_lists":
+                        this.$store.dispatch('loadTargetLists', url);
+                        break;
                     default:
                         break;
                 }
@@ -319,6 +328,9 @@
                     case "presentation_statuses":
                         this.$store.dispatch('loadPresentationStatuses', url);
                         break;
+                    case "target_lists":
+                        this.$store.dispatch('loadTargetLists', url);
+                        break;
                     default:
                         break;
                 }
@@ -388,6 +400,9 @@
                         break;
                     case "presentation_statuses":
                         this.$store.dispatch('loadPresentationStatuses', url);
+                        break;
+                    case "target_lists":
+                        this.$store.dispatch('loadTargetLists', url);
                         break;
                     default:
                         break;

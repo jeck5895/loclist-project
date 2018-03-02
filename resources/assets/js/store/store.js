@@ -25,7 +25,9 @@ import modeOfPresentationModule from './modules/maintainance/modeOfPresentationM
 import presentationStatusModule from './modules/maintainance/presentationStatusModule';
 import actionPlanModule from './modules/maintainance/actionPlanModule';
 import mannerOfAcquisitionModule from './modules/maintainance/mannerOfAcquisitionModule';
-
+import targetListModule from './modules/reports/targetListModule';
+import reportMonthModule from './modules/reports/reportMonthModule';
+ 
 Vue.use(Vuex); 
 
 export const store = new Vuex.Store({
@@ -54,6 +56,8 @@ export const store = new Vuex.Store({
         modeOfPresentationModule,
         presentationStatusModule,
         actionPlanModule,
-        mannerOfAcquisitionModule
+        mannerOfAcquisitionModule,
+        targetListModule,
+        reportMonthModule,
     }
 });

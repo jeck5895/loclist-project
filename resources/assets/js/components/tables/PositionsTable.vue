@@ -5,6 +5,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Position</th>
+                    <th>Department</th>
                     <th>Date Created</th>
                     <th>Status</th>
                     <th>OPTIONS</th>
@@ -32,6 +33,9 @@
                     </td>
                     <td style="vertical-align: middle;">
                         {{ position.position_name }}
+                    </td>
+                    <td style="vertical-align: middle;">
+                        {{ position.department != null ? position.department.department_name :'' }}
                     </td>
                     <td style="vertical-align: middle;">
                         {{ position.created_at | humanReadableFormat}}

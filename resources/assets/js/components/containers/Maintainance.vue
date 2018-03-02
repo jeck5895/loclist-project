@@ -56,6 +56,9 @@
                     <div v-if="modalFormType == 'CREATE_ACQUISITION' || modalFormType == 'EDIT_ACQUISITION'">
                         <acquisition-form></acquisition-form>
                     </div>
+                    <div v-if="modalFormType == 'CREATE_TARGET_LIST' || modalFormType == 'EDIT_TARGET_LIST'">
+                        <target-list-form></target-list-form>
+                    </div>
                 </div>
             </modal>
 
@@ -86,6 +89,7 @@
     import PresentationStatusForm from '../forms/maintainance/PresentationStatusForm';
     import ActionPlanForm from '../forms/maintainance/ActionPlanForm';
     import AcquisitionForm from '../forms/maintainance/AcquisitionForm';
+    import TargetListForm from '../forms/report/TargetListForm';
     import Sidenav from '../navs/Sidenav';
 
     export default {
@@ -130,6 +134,7 @@
             PresentationStatusForm,
             ActionPlanForm,
             AcquisitionForm,
+            TargetListForm,
             Sidenav
         } 
     }

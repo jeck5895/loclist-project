@@ -7,6 +7,7 @@ use App\Http\Requests\Maintainance\Position\StorePosition;
 use App\Http\Requests\Maintainance\Position\UpdatePosition;
 use App\Http\Controllers\Controller;
 use App\Position;
+use App\Events\MaintainanceEvent;
 
 class PositionsController extends Controller
 {
@@ -15,13 +16,23 @@ class PositionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        if(isset($_GET['type']) && $_GET['type'] == 'all'){
-            $positions = Position::active()->orderBy('position_name','asc')->get();
+        if(isset($_GET['type']) && $_GET['type'] == 'all')
+        {
+            $department = $request->department;
+            $positions = Position::active()
+            ->when($department, function($query) use($department) {
+                return $query->where('department_id', $department);
+            })
+            ->with('department')->orderBy('position_name','asc')->get();
         }
+        // if(isset($_GET['department']))
+        // {
+        //     $positions = Position::active()->where('department_id', $request->department)->with('department')->orderBy('position_name','asc')->get();
+        // }
         else{
-            $positions = Position::active()->orderBy('position_name','asc')->paginate(10);
+            $positions = Position::active()->with('department')->orderBy('position_name','asc')->paginate(10);
         }
 
         return $positions;
@@ -46,8 +57,11 @@ class PositionsController extends Controller
     public function store(StorePosition $request)
     {
         $position = Position::create([
+            'department_id' => $request['department_id'],
             'position_name' => $request['position_name']
         ]);
+
+        event(new MaintainanceEvent('positions'));
 
         return ['message' => 'Position has been saved'];
     }
@@ -87,8 +101,10 @@ class PositionsController extends Controller
     {
         $position = Position::find($id)
                     ->update([
+                        'department_id' => $request['department_id'],
                         'position_name' => $request['position_name']
                     ]);
+        event(new MaintainanceEvent('positions'));
         return ['message' => 'Changes has been saved'];
     }
 
@@ -107,7 +123,7 @@ class PositionsController extends Controller
         }
         
         Position::destroy($id);
-
+        event(new MaintainanceEvent('positions'));
         return  [
             'message' => 'Record has been deleted',
             'status' => 'OK'

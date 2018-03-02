@@ -57,7 +57,7 @@
                     </td>
 
                     <td style="vertical-align: middle;">
-                        {{ acquisition.company.company_name }}
+                        {{ acquisition.company.code }}
                     </td>
                    
                     <td style="vertical-align: middle;">

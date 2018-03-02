@@ -17,8 +17,9 @@ class UniqueClientRecord implements Rule
     protected $param2;
     protected $param3;
     protected $param4;
+    protected $message;
 
-    public function __construct($table, $param1 = null, $param2 = null, $param3 = null, $param4 = null)
+    public function __construct($table, $param1 = null, $param2 = null, $param3 = null, $param4 = null, $message = null)
     {
         /**
          * @table string  - table name
@@ -29,6 +30,7 @@ class UniqueClientRecord implements Rule
         $this->param2 = $param2;
         $this->param3 = $param3;
         $this->param4 = $param4;
+        $this->message = $message;
     }
 
     /**
@@ -71,6 +73,6 @@ class UniqueClientRecord implements Rule
      */
     public function message()
     {
-        return 'Record date is already exists for this user and company';
+        return $this->message ? $this->message : 'Record date is already exists for this user and company';
     }
 }

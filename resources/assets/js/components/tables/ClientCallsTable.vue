@@ -5,10 +5,10 @@
                 <tr>
                     <th>ID</th>
                     <th>Caller</th>
-                    <th>Date of Call</th>
-                    <th>Confirmation Pre-call</th>
-                    <th>Productive</th>
-                    <th>Proposal Sent</th>
+                    <th class="tbl-header-date">Date of Call</th>
+                    <th style="width:140px">Confirmation Pre-call</th>
+                    <th class="tbl-header-date">Productive</th>
+                    <th style="width:110px">Proposal Sent</th>
                     <th>Company</th>
                     <th>Response</th>
                     <th v-if="displayOptions">Options</th>
@@ -170,5 +170,8 @@
 <style scoped>
     table.calls-table td{
         font-size: 12px;
+    }
+    .tbl-header-date{
+        width: 80px;
     }
 </style>

@@ -12,6 +12,7 @@ use App\VwClient;
 use App\ClientSourcingPractice;
 use App\ClientManpowerProvider;
 use Validator;
+use App\ReportTargetList;
 use Illuminate\Support\Facades\DB;
 
 class ClientsController extends Controller
@@ -140,13 +141,28 @@ class ClientsController extends Controller
         if($client_id) {
 
             $client = Client::find($client_id);
+            
+            // $entry_month = date("n", strtotime($client->created_at));
+            // $entry_year = date("Y", strtotime($client->created_at));
+
+            // $report_ref = ReportTargetList::where('target_year', $entry_year)->where('month_id', $entry_month)->first();
+
+            // if($report_ref){
+            //     Client::find($client_id)->update(['report_ref' => $report_ref->id]);
+            // }
 
             foreach($request['manpower_providers'] as $provider){
+                /**
+                 * Save record to related model
+                 */
                 $client_provider = new ClientManpowerProvider(array('manpower_provider' => $provider));
                 $client->manpower_providers()->save($client_provider);
             }
 
             foreach($request['sourcing_practices'] as $sp ){
+                /**
+                 * Attach record to middle table (for many to many relationships)
+                 */
                 $client->sourcing_practices()->attach($sp);
             }
 
@@ -154,11 +170,12 @@ class ClientsController extends Controller
             $message = [
                 'user' => auth()->user(),
                 'response' => auth()->user()->name . " has added new client ".$client->client_name,
-                'new_client' => $client  
+                'new_client' => $client
             ];
-            event(new ClientEvent($message));
 
-            return ['message' => $request['client_name'] . ' has been saved.'];
+            broadcast(new ClientEvent($message))->toOthers();
+
+            return ['message' => $request['client_name'] . ' has been saved.', 'others' => $message];
         }
         
     }
@@ -261,7 +278,7 @@ class ClientsController extends Controller
                 'response' => auth()->user()->name . " has updated ".$client->client_name." record",
                 'client' => $client  
             ];
-            event(new ClientEvent($message));
+            broadcast(new ClientEvent($message))->toOthers();
 
             return ['message' => 'Changes has been saved.'];
         }

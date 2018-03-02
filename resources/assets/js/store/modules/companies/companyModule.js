@@ -60,12 +60,12 @@ export default {
             });
         },
         storeCompany: (context, payload) => {
-            context.commit('setLoadingState', true);
+            context.commit('setSubmitState', true);
             axios.post('api/companies', payload)
             .then( response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
-                    context.commit('setLoadingState', false);
+                    context.commit('setSubmitState', false);
                     toastr.success('Success', response.data.message);
                     $("#createUserModal").modal('hide');
                     // document.getElementById('companyForm').reset();   
@@ -79,12 +79,12 @@ export default {
             });
         },
         updateCompany: (context, payload) => {
-            context.commit('setLoadingState', true);
+            context.commit('setSubmitState', true);
             axios.patch('api/companies/' + payload.id, payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
-                    context.commit('setLoadingState', false);
+                    context.commit('setSubmitState', false);
                     toastr.success('Success', response.data.message);
                     $("#createUserModal").modal('hide');
                     // document.getElementById('companyForm').reset();   
@@ -92,7 +92,7 @@ export default {
             })
             .catch(error => {
                 context.commit('setServerResponse', error.response);
-                context.commit('setLoadingState', false);
+                context.commit('setSubmitState', false);
                 console.log(error.response.data)
             })
         },

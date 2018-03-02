@@ -178,6 +178,16 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /**
+         * Laravel Excel Service Provider
+         */
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
+        /** 
+         * Laravel Dusk Service Provider
+         */
+        Laravel\Dusk\DuskServiceProvider::class,
         
     ],
 
@@ -228,7 +238,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class, /*Alias for Excel */
     ],
 
 ];

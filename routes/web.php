@@ -32,7 +32,8 @@ Route::get('auth/logout','Auth\LoginController@logout');
 Route::get('login', array('as' => 'login'),function(){
   return redirect('/');
 });
-//Route::get('logout','Auth\LoginController@logout');
+
+Route::get('reports/prospective-clients', 'Reports\KPIAnalysisReportController@index');
 
 Route::get('/{vue_capture?}', function () {
     return view('home');

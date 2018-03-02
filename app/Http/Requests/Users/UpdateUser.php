@@ -27,6 +27,7 @@ class UpdateUser extends FormRequest
             //
             'email' => 'required|email|unique:users,email,'.$this->get('id'),
             'userType' => 'required',
+            'division' => 'integer',
             'name' => 'required'
         ];
     }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Position extends Model
 {
-    protected $fillable = ['position_name'];
+    protected $fillable = ['position_name','department_id'];
 
     public function scopeActive($query) //can pass 2nd argument as parameters for where condition i.e scopeActive($query, $param)
     {
@@ -21,5 +21,10 @@ class Position extends Model
     public function client()
     {
         return $this->hasOne(Client::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
     }
 }

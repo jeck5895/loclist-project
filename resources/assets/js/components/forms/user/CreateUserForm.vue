@@ -49,6 +49,16 @@
                     </select>
                     <small class="form-text has-danger" v-show="errors.has('userForm.user_type')">{{ errors.first('userForm.user_type') }}</small>
                 </div>
+                <div class="form-group">
+                    <label for="">User Division
+                        <span class="required-field">*</span>
+                    </label>
+                    <select v-validate="{rules:{required:true}}" name="user_division" v-model="user.division" id="" class="form-control">
+                        <option>--Select User Division--</option>
+                        <option v-for="(division, index) in divisions" :key="index" :value="division.id"> {{ division.name }}</option>
+                    </select>
+                    <small class="form-text has-danger" v-show="errors.has('userForm.user_division')">{{ errors.first('userForm.division') }}</small>
+                </div>
                 <div class="form-group clearfix">
                     <button type="submit" class="btn btn-success btn-sm" :disabled="isSubmitting">
                             <span v-if="isSubmitting" >
@@ -84,7 +94,10 @@
         },
         data() {
             return {
-
+                divisions: [
+                    { id: 1, name: 'North Luzon / GMA' },
+                    { id: 2, name: 'South Luzon' }
+                ],
             }
         },
         computed: {
@@ -134,7 +147,8 @@
                     name: this.user.name,
                     initial: this.user.initial,
                     email: this.user.email,
-                    userType: this.user.userType
+                    userType: this.user.userType,
+                    division: this.user.division
                 };
                 this.$validator.validateAll(scope).then((result) => {
                     if (result) {

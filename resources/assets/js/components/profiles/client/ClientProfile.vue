@@ -83,7 +83,7 @@
                             Official Website
                         </dt>
                         <dd class="col-sm-9">
-                            {{ website }}
+                            {{ client.website != 'N/A' ? website : 'N/A' }}
                             <a v-if="client.website != 'N/A'" :href="website" style="color:black;" :target="client.website"><span class="fa fa-external-link-square"></span></a>
                         </dd>
 
@@ -119,7 +119,8 @@
                         <dd class="col-sm-9">{{ client.company_department.department_name }}</dd>
 
                         <dt class="col-sm-3">Position</dt>
-                        <dd class="col-sm-9">{{ client.contact_person_position.position_name }}</dd>
+                        <dd v-if="client.contact_person_position" class="col-sm-9">{{ client.contact_person_position.position_name }}</dd>
+                        <dd v-else class="col-sm-9"><i class="text-muted">(Position have been removed)</i></dd>
                     </dl>
                     <hr>
                     <dl class="row">

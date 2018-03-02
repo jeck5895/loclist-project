@@ -5,14 +5,14 @@
                 Client Details
             </h5>
         </div>
-        <div v-if="isLoading" class="card-body">
+        <!-- <div v-show="isLoading" class="card-body">
             <div class="row">
                 <div class="img-loading-container">
                     <img src="/images/spinner.gif">
                 </div>   
             </div>
-        </div>
-        <div v-else class="collapse show card-body" id="detailsCollapse">
+        </div> -->
+        <div class="collapse show card-body" id="detailsCollapse">
             <form id="clientDetailsForm" @submit.prevent="submitDetailsForm('clientDetailsForm')" data-vv-scope="clientDetailsForm">
                 <form-errors :serverResponse="serverResponse"></form-errors>
                 <div class="row">
@@ -75,7 +75,7 @@
                     <div class="form-group col-md-3">
                         <label for="streetAddress">Lot/Block No./Brgy/Town</label>
                         <input v-model="client.street_address" v-validate="{rules:{required:true}}" type="text" class="form-control form-control-sm" name="street_number">
-                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.street_address')">{{ errors.first('clientDetailsForm.street_address') }}</small>
+                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.street_number')">{{ errors.first('clientDetailsForm.street_number') }}</small>
                     </div>
 
                     <div class="form-group col-md-5">
@@ -152,7 +152,7 @@
                 <div class="row">
                     <div class="form-group col-md-3">
                         <label for="">Department</label>
-                        <select v-model="client.department" v-validate="{rules:{required:true}}" name="department" id="" class="form-control form-control-sm">
+                        <select v-model="client.department" @change="reloadPositions" v-validate="{rules:{required:true}}" name="department" id="" class="form-control form-control-sm">
                             <option value="">--Select Department--</option>option>
                             <option v-for="(department, index) in departments" :key="index" :value="department.id">
                                 {{ department.department_name }}
@@ -165,9 +165,11 @@
                         <label for="">Position</label>
                         <select v-model="client.position" v-validate="{rules:{required:true}}" name="position" id="" class="form-control form-control-sm">
                             <option value="">--Select Position--</option>
+                            <option value="7">N/A</option>
                             <option v-for="(position, index) in positions" :key="index" :value="position.id">
                                 {{ position.position_name }}
                             </option>
+                            
                         </select>
                         <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.position')">{{ errors.first('clientDetailsForm.position') }}</small>
                     </div>
@@ -273,7 +275,7 @@
                                         {{ m }}
                                     </td>
                                     <td style="vertical-align: middle;">
-                                        <button @click="removeProvider(m)" class="btn btn-sm btn-danger">
+                                        <button @click.prevent="removeProvider(m)" class="btn btn-sm btn-danger">
                                             <span class="fa fa-times-circle"></span>
                                             Remove
                                         </button>
@@ -306,23 +308,42 @@
 import formErrors from '../../errors/clientForm/clientFormError';
 
 export default {
-    
     created() {
         let user = Vue.auth.getter();
-        /**@event Client Side Broadcasting
-         * Demonstrating Client Side broadcasting 
-         * notifying other users that someone is 
-         * creating new client details*/
-        // Echo.private('client-channel')
-        // .whisper('creating', {
-        //     user: user.name,
-        //     message: 'is adding new client now.'
-        // });
-
+        Echo.private('maintainance-channel')
+            .listen('MaintainanceEvent', (e) => {
+                console.log(e);
+                if(e.scope == "industries"){
+                    this.$store.dispatch('loadIndustries','api/maintainance/industries?type=all');
+                }
+                if(e.scope == "nationalities"){
+                    this.$store.dispatch('loadNationalities', 'api/maintainance/nationalities?type=all');
+                }
+                if(e.scope == "certificates"){
+                    this.$store.dispatch('loadCertificates', 'api/maintainance/certificates?type=all');
+                }
+                if(e.scope == "sourcing_practices"){
+                    this.$store.dispatch('loadSourcingPractices','api/maintainance/sourcing_practices?type=all');
+                }
+                if(e.scope == "companies"){
+                    this.$store.dispatch('loadCompanies', 'api/companies?type=all');
+                }
+                if(e.scope == "departments"){
+                    this.$store.dispatch('loadDepartments', 'api/maintainance/departments?type=all');
+                }
+                if(e.scope == "positions"){
+                    this.reloadPositions();
+                }
+            });
+    },
+    mounted() {
+        
     },
     data() {
         return {
-            selected: []
+            selected: [],
+            clientId: this.$route.params.clientId,
+            action: localStorage.getItem('f_type')
         }
     },
     computed: {
@@ -341,14 +362,6 @@ export default {
         client_manpower_provider() {
             return this.$store.getters.getClientManpowerProvider;
         },
-        // selected: {
-        //     get: function(){
-        //         return this.$store.getters.getClientSourcingPractices
-        //     },
-        //     set: function(newvalue){
-                
-        //     }
-        // },
         companies() {
             return this.$store.getters.getCompanies;
         },
@@ -403,8 +416,18 @@ export default {
     watch: {
         //watch for computed property changes then loadClietSP to transfer computed property to array
         client:'loadClientSP',
+        client:'reloadPositions'
     },
     methods: {
+        reloadPositions(){
+            if(typeof this.client.department != "undefined"){
+                this.$store.dispatch('loadPositions', 'api/maintainance/positions?type=all&department=' + this.client.department); 
+            }
+
+        },
+        loadDeptPositions(){
+            this.$store.dispatch('loadPositions', 'api/maintainance/positions?type=all&department=' + this.client.department);
+        },
         loadClientSP(){
             let sp = this.client.sourcing_practices;
             console.log(sp)
@@ -414,7 +437,7 @@ export default {
                     this.selected.push(item.id);
                 });
             }
-            console.log(this.selected)
+            // console.log(this.selected)
         },
         addProvider() {
             let provider = this.client_manpower_provider.manpower_provider;
