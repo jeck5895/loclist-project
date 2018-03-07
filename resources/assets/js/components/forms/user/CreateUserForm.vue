@@ -57,7 +57,7 @@
                         <option>--Select User Division--</option>
                         <option v-for="(division, index) in divisions" :key="index" :value="division.id"> {{ division.name }}</option>
                     </select>
-                    <small class="form-text has-danger" v-show="errors.has('userForm.user_division')">{{ errors.first('userForm.division') }}</small>
+                    <small class="form-text has-danger" v-show="errors.has('userForm.user_division')">{{ errors.first('userForm.user_division') }}</small>
                 </div>
                 <div class="form-group clearfix">
                     <button type="submit" class="btn btn-success btn-sm" :disabled="isSubmitting">
@@ -96,7 +96,8 @@
             return {
                 divisions: [
                     { id: 1, name: 'North Luzon / GMA' },
-                    { id: 2, name: 'South Luzon' }
+                    { id: 2, name: 'South Luzon' },
+                    { id: 3, name: 'N/A'  }
                 ],
             }
         },
@@ -154,12 +155,12 @@
                     if (result) {
                         // console.log(result); //result returns true / false
                         // console.log(user);
-                        if (this.formType == 'CreateUser') {
+                        if (this.formType == 'CREATE_USER') {
                             this.$store.dispatch('storeUser', user);
                             this.$store.dispatch('loadUsers',
                                 `api/users?keyword=${this.user_query.search_keyword}&order_by=${this.user_query.order_by}&per_page=${this.user_query.per_page}&sort_column=${this.user_query.sort_column}`
                             );
-                        } else if (this.formType == 'EditUser') {
+                        } else if (this.formType == 'EDIT_USER') {
                             this.$store.dispatch('updateUser', user);
                             this.$store.dispatch('loadUsers',
                                 `api/users?keyword=${this.user_query.search_keyword}&order_by=${this.user_query.order_by}&per_page=${this.user_query.per_page}&sort_column=${this.user_query.sort_column}`

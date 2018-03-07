@@ -34,7 +34,7 @@
                         Home
                     </router-link>
                     <router-link class="dropdown-item" to="/maintainance">
-                        Maintaince
+                        Maintenance
                     </router-link>
                     @if(Auth::user()->userType == 1)
                     <router-link class="dropdown-item" to="/users">

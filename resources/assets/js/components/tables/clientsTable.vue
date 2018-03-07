@@ -126,13 +126,22 @@
                         <a v-if="client.contact_persons.length > 1" @click.prevent="showTable(client, 'CONTACT_PERSONS_TABLE')" href="#">{{ client.contact_persons[0].first_name + " " + client.contact_persons[0].last_name }}</a>
                         <span v-else>{{ client.contact_persons[0].first_name + " " + client.contact_persons[0].last_name }}</span>
                     </td>
+                    <td v-else style="vertical-align: middle;">
+                        <em>No contact person provided</em>
+                    </td>
 
                     <td v-if="client.contact_persons[0]" style="vertical-align: middle;">
                         {{ client.contact_persons[0].mobile_number }}
                     </td>
+                    <td v-else style="vertical-align: middle;">
+                        <em>No mobile number provided</em>
+                    </td>
 
                     <td v-if="client.contact_persons[0]" style="vertical-align: middle;">
                         {{ client.contact_persons[0].email }}
+                    </td>
+                    <td v-else style="vertical-align: middle;">
+                        <em>No email provided</em>
                     </td>
 
                     <td v-if="client.latest_call != null" style="vertical-align: middle;">
