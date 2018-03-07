@@ -32,6 +32,12 @@
                     :displayOptions="false">
                 </client-presentations-table>
             </div>
+
+            <div v-if="modalFormType == 'SHOW_CONTACT_PERSONS_TABLE'">
+                <contact-persons-table 
+                    :clientId="client_id"
+                    :displayOptions="false"></contact-persons-table>
+            </div>
         </modal>
     </div>
 </template>
@@ -44,6 +50,7 @@ import {store} from '../../store/store';
 import ClientCallsTable from '../tables/ClientCallsTable';
 import ClientSaturationsTable from '../tables/ClientSaturationsTable';
 import ClientPresentationsTable from '../tables/ClientPresentationsTable';
+import ContactPersonsTable from '../tables/client/ContactPersonsTable';
 
 export default {
     beforeRouteEnter(to, from, next) {
@@ -51,19 +58,12 @@ export default {
         store.dispatch('clearStatuses');
         store.dispatch("loadIndustries", "api/maintainance/industries?type=all");
         store.dispatch('loadStatuses','api/maintainance/statuses?type=all');
+        store.dispatch('loadReportMonths','api/reports/report-months');
         store.dispatch('loadTargetListYears');
         next();
     },
     created() {
-        /**@argument
-         * Load/Dispatch loadClients action from store data on page load
-         * this.$store.dispatch('loadClients');
-         */
-        // Echo.private('client-channel')
-        // .listenForWhisper('creating', (e) => {
-        //     toastr.info('', e.user + ' ' + e.message)
-        //     console.log(e)
-        // })
+       
     },
     data() {
         return {
@@ -96,7 +96,8 @@ export default {
         NavButtons,
         ClientCallsTable,
         ClientSaturationsTable,
-        ClientPresentationsTable
+        ClientPresentationsTable,
+        ContactPersonsTable
     }
 }
 </script>

@@ -114,77 +114,6 @@
                         <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.other_landline')">{{ errors.first('clientDetailsForm.other_landline') }}</small>
                     </div>
                 </div>
-                <!-- 5th row -->
-                <hr>
-                <div class="row col-md-12">
-                    <h6 class="lead">Contact Person</h6>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-3">
-                        
-                        <!-- <label for="">Contact Person</label>
-                        <input v-model="client.contact_person" v-validate="{rules:{required:true}}" name="contact_person" type="text" class="form-control form-control-sm">
-                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.contact_person')">{{ errors.first('clientDetailsForm.contact_person') }}</small> -->
-                        <label for="">First Name</label>
-                        <input v-model="client.first_name" v-validate="{rules:{required:true}}" name="contact_person_firstname" type="text" class="form-control form-control-sm">
-                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.contact_person_firstname')">{{ errors.first('clientDetailsForm.contact_person_firstname') }}</small>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="">Last Name</label>
-                        <input v-model="client.last_name" v-validate="{rules:{required:true}}" name="contact_person_lastname" type="text" class="form-control form-control-sm">
-                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.contact_person_lastname')">{{ errors.first('clientDetailsForm.contact_person_lastname') }}</small>
-                        
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="">Mobile #</label>
-                        <input v-model="client.mobile_number" v-validate="{rules:{required:true}}" name="mobile_number" type="text" class="form-control form-control-sm">
-                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.mobile_number')">{{ errors.first('clientDetailsForm.mobile_number') }}</small>
-                    </div>
-                    
-                    <div class="form-group col-md-3">
-                        <label for="">Email</label>
-                        <input v-model="client.email_address" v-validate="{rules:{required:true, email: true}}" name="email_address" type="email" class="form-control form-control-sm">
-                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.email_address')">{{ errors.first('clientDetailsForm.email_address') }}</small>
-                    </div>
-                </div>
-
-                <!-- 6th row -->
-                <div class="row">
-                    <div class="form-group col-md-3">
-                        <label for="">Department</label>
-                        <select v-model="client.department" @change="reloadPositions" v-validate="{rules:{required:true}}" name="department" id="" class="form-control form-control-sm">
-                            <option value="">--Select Department--</option>option>
-                            <option v-for="(department, index) in departments" :key="index" :value="department.id">
-                                {{ department.department_name }}
-                            </option>
-                        </select>
-                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.department')">{{ errors.first('clientDetailsForm.department') }}</small>
-                    </div>
-                    
-                    <div class="form-group col-md-3">
-                        <label for="">Position</label>
-                        <select v-model="client.position" v-validate="{rules:{required:true}}" name="position" id="" class="form-control form-control-sm">
-                            <option value="">--Select Position--</option>
-                            <option value="7">N/A</option>
-                            <option v-for="(position, index) in positions" :key="index" :value="position.id">
-                                {{ position.position_name }}
-                            </option>
-                            
-                        </select>
-                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.position')">{{ errors.first('clientDetailsForm.position') }}</small>
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        <label for="">Gender</label>
-                        <select v-model="client.gender" v-validate="{rules:{required:true}}" name="gender" id="" class="form-control form-control-sm">
-                            <option value="">--Select Gender--</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.gender')">{{ errors.first('clientDetailsForm.gender') }}</small>
-                    </div>
-                </div>
-                <!-- 7th row -->
                 <hr>
                 <!-- 8th row -->
                 <div class="row">
@@ -239,6 +168,22 @@
                         <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.sourcing_practice')">{{ errors.first('clientDetailsForm.sourcing_practice') }}</small>
                     </div>
                 </div>
+                <!-- 5th row -->
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 clearfix">
+                        <h6 class="lead float-left">Contact Persons</h6>
+                        <button @click.prevent="showFormModal" class="btn btn-default btn-sm float-right"><i class="fa fa-plus"></i> New Contact Person</button>
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-2">
+                    <div class="col-md-12">
+                        <contact-persons-table :displayOptions="true"></contact-persons-table>
+                    </div>
+                </div>
+                
+                <!-- 7th row -->
+                <hr>
 
                 <div class="row justify-content-center">
                     <div class="form-group col-md-6">
@@ -267,7 +212,7 @@
                             <tbody>
                                 <tr v-if="client_manpower_providers == 0">
                                     <td colspan="11" class="text-center">
-                                        No providers to show...
+                                        <i class="text-muted"><small>No provider(s) to show...</small></i>
                                     </td>
                                 </tr>
                                 <tr v-else v-for="(m, index) in client_manpower_providers" :key="index">
@@ -300,12 +245,21 @@
                 </div>
             </form>
         </div>
+        <modal>
+            <template slot="header">{{ modalTitle }}</template>
+            <div>
+                <contact-person-form></contact-person-form>
+            </div>
+        </modal>
     </div>
 </template>
 
 
 <script>
 import formErrors from '../../errors/clientForm/clientFormError';
+import Modal from '../../modal/modal';
+import ContactPersonForm from '../../forms/client/ContactPersonForm';
+import ContactPersonsTable from '../../tables/client/ContactPersonsTable';
 
 export default {
     created() {
@@ -328,12 +282,6 @@ export default {
                 if(e.scope == "companies"){
                     this.$store.dispatch('loadCompanies', 'api/companies?type=all');
                 }
-                if(e.scope == "departments"){
-                    this.$store.dispatch('loadDepartments', 'api/maintainance/departments?type=all');
-                }
-                if(e.scope == "positions"){
-                    this.reloadPositions();
-                }
             });
     },
     mounted() {
@@ -347,6 +295,15 @@ export default {
         }
     },
     computed: {
+        contact_persons() {
+            return this.$store.getters.getClientContactPersons;
+        },
+        modalTitle() {
+            return this.$store.getters.getModalTitle;
+        },
+        modalFormType() {
+            return this.$store.getters.getModalFormType;
+        },
         isSubmitting() {
             return this.$store.getters.getSubmitState;
         },
@@ -376,12 +333,6 @@ export default {
         },
         sourcing_practices() {
            return this.$store.getters.getSourcingPratices;
-        },
-        departments() {
-            return this.$store.getters.getDepartments;
-        },
-        positions() {
-            return this.$store.getters.getPositions;
         },
         manpowers() {
             return this.$store.getters.getManpowers;
@@ -416,17 +367,15 @@ export default {
     watch: {
         //watch for computed property changes then loadClietSP to transfer computed property to array
         client:'loadClientSP',
-        client:'reloadPositions'
+        //client:'reloadPositions'
     },
     methods: {
-        reloadPositions(){
-            if(typeof this.client.department != "undefined"){
-                this.$store.dispatch('loadPositions', 'api/maintainance/positions?type=all&department=' + this.client.department); 
-            }
-
-        },
-        loadDeptPositions(){
-            this.$store.dispatch('loadPositions', 'api/maintainance/positions?type=all&department=' + this.client.department);
+        showFormModal() {
+            this.$store.dispatch('setModalFormType', 'CREATE_CONTACT_PERSON');
+            // this.$store.dispatch('setForm', document.getElementById('confirmationForm'));
+            this.$store.dispatch('setModalTitle', "Contact Person Details");
+            //this.$store.dispatch('clearConfirmation');
+            this.$store.dispatch('showModal', document.getElementById('contactPersonForm'));
         },
         loadClientSP(){
             let sp = this.client.sourcing_practices;
@@ -477,20 +426,21 @@ export default {
                         website: this.client.website.trim(),
                         primary_landline: this.client.primary_landline.trim(),
                         other_landline: this.client.other_landline.trim(),
-                        mobile_number: this.client.mobile_number.trim(),
-                        email_address: this.client.email_address.trim(),
+                        // mobile_number: this.client.mobile_number.trim(),
+                        // email_address: this.client.email_address.trim(),
                         // contact_person: this.client.contact_person.trim(),
-                        first_name: this.client.first_name,
-                        last_name: this.client.last_name,
-                        gender: this.client.gender,
-                        department: this.client.department,
-                        position: this.client.position,
+                        // first_name: this.client.first_name,
+                        // last_name: this.client.last_name,
+                        // gender: this.client.gender,
+                        // department: this.client.department,
+                        // position: this.client.position,
                         proposal: this.client.proposal,
                         company: this.client.company,
                         manpower: this.client.manpower,
                         sourcing_practices: this.selected,
                         manpower_providers: this.client_manpower_providers,
-                        overall_status: this.client.overall_status
+                        overall_status: this.client.overall_status,
+                        contact_persons: this.contact_persons
                     };
                    
                     if (this.formType == 'CREATE_CLIENT') {
@@ -500,6 +450,7 @@ export default {
                             //document.getElementById('clientDetailsForm').reset();
                             this.$store.dispatch('clearClient');
                             this.$store.dispatch('clearClientManpowerProviders');
+                            this.$store.dispatch('clearContactPersons');
                             this.selected = [];
                         })
                         .catch(error => {
@@ -567,7 +518,13 @@ export default {
         }
     },
     components: {
-        formErrors
+        formErrors,
+        Modal,
+        ContactPersonForm,
+        ContactPersonsTable
+    },
+    destroyed() {
+        Echo.leave('maintainance-channel');
     }
 }
 

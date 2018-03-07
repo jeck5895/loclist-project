@@ -102,26 +102,35 @@
                         </dd>
                     </dl>
                     <hr>
-                    <dl class="row">
-                        <dt class="col-sm-3">Contact Person</dt>
-                        <dd class="col-sm-9">{{ client.contact_person }}</dd>
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            <h5 >Contact Person(s)</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div v-for="(contact_person, index) in client.contact_persons" :key="index" class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-4">Contact Person</dt>
+                                <dd class="col-sm-8">{{ contact_person.first_name + " " + contact_person.last_name}}</dd>
 
-                        <dt class="col-sm-3">Email</dt>
-                        <dd class="col-sm-9">{{ client.email_address }}</dd>
+                                <dt class="col-sm-4">Email</dt>
+                                <dd class="col-sm-8">{{ contact_person.email }}</dd>
 
-                        <dt class="col-sm-3">Mobile No.</dt>
-                        <dd class="col-sm-9">{{ client.mobile_number }}</dd>
+                                <dt class="col-sm-4">Mobile No.</dt>
+                                <dd class="col-sm-8">{{ contact_person.mobile_number }}</dd>
 
-                        <dt class="col-sm-3">Gender</dt>
-                        <dd class="col-sm-9">{{ client.gender }}</dd>
+                                <dt class="col-sm-4">Gender</dt>
+                                <dd class="col-sm-8">{{ contact_person.gender }}</dd>
 
-                        <dt class="col-sm-3">Deparment</dt>
-                        <dd class="col-sm-9">{{ client.company_department.department_name }}</dd>
+                                <dt class="col-sm-4">Deparment</dt>
+                                <dd class="col-sm-8">{{ contact_person.department.department_name }}</dd>
 
-                        <dt class="col-sm-3">Position</dt>
-                        <dd v-if="client.contact_person_position" class="col-sm-9">{{ client.contact_person_position.position_name }}</dd>
-                        <dd v-else class="col-sm-9"><i class="text-muted">(Position have been removed)</i></dd>
-                    </dl>
+                                <dt class="col-sm-4">Position</dt>
+                                <dd v-if="contact_person.position.position_name" class="col-sm-8">{{ contact_person.position.position_name }}</dd>
+                                <dd v-else class="col-sm-8"><i class="text-muted">(Position have been removed)</i></dd>
+                            </dl>
+                        </div>
+                    </div>
                     <hr>
                     <dl class="row">
                         <dt class="col-sm-3">Manpower</dt>
@@ -359,6 +368,9 @@
         },
         watch: {
             client:  'checkWebsite'
+        },
+        destroyed() {
+            Echo.leave("client-channel");
         }
     };
 </script>

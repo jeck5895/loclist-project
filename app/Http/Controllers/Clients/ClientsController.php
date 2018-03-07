@@ -11,8 +11,8 @@ use App\Client;
 use App\VwClient;
 use App\ClientSourcingPractice;
 use App\ClientManpowerProvider;
+use App\ClientContactPerson;
 use Validator;
-use App\ReportTargetList;
 use Illuminate\Support\Facades\DB;
 
 class ClientsController extends Controller
@@ -44,8 +44,7 @@ class ClientsController extends Controller
             if($validation->fails()) {
                 dd($validation->messages());
             }
-            $clients = VwClient::
-                        orderBy($request->sort_column, $request->order_by)
+            $clients = VwClient::orderBy($request->sort_column, $request->order_by)
                         ->where(function($query) use ($request){
                             if($request->has('keyword'))
                             {
@@ -76,6 +75,8 @@ class ClientsController extends Controller
                         })
                         // ->active()
                         // ->with('user')
+                        ->with('contact_persons.department')
+                        ->with('contact_persons.position')
                         ->paginate($request->per_page);
 
             return response()->json([
@@ -122,14 +123,14 @@ class ClientsController extends Controller
                 'website' => $request['website'],
                 'primary_landline' => $request['primary_landline'],
                 'other_landline' => $request['other_landline'],
-                'mobile_number' => $request['mobile_number'],
-                'email_address' => $request['email_address'],
-                'contact_person' => $request['first_name'] . " " . $request['last_name'],//$request['contact_person'],
-                'first_name' => $request['first_name'],
-                'last_name' => $request['last_name'],
-                'gender' => $request['gender'],
-                'department' => $request['department'],
-                'position' => $request['position'],
+                // 'mobile_number' => $request['mobile_number'],
+                // 'email_address' => $request['email_address'],
+                // 'contact_person' => $request['first_name'] . " " . $request['last_name'],//$request['contact_person'],
+                // 'first_name' => $request['first_name'],
+                // 'last_name' => $request['last_name'],
+                // 'gender' => $request['gender'],
+                // 'department' => $request['department'],
+                // 'position' => $request['position'],
                 'proposal' => $request['proposal'],
                 'company' => $request['company'],
                 'manpower' => $request['manpower'],
@@ -141,16 +142,22 @@ class ClientsController extends Controller
         if($client_id) {
 
             $client = Client::find($client_id);
-            
-            // $entry_month = date("n", strtotime($client->created_at));
-            // $entry_year = date("Y", strtotime($client->created_at));
 
-            // $report_ref = ReportTargetList::where('target_year', $entry_year)->where('month_id', $entry_month)->first();
-
-            // if($report_ref){
-            //     Client::find($client_id)->update(['report_ref' => $report_ref->id]);
-            // }
-
+            foreach ($request['contact_persons'] as $contact_person) {
+                $client_contact_persons = new ClientContactPerson(
+                    array(
+                        'first_name' => $contact_person['first_name'],
+                        'last_name' => $contact_person['last_name'],
+                        'email' => $contact_person['email'],
+                        'mobile_number' => $contact_person['mobile_number'],
+                        'gender' => $contact_person['gender'],
+                        'department' => $contact_person['department']['id'],
+                        'position' => $contact_person['position']['id']
+                    )
+                );
+                $client->contact_persons()->save($client_contact_persons);
+            }
+        
             foreach($request['manpower_providers'] as $provider){
                 /**
                  * Save record to related model
@@ -190,12 +197,13 @@ class ClientsController extends Controller
     {
         $client = Client::where('id', $id)
                         ->with('user')
-                        ->with('company_department')
+                        // ->with('company_department')
                         ->with('company_industry')
                         ->with('provider_company')
                         ->with('company_nationality')
                         ->with('company_certificate')
-                        ->with('contact_person_position')
+                        ->with('contact_persons.department') //for nested eager loading https://laravel.com/docs/5.6/eloquent-relationships#querying-relations
+                        ->with('contact_persons.position')
                         ->with('manpower_providers')
                         ->with('company_manpower_type')
                         ->with('sourcing_practices')
@@ -240,14 +248,14 @@ class ClientsController extends Controller
                 'website' => $request['website'],
                 'primary_landline' => $request['primary_landline'],
                 'other_landline' => $request['other_landline'],
-                'mobile_number' => $request['mobile_number'],
-                'email_address' => $request['email_address'],
-                'contact_person' => $request['first_name'] . " " . $request['last_name'],//$request['contact_person'],
-                'first_name' => $request['first_name'],
-                'last_name' => $request['last_name'],
-                'gender' => $request['gender'],
-                'department' => $request['department'],
-                'position' => $request['position'],
+                // 'mobile_number' => $request['mobile_number'],
+                // 'email_address' => $request['email_address'],
+                // 'contact_person' => $request['first_name'] . " " . $request['last_name'],//$request['contact_person'],
+                // 'first_name' => $request['first_name'],
+                // 'last_name' => $request['last_name'],
+                // 'gender' => $request['gender'],
+                // 'department' => $request['department'],
+                // 'position' => $request['position'],
                 'proposal' => $request['proposal'],
                 'company' => $request['company'],
                 'manpower' => $request['manpower'],
@@ -259,8 +267,24 @@ class ClientsController extends Controller
 
             $client = Client::find($id);
             //Delete all records first then insert it again whatever changes has done
+            DB::table('client_contact_persons')->where('client_id', $id)->delete();
+
+            foreach ($request['contact_persons'] as $contact_person) {
+                $client_contact_persons = new ClientContactPerson(
+                    array(
+                        'first_name' => $contact_person['first_name'],
+                        'last_name' => $contact_person['last_name'],
+                        'email' => $contact_person['email'],
+                        'mobile_number' => $contact_person['mobile_number'],
+                        'gender' => $contact_person['gender'],
+                        'department' => $contact_person['department']['id'],
+                        'position' => $contact_person['position']['id']
+                    )
+                );
+                $client->contact_persons()->save($client_contact_persons);
+            }
+
             DB::table('client_manpower_providers')->where('client_id', $id)->delete();
-            
             foreach($request['manpower_providers'] as $provider){
                 $client_provider = new ClientManpowerProvider(array('manpower_provider' => $provider));
                 $client->manpower_providers()->save($client_provider);

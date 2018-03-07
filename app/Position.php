@@ -18,9 +18,9 @@ class Position extends Model
         return $query->where('is_active', 0);
     }
 
-    public function client()
+    public function contact_person()
     {
-        return $this->hasOne(Client::class);
+        return $this->hasOne(ClientContactPerson::class);
     }
 
     public function department()

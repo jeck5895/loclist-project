@@ -2,6 +2,7 @@ export default {
     state: {
         report_month: {},
         report_months: [],
+        report_month_names: []
     },
     getters: {
         getReportMonth: state => {
@@ -10,6 +11,9 @@ export default {
         getReportMonths: state => {
             return state.report_months;
         },
+        getReportMonthNames: state => {
+            return state.report_month_names;
+        }
     },
     mutations: {
         clearReportMonth: state => {
@@ -18,11 +22,17 @@ export default {
         clearReportMonths: state => {
             state.report_months = [];
         },
+        clearReportMonthNames: state => {
+            state.report_month_names = [];
+        },
         setReportMonth: (state, payload) => {
             state.report_month = payload.data;
         },
         setReportMonths: (state, payload) => {
             state.report_months = payload.data;
+        },
+        setReportMonthNames: (state, payload) => {
+            state.report_month_names.push(payload);
         }
     },
     actions: {
@@ -45,14 +55,21 @@ export default {
             });
         },
         loadReportMonths: ({commit}, payload) => {
+            commit('setLoadingState', true);
+            commit('clearReportMonthNames');
             return new Promise((resolve, reject) => {
                 axios.get(payload)
                 .then(response => {
                     commit('setReportMonths', response);
+                    response.data.map(month => {
+                        commit('setReportMonthNames', month.name);
+                    });
                     resolve(response);
+                    commit('setLoadingState', true);
                 })
                 .catch(error => {
                     console.log(error.response)
+                    commit('setLoadingState', true);
                     reject(error);
                 });
             });

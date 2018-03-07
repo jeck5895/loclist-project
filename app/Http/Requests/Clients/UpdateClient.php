@@ -40,14 +40,14 @@ class UpdateClient extends FormRequest
             'website' => 'required',
             'primary_landline' => 'required',
             'other_landline' => 'required',
-            'mobile_number' => 'required',
-            'email_address' => 'required|email',
+            // 'mobile_number' => 'required',
+            // 'email_address' => 'required|email',
             // 'contact_person' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'gender' => 'required',
-            'department' => 'required|numeric',
-            'position' => 'required|numeric',
+            // 'first_name' => 'required',
+            // 'last_name' => 'required',
+            // 'gender' => 'required',
+            // 'department' => 'required|numeric',
+            // 'position' => 'required|numeric',
             'proposal' => 'required'
         ];
     }

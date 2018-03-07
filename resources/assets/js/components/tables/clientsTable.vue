@@ -122,34 +122,35 @@
                         {{ client.client_name }}
                     </td>
 
-                    <td style="vertical-align: middle;">
-                        {{ client.contact_person }}
+                    <td v-if="client.contact_persons[0]" style="vertical-align: middle;">
+                        <a v-if="client.contact_persons.length > 1" @click.prevent="showTable(client, 'CONTACT_PERSONS_TABLE')" href="#">{{ client.contact_persons[0].first_name + " " + client.contact_persons[0].last_name }}</a>
+                        <span v-else>{{ client.contact_persons[0].first_name + " " + client.contact_persons[0].last_name }}</span>
                     </td>
 
-                    <td style="vertical-align: middle;">
-                        {{ client.mobile_number }}
+                    <td v-if="client.contact_persons[0]" style="vertical-align: middle;">
+                        {{ client.contact_persons[0].mobile_number }}
                     </td>
 
-                    <td style="vertical-align: middle;">
-                        {{ client.email_address }}
+                    <td v-if="client.contact_persons[0]" style="vertical-align: middle;">
+                        {{ client.contact_persons[0].email }}
                     </td>
 
                     <td v-if="client.latest_call != null" style="vertical-align: middle;">
-                        {{ client.latest_call | shortDateTime }}&nbsp;<button @click="showTable(client, 'CALLS_TABLE')" class="btn btn-sm btn-default btn-xs"><span class="fa fa-list"></span></button> 
+                        <a @click.prevent="showTable(client, 'CALLS_TABLE')" href="#">{{ client.latest_call | shortDateTime }} </a>
                     </td>
                     <td v-else style="vertical-align: middle;">
                         No record
                     </td>
 
                     <td v-if="client.latest_saturation != null" style="vertical-align: middle;">
-                        {{ client.latest_saturation | shortDateTime }}&nbsp;<button @click="showTable(client, 'SATURATIONS_TABLE')" class="btn btn-sm btn-default btn-xs"><span class="fa fa-list"></span></button>
+                        <a @click.prevent="showTable(client, 'SATURATIONS_TABLE')" href="#">{{ client.latest_saturation | shortDateTime }}</a>
                     </td>
                     <td v-else style="vertical-align: middle;">
                         No record
                     </td>
 
                     <td v-if="client.latest_presentation != null" style="vertical-align: middle;">
-                        {{ client.latest_presentation | shortDateTime }}&nbsp;<button @click="showTable(client, 'PRESENTATIONS_TABLE')" class="btn btn-sm btn-default btn-xs"><span class="fa fa-list"></span></button>
+                        <a @click.prevent="showTable(client, 'PRESENTATIONS_TABLE')" href="#">{{ client.latest_presentation | shortDateTime }} </a>
                     </td>
                     <td v-else style="vertical-align: middle;">
                         No record
@@ -233,6 +234,7 @@
         methods: {
             toEditClientForm(client) {
                 localStorage.setItem('f_type', 'EDIT_CLIENT');
+                this.$store.dispatch('clearContactPersons');
                 this.$store.dispatch('clearClientManpowerProviders');
                 this.$router.push({ name: 'editClient', params: { companyName:  this.toUrlFormat(client.client_name), clientId : client.id }})
             },
@@ -327,6 +329,13 @@
                         this.$store.dispatch('setModalParams', client.id);
                         $("#table-modal").modal("show");
                     break;
+
+                    case 'CONTACT_PERSONS_TABLE':
+                        this.$store.dispatch('setModalTitle', client.client_name + ' LIST OF CONTACT PERSONS ');
+                        this.$store.dispatch('setModalFormType', 'SHOW_CONTACT_PERSONS_TABLE');
+                        this.$store.dispatch('setModalParams', client.id);
+                        $("#table-modal").modal("show");
+                    break;
                 
                     default:
                         break;
@@ -336,6 +345,9 @@
         components: {
             Pagination
         },
+        destroyed() {
+            Echo.leave("client-channel");
+        }
     };
 </script>
 

@@ -10,8 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Route::get('login', array('as' => 'login'),function(){
+//   return redirect('/');
+// });
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 /*
@@ -21,7 +24,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/main','MainController@index');
 
-Route::get('/','Auth\LoginController@redirectToProvider');
+Route::get('/','Auth\LoginController@redirectToProvider')->name('login');
+
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 //it can also be auth/{provider}/fallback then delcare a parameter in controller
 Route::get('auth/google/fallback','Auth\LoginController@handleProviderCallback');
 
@@ -29,9 +34,7 @@ Route::get('auth/sri-loclist/callback', 'Auth\LoginController@handleLoclistCallb
 
 Route::get('auth/logout','Auth\LoginController@logout');
 
-Route::get('login', array('as' => 'login'),function(){
-  return redirect('/');
-});
+
 
 Route::get('reports/prospective-clients', 'Reports\KPIAnalysisReportController@index');
 

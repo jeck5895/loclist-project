@@ -67,7 +67,7 @@ class LoginController extends Controller
      {
         try{
             if(!Auth::user()){
-                $social_user = Socialite::driver('google')->user();
+                $social_user = Socialite::driver('google')->stateless()->user();
                 
                    $user = \App\User::where('email', $social_user->getEmail())->first();
                    if(!$user){

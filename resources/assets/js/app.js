@@ -14,9 +14,8 @@ router.beforeEach((to, from, next) => {
     if(to.matched.some(record => record.meta.forAuthUsers)){
         if(!Vue.auth.isAuthenticated()){
             // next({
-            //     path:'/'
-            // })
-            
+            //     path:'/home'
+            // });
             window.location = window.location.origin;
         }
         else{

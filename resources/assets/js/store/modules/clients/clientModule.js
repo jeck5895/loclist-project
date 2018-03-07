@@ -7,6 +7,7 @@ export default {
         client_manpower_provider: {},
         client_sourcing_practices: [],
         client_sourcing_practice: {},
+        contact_persons: [],
     },
     getters:{
         getClients: state => {
@@ -26,6 +27,12 @@ export default {
         },  
         getClientSourcingPractice: state => {
             return state.client_sourcing_practice;
+        },
+        getClientContactPersons: state => {
+            return state.contact_persons;
+        },
+        getClientContactPerson: state => {
+            return state.contact_person;
         }
     },
     mutations:{
@@ -38,8 +45,14 @@ export default {
         clearClientManpowerProviders: state => {
             state.client_manpower_providers = [];
         },
+        clearContactPersons: state => {
+            state.contact_persons = [];
+        },
         removeClientManpowerProvider: (state, payload) => {
             state.client_manpower_providers.splice(state.client_manpower_providers.indexOf(payload), 1);
+        },
+        removeContactPerson: (state, payload) => {
+            state.contact_persons.splice(payload, 1);
         },
         setClients: (state, payload) => {
             state.clients = payload.data.model;
@@ -55,6 +68,9 @@ export default {
         },
         setClientSourcingPractices: (state, payload) => {
             state.client_sourcing_practices = payload;
+        },
+        setContactPersons: (state, payload) => {
+            state.contact_persons.push(payload);
         }
     },
     actions:{
@@ -68,19 +84,45 @@ export default {
         clearClientManpowerProviders: context => {
             context.commit('clearClientManpowerProviders');
         },
+        clearContactPersons : context => {
+            context.commit('clearContactPersons');
+        },
         loadClient: (context, payload) => {
             context.commit('setLoadingState', true);
-            
+            context.commit('clearClientManpowerProviders');
+            context.commit('clearContactPersons');
+
             axios.get('api/clients/' + payload.id)
             .then(response => {
                 //let sourcing_practices = response.data.sourcing_practices;
                 let client_manpower_providers = response.data.manpower_providers;
+                let client_contact_persons = response.data.contact_persons;
                 // let selected_arr = [];
-                
                 
                 client_manpower_providers.map((item) => {
                     context.commit('setClientManpowerProviders', item.manpower_provider);
-                })
+                });
+
+                if(client_contact_persons.lenght != 0){
+                    client_contact_persons.map((item) => {
+                        let payload = {
+                            first_name: item.first_name,
+                            last_name: item.last_name,
+                            gender: item.gender,
+                            mobile_number: item.mobile_number,
+                            email: item.email,
+                            department:{
+                                id: item.department.id,
+                                department_name: item.department.department_name
+                            },
+                            position: {
+                                id: item.position.id,
+                                position_name: item.position.position_name
+                            }
+                        }
+                        context.commit('setContactPersons', payload);
+                    });
+                }
                
                 // sourcing_practices.map((item) => {
                 //     selected_arr.push(item.id);
@@ -119,6 +161,12 @@ export default {
         },
         storeClientManpowerProviders: (context, payload) => {
             context.commit('setClientManpowerProviders', payload)
+        },
+        removeContactPerson: ({commit}, payload) => {
+            commit('removeContactPerson', payload);
+        },
+        storeContactPerson: ({commit}, payload) => {
+            commit('setContactPersons', payload);
         },
         storeClient: (context, payload) => {
             

@@ -22,6 +22,7 @@
                  * create client page
                  */
                 localStorage.setItem('f_type','CREATE_CLIENT');
+                this.$store.dispatch('clearContactPersons');
                 this.$store.dispatch('clearClientManpowerProviders');
                 router.push('/clients/create');
             }
