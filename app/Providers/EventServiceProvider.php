@@ -28,8 +28,8 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserEvent' => [
             'App\Listeners\UserEventListener',
         ],
-        'App\Events\MaintainanceEvent' => [
-            'App\Listeners\MaintainanceEventLister',
+        'App\Events\MaintenanceEvent' => [
+            'App\Listeners\MaintenanceEventLister',
         ]
     ];
 

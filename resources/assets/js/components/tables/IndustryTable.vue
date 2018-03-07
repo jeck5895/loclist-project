@@ -55,7 +55,7 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="industries" :object="industries" url="api/maintainance/industries" classSize="pagination-sm"></pagination>
+        <pagination scope="industries" :object="industries" url="api/maintenance/industries" classSize="pagination-sm"></pagination>
     </div>
 </template>
 
@@ -64,7 +64,7 @@ import Pagination from '../pagination/Pagination';
 
 export default {
     mounted() {
-        this.$store.dispatch('loadIndustries','api/maintainance/industries');
+        this.$store.dispatch('loadIndustries','api/maintenance/industries');
     },
     computed: {
         industries() {

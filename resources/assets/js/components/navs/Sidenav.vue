@@ -4,7 +4,7 @@
             <ul class="sidebar-nav">
                 <li><h5 class="text-center">Form Keywords</h5></li>
                 <li>
-                    <router-link to="/maintainance/reports">Report Settings</router-link>
+                    <router-link to="/maintenance/reports">Report Settings</router-link>
                 </li>
                 <li>
                     <a @click="addClass" :class="active" id="sidebar-toggle" data-toggle="collapse" href="#general-settings" aria-expanded="false">General Settings</a>
@@ -12,56 +12,56 @@
                         <div class="card border-0">
                             <div class="card-body">
                                 <li>
-                                    <router-link to="/maintainance/companies">Companies</router-link>
+                                    <router-link to="/maintenance/companies">Companies</router-link>
                                 </li>
                                 <li>
-                                    <router-link to="/maintainance/departments">Departments</router-link>
+                                    <router-link to="/maintenance/departments">Departments</router-link>
                                 </li>
                                 <li>
-                                    <router-link to="/maintainance/industries">Industries</router-link>
+                                    <router-link to="/maintenance/industries">Industries</router-link>
                                 </li>
                                 <li>
-                                    <router-link to="/maintainance/iso-certificates">ISO Certificates</router-link>
+                                    <router-link to="/maintenance/iso-certificates">ISO Certificates</router-link>
                                 </li>
                                 <li>
-                                    <router-link to="/maintainance/manpower-types">Manpower Types</router-link>
+                                    <router-link to="/maintenance/manpower-types">Manpower Types</router-link>
                                 </li>
                                 <li>
-                                    <router-link to="/maintainance/nationalities">Nationalities</router-link>
+                                    <router-link to="/maintenance/nationalities">Nationalities</router-link>
                                 </li>
                                 <li>
-                                    <router-link to="/maintainance/positions">Positions</router-link>
+                                    <router-link to="/maintenance/positions">Positions</router-link>
                                 </li>
                                 <li>
-                                    <router-link to="/maintainance/sourcing-practices">Sourcing Practices</router-link>
+                                    <router-link to="/maintenance/sourcing-practices">Sourcing Practices</router-link>
                                 </li>
                                 <li>
-                                    <router-link to="/maintainance/statuses">Statuses</router-link>
+                                    <router-link to="/maintenance/statuses">Statuses</router-link>
                                 </li>
                                 <li>
-                                    <router-link to="/maintainance/user-types">User Types</router-link>
+                                    <router-link to="/maintenance/user-types">User Types</router-link>
                                 </li>
                             </div>
                         </div>
                     </div>
                 </li>
                 <li>
-                    <router-link to="/maintainance/mode-of-saturations">Mode of Saturations</router-link>
+                    <router-link to="/maintenance/mode-of-saturations">Mode of Saturations</router-link>
                 </li>
                 <li>
-                    <router-link to="/maintainance/manner-of-confirmations">Manner of Confirmations</router-link>
+                    <router-link to="/maintenance/manner-of-confirmations">Manner of Confirmations</router-link>
                 </li>
                 <li>
-                    <router-link to="/maintainance/manner-of-acquisitions">Manner of Acquisitions</router-link>
+                    <router-link to="/maintenance/manner-of-acquisitions">Manner of Acquisitions</router-link>
                 </li>
                 <li>
-                    <router-link to="/maintainance/mode-of-presentations">Mode of Presentations</router-link>
+                    <router-link to="/maintenance/mode-of-presentations">Mode of Presentations</router-link>
                 </li>
                 <li>
-                    <router-link to="/maintainance/presentation-statuses">Presentation Statuses</router-link>
+                    <router-link to="/maintenance/presentation-statuses">Presentation Statuses</router-link>
                 </li>
                 <li>
-                    <router-link to="/maintainance/action-plans">Action Plans</router-link>
+                    <router-link to="/maintenance/action-plans">Action Plans</router-link>
                 </li>
             </ul>
         </div>

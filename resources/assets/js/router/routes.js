@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router';
-import maintainanceChildrenRoutes from './children/maintainance/maintainanceChildrenRoutes';
+import maintenanceChildrenRoutes from './children/maintenance/maintenanceChildrenRoutes';
 
 let routes = [
     {
@@ -40,12 +40,12 @@ let routes = [
         }
     },
     {
-        path: '/maintainance',
-        component: require('../components/containers/Maintainance.vue'),
+        path: '/maintenance',
+        component: require('../components/containers/Maintenance.vue'),
         meta: {
             forAuthUsers: true
         },
-        children: maintainanceChildrenRoutes
+        children: maintenanceChildrenRoutes
     },
     {
         path: '/users',

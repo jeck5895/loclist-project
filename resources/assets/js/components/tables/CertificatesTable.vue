@@ -54,7 +54,7 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="certificates" :object="certificates" url="api/maintainance/certificates" classSize="pagination-sm"></pagination>
+        <pagination scope="certificates" :object="certificates" url="api/maintenance/certificates" classSize="pagination-sm"></pagination>
     </div>
 </template>
 
@@ -63,7 +63,7 @@
 
     export default {
         created() {
-            this.$store.dispatch('loadCertificates','api/maintainance/certificates');
+            this.$store.dispatch('loadCertificates','api/maintenance/certificates');
         },
         computed: {
             certificates() {

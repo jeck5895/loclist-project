@@ -33,7 +33,7 @@
                     <router-link class="dropdown-item" to="/home">
                         Home
                     </router-link>
-                    <router-link class="dropdown-item" to="/maintainance">
+                    <router-link class="dropdown-item" to="/maintenance">
                         Maintenance
                     </router-link>
                     @if(Auth::user()->userType == 1)

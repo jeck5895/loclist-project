@@ -58,7 +58,7 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="positions" :object="positions" url="api/maintainance/positions" classSize="pagination-sm"></pagination>
+        <pagination scope="positions" :object="positions" url="api/maintenance/positions" classSize="pagination-sm"></pagination>
     </div>
 </template>
 
@@ -67,7 +67,7 @@
 
     export default {
         created() {
-            this.$store.dispatch('loadPositions', 'api/maintainance/positions');
+            this.$store.dispatch('loadPositions', 'api/maintenance/positions');
         },
         computed: {
             positions() {

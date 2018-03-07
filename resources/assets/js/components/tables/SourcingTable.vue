@@ -53,7 +53,7 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="sourcing_practices" :object="practices" url="api/maintainance/sourcing_practices" classSize="pagination-sm"></pagination>
+        <pagination scope="sourcing_practices" :object="practices" url="api/maintenance/sourcing_practices" classSize="pagination-sm"></pagination>
     </div>
 </template>
 
@@ -62,7 +62,7 @@
 
     export default {
         created() {
-            this.$store.dispatch('loadSourcingPractices', 'api/maintainance/sourcing_practices');
+            this.$store.dispatch('loadSourcingPractices', 'api/maintenance/sourcing_practices');
         },
         computed: {
             practices() {

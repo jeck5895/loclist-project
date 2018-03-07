@@ -264,20 +264,20 @@ import ContactPersonsTable from '../../tables/client/ContactPersonsTable';
 export default {
     created() {
         let user = Vue.auth.getter();
-        Echo.private('maintainance-channel')
-            .listen('MaintainanceEvent', (e) => {
+        Echo.private('maintenance-channel')
+            .listen('MaintenanceEvent', (e) => {
                 console.log(e);
                 if(e.scope == "industries"){
-                    this.$store.dispatch('loadIndustries','api/maintainance/industries?type=all');
+                    this.$store.dispatch('loadIndustries','api/maintenance/industries?type=all');
                 }
                 if(e.scope == "nationalities"){
-                    this.$store.dispatch('loadNationalities', 'api/maintainance/nationalities?type=all');
+                    this.$store.dispatch('loadNationalities', 'api/maintenance/nationalities?type=all');
                 }
                 if(e.scope == "certificates"){
-                    this.$store.dispatch('loadCertificates', 'api/maintainance/certificates?type=all');
+                    this.$store.dispatch('loadCertificates', 'api/maintenance/certificates?type=all');
                 }
                 if(e.scope == "sourcing_practices"){
-                    this.$store.dispatch('loadSourcingPractices','api/maintainance/sourcing_practices?type=all');
+                    this.$store.dispatch('loadSourcingPractices','api/maintenance/sourcing_practices?type=all');
                 }
                 if(e.scope == "companies"){
                     this.$store.dispatch('loadCompanies', 'api/companies?type=all');
@@ -524,7 +524,7 @@ export default {
         ContactPersonsTable
     },
     destroyed() {
-        Echo.leave('maintainance-channel');
+        Echo.leave('maintenance-channel');
     }
 }
 

@@ -60,7 +60,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadIndustries','api/maintainance/industries');
+                            this.$store.dispatch('loadIndustries','api/maintenance/industries');
                         });
                         break;
                     case "nationalities":
@@ -69,7 +69,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadNationalities','api/maintainance/nationalities');
+                            this.$store.dispatch('loadNationalities','api/maintenance/nationalities');
                         });
                         break;
                     case "certificates":
@@ -78,7 +78,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadCertificates','api/maintainance/certificates');
+                            this.$store.dispatch('loadCertificates','api/maintenance/certificates');
                         });
                     case "departments":
                         this.$store.dispatch('deleteDepartment', deletionInfo)
@@ -86,7 +86,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadDepartments','api/maintainance/departments');
+                            this.$store.dispatch('loadDepartments','api/maintenance/departments');
                         });
                         break;
                     case "positions":
@@ -95,7 +95,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadPositions','api/maintainance/positions');
+                            this.$store.dispatch('loadPositions','api/maintenance/positions');
                         });
                         break;
                     case "manpowers":
@@ -104,7 +104,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadManpowers','api/maintainance/manpowers');
+                            this.$store.dispatch('loadManpowers','api/maintenance/manpowers');
                         });
                         break;
                     case "user_types":
@@ -166,7 +166,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadSaturations','api/maintainance/saturations');
+                            this.$store.dispatch('loadSaturations','api/maintenance/saturations');
                         });
                         break;
                     case "confirmations":
@@ -175,7 +175,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadConfirmations','api/maintainance/confirmations');
+                            this.$store.dispatch('loadConfirmations','api/maintenance/confirmations');
                         });
                         break;
                     case "action_plans":
@@ -184,7 +184,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadActionPlans','api/maintainance/action-plans');
+                            this.$store.dispatch('loadActionPlans','api/maintenance/action-plans');
                         });
                         break;
                     case "mode_of_presentations":
@@ -193,7 +193,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadModeOfPresentations','api/maintainance/mode-of-presentations');
+                            this.$store.dispatch('loadModeOfPresentations','api/maintenance/mode-of-presentations');
                         });
                         break;
                     case "presentation_statuses":
@@ -202,7 +202,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadPresentationStatuses','api/maintainance/presentation-statuses');
+                            this.$store.dispatch('loadPresentationStatuses','api/maintenance/presentation-statuses');
                         });
                         break;
                     case "acquisitions":
@@ -211,7 +211,7 @@
                             this.$store.dispatch('closeConfirmationModal');
                         })
                         .then(() => {
-                            this.$store.dispatch('loadAcquisitions','api/maintainance/acquisitions');
+                            this.$store.dispatch('loadAcquisitions','api/maintenance/acquisitions');
                         });
                         break;
                     case "target_lists":

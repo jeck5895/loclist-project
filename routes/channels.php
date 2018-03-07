@@ -44,6 +44,6 @@ Broadcast::channel('user-channel', function ($user) {
     return !empty($user) ? true : false;
 });
 
-Broadcast::channel('maintainance-channel', function ($user) {
+Broadcast::channel('maintenance-channel', function ($user) {
     return true;
 });

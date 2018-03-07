@@ -275,11 +275,11 @@
             store.dispatch('loadClient', payload);
             store.dispatch('loadUsers', 'api/users?type=all');
             store.dispatch('loadCompanies', 'api/companies?type=all');
-            store.dispatch('loadModeOfPresentations', 'api/maintainance/mode-of-presentations?type=all');
-            store.dispatch('loadPresentationStatuses', 'api/maintainance/presentation-statuses?type=all');
-            store.dispatch('loadActionPlans', 'api/maintainance/action-plans?type=all');
-            store.dispatch('loadAcquisitions', 'api/maintainance/acquisitions?type=all');
-            store.dispatch('loadStatuses', 'api/maintainance/statuses?type=all');
+            store.dispatch('loadModeOfPresentations', 'api/maintenance/mode-of-presentations?type=all');
+            store.dispatch('loadPresentationStatuses', 'api/maintenance/presentation-statuses?type=all');
+            store.dispatch('loadActionPlans', 'api/maintenance/action-plans?type=all');
+            store.dispatch('loadAcquisitions', 'api/maintenance/acquisitions?type=all');
+            store.dispatch('loadStatuses', 'api/maintenance/statuses?type=all');
             next();
         },
         created() {

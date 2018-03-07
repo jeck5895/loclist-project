@@ -29,13 +29,13 @@
                 store.dispatch('clearCompanies');
                 store.dispatch('clearClient');
                 store.dispatch('clearStatuses');
-                store.dispatch('loadNationalities','api/maintainance/nationalities?type=all');
-                store.dispatch('loadCertificates','api/maintainance/certificates?type=all');
-                store.dispatch('loadIndustries','api/maintainance/industries?type=all');
-                store.dispatch('loadSourcingPractices','api/maintainance/sourcing_practices?type=all');
-                store.dispatch('loadManpowers', 'api/maintainance/manpowers?type=all');
+                store.dispatch('loadNationalities','api/maintenance/nationalities?type=all');
+                store.dispatch('loadCertificates','api/maintenance/certificates?type=all');
+                store.dispatch('loadIndustries','api/maintenance/industries?type=all');
+                store.dispatch('loadSourcingPractices','api/maintenance/sourcing_practices?type=all');
+                store.dispatch('loadManpowers', 'api/maintenance/manpowers?type=all');
                 store.dispatch('loadCompanies', 'api/companies?type=all');
-                store.dispatch('loadStatuses','api/maintainance/statuses?type=all');
+                store.dispatch('loadStatuses','api/maintenance/statuses?type=all');
                 if(Object.keys(to.params).length != 0 && to.params.clientId != null) {
                     let payload = {
                         id: to.params.clientId
@@ -47,8 +47,8 @@
                     localStorage.setItem('f_type', 'CREATE_CLIENT');
                 }
                 
-                store.dispatch('loadDepartments','api/maintainance/departments?type=all');
-                // store.dispatch('loadPositions', 'api/maintainance/positions?type=all');
+                store.dispatch('loadDepartments','api/maintenance/departments?type=all');
+                // store.dispatch('loadPositions', 'api/maintenance/positions?type=all');
             });
         },
         methods: {

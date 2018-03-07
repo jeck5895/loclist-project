@@ -107,8 +107,8 @@
 
     export default {
         mounted() {
-            this.$store.dispatch('loadSaturations', 'api/maintainance/saturations?type=all');
-            this.$store.dispatch('loadConfirmations', 'api/maintainance/confirmations?type=all');
+            this.$store.dispatch('loadSaturations', 'api/maintenance/saturations?type=all');
+            this.$store.dispatch('loadConfirmations', 'api/maintenance/confirmations?type=all');
         },
         data() {
             return {

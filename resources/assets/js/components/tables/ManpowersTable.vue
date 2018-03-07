@@ -55,7 +55,7 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="manpowers" :object="manpowers" url="api/maintainance/manpowers" classSize="pagination-sm"></pagination>
+        <pagination scope="manpowers" :object="manpowers" url="api/maintenance/manpowers" classSize="pagination-sm"></pagination>
     </div>
 </template>
 
@@ -63,7 +63,7 @@
     import Pagination from '../pagination/Pagination';
     export default {
         mounted() {
-            this.$store.dispatch('loadManpowers', 'api/maintainance/manpowers');
+            this.$store.dispatch('loadManpowers', 'api/maintenance/manpowers');
         },
         computed: {
             manpowers() {

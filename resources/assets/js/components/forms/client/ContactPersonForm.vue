@@ -80,10 +80,10 @@
 <script>
     export default {
         created() {
-            Echo.private('maintainance-channel')
-                .listen('MaintainanceEvent', (e) => {
+            Echo.private('maintenance-channel')
+                .listen('MaintenanceEvent', (e) => {
                     if (e.scope == "departments") {
-                        this.$store.dispatch('loadDepartments', 'api/maintainance/departments?type=all');
+                        this.$store.dispatch('loadDepartments', 'api/maintenance/departments?type=all');
                     }
                     if (e.scope == "positions") {
                         this.reloadPositions();
@@ -115,7 +115,7 @@
         methods: {
             reloadPositions() {
                 if (typeof this.contact_person.department != "undefined") {
-                    this.$store.dispatch('loadPositions', 'api/maintainance/positions?type=all&department=' + this.contact_person
+                    this.$store.dispatch('loadPositions', 'api/maintenance/positions?type=all&department=' + this.contact_person
                         .department);
                 }
             },
@@ -162,6 +162,9 @@
                     }
                 });
             }
+        },
+        destroyed() {
+            Echo.leave('maintenance-channel');
         }
     }
 </script>

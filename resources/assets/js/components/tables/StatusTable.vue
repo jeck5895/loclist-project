@@ -53,7 +53,7 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="statused" :object="statuses" url="api/maintainance/statuses" classSize="pagination-sm"></pagination>
+        <pagination scope="statused" :object="statuses" url="api/maintenance/statuses" classSize="pagination-sm"></pagination>
     </div>
 </template>
 
@@ -62,7 +62,7 @@
 
     export default {
         created() {
-            this.$store.dispatch('loadStatuses', 'api/maintainance/statuses');
+            this.$store.dispatch('loadStatuses', 'api/maintenance/statuses');
         },
         computed: {
             statuses() {

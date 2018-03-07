@@ -56,8 +56,8 @@ export default {
     beforeRouteEnter(to, from, next) {
         store.dispatch('clearIndustries');
         store.dispatch('clearStatuses');
-        store.dispatch("loadIndustries", "api/maintainance/industries?type=all");
-        store.dispatch('loadStatuses','api/maintainance/statuses?type=all');
+        store.dispatch("loadIndustries", "api/maintenance/industries?type=all");
+        store.dispatch('loadStatuses','api/maintenance/statuses?type=all');
         store.dispatch('loadReportMonths','api/reports/report-months');
         store.dispatch('loadTargetListYears');
         next();
