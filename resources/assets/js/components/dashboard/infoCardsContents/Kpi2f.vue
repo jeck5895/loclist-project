@@ -4,7 +4,7 @@
             <div class="card-header p-2">
                 <span class="h4">
                     <i class="fa fa-laptop"></i>
-                </span> ACQUIRED CLIENTS
+                </span> No. of Formal Presentations
                 <div class="col-sm-4 float-right">
                     <select name="" id="" class="form-control form-control-sm">
                         <option v-for="(year, i) in  years" :key="i" :value="year.target_year">{{ year.target_year }}</option>

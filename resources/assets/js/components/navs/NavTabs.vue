@@ -126,7 +126,7 @@
                     datasets: [
                         {
                             label: '# of Clients',
-                            borderColor: "#3e95cd",
+                            backgroundColor: "#3e95cd",
                             data: [ 
                                 this.generateRandomData(), 
                                 this.generateRandomData(), 
@@ -144,7 +144,7 @@
                         },
                         {
                             label: '# of Calls Made',
-                            borderColor: "#8e5ea2",
+                            backgroundColor: "#8e5ea2",
                             data: [ 
                                 this.generateRandomData(), 
                                 this.generateRandomData(), 
@@ -162,7 +162,7 @@
                         },
                         {
                             label: '# of Saturations',
-                            borderColor:"#3cba9f",
+                            backgroundColor:"#3cba9f",
                             data: [ 
                                 this.generateRandomData(), 
                                 this.generateRandomData(), 
@@ -180,7 +180,7 @@
                         },
                         {
                             label: '# of Presentations',
-                            borderColor: "#e8c3b9",
+                            backgroundColor: "#e8c3b9",
                             data: [ 
                                 this.generateRandomData(), 
                                 this.generateRandomData(), 
