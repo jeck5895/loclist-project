@@ -34,7 +34,7 @@ export default {
             context.commit('clearSourcingPractice');
         },
         loadSourcingPractice: (context, payload) => {
-            axios.get('api/maintainance/sourcing_practices/' + payload.id)
+            axios.get('api/maintenance/sourcing_practices/' + payload.id)
             .then(response => {
                 context.commit('setSourcingPractice', response);
                 setTimeout(() => {
@@ -64,7 +64,7 @@ export default {
         storeSourcingPractice: (context, payload) => {
             context.commit('setSubmitState', true);
 
-            axios.post('api/maintainance/sourcing_practices', payload)
+            axios.post('api/maintenance/sourcing_practices', payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -83,7 +83,7 @@ export default {
         },
         updateSourcingPractice: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.patch('api/maintainance/sourcing_practices/' + payload.id, payload)
+            axios.patch('api/maintenance/sourcing_practices/' + payload.id, payload)
             .then(response => {
                 setTimeout(()=>{
                     context.commit('setServerResponse', response);
@@ -101,7 +101,7 @@ export default {
             })
         },
         deleteSourcingPractice: (context, payload) => {
-            axios.delete('api/maintainance/sourcing_practices/' + payload.sourcing_practice.id)
+            axios.delete('api/maintenance/sourcing_practices/' + payload.sourcing_practice.id)
             .then(response => {
                 toastr.success('Success', response.data.message);
             })

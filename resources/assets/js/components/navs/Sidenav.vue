@@ -1,8 +1,11 @@
 <template>
-    <div class="sidebar">
+    <div :class="!sideBarIsHidden ? 'sidebar animated slideInLeft' : 'sidebar animated slideOutLeft'">
         <div class="sidenav-links">
             <ul class="sidebar-nav">
-                <li><h5 class="text-center">Form Keywords</h5></li>
+                <li>
+                    <h5>Form Keywords</h5> 
+                    <span @click="toggleSidebar" style="cursor:pointer" class="sidebar-toggle"><i class="fa fa-chevron-left"></i></span>
+                </li>
                 <li>
                     <router-link to="/maintenance/reports">Report Settings</router-link>
                 </li>
@@ -71,18 +74,16 @@
 <script>
     export default {
         created() {
-            // Vue.nextTick(() => {
-            //   $('#general-settings a').each(function(){
-            //         if($(this).hasClass('active')){
-            //             $('#general-settings').collapse('show');
-            //             $('#sidebar-toggle').addClass('active');
-            //         }
-            //     });
-            // })
+
         },
         data() {
             return {
-                active: ''
+                active: '',
+            }
+        },
+        computed: {
+            sideBarIsHidden() {
+                return this.$store.getters.getSideBarState;
             }
         },
         methods:{
@@ -93,23 +94,42 @@
                 else {
                     this.active = 'active'
                 }
+            },
+            toggleSidebar(){
+                if(this.sideBarIsHidden){
+                    this.$store.dispatch('setSideBarState', false);
+                }
+                else{
+                    this.$store.dispatch('setSideBarState', true);
+                }
             }
         }
     }
 </script>
 
 <style>
+    .sidebar.show{
+        display: block;
+    }
+    .sidebar.hide{
+        display: none;
+    }
     .sidebar {
         border-right: 1px solid #e2e2e2;
         position: fixed;
-        width: 231px;
+        width: 214px;
         top: 0;
         left: 0;
-        padding-top: 65px;
+        padding-top: 85px;
         min-height: 100%;
         z-index: 1000;
         max-height: 100%;
         overflow-y: auto;
+    }
+    .sidebar-toggle{
+        position: absolute;
+        right: 1rem;
+        top: 0rem;
     }
     .card-body{
         padding-top: 1rem;

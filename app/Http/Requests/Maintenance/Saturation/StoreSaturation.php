@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\maintainance\Saturation;
+namespace App\Http\Requests\Maintenance\Saturation;
 
 use Illuminate\Foundation\Http\FormRequest;
 

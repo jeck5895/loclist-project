@@ -123,7 +123,6 @@ class ClientSaturationController extends Controller
      */
     public function update(UpdateClientSaturation $request, $clientId, $saturation_id)
     {
-
         $saturation = ClientSaturation::findOrFail($saturation_id);
         $saturation->client_id = $request['client_id'];
         $saturation->company_id = $request['company_id'];
@@ -167,11 +166,8 @@ class ClientSaturationController extends Controller
      */
     public function destroy($client_id, $saturation_id)
     {
-        if(auth()->user()->userType != 1)
-        {
-            // abort(403,'Request Unauthorized');
-            return response('Unauthorized action', 403);
-        }
+        if(!auth()->user()->userRole->delete_client_saturations == 1)
+            return response()->json(['message' => 'This action is unauthorized.'], 403);
 
         ClientSaturation::destroy($saturation_id);
 

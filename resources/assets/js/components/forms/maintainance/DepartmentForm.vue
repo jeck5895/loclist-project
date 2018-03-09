@@ -82,12 +82,12 @@ export default {
 
                     if (this.formType == 'CREATE_DEPARTMENT') {
                             this.$store.dispatch('storeDepartment', department).then(() => {
-                                this.$store.dispatch('loadDepartments', 'api/maintainance/departments');
+                                this.$store.dispatch('loadDepartments', 'api/maintenance/departments');
                             });
                     } else if (this.formType == 'EDIT_DEPARTMENT') {
                             this.$store.dispatch('updateDepartment', department)
                             .then(() => {
-                            this.$store.dispatch('loadDepartments', 'api/maintainance/departments');
+                            this.$store.dispatch('loadDepartments', 'api/maintenance/departments');
                         });
                     } else {
                         toastr.error('Error', 'Unknown Command');

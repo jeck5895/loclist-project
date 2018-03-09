@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\maintainance\Confirmation;
+namespace App\Http\Requests\Maintenance\Confirmation;
 
 use Illuminate\Foundation\Http\FormRequest;
 

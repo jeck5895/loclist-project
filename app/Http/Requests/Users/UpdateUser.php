@@ -13,7 +13,7 @@ class UpdateUser extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->userType == 1? true : false;
+        return $this->user()->userRole->edit_user == 1 ? true : false;
     }
 
     /**

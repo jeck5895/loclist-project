@@ -49,7 +49,7 @@ export default {
             });
         },
         loadPresentationStatus: (context, payload) => {
-            axios.get('api/maintainance/presentation-statuses/' + payload.id)
+            axios.get('api/maintenance/presentation-statuses/' + payload.id)
             .then(response => {
                 context.commit('setPresentationStatus', response);
                 setTimeout(() => {
@@ -63,7 +63,7 @@ export default {
         storePresentationStatus: (context, payload) => {
             context.commit('setSubmitState', true);
             return new Promise((resolve, reject) => {
-                axios.post('api/maintainance/presentation-statuses', payload)
+                axios.post('api/maintenance/presentation-statuses', payload)
                 .then(response => {
                     setTimeout(() => {
                         
@@ -85,7 +85,7 @@ export default {
         updatePresentationStatus: (context, payload) => {
             context.commit('setSubmitState', true);
             return new Promise((resolve, reject) => {
-                axios.patch('api/maintainance/presentation-statuses/' + payload.id, payload)
+                axios.patch('api/maintenance/presentation-statuses/' + payload.id, payload)
                 .then(response => {
                     setTimeout(() => {
                         resolve(response);
@@ -105,7 +105,7 @@ export default {
         },
         deletePresentationStatus: (context, payload) => {
             return new Promise((resolve, reject) => {
-                axios.delete('api/maintainance/presentation-statuses/' + payload.presentation_status.id)
+                axios.delete('api/maintenance/presentation-statuses/' + payload.presentation_status.id)
                 .then(response => {
                     resolve(response)
                     toastr.success('Success', response.data.message);

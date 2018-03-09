@@ -13,7 +13,7 @@ class StoreClient extends FormRequest
      */
     public function authorize()
     {
-        return !empty($this->user()) ? true : false;
+        return $this->user()->userRole->add_clients == 1 ? true : false;
     }
 
     /**

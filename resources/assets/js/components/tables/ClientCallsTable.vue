@@ -11,7 +11,7 @@
                     <th style="width:110px">Proposal Sent</th>
                     <th>Company</th>
                     <th>Response</th>
-                    <th v-if="displayOptions">Options</th>
+                    <th v-if="displayOptions && (user.user_role.edit_client_calls == 1 || user.user_role.delete_client_calls == 1)">Options</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,13 +61,13 @@
                         {{ call.client_response}}
                     </td>
 
-                    <td v-if="displayOptions" style="vertical-align: middle;">
+                    <td v-if="displayOptions && (user.user_role.edit_client_calls == 1 || user.user_role.delete_client_calls == 1)" style="vertical-align: middle;">
                         <div class="btn-group btn-group-sm" role="group">
-                            <button type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(call)">
+                            <button v-if="user.user_role.edit_client_calls == 1"  type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(call)">
                                 <span class="fa fa-edit"></span>
                             </button>
 
-                            <button @click="destroy(call)" type="button" class="btn btn-sm btn-default">
+                            <button v-if="user.user_role.delete_client_calls == 1" @click="destroy(call)" type="button" class="btn btn-sm btn-default">
                                 <span class="fa fa-trash"></span>
                             </button>
                         </div>
@@ -92,7 +92,7 @@
         props:['clientId','displayOptions'],
         data() {
             return {
-                //client_id: this.$route.params.clientId,
+                user: Vue.auth.getter()
             }
         },
         computed: {

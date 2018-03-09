@@ -50,7 +50,7 @@ export default {
             });
         },
         loadCertificate: (context, payload) => {
-            axios.get('api/maintainance/certificates/' + payload.id)
+            axios.get('api/maintenance/certificates/' + payload.id)
             .then(response => {
                 context.commit('setIsoCertificate', response);
                 setTimeout(() => {
@@ -63,7 +63,7 @@ export default {
         },
         storeCertificate: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.post('api/maintainance/certificates', payload)
+            axios.post('api/maintenance/certificates', payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -83,7 +83,7 @@ export default {
         },
         updateCertificate: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.patch('api/maintainance/certificates/' + payload.id, payload)
+            axios.patch('api/maintenance/certificates/' + payload.id, payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -100,7 +100,7 @@ export default {
             });
         },
         deleteCertificate: (context, payload) => {
-            axios.delete('api/maintainance/certificates/' + payload.certificate.id)
+            axios.delete('api/maintenance/certificates/' + payload.certificate.id)
             .then(response => {
                 toastr.success('Success', response.data.message);
             })

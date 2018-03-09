@@ -33,7 +33,7 @@ export default {
             context.commit('clearIndustry');
         },
         loadIndustry: (context, payload) => {
-            axios.get('api/maintainance/industries/' + payload.id)
+            axios.get('api/maintenance/industries/' + payload.id)
             .then((response) => {
                 context.commit('setIndustry', response);
                 setTimeout(() => {
@@ -64,7 +64,7 @@ export default {
         },
         storeIndustry: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.post('api/maintainance/industries', payload)
+            axios.post('api/maintenance/industries', payload)
             .then(response => {
                 let result = response;
                 setTimeout(() => {
@@ -85,7 +85,7 @@ export default {
         },
         updateIndustry: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.patch('api/maintainance/industries/' + payload.id, payload)
+            axios.patch('api/maintenance/industries/' + payload.id, payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -102,7 +102,7 @@ export default {
             })
         },
         deleteIndustry: (context, payload) => {
-            axios.delete('api/maintainance/industries/' + payload.industry.id)
+            axios.delete('api/maintenance/industries/' + payload.industry.id)
             .then(response => {
                 toastr.success('Success', response.data.message);
             })

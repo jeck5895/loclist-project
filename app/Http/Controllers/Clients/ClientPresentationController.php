@@ -156,11 +156,8 @@ class ClientPresentationController extends Controller
      */
     public function destroy($client_id, $presentation_id)
     {
-        if(auth()->user()->userType != 1)
-        {
-            // abort(403,'Request Unauthorized');
-            return response('Unauthorized action', 403);
-        }
+        if(!auth()->user()->userRole->delete_client_presentations == 1)
+            return response()->json(['message' => 'This action is unauthorized.'], 403);
 
         ClientPresentation::destroy($presentation_id);
 

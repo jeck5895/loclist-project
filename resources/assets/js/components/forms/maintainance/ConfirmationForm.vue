@@ -82,12 +82,12 @@ export default {
 
                     if (this.formType == 'CREATE_CONFIRMATION') {
                             this.$store.dispatch('storeConfirmation', department).then(() => {
-                                this.$store.dispatch('loadConfirmations', 'api/maintainance/confirmations');
+                                this.$store.dispatch('loadConfirmations', 'api/maintenance/confirmations');
                             });
                     } else if (this.formType == 'EDIT_CONFIRMATION') {
                             this.$store.dispatch('updateConfirmation', department)
                             .then(() => {
-                            this.$store.dispatch('loadConfirmations', 'api/maintainance/confirmations');
+                            this.$store.dispatch('loadConfirmations', 'api/maintenance/confirmations');
                         });
                     } else {
                         toastr.error('Error', 'Unknown Command');

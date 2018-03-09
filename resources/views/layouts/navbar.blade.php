@@ -33,9 +33,11 @@
                     <router-link class="dropdown-item" to="/home">
                         Home
                     </router-link>
+                    @if(Auth::user()->userType == 1)
                     <router-link class="dropdown-item" to="/maintenance">
                         Maintenance
                     </router-link>
+                    @endif
                     @if(Auth::user()->userType == 1)
                     <router-link class="dropdown-item" to="/users">
                         Manage Users

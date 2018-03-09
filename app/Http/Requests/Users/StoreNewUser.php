@@ -14,7 +14,7 @@ class StoreNewUser extends FormRequest
     public function authorize()
     {
         //return false;
-        return $this->user()->userType == 1? true : false;
+        return $this->user()->userRole->add_user == 1 ? true : false;
     }
 
     /**

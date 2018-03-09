@@ -33,6 +33,9 @@
             query() {
                 return this.$store.getters.getUserApiQuery;
             },
+            client_query() {
+                return this.$store.getters.getClientApiQuery;
+            },
             columns() {
                 return this.$store.getters.getColumns;
             },
@@ -45,6 +48,18 @@
             submitConfirmation () {
                 var deletionInfo = this.deletionType;
                 switch (deletionInfo.scope) {
+                    case "clients":
+                        this.$store.dispatch('deleteClient', deletionInfo)
+                        .then(() => {
+                            this.$store.dispatch('closeConfirmationModal');
+                        })
+                        .then(() => {
+                            this.$store.dispatch(
+                                "loadClients",
+                                `api/clients?keyword=${this.client_query.search_keyword}&order_by=${this.client_query.order_by}&per_page=${this.client_query.per_page}&sort_column=${this.client_query.sort_column}&industry=${this.client_query.industry}&location=${this.client_query.location}&from_date=${this.client_query.from_date}&to_date=${this.client_query.to_date}&status=${this.client_query.status}`
+                            );
+                        });
+                    break;
                     case "users":
                         this.$store.dispatch('deleteUser', deletionInfo)
                         .then(() => {

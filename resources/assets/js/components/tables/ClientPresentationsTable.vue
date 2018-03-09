@@ -11,7 +11,7 @@
                     <th>FF-up Date</th>
                     <th>Status</th>
                     <th>Response</th>
-                    <th v-if="displayOptions">Options</th>
+                    <th v-if="displayOptions && (user.user_role.edit_client_presentations == 1 || user.user_role.delete_client_presentations == 1)">Options</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,13 +67,13 @@
                         {{ presentation.client_response2}}
                     </td>
 
-                    <td v-if="displayOptions" style="vertical-align: middle;">
+                    <td v-if="displayOptions && (user.user_role.edit_client_presentations == 1 || user.user_role.delete_client_presentations == 1)" style="vertical-align: middle;">
                         <div class="btn-group btn-group-sm" role="group">
-                            <button type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(presentation)">
+                            <button v-if="user.user_role.edit_client_presentations == 1" type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(presentation)">
                                 <span class="fa fa-edit"></span>
                             </button>
 
-                            <button @click="destroy(presentation)" type="button" class="btn btn-sm btn-default">
+                            <button v-if="user.user_role.delete_client_presentations == 1" @click="destroy(presentation)" type="button" class="btn btn-sm btn-default">
                                 <span class="fa fa-trash"></span>
                             </button>
                         </div>
@@ -96,6 +96,11 @@
 
     export default {
         props:['clientId','displayOptions'],
+        data() {
+            return {
+                user: Vue.auth.getter()
+            }
+        },
         computed: {
             // client_id() {
             //     return this.$route.params.clientId;

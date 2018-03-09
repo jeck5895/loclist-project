@@ -50,7 +50,7 @@ export default {
         },
         loadPosition: (context, payload) => {
             
-            axios.get('api/maintainance/positions/' + payload.id)
+            axios.get('api/maintenance/positions/' + payload.id)
             .then(response => {
                 context.commit('setPosition', response);
                 setTimeout(() => {
@@ -63,7 +63,7 @@ export default {
         },
         storePosition: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.post('api/maintainance/positions', payload)
+            axios.post('api/maintenance/positions', payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -80,7 +80,7 @@ export default {
         },
         updatePosition: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.patch('api/maintainance/positions/' + payload.id, payload)
+            axios.patch('api/maintenance/positions/' + payload.id, payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -96,7 +96,7 @@ export default {
             });
         },
         deletePosition: (context, payload) => {
-            axios.delete('api/maintainance/positions/' + payload.position.id)
+            axios.delete('api/maintenance/positions/' + payload.position.id)
             .then(response => {
                 toastr.success('Success', response.data.message);
             })

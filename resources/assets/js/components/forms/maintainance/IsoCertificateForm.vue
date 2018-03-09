@@ -81,12 +81,12 @@
                         
                         if (this.formType == 'CREATE_ISO') {
                             this.$store.dispatch('storeCertificate', certificate).then(() => {
-                                this.$store.dispatch('loadCertificates', 'api/maintainance/certificates');
+                                this.$store.dispatch('loadCertificates', 'api/maintenance/certificates');
                             });
                         } else if (this.formType == 'EDIT_ISO') {
                             this.$store.dispatch('updateCertificate', certificate)
                             .then(() => {
-                                this.$store.dispatch('loadCertificates', 'api/maintainance/certificates');
+                                this.$store.dispatch('loadCertificates', 'api/maintenance/certificates');
                             });
                         } else {
                             toastr.error('Error', 'Unknown Command');

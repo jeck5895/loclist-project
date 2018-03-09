@@ -49,7 +49,7 @@ export default {
             }); 
         },
         loadAcquisition: (context, payload) => {
-            axios.get('api/maintainance/acquisitions/' + payload.id)
+            axios.get('api/maintenance/acquisitions/' + payload.id)
             .then(response => {
                 context.commit('setAcquisition', response);
                 setTimeout(() => {
@@ -62,7 +62,7 @@ export default {
         },
         storeAcquisition: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.post('api/maintainance/acquisitions', payload)
+            axios.post('api/maintenance/acquisitions', payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -79,7 +79,7 @@ export default {
         },
         updateAcquisition: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.patch('api/maintainance/acquisitions/' + payload.id, payload)
+            axios.patch('api/maintenance/acquisitions/' + payload.id, payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -95,7 +95,7 @@ export default {
             });
         },
         deleteAcquisition: (context, payload) => {
-            axios.delete('api/maintainance/acquisitions/' + payload.acquisition.id)
+            axios.delete('api/maintenance/acquisitions/' + payload.acquisition.id)
             .then(response => {
                 toastr.success('Success', response.data.message);
             })

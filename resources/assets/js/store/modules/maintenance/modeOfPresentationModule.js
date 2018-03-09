@@ -49,7 +49,7 @@ export default {
             });
         },
         loadModeOfPresentation: (context, payload) => {
-            axios.get('api/maintainance/mode-of-presentations/' + payload.id)
+            axios.get('api/maintenance/mode-of-presentations/' + payload.id)
             .then(response => {
                 context.commit('setModeOfPresentation', response);
                 setTimeout(() => {
@@ -63,7 +63,7 @@ export default {
         storeModeOfPresentation: (context, payload) => {
             context.commit('setSubmitState', true);
             return new Promise((resolve, reject) => {
-                axios.post('api/maintainance/mode-of-presentations', payload)
+                axios.post('api/maintenance/mode-of-presentations', payload)
                 .then(response => {
                     setTimeout(() => {
                         resolve(response)
@@ -84,7 +84,7 @@ export default {
         updateModeOfPresentation: (context, payload) => {
             context.commit('setSubmitState', true);
             return new Promise((resolve, reject) => {
-                axios.patch('api/maintainance/mode-of-presentations/' + payload.id, payload)
+                axios.patch('api/maintenance/mode-of-presentations/' + payload.id, payload)
                 .then(response => {
                     setTimeout(() => {
                         resolve(response);
@@ -104,7 +104,7 @@ export default {
         },
         deleteModeOfPresentation: (context, payload) => {
             return new Promise((resolve, reject) => {
-                axios.delete('api/maintainance/mode-of-presentations/' + payload.mode_of_presentation.id)
+                axios.delete('api/maintenance/mode-of-presentations/' + payload.mode_of_presentation.id)
                 .then(response => {
                     toastr.success('Success', response.data.message);
                 })

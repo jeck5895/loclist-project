@@ -82,12 +82,12 @@ export default {
 
                     if (this.formType == 'CREATE_ACTION_PLAN') {
                             this.$store.dispatch('storeActionPlan', action_plan).then(() => {
-                                this.$store.dispatch('loadActionPlans', 'api/maintainance/action-plans');
+                                this.$store.dispatch('loadActionPlans', 'api/maintenance/action-plans');
                             });
                     } else if (this.formType == 'EDIT_ACTION_PLAN') {
                             this.$store.dispatch('updateActionPlan', action_plan)
                             .then(() => {
-                            this.$store.dispatch('loadActionPlans', 'api/maintainance/action-plans');
+                            this.$store.dispatch('loadActionPlans', 'api/maintenance/action-plans');
                         });
                     } else {
                         toastr.error('Error', 'Unknown Command');

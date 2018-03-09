@@ -83,12 +83,12 @@
                         
                         if (this.formType == 'CREATE_SOURCING_PRACTICE') {
                             this.$store.dispatch('storeSourcingPractice', sourcing_practice).then(() => {
-                                this.$store.dispatch('loadSourcingPractices', 'api/maintainance/sourcing_practices');
+                                this.$store.dispatch('loadSourcingPractices', 'api/maintenance/sourcing_practices');
                             });
                         } else if (this.formType == 'EDIT_SOURCING_PRACTICE') {
                             this.$store.dispatch('updateSourcingPractice', sourcing_practice)
                             .then(() => {
-                                this.$store.dispatch('loadSourcingPractices', 'api/maintainance/sourcing_practices');
+                                this.$store.dispatch('loadSourcingPractices', 'api/maintenance/sourcing_practices');
                             });
                         } else {
                             toastr.error('Error', 'Unknown Command');

@@ -96,11 +96,8 @@ class ConfirmationController extends Controller
      */
     public function destroy(Confirmation $confirmation)
     {
-        if(auth()->user()->userType != 1)
-        {
-            // abort(403,'Request Unauthorized');
-            return response('Unauthorized action', 403);
-        }
+        if(auth()->user()->userRole->id != 1)
+            return response()->json(['message' => 'This action is unauthorized.'], 403);
 
         $confirmation->delete();
         

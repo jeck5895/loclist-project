@@ -44,9 +44,64 @@ class UserTypesController extends Controller
      */
     public function store(StoreUserType $request)
     {
-        $user_type = UserType::create([
-            'userType' => $request['userType']
-        ]);
+        $user_type = new UserType;
+        if($request->has('userType'))
+        $user_type->userType = $request['userType'];
+        
+        if($request->has('add_clients'))
+        $user_type->add_clients = $request['add_clients'];
+        
+        if($request->has('edit_clients'))
+        $user_type->edit_clients = $request['edit_clients'];
+
+        if($request->has('delete_clients'))
+        $user_type->delete_clients = $request['delete_clients'];
+
+        if($request->has('add_client_calls'))
+        $user_type->add_client_calls = $request['add_client_calls'];
+
+        if($request->has('edit_client_calls'))
+        $user_type->edit_client_calls = $request['edit_client_calls'];
+
+        if($request->has('delete_client_calls'))
+        $user_type->delete_client_calls = $request['delete_client_calls'];
+
+        if($request->has('add_client_saturations'))
+        $user_type->add_client_saturations = $request['add_client_saturations'];
+
+        if($request->has('edit_client_saturations'))
+        $user_type->edit_client_saturations = $request['edit_client_saturations'];
+
+        if($request->has('delete_client_saturations'))
+        $user_type->delete_client_saturations = $request['delete_client_saturations'];
+
+        if($request->has('add_client_presentations'))
+        $user_type->add_client_presentations = $request['add_client_presentations'];
+
+        if($request->has('edit_client_presentations'))
+        $user_type->edit_client_presentations = $request['edit_client_presentations'];
+
+        if($request->has('delete_client_presentations'))
+        $user_type->delete_client_presentations = $request['delete_client_presentations'];
+
+        if($request->has('add_client_acquisitions'))
+        $user_type->add_client_acquisitions = $request['add_client_acquisitions'];
+
+        if($request->has('edit_client_acquisitions'))
+        $user_type->edit_client_acquisitions = $request['edit_client_acquisitions'];
+
+        if($request->has('delete_client_acquisitions'))
+        $user_type->delete_client_acquisitions = $request['delete_client_acquisitions'];
+
+        if($request->has('add_user'))
+        $user_type->add_user = $request['add_user'];
+
+        if($request->has('edit_user'))
+        $user_type->edit_user = $request['edit_user'];
+
+        if($request->has('delete_user'))
+        $user_type->delete_user = $request['delete_user'];
+        $user_type->save();
 
         return ['message' => 'User type has been saved'];
     }
@@ -84,12 +139,66 @@ class UserTypesController extends Controller
      */
     public function update(UpdateUserType $request, $id)
     {
-        $user_type = UserType::find($id)
-                    ->update([
-                        'userType' => $request['userType']
-                    ]);
-                        
-        return ['message' => 'Changes has been saved'];
+        $user_type = UserType::findOrFail($id);
+        if($request->has('userType'))
+        $user_type->userType = $request['userType'];
+        
+        if($request->has('add_clients'))
+        $user_type->add_clients = $request['add_clients'];
+        
+        if($request->has('edit_clients'))
+        $user_type->edit_clients = $request['edit_clients'];
+
+        if($request->has('delete_clients'))
+        $user_type->delete_clients = $request['delete_clients'];
+
+        if($request->has('add_client_calls'))
+        $user_type->add_client_calls = $request['add_client_calls'];
+
+        if($request->has('edit_client_calls'))
+        $user_type->edit_client_calls = $request['edit_client_calls'];
+
+        if($request->has('delete_client_calls'))
+        $user_type->delete_client_calls = $request['delete_client_calls'];
+
+        if($request->has('add_client_saturations'))
+        $user_type->add_client_saturations = $request['add_client_saturations'];
+
+        if($request->has('edit_client_saturations'))
+        $user_type->edit_client_saturations = $request['edit_client_saturations'];
+
+        if($request->has('delete_client_saturations'))
+        $user_type->delete_client_saturations = $request['delete_client_saturations'];
+
+        if($request->has('add_client_presentations'))
+        $user_type->add_client_presentations = $request['add_client_presentations'];
+
+        if($request->has('edit_client_presentations'))
+        $user_type->edit_client_presentations = $request['edit_client_presentations'];
+
+        if($request->has('delete_client_presentations'))
+        $user_type->delete_client_presentations = $request['delete_client_presentations'];
+
+        if($request->has('add_client_acquisitions'))
+        $user_type->add_client_acquisitions = $request['add_client_acquisitions'];
+
+        if($request->has('edit_client_acquisitions'))
+        $user_type->edit_client_acquisitions = $request['edit_client_acquisitions'];
+
+        if($request->has('delete_client_acquisitions'))
+        $user_type->delete_client_acquisitions = $request['delete_client_acquisitions'];
+
+        if($request->has('add_user'))
+        $user_type->add_user = $request['add_user'];
+
+        if($request->has('edit_user'))
+        $user_type->edit_user = $request['edit_user'];
+
+        if($request->has('delete_user'))
+        $user_type->delete_user = $request['delete_user'];
+        $user_type->save();
+                    
+        return ['message' => 'Changes has been saved','request' => $request['add_clients']];
     }
 
     /**
@@ -100,11 +209,8 @@ class UserTypesController extends Controller
      */
     public function destroy($id)
     {
-        if(auth()->user()->userType != 1)
-        {
-            // abort(403,'Request Unauthorized');
-            return response('Unauthorized action', 403);
-        }
+        if(auth()->user()->userRole->id != 1)
+            return response()->json(['message' => 'This action is unauthorized.'], 403);
         
         UserType::destroy($id);
 

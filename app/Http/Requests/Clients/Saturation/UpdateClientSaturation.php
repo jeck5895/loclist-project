@@ -14,7 +14,7 @@ class UpdateClientSaturation extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->userType != 3 ? true : false;
+        return $this->user()->userRole->edit_client_saturations == 1 ? true : false;
     }
 
     /**

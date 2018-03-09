@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Maintainance\SourcingPractice;
+namespace App\Http\Requests\Maintenance\SourcingPractice;
 
 use Illuminate\Foundation\Http\FormRequest;
 

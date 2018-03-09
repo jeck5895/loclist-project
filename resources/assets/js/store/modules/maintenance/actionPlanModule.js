@@ -49,7 +49,7 @@ export default {
             });
         },
         loadActionPlan: (context, payload) => {
-            axios.get('api/maintainance/action-plans/' + payload.id)
+            axios.get('api/maintenance/action-plans/' + payload.id)
             .then(response => {
                 context.commit('setActionPlan', response);
                 setTimeout(() => {
@@ -63,7 +63,7 @@ export default {
         storeActionPlan: (context, payload) => {
             context.commit('setSubmitState', true);
             return new Promise((resolve, reject) => {
-                axios.post('api/maintainance/action-plans', payload)
+                axios.post('api/maintenance/action-plans', payload)
                 .then(response => {
                     setTimeout(() => {
                         resolve(response);
@@ -84,7 +84,7 @@ export default {
         updateActionPlan: (context, payload) => {
             context.commit('setSubmitState', true);
             return new Promise((resolve, reject) => {
-                axios.patch('api/maintainance/action-plans/' + payload.id, payload)
+                axios.patch('api/maintenance/action-plans/' + payload.id, payload)
                 .then(response => {
                     setTimeout(() => {
                         resolve(response);
@@ -104,7 +104,7 @@ export default {
         },
         deleteActionPlan: (context, payload) => {
             return new Promise((resolve, reject) => {
-                axios.delete('api/maintainance/action-plans/' + payload.action_plan.id)
+                axios.delete('api/maintenance/action-plans/' + payload.action_plan.id)
                 .then(response => {
                     resolve(response)
                     toastr.success('Success', response.data.message);

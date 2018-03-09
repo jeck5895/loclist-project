@@ -82,12 +82,12 @@ export default {
 
                     if (this.formType == 'CREATE_MODE_OF_PRESENTATION') {
                             this.$store.dispatch('storeModeOfPresentation', mode_of_presentation).then(() => {
-                                this.$store.dispatch('loadModeOfPresentations', 'api/maintainance/mode-of-presentations');
+                                this.$store.dispatch('loadModeOfPresentations', 'api/maintenance/mode-of-presentations');
                             });
                     } else if (this.formType == 'EDIT_MODE_OF_PRESENTATION') {
                             this.$store.dispatch('updateModeOfPresentation', mode_of_presentation)
                             .then(() => {
-                            this.$store.dispatch('loadModeOfPresentations', 'api/maintainance/mode-of-presentations');
+                            this.$store.dispatch('loadModeOfPresentations', 'api/maintenance/mode-of-presentations');
                         });
                     } else {
                         toastr.error('Error', 'Unknown Command');

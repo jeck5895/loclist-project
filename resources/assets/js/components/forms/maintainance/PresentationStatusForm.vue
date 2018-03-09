@@ -82,12 +82,12 @@ export default {
 
                     if (this.formType == 'CREATE_PRESENTATION_STATUS') {
                             this.$store.dispatch('storePresentationStatus', presentation_status).then(() => {
-                                this.$store.dispatch('loadPresentationStatuses', 'api/maintainance/presentation-statuses');
+                                this.$store.dispatch('loadPresentationStatuses', 'api/maintenance/presentation-statuses');
                             });
                     } else if (this.formType == 'EDIT_PRESENTATION_STATUS') {
                             this.$store.dispatch('updatePresentationStatus', presentation_status)
                             .then(() => {
-                            this.$store.dispatch('loadPresentationStatuses', 'api/maintainance/presentation-statuses');
+                            this.$store.dispatch('loadPresentationStatuses', 'api/maintenance/presentation-statuses');
                         });
                     } else {
                         toastr.error('Error', 'Unknown Command');

@@ -14,7 +14,7 @@ class StoreClientPresentation extends FormRequest
      */
     public function authorize()
     {
-        return !empty($this->user()) ? true : false;
+        return $this->user()->userRole->add_client_presentations == 1 ? true : false;
     }
 
     /**

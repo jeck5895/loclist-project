@@ -50,7 +50,7 @@ export default {
         },
         loadDepartment: (context, payload) => {
             context.commit('setLoadingState', true);
-            axios.get('api/maintainance/departments/' + payload.id)
+            axios.get('api/maintenance/departments/' + payload.id)
             .then(response => {
                 context.commit('setDepartment', response);
                 setTimeout(() => {
@@ -66,7 +66,7 @@ export default {
         },
         storeDepartment: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.post('api/maintainance/departments', payload)
+            axios.post('api/maintenance/departments', payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -83,7 +83,7 @@ export default {
         },
         updateDepartment: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.patch('api/maintainance/departments/' + payload.id, payload)
+            axios.patch('api/maintenance/departments/' + payload.id, payload)
             .then(response => {
                 setTimeout(() => {
                     context.commit('setServerResponse', response);
@@ -99,7 +99,7 @@ export default {
             });
         },
         deleteDepartment: (context, payload) => {
-            axios.delete('api/maintainance/departments/' + payload.department.id)
+            axios.delete('api/maintenance/departments/' + payload.department.id)
             .then(response => {
                 toastr.success('Success', response.data.message);
             })

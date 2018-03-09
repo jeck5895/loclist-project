@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Maintainance\Manpower;
+namespace App\Http\Requests\Maintenance\Manpower;
 
 use Illuminate\Foundation\Http\FormRequest;
 

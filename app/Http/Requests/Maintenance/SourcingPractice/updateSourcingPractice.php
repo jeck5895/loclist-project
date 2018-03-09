@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Maintainance\SourcingPractice;
+namespace App\Http\Requests\Maintenance\SourcingPractice;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class updateSourcingPractice extends FormRequest
+class UpdateSourcingPractice extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

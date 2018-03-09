@@ -8,6 +8,8 @@ import VeeValidate from 'vee-validate';
 import Auth from './package/Auth';
 const VueInputMask = require('vue-inputmask').default;
 import vSelect from 'vue-select';
+import ToggleButton from 'vue-js-toggle-button'
+
 // import select2 from 'select2';
 // import VueToastr from '@deveodk/vue-toastr';
 // import '@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css';
@@ -23,6 +25,7 @@ Vue.use(VeeValidate);
 Vue.use(VueRouter);
 Vue.use(Auth);
 Vue.component('v-select', vSelect);
+Vue.use(ToggleButton)
 
 Vue.filter('humanReadableFormat', function(date){
     return moment(date).format('MMMM D, YYYY');

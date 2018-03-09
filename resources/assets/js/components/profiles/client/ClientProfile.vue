@@ -184,7 +184,7 @@
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="calls" role="tabpanel" aria-labelledby="home-tab">
                             <div class="mb-2 mt-2">
-                                <button class="btn btn-sm btn-default" @click="showModalForm(clientId, 'NEW_CALL_RECORD')">
+                                <button v-if="user.user_role.add_client_calls == 1" class="btn btn-sm btn-default" @click="showModalForm(clientId, 'NEW_CALL_RECORD')">
                                   <span class="fa fa-phone-square"></span>  New Call Record
                                 </button>
                             </div>
@@ -193,7 +193,7 @@
 
                         <div class="tab-pane fade" id="saturation" role="tabpanel" aria-labelledby="home-tab">
                             <div class="mb-2 mt-2">
-                                <button class="btn btn-sm btn-default" @click="showModalForm(clientId, 'NEW_CLIENT_SATURATION_RECORD')">
+                                <button v-if="user.user_role.add_client_saturations == 1" class="btn btn-sm btn-default" @click="showModalForm(clientId, 'NEW_CLIENT_SATURATION_RECORD')">
                                   <span class="fa fa-file-text-o"></span>  New Saturation Record
                                 </button>
                             </div>
@@ -203,7 +203,7 @@
                         
                         <div class="tab-pane fade" id="presentation" role="tabpanel" aria-labelledby="home-tab">
                             <div class="mb-2 mt-2">
-                                <button class="btn btn-sm btn-default" @click="showModalForm(clientId, 'NEW_PRESENTATION_RECORD')">
+                                <button v-if="user.user_role.add_client_presentations == 1" class="btn btn-sm btn-default" @click="showModalForm(clientId, 'NEW_PRESENTATION_RECORD')">
                                   <span class="fa fa-television"></span>  New Presentation Record
                                 </button>
                             </div>
@@ -213,7 +213,7 @@
                         
                         <div class="tab-pane fade" id="acquisition" role="tabpanel" aria-labelledby="home-tab">
                             <div class="mb-2 mt-2">
-                                <button class="btn btn-sm btn-default" @click="showModalForm(clientId, 'NEW_CLIENT_ACQUISITION_RECORD')">
+                                <button v-if="user.user_role.add_client_acquisitions == 1" class="btn btn-sm btn-default" @click="showModalForm(clientId, 'NEW_CLIENT_ACQUISITION_RECORD')">
                                   <span class="fa fa-handshake-o"></span>  New Acquisition Record
                                 </button>
                             </div> 
@@ -283,7 +283,6 @@
             next();
         },
         created() {
-            console.log(this.$route.params.clientId);
             Echo.private("client-channel").listen("ClientEvent", e => {
                 console.log(e);
                 let payload = {
@@ -299,7 +298,8 @@
         data(){
             return{
                 clientId: this.$route.params.clientId,
-                website:''
+                website:'',
+                user: this.$auth.getter() //same as Vue.auth.getter()
             };
         },
         computed: {

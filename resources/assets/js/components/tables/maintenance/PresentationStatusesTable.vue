@@ -64,7 +64,7 @@
 
     export default {
         created() {
-            this.$store.dispatch('loadPresentationStatuses','api/maintainance/presentation-statuses');
+            this.$store.dispatch('loadPresentationStatuses','api/maintenance/presentation-statuses');
         },
         computed: {
             presentation_statuses() {

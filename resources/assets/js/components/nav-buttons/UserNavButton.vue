@@ -14,7 +14,7 @@
         },
         methods: {
             showModal() {
-                this.$store.dispatch('clearUserTypes');
+                //this.$store.dispatch('clearUserTypes');
                 this.$store.dispatch('setModalFormType', 'CREATE_USER').then(() => {
                     this.$store.dispatch('setModalTitle', "New User Details");
                     this.$store.dispatch('clearUser');

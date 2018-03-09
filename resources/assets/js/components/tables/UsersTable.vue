@@ -82,7 +82,7 @@
                     </td>
                 </tr>
 
-                <tr v-else v-for="user in users.data" :key="user.id">
+                <tr v-else-if="!isLoading" v-for="user in users.data" :key="user.id">
                     <td style="vertical-align: middle;">
                         {{ user.id }}
                     </td>
@@ -250,7 +250,7 @@
                     <small>This user may be related to existing client record/s !</small>
                 </div>
                 <br>
-                <p class="lead">Delete ${user.name} record anyway?</p>`;
+                <p class="text-center">Delete ${user.name} record anyway?</p>`;
 
                 this.$store.dispatch("setModalTitle", message);
                 this.$store.dispatch('setDeletionType', deletionType);

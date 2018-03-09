@@ -12,6 +12,10 @@ use App\VwClient;
 use App\ClientSourcingPractice;
 use App\ClientManpowerProvider;
 use App\ClientContactPerson;
+use App\ClientSaturation;
+use App\ClientCall;
+use App\ClientPresentation;
+use App\ClientAcquisition;
 use Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -28,7 +32,6 @@ class ClientsController extends Controller
          * Make request 
          */
         $request = app()->make('request');
-
 
         //Check if there's any request parameters
         if(!empty($request->all()))
@@ -316,13 +319,25 @@ class ClientsController extends Controller
      */
     public function destroy($id)
     {
-        //delete clietn record
+        $client_acquisition = ClientAcquisition::where('client_id', $id)->count();
+
+        if(!auth()->user()->userRole->delete_clients == 1)
+            return response()->json(['message' => 'This action is unauthorized.'], 403);
+        if($client_acquisition > 0)
+            return response()->json(['message' => 'Acquired clients cannot be deleted.'], 422);
+        
+        //delete client record
+        Client::destroy($id);
         //delete sourcing practices records of client
+        ClientContactPerson::where('client_id', $id)->delete();
         //delete manpower providers records of client
+        ClientManpowerProvider::where('client_id', $id)->delete();
         //delete saturation record
+        ClientSaturation::where('client_id', $id)->delete();
         //delete call record 
+        ClientCall::where('client_id', $id)->delete();
         //delete presentation record
-        //delete acquisition record
+        ClientPresentation::where('client_id', $id)->delete();
     }
 
 }

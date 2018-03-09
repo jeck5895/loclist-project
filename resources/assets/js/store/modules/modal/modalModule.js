@@ -96,6 +96,7 @@ export default {
             
         },
         closeConfirmationModal: (context, payload) => {
+            context.commit('clearServerResponse');
             $("#deleteConfirmationModal").modal("hide");
         }
     }

@@ -82,12 +82,12 @@ export default {
 
                     if (this.formType == 'CREATE_ACQUISITION') {
                             this.$store.dispatch('storeAcquisition', department).then(() => {
-                                this.$store.dispatch('loadAcquisitions', 'api/maintainance/acquisitions');
+                                this.$store.dispatch('loadAcquisitions', 'api/maintenance/acquisitions');
                             });
                     } else if (this.formType == 'EDIT_ACQUISITION') {
                             this.$store.dispatch('updateAcquisition', department)
                             .then(() => {
-                            this.$store.dispatch('loadAcquisitions', 'api/maintainance/acquisitions');
+                            this.$store.dispatch('loadAcquisitions', 'api/maintenance/acquisitions');
                         });
                     } else {
                         toastr.error('Error', 'Unknown Command');

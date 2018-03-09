@@ -49,7 +49,7 @@
         </div>
         
         <confirmation-modal>
-            <template slot="confirmationHeader"> {{ modalTitle }} </template>
+            <div slot="confirmationHeader" v-html="modalTitle"></div>
         </confirmation-modal>
     </div>
 </template>

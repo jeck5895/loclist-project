@@ -35,6 +35,7 @@
 
     export default {
         beforeCreate() {
+            this.$store.dispatch('clearUserTypes');
             this.$store.dispatch('setModalFormType', 'CREATE_USER');
         },
         created() {

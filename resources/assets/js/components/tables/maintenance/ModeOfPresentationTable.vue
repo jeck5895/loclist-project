@@ -64,7 +64,7 @@
 
     export default {
         created() {
-            this.$store.dispatch('loadModeOfPresentations','api/maintainance/mode-of-presentations');
+            this.$store.dispatch('loadModeOfPresentations','api/maintenance/mode-of-presentations');
         },
         computed: {
             mode_of_presentations() {

@@ -142,13 +142,20 @@ export default{
         },
         deleteUser: (context, payload) => {
             //console.log(payload)
-            axios.delete('api/users/' + payload.user.id)
-            .then(response => {
-                toastr.success('Success', response.data.message);
-            })
-            .catch(error => {
-                context.commit('setServerResponse', error.response.data);
-                console.log(error)
+            return new Promise((resolve, reject) => {
+                axios.delete('api/users/' + payload.user.id)
+                .then(response => {
+                    toastr.success('Success', response.data.message);
+                    resolve(response)
+                })
+                .catch(error => {
+                    if (error.response.status == 403) {
+                        toastr.error('Error', error.response.data.message);
+                    }
+                    context.commit('setServerResponse', error.response.data);
+                    console.log(error)
+                    reject(error)
+                });
             });
         }
     }

@@ -87,12 +87,12 @@
 
                         if (this.formType == 'CREATE_INDUSTRY') {
                             this.$store.dispatch('storeIndustry', industry).then(() => {
-                                this.$store.dispatch('loadIndustries', 'api/maintainance/industries');
+                                this.$store.dispatch('loadIndustries', 'api/maintenance/industries');
                             });
                         } else if (this.formType == 'EDIT_INDUSTRY') {
                             this.$store.dispatch('updateIndustry', industry)
                             .then(() => {
-                                this.$store.dispatch('loadIndustries', 'api/maintainance/industries');
+                                this.$store.dispatch('loadIndustries', 'api/maintenance/industries');
                             });
                         } else {
                             toastr.error('Error', 'Unknown Command');

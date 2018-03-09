@@ -14,7 +14,7 @@ class UpdateClientPresentation extends FormRequest
      */
     public function authorize()
     {
-         return $this->user()->userType != 3 ? true : false;
+         return $this->user()->userRole->edit_client_presentations == 1 ? true : false;
     }
 
     /**

@@ -175,7 +175,7 @@
                     <!-- Edit Button -->
                     <td style="vertical-align: middle;">
                         <div class="btn-group btn-group-sm" role="group">
-                            <button @click="toEditClientForm(client)" :title="'Edit ' + client.client_name" class="btn btn-sm btn-default">
+                            <button v-if="user.user_role.edit_clients == 1" @click="toEditClientForm(client)" :title="'Edit ' + client.client_name" class="btn btn-sm btn-default">
                                 <span class="fa fa-edit"></span>
                             </button>
 
@@ -186,7 +186,7 @@
                             </router-link>
 
 
-                            <button type="button" title="Delete" class="btn btn-sm btn-default" @click="destroy(client)">
+                            <button v-if="user.user_role.delete_clients == 1" type="button" title="Delete" class="btn btn-sm btn-default" @click="destroy(client)">
                                 <span class="fa fa-trash"></span>
                             </button>
                         </div>
@@ -215,7 +215,9 @@
             });
         },
         data() {
-            return {};
+            return {
+                user : Vue.auth.getter()
+            };
         },
         computed: {
             client_query() {
@@ -246,6 +248,24 @@
                 this.$store.dispatch('clearContactPersons');
                 this.$store.dispatch('clearClientManpowerProviders');
                 this.$router.push({ name: 'editClient', params: { companyName:  this.toUrlFormat(client.client_name), clientId : client.id }})
+            },
+            destroy(client){
+                let deletionType = {
+                    scope: "clients",
+                    client: client
+                };
+
+                let message = `
+                <div class="alert alert-danger mb-1" role="alert">
+                    <h6 class="alert-heading">Warning <i class="fa fa-exclamation-circle"></i></h6>
+                    <small>All records including calls, saturations, presentations and contact person's record will be deleted!</small>
+                </div>
+                <br>
+                <p class="text-center">Delete <em>${client.client_name}</em> record anyway?</p>`;
+
+                this.$store.dispatch("setModalTitle", message);
+                this.$store.dispatch('setDeletionType', deletionType);
+                this.$store.dispatch('showConfirmationModal');
             },
             dropdownMenuClick() {
                 $(".dropdown-filter").on("click", function (e) {

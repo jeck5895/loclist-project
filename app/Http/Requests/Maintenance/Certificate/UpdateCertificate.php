@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Maintainance\Certificate;
+namespace App\Http\Requests\Maintenance\Certificate;
 
 use Illuminate\Foundation\Http\FormRequest;
 

@@ -14,7 +14,7 @@ class UpdateClientAcquisition extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->userType != 3 ? true : false;
+        return $this->user()->userRole->edit_client_acquisitions == 1 ? true : false;
     }
 
     /**

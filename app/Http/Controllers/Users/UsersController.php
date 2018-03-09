@@ -19,6 +19,7 @@ class UsersController extends Controller
      */
     public function index()
     {
+        
         if(isset($_GET['type']) && $_GET['type'] == 'all')
         {
             $users = User::orderBy('initial','asc')->active()->get();
@@ -157,12 +158,16 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //User::find($id)->delete();
-        User::destroy($id);
+        if(auth()->user()->userRole->delete_user == 1){
+            User::destroy($id);
         
-        return  [
-            'message' => 'Record has been deleted',
-            'status' => 'OK'
-        ];
+            return  [
+                'message' => 'Record has been deleted',
+                'status' => 'OK'
+            ];
+        }
+        else {
+            return response()->json(['message' => 'This action is unauthorized.'], 403);
+        }
     }
 }

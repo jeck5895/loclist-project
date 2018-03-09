@@ -64,7 +64,7 @@
 
     export default {
         created() {
-            this.$store.dispatch('loadAcquisitions','api/maintainance/acquisitions');
+            this.$store.dispatch('loadAcquisitions','api/maintenance/acquisitions');
         },
         computed: {
             acquisitions() {

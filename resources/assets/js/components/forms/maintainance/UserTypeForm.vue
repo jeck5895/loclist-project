@@ -78,17 +78,35 @@
                     if (result) { // if true submit form else set serverResponse error
                         let user_type = {
                             id: this.user_type.id,
-                            userType: this.user_type.userType.toUpperCase()
+                            userType: this.user_type.userType.toUpperCase(),
+                            // add_clients : this.user_type.add_clients,
+                            // edit_clients : this.user_type.edit_clients,
+                            // delete_clients : this.user_type.delete_clients,
+                            // add_client_calls : this.user_type.add_client_calls,
+                            // edit_client_calls : this.user_type.edit_client_calls,
+                            // delete_client_calls : this.user_type.delete_client_calls,
+                            // add_client_saturations : this.user_type.add_client_saturations,
+                            // edit_client_saturations : this.user_type.edit_client_saturations,
+                            // delete_client_saturations :  this.user_type.delete_client_saturations,
+                            // add_client_presentations : this.user_type.add_client_presentations,
+                            // edit_client_presentations :  this.user_type.edit_client_presentations,
+                            // delete_client_presentations : this.user_type.delete_client_presentations,
+                            // add_client_acquisitions : this.user_type.add_client_acquisitions,
+                            // edit_client_acquisitions : this.user_type.edit_client_acquisitions,
+                            // delete_client_acquisitions : this.user_type.delete_client_acquisitions,
+                            // add_user : this.user_type.add_user,                          
+                            // edit_user : this.user_type.edit_user,                           
+                            // delete_user : this.user_type.delete_user                         
                         };
 
                         if (this.formType == 'CREATE_USERTYPE') {
                             this.$store.dispatch('storeUserType', user_type).then(() => {
-                                this.$store.dispatch('loadUserTypes', 'api/maintainance/user_types');
+                                this.$store.dispatch('loadUserTypes', 'api/maintenance/user_types');
                             });
                         } else if (this.formType == 'EDIT_USERTYPE') {
                             this.$store.dispatch('updateUserType', user_type)
                             .then(() => {
-                                this.$store.dispatch('loadUserTypes', 'api/maintainance/user_types');
+                                this.$store.dispatch('loadUserTypes', 'api/maintenance/user_types');
                             });
                         } else {
                             toastr.error('Error', 'Unknown Command');

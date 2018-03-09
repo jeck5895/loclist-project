@@ -64,7 +64,7 @@
 
     export default {
         created() {
-            this.$store.dispatch('loadActionPlans','api/maintainance/action-plans');
+            this.$store.dispatch('loadActionPlans','api/maintenance/action-plans');
         },
         computed: {
             action_plans() {

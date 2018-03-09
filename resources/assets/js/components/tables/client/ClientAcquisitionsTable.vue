@@ -12,7 +12,7 @@
                     <th>Signed Contract</th>
                     <th>Manner of Acquisition</th>
                     <th>Intitial HC Req.</th>
-                    <th>Options</th>
+                    <th v-if="user.user_role.edit_client_acquisitions == 1 || user.user_role.delete_client_acquisitions == 1">Options</th>
                 </tr>
             </thead>
             <tbody>
@@ -72,13 +72,13 @@
                         {{ acquisition.initial_hc_acquired }}
                     </td>
 
-                    <td style="vertical-align: middle;">
+                    <td v-if="user.user_role.edit_client_acquisitions == 1 || user.user_role.delete_client_acquisitions == 1" style="vertical-align: middle;">
                         <div class="btn-group btn-group-sm" role="group">
-                            <button type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(acquisition)">
+                            <button v-if="user.user_role.edit_client_acquisitions == 1" type="button" title="Edit" class="btn btn-sm btn-default" @click="edit(acquisition)">
                                 <span class="fa fa-edit"></span>
                             </button>
 
-                            <button @click="destroy(acquisition)" type="button" class="btn btn-sm btn-default">
+                            <button v-if="user.user_role.delete_client_acquisitions == 1" @click="destroy(acquisition)" type="button" class="btn btn-sm btn-default">
                                 <span class="fa fa-trash"></span>
                             </button>
                         </div>
@@ -102,6 +102,11 @@
     export default {
         created() {
             this.loadClientAcquisitionsRecord();
+        },
+        data() {
+            return {
+                user: Vue.auth.getter()
+            }
         },
         computed: {
             client_id() {

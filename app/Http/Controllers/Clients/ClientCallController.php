@@ -155,6 +155,9 @@ class ClientCallController extends Controller
      */
     public function destroy($client_id, $call_id)
     {
+        if(!auth()->user()->userRole->delete_client_calls == 1)
+            return response()->json(['message' => 'This action is unauthorized.'], 403);
+
         ClientCall::destroy($call_id);
 
         return ['message' => 'Record has been deleted'];

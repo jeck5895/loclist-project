@@ -82,12 +82,12 @@
                         
                         if (this.formType == 'CREATE_NATIONALITY') {
                             this.$store.dispatch('storeNationality', nationality).then(() => {
-                                this.$store.dispatch('loadNationalities', 'api/maintainance/nationalities');
+                                this.$store.dispatch('loadNationalities', 'api/maintenance/nationalities');
                             });
                         } else if (this.formType == 'EDIT_NATIONALITY') {
                             this.$store.dispatch('updateNationality', nationality)
                             .then(() => {
-                                this.$store.dispatch('loadNationalities', 'api/maintainance/nationalities');
+                                this.$store.dispatch('loadNationalities', 'api/maintenance/nationalities');
                             });
                         } else {
                             toastr.error('Error', 'Unknown Command');

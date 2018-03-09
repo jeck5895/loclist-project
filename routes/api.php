@@ -14,7 +14,8 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    //eager loading userRole relationship
+    return auth()->user()->load('userRole');//$request->user();
 });
 
 Route::middleware('auth:api')->group(function() {
@@ -24,7 +25,7 @@ Route::middleware('auth:api')->group(function() {
     // Route::patch('/user/{id}', 'UsersController@update');
     Route::get('reports/target-lists/years', 'Reports\TargetListsController@years');
     Route::apiResource('users', 'Users\UsersController');
-    Route::apiResource('user_types', 'Maintenance\UserTypesController');
+    Route::apiResource('maintenance/user_types', 'Maintenance\UserTypesController');
     Route::apiResource('companies', 'Companies\CompaniesController');
     Route::apiResource('maintenance/industries', 'Maintenance\IndustriesController');
     Route::apiResource('maintenance/nationalities', 'Maintenance\NationalitiesController');

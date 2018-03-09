@@ -215,12 +215,21 @@ export default {
             });
         },
         deleteClient: (context, payload) => {
-            axios.delete('api/clients/', + payload.id)
-            .then( response => {
-                toastr.success('Success', response.data.message)
-            })
-            .catch( error => {
-                context.commit('setServerResponse', error.response);
+            return new Promise((resolve, reject) => {
+                axios.delete('api/clients/' + payload.client.id)
+                .then(response => {
+                    toastr.success('Success', response.data.message)
+                })
+                .catch(error => {
+                    if (error.response.status == 403) {
+                        toastr.error('Error', error.response.data.message)
+                    }
+                    if(error.response.status == 422) {
+                        toastr.error('Error', error.response.data.message);
+                    }
+                    context.commit('setServerResponse', error.response);
+                    reject(error);
+                });
             });
         },
         search: (context, payload) => {

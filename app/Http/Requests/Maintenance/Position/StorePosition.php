@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Maintainance\Position;
+namespace App\Http\Requests\Maintenance\Position;
 
 use Illuminate\Foundation\Http\FormRequest;
 

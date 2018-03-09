@@ -47,9 +47,9 @@ class User extends Authenticatable
         return $this->hasOne(SocialProvider::class);
     }
 
-    public function UserType()
+    public function userRole()
     {
-        return $this->belongsTo(UserType::class, 'userType')->select(['id','userType']); //userType is the foreign key in users Table
+        return $this->belongsTo(UserType::class, 'userType'); //userType is the foreign key in users Table
     }
 
     public function clients()

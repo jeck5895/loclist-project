@@ -154,11 +154,8 @@ class ClientAcquisitionController extends Controller
      */
     public function destroy($client_id, $acquisition_id)
     {
-        if(auth()->user()->userType != 1)
-        {
-            // abort(403,'Request Unauthorized');
-            return response('Unauthorized action', 403);
-        }
+        if(!auth()->user()->userRole->delete_client_acquisitions == 1)
+            return response()->json(['message' => 'This action is unauthorized.'], 403);
 
         ClientAcquisition::destroy($acquisition_id);
 

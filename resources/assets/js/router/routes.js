@@ -51,7 +51,22 @@ let routes = [
         path: '/users',
         component: require('../components/containers/Users.vue'),
         meta: {
-            forAuthUsers: true
+            forAuthUsers: true,
+            forAdmin: true
+        },
+        beforeEnter: (to, from, next) => {
+            if (to.matched.some(record => record.meta.forAdmin)) {
+                if (typeof Vue.auth.getter() != "undefined" && Vue.auth.getter().userType != 1) {
+                    window.location = window.location.origin;
+                }
+                else {
+                    console.log('qqqq')
+                    next();
+                }
+            }
+            else {
+                next();
+            }
         }
     },
     {

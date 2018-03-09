@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function view(User $user)
     {
-        //
+        return $user->userType === 1 ? true : false;
     }
 
     /**
@@ -30,8 +30,7 @@ class UserPolicy
     public function create(User $user)
     {
         //
-        $boolean = $user->userType === 1 ? true : false;
-        return true;
+        return $user->user === 1 ? true : false;
     }
 
     /**
@@ -54,8 +53,9 @@ class UserPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function delete(User $user, User $user)
+    //Not working
+    public function delete(User $userr)
     {
-        //
+        return $user->userType == 1 ? true : false;
     }
 }
