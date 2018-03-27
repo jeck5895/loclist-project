@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Maintenance\Confirmation\StoreConfirmation;
 use App\Http\Requests\Maintenance\Confirmation\UpdateConfirmation;
+use App\Events\MaintainanceEvent;
 
 class ConfirmationController extends Controller
 {
@@ -48,6 +49,8 @@ class ConfirmationController extends Controller
         Confirmation::create([
             'confirmation_name' => $request['confirmation_name']
         ]);
+        
+        event(new MaintainanceEvent('confirmations'));
 
         return ['message' => 'New record has been saved'];
     }
@@ -83,9 +86,10 @@ class ConfirmationController extends Controller
      */
     public function update(UpdateConfirmation $request, Confirmation $confirmation)
     {
-       $confirmation->update($request->all());
+        $confirmation->update($request->all());
+        event(new MaintainanceEvent('confirmations'));
 
-       return ['message' => 'Changes has been saved'];
+        return ['message' => 'Changes has been saved'];
     }
 
     /**
@@ -100,7 +104,8 @@ class ConfirmationController extends Controller
             return response()->json(['message' => 'This action is unauthorized.'], 403);
 
         $confirmation->delete();
-        
+        event(new MaintainanceEvent('confirmations'));
+
         return ['message' => 'Record has been deleted'];
     }
 }

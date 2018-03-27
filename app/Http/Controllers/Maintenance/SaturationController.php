@@ -7,6 +7,7 @@ use App\Saturation;
 use Illuminate\Http\Request;
 use App\Http\Requests\Maintenance\Saturation\StoreSaturation;
 use App\Http\Requests\Maintenance\Saturation\UpdateSaturation;
+use App\Events\MaintenanceEvent;
 
 class SaturationController extends Controller
 {
@@ -48,6 +49,8 @@ class SaturationController extends Controller
         Saturation::create([
             'saturation_mode' => $request['saturation_mode']
         ]);
+        
+        event(new MaintenanceEvent('saturations'));
 
         return ['message' => 'New Record has been saved'];
     }
@@ -87,6 +90,8 @@ class SaturationController extends Controller
          * UPDATE method with model binding 
          */
         $saturation->update($request->all());
+        
+        event(new MaintenanceEvent('saturations'));
 
         return ['message' => 'Changes has been saved'];
     }
@@ -103,6 +108,8 @@ class SaturationController extends Controller
             return response()->json(['message' => 'This action is unauthorized.'], 403);
 
         $saturation->delete();
+
+        event(new MaintenanceEvent('saturations'));
         
         return ['message' => 'Record has been deleted'];
     }

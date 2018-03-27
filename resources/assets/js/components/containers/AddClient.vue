@@ -42,9 +42,11 @@
                     };
                     localStorage.setItem('f_type', 'EDIT_CLIENT');
                     store.dispatch('loadClient', payload);
+                    store.dispatch('setDisableStatus', false);
                 }
                 else{
                     localStorage.setItem('f_type', 'CREATE_CLIENT');
+                    store.dispatch('setDisableStatus', true);
                 }
                 
                 store.dispatch('loadDepartments','api/maintenance/departments?type=all');

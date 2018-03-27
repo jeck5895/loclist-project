@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClientSourcingPracticesTable extends Migration
+class CreateStatusCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateClientSourcingPracticesTable extends Migration
      */
     public function up()
     {
-        Schema::create('client_sourcing_practices', function (Blueprint $table) {
+        Schema::create('status_categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('name');
+            $table->string('category', 50);
             $table->timestamps();
-            $table->tinyInteger('is_active')->default(1);
         });
     }
 
@@ -28,6 +27,6 @@ class CreateClientSourcingPracticesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('client_sourcing_practices');
+        Schema::dropIfExists('status_categories');
     }
 }

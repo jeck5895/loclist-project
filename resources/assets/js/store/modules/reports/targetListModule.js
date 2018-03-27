@@ -137,16 +137,20 @@ export default{
             });
         },
         deleteTargetList: ({commit}, payload) => {
-            axios.delete('api/reports/target-lists/' + payload.target_list.id)
-            .then(response => {
-                toastr.success('Success', response.data.message);
-            })
-            .catch(error => {
-                commit('setServerResponse', error.response.data);
-                if (error.response.status == 403) {
-                    toastr.error('Error', error.response.data);
-                }
-                console.log(error)
+            return new Promise((resolve, reject) => {
+                axios.delete('api/reports/target-lists/' + payload.target_list.id)
+                    .then(response => {
+                        toastr.success('Success', response.data.message);
+                        resolve(response)
+                    })
+                    .catch(error => {
+                        commit('setServerResponse', error.response.data);
+                        if (error.response.status == 403) {
+                            toastr.error('Error', error.response.data);
+                        }
+                        reject(error)
+                        console.log(error)
+                    });
             });
         }
     }

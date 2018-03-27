@@ -138,6 +138,9 @@
             client_id() {
                 return this.$route.params.clientId;
             },
+            client() {
+                return this.$store.getters.getClient;
+            }
         },
         watch: {
             client_presentation: 'formatDate',
@@ -165,12 +168,14 @@
 
                         if (this.formType == 'NEW_PRESENTATION_RECORD') {
                             this.$store.dispatch('storeClientPresentation', presentation_record).then(() => {
+                                    
                                 this.$store.dispatch('loadClientPresentations',
                                     `api/clients/${this.client_id}/presentations?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`
                                 );
                             });
                         } else if (this.formType == 'EDIT_PRESENTATION_RECORD') {
                             this.$store.dispatch('updateClientPresentation', presentation_record).then(() => {
+
                                 this.$store.dispatch('loadClientPresentations',
                                     `api/clients/${this.client_id}/presentations?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`
                                 );

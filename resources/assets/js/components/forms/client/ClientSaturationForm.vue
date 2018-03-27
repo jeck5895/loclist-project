@@ -158,6 +158,9 @@
             users() {
                 return this.$store.getters.loadUsers;
             },
+            client() {
+                return this.$store.getters.getClient;
+            }
         },
         watch: {
             client_saturation: 'formatDate',
@@ -168,7 +171,7 @@
                 this.$validator.validateAll(scope).then((result) => {
                 
                     if (result) { // if true submit form else set serverResponse error
-                        let call_record = {
+                        let saturation_record = {
                             id: this.client_saturation.id,
                             client_id: this.$route.params.clientId,
                             company_id: this.client_saturation.company_id,
@@ -185,11 +188,13 @@
                         };
 
                         if (this.formType == 'NEW_CLIENT_SATURATION_RECORD') {
-                                this.$store.dispatch('storeClientSaturation', call_record).then(() => {
+                                this.$store.dispatch('storeClientSaturation', saturation_record).then(() => {
+
                                     this.$store.dispatch('loadClientSaturations', `api/clients/${this.client_id}/saturations?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`);
                                 });
                         } else if (this.formType == 'EDIT_CLIENT_SATURATION_RECORD') {
-                                this.$store.dispatch('updateClientSaturation', call_record).then(() => {
+                                this.$store.dispatch('updateClientSaturation', saturation_record).then(() => {
+
                                     this.$store.dispatch('loadClientSaturations', `api/clients/${this.client_id}/saturations?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`);
                                 });
                         } else {

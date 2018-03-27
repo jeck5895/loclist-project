@@ -123,7 +123,6 @@
                             <option value="">--Select Proposal--</option>
                             <option value="DIRECT">DIRECT</option>
                             <option value="OUTSOURCE">OUTSOURCED</option>
-                            <option value="LFC">LFC</option>
                         </select>
                         <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.proposal')">{{ errors.first('clientDetailsForm.proposal') }}</small>
                     </div>
@@ -148,13 +147,32 @@
                         </select>
                         <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.manpower_type')">{{ errors.first('clientDetailsForm.manpower_type') }}</small>
                     </div> 
+                </div>
 
-                    <div class="form-group col-md-3">
-                        <label class="mr-1">Initial Status</label>
-                        <select v-model="client.overall_status" class="form-control form-control-sm mr-sm-2" id="exampleFormControlSelect1">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label class="mr-1">Task Status</label>
+                        <select v-model="client.task_status" v-validate="{rules:{required:true}}" name="task_status" data-vv-as="Task Status" class="form-control form-control-sm mr-sm-2" :disabled="disabled">
                             <option value="">--Select Overall Status--</option>
-                            <option v-for="(status, index) in statuses" :key="index" :value="status.id">{{ status.status }}</option>
+                            <option v-for="(status, index) in task_statuses" :key="index" :value="status.id">{{ status.status }}</option>
                         </select>
+                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.task_status')">{{ errors.first('clientDetailsForm.task_status') }}</small>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="mr-1">Negotiation Status {{ disabled }}</label>
+                        <select @change="notifyUserIfAcquired" v-model="client.negotiation_status" v-validate="{rules:{required:true}}" name="negotiation_status" data-vv-as="Negotiation Status" class="form-control form-control-sm mr-sm-2" :disabled="disabled">
+                            <option value="">--Select Overall Status--</option>
+                            <option v-for="(status, index) in negotiation_statuses" :key="index" :value="status.id">{{ status.status }}</option>
+                        </select>
+                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.negotiation_status')">{{ errors.first('clientDetailsForm.negotiation_status') }}</small>
+                    </div>
+                </div>
+                
+                <div v-if="client.negotiation_status == 9" class="row">
+                    <div class="form-group col-md-12">
+                        <label class="mr-1">Reason for Closing</label>
+                        <textarea v-model="client.reasons_for_closing" v-validate="{rules:{required:true}}" data-vv-as="Reason for closing" name="reason_for_closing" id="" cols="30" rows="5" class="form-control"></textarea>
+                        <small class="form-text has-danger" v-show="errors.has('clientDetailsForm.reason_for_closing')">{{ errors.first('clientDetailsForm.reason_for_closing') }}</small>
                     </div>
                 </div>
 
@@ -264,6 +282,17 @@ import ContactPersonsTable from '../../tables/client/ContactPersonsTable';
 export default {
     created() {
         let user = Vue.auth.getter();
+        if(typeof this.clientId != "undefined"){
+            Echo.private(`update-client-channel-${this.clientId}`).listen("UpdateClientEvent", e => {
+                console.log(e);
+                toastr.info('', e.message.response);
+                let payload = {
+                        id: this.clientId
+                    };
+                this.$store.dispatch('loadClient', payload);
+            });
+        }
+
         Echo.private('maintenance-channel')
             .listen('MaintenanceEvent', (e) => {
                 console.log(e);
@@ -282,6 +311,12 @@ export default {
                 if(e.scope == "companies"){
                     this.$store.dispatch('loadCompanies', 'api/companies?type=all');
                 }
+                if(e.scope == "manpowers"){
+                    this.$store.dispatch('loadManpowers', 'api/maintenance/manpowers?type=all');
+                }
+                if(e.scope == "statuses"){
+                    this.$store.dispatch('loadStatuses', 'api/maintenance/statuses?type=all');
+                }
             });
     },
     mounted() {
@@ -291,10 +326,15 @@ export default {
         return {
             selected: [],
             clientId: this.$route.params.clientId,
-            action: localStorage.getItem('f_type')
+            action: localStorage.getItem('f_type'),
+            negotiation_statuses:[],
+            task_statuses: [],
         }
     },
     computed: {
+        disabled() {
+            return this.$store.getters.getDisableStatus;
+        },
         contact_persons() {
             return this.$store.getters.getClientContactPersons;
         },
@@ -367,6 +407,22 @@ export default {
     watch: {
         //watch for computed property changes then loadClietSP to transfer computed property to array
         client:'loadClientSP',
+        statuses: function() {
+            if(this.statuses){
+                this.task_statuses = [];
+                this.negotiation_statuses = [];
+                
+                this.statuses.forEach(element => {
+                    if(element.status_category_id == 1){
+                        // this.task_statuses.push(element);
+                        this.task_statuses.push(element);
+                    }
+                    else{
+                        this.negotiation_statuses.push(element);
+                    }
+                });
+            }
+        }
         //client:'reloadPositions'
     },
     methods: {
@@ -440,7 +496,9 @@ export default {
                         sourcing_practices: this.selected,
                         manpower_providers: this.client_manpower_providers,
                         overall_status: this.client.overall_status,
-                        contact_persons: this.contact_persons
+                        contact_persons: this.contact_persons,
+                        negotiation_status: this.client.negotiation_status,
+                        task_status: this.client.task_status
                     };
                    
                     if (this.formType == 'CREATE_CLIENT') {
@@ -515,6 +573,11 @@ export default {
                     }
                 }
             });
+        },
+        notifyUserIfAcquired() {
+            if(this.client.negotiation_status == 6) {
+                toastr.info('Reminder',"Don't forget to set the acquisition date on client profile.");
+            }
         }
     },
     components: {
@@ -525,6 +588,9 @@ export default {
     },
     destroyed() {
         Echo.leave('maintenance-channel');
+        if(typeof this.clientId != "undefined"){
+            Echo.leave(`update-client-channel-${this.clientId}`);
+        }
     }
 }
 

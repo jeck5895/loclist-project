@@ -48,7 +48,9 @@ class StoreClient extends FormRequest
             // 'gender' => 'required',
             // 'department' => 'required|numeric',
             // 'position' => 'required|numeric',
-            'proposal' => 'required'
+            'proposal' => 'required',
+            'negotiation_status' => 'required',
+            'task_status' => 'required'
         ];
     }
 }

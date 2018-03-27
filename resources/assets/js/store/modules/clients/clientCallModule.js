@@ -34,34 +34,42 @@ export default {
         },
         loadClientCalls: (context, payload) => {
             context.commit('setLoadingState', true);
-            axios.get(payload)
-            .then(response => {
-                context.commit('setClientCalls', response);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
-            })
-            .catch(error => {
-                console.log(error.response.data);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
+            return new Promise((resolve, reject) => {
+                axios.get(payload)
+                    .then(response => {
+                        context.commit('setClientCalls', response);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            resolve(response)
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        console.log(error.response.data);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            reject(error)
+                        }, 1000);
+                    });
             });
         },
         loadClientCall: (context, payload) => {
             context.commit('setLoadingState', true);
-            axios.get('api/clients/' + payload.client_id + '/calls/' + payload.call_id)
-            .then(response => {
-                context.commit('setClientCall', response);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
-            })
-            .catch(error => {
-                console.log(error.response.data);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
+            return new Promise((resolve, reject) => {
+                axios.get('api/clients/' + payload.client_id + '/calls/' + payload.call_id)
+                    .then(response => {
+                        context.commit('setClientCall', response);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            resolve(response)
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        console.log(error.response.data);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            reject(error)
+                        }, 1000);
+                    });
             });
         },
         storeClientCall: (context, payload) => {
@@ -110,17 +118,21 @@ export default {
             });
         },
         deleteClientCall: (context, payload) => {
-            axios.delete('api/clients/' + payload.client_call.client_id + '/calls/' + payload.client_call.id)
-            .then(response => {
-                toastr.success('Success', response.data.message);
+            return new Promise((resolve, reject) => {
+                axios.delete('api/clients/' + payload.client_call.client_id + '/calls/' + payload.client_call.id)
+                    .then(response => {
+                        toastr.success('Success', response.data.message);
+                        resolve(response)
+                    })
+                    .catch(error => {
+                        context.commit('setServerResponse', error.response.data);
+                        if (error.response.status == 403) {
+                            toastr.error('Error', error.response.data);
+                        }
+                        reject(error)
+                        console.log(error)
+                    });
             })
-            .catch(error => {
-                context.commit('setServerResponse', error.response.data);
-                if (error.response.status == 403) {
-                    toastr.error('Error', error.response.data);
-                }
-                console.log(error)
-            });
         }
     }
 }

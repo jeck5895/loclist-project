@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Maintenance\Status\StoreStatus;
 use App\Http\Requests\Maintenance\Status\UpdateStatus;
 use App\OverallStatus;
+use App\Events\MaintenanceEvent;
 
 class StatusesController extends Controller
 {
@@ -17,11 +18,21 @@ class StatusesController extends Controller
      */
     public function index()
     {
-        if(isset($_GET['type']) && $_GET['type'] == 'all'){
-            $statuses = OverallStatus::active()->orderBy('status','asc')->get();
+        if(isset($_GET['type']) && $_GET['type'] == 'all' )
+        {
+            if(isset($_GET['category']))
+            {
+                $statuses = OverallStatus::where('status_category_id', $_GET['category'])
+                        ->active()->orderBy('status', 'asc')
+                        ->get();
+            }   
+            else{
+                $statuses = OverallStatus::active()->orderBy('status', 'asc')->get();
+
+            } 
         }
         else{
-            $statuses = OverallStatus::active()->orderBy('status','asc')->paginate(10);
+            $statuses = OverallStatus::active()->orderBy('status','asc')->with('status_category')->paginate(10);
         }
         
         return $statuses;
@@ -46,8 +57,11 @@ class StatusesController extends Controller
     public function store(StoreStatus $request)
     {
         $status = OverallStatus::create([
-            'status' => $request['status']
+            'status' => $request['status'],
+            'status_category_id' => $request['status_category'],
         ]);
+
+        event(new MaintenanceEvent('statuses'));
 
         return ['message' => 'Status has been saved'];
     }
@@ -87,8 +101,12 @@ class StatusesController extends Controller
     {
         $status = OverallStatus::find($id)
                     ->update([
-                        'status' => $request['status']
+                        'status' => $request['status'],
+                        'status_category_id' => $request['status_category'],
                     ]);
+
+        event(new MaintenanceEvent('statuses'));
+
         return ['message' => 'Changes has been saved'];
     }
 
@@ -104,6 +122,9 @@ class StatusesController extends Controller
             return response()->json(['message' => 'This action is unauthorized.'], 403);
         
         OverallStatus::destroy($id);
+
+        event(new MaintenanceEvent('statuses'));
+
 
         return ['message' => 'Record has been deleted'];
     }

@@ -25,11 +25,20 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\ClientPresentationEvent' => [
             'App\Listeners\ClientPresentationEventListener',
         ],
+        'App\Events\ClientAcquisitionEvent' => [
+            'App\Listeners\ClientAcquisitionEventListener',
+        ],
         'App\Events\UserEvent' => [
             'App\Listeners\UserEventListener',
         ],
         'App\Events\MaintenanceEvent' => [
             'App\Listeners\MaintenanceEventLister',
+        ],
+        'App\Events\UpdateClientEvent' => [
+            'App\Listeners\UpdateClientEventListener'
+        ],
+        'App\Events\ClientSubrecordEvent' => [
+            'App\Listeners\ClientSubrecordEventListener'
         ]
     ];
 

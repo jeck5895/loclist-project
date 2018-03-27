@@ -7,7 +7,7 @@
         <div class="col-md-8 float-right">
             <nav aria-label="...">
                 <ul :class="'pagination ' + classSize +' justify-content-end'">
-                    <li :class="object.first_page_url == null ? 'page-item disabled' : '' ">
+                    <li :class="object.from == object.current_page ? 'page-item disabled' : '' ">
                         <a class="page-link" @click.prevent="firstPage(object.first_page_url)" href="#" tabindex="-1">
                             <span class="fa fa-long-arrow-left"></span>
                         </a>
@@ -21,7 +21,7 @@
                     <li :class="object.next_page_url == null ? 'page-item disabled' : 'page-item'">
                         <a class="page-link" @click.prevent="nextPage(object.next_page_url)" href="#">Next</a>
                     </li>
-                    <li :class="object.last_page_url == null ? 'page-item disabled' : '' ">
+                    <li :class="object.last_page == object.current_page ? 'page-item disabled' : '' ">
                         <a class="page-link" @click.prevent="lastPage(object.last_page_url)" href="#">
                             <span class="fa fa-long-arrow-right"></span>
                         </a>
@@ -112,6 +112,18 @@
                     case "target_lists":
                         this.$store.dispatch('loadTargetLists', url);
                         break;
+                    case "clients_to_call":
+                        this.$store.dispatch('loadClientsToCall', url);
+                        break;
+                    case "clients_to_send_proposal":
+                        this.$store.dispatch('loadClientsToSendProposal', url);
+                        break;
+                    case "clients_to_request_presentation":
+                        this.$store.dispatch('loadClientsToRequestPresentation', url);
+                        break;
+                    case "statuses":
+                        this.$store.dispatch('loadStatuses', url);
+                        break;
                     default:
                         break;
                 }
@@ -185,6 +197,17 @@
                     case "target_lists":
                         this.$store.dispatch('loadTargetLists', url);
                         break;
+                    case "clients_to_call":
+                        this.$store.dispatch('loadClientsToCall', url);
+                        break;
+                    case "clients_to_send_proposal":
+                        this.$store.dispatch('loadClientsToSendProposal', url);
+                        break;
+                    case "clients_to_request_presentation":
+                        this.$store.dispatch('loadClientsToRequestPresentation', url);
+                        break;
+                    case "statuses":
+                        this.$store.dispatch('loadStatuses', url);
                     default:
                         break;
                 }
@@ -258,6 +281,17 @@
                     case "target_lists":
                         this.$store.dispatch('loadTargetLists', url);
                         break;
+                    case "clients_to_call":
+                        this.$store.dispatch('loadClientsToCall', url);
+                        break;
+                    case "clients_to_send_proposal":
+                        this.$store.dispatch('loadClientsToSendProposal', url);
+                        break;
+                    case "clients_to_request_presentation":
+                        this.$store.dispatch('loadClientsToRequestPresentation', url);
+                        break;
+                    case "statuses":
+                        this.$store.dispatch('loadStatuses', url);
                     default:
                         break;
                 }
@@ -331,6 +365,17 @@
                     case "target_lists":
                         this.$store.dispatch('loadTargetLists', url);
                         break;
+                    case "clients_to_call":
+                        this.$store.dispatch('loadClientsToCall', url);
+                        break;
+                    case "clients_to_send_proposal":
+                        this.$store.dispatch('loadClientsToSendProposal', url);
+                        break;
+                    case "clients_to_request_presentation":
+                        this.$store.dispatch('loadClientsToRequestPresentation', url);
+                        break;
+                    case "statuses":
+                        this.$store.dispatch('loadStatuses', url);
                     default:
                         break;
                 }
@@ -404,6 +449,17 @@
                     case "target_lists":
                         this.$store.dispatch('loadTargetLists', url);
                         break;
+                    case "clients_to_call":
+                        this.$store.dispatch('loadClientsToCall', url);
+                        break;
+                    case "clients_to_send_proposal":
+                        this.$store.dispatch('loadClientsToSendProposal', url);
+                        break;
+                    case "clients_to_request_presentation":
+                        this.$store.dispatch('loadClientsToRequestPresentation', url);
+                        break;
+                    case "statuses":
+                        this.$store.dispatch('loadStatuses', url);
                     default:
                         break;
                 }

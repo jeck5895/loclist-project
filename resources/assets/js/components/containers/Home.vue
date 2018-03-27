@@ -38,6 +38,31 @@
                     :clientId="client_id"
                     :displayOptions="false"></contact-persons-table>
             </div>
+
+            <div 
+                v-if="((modalFormType == 'SHOW_CALL_TASKS_SEVEN_DAYS') 
+                        || (modalFormType =='SHOW_CALL_TASKS_ONE_MONTH') 
+                        ||( modalFormType =='SHOW_CALL_TASKS_THREE_MONTHS') 
+                        || (modalFormType =='SHOW_CALL_TASKS_SIX_MONTHS') 
+                        || (modalFormType =='SHOW_CALL_TASKS_ONE_YEAR')
+                        ||(modalFormType == 'SHOW_SATURATION_TASKS_SEVEN_DAYS')
+                        || (modalFormType =='SHOW_SATURATION_TASKS_ONE_MONTH') 
+                        ||( modalFormType =='SHOW_SATURATION_TASKS_THREE_MONTHS') 
+                        || (modalFormType =='SHOW_SATURATION_TASKS_SIX_MONTHS') 
+                        || (modalFormType =='SHOW_SATURATION_TASKS_ONE_YEAR')
+                        ||(modalFormType == 'SHOW_PRESENTATION_TASKS_SEVEN_DAYS')
+                        || (modalFormType =='SHOW_PRESENTATION_TASKS_ONE_MONTH') 
+                        ||( modalFormType =='SHOW_PRESENTATION_TASKS_THREE_MONTHS') 
+                        || (modalFormType =='SHOW_PRESENTATION_TASKS_SIX_MONTHS') 
+                        || (modalFormType =='SHOW_PRESENTATION_TASKS_ONE_YEAR')
+                        ||(modalFormType == 'SHOW_NEGOTIATION_TASKS_SEVEN_DAYS')
+                        || (modalFormType =='SHOW_NEGOTIATION_TASKS_ONE_MONTH') 
+                        ||( modalFormType =='SHOW_NEGOTIATION_TASKS_THREE_MONTHS') 
+                        || (modalFormType =='SHOW_NEGOTIATION_TASKS_SIX_MONTHS') 
+                        || (modalFormType =='SHOW_NEGOTIATION_TASKS_ONE_YEAR')
+                        )">
+                <dynamic-table></dynamic-table>
+            </div>
         </modal>
     </div>
 </template>
@@ -51,6 +76,7 @@ import ClientCallsTable from '../tables/ClientCallsTable';
 import ClientSaturationsTable from '../tables/ClientSaturationsTable';
 import ClientPresentationsTable from '../tables/ClientPresentationsTable';
 import ContactPersonsTable from '../tables/client/ContactPersonsTable';
+import DynamicTable from '../tables/dashboard/DynamicTable';
 
 export default {
     beforeRouteEnter(to, from, next) {
@@ -85,7 +111,7 @@ export default {
         },
         client_id() {
             return this.$store.getters.getModalParams;
-        }
+        },
     },
     methods: {
 
@@ -97,7 +123,8 @@ export default {
         ClientCallsTable,
         ClientSaturationsTable,
         ClientPresentationsTable,
-        ContactPersonsTable
+        ContactPersonsTable,
+        DynamicTable
     }
 }
 </script>

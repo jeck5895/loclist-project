@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Maintenance\Acquisition\StoreAcquisition;
 use App\Http\Requests\Maintenance\Acquisition\UpdateAcquisition;
 use App\Acquisition;
+use App\Events\MaintenanceEvent;
 
 class AcquisitionsController extends Controller
 {
@@ -49,6 +50,8 @@ class AcquisitionsController extends Controller
             'acquisition_name' => $request['acquisition_name']
         ]);
 
+        event(new MaintenanceEvent('acquisitions'));
+
         return ['message' => 'New Record has been saved'];
     }
 
@@ -89,7 +92,9 @@ class AcquisitionsController extends Controller
                     ->update([
                         'acquisition_name' => $request['acquisition_name']
                     ]);
-        
+
+        event(new MaintenanceEvent('acquisitions'));
+
         return ['message' => 'Changes has been saved'];
     }
 
@@ -105,6 +110,8 @@ class AcquisitionsController extends Controller
             return response()->json(['message' => 'This action is unauthorized.'], 403);
             
         Acquisition::destroy($id);
+
+        event(new MaintenanceEvent('acquisitions'));
 
         return ['message' => 'Record has been deleted'];
     }

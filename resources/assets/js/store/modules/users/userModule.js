@@ -40,43 +40,49 @@ export default{
     },
     actions:{
         loadUsers: (context, payload) => {
-            //change url for pagination 
             context.commit('setLoadingState', true);
-            axios.get(payload)
-            .then(response => {
-                // console.log(response);
-                var pages = Math.round(response.data.total / response.data.per_page);
-                console.log(response)
-                context.commit('setUsers', response);
-                context.commit('setTotalPage', pages);
-                context.commit('setColumns', response.data.columns);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
+            return new Promise((resolve, reject) => {
+                axios.get(payload)
+                    .then(response => {
+                        // console.log(response);
+                        var pages = Math.round(response.data.total / response.data.per_page);
+                        console.log(response)
+                        context.commit('setUsers', response);
+                        context.commit('setTotalPage', pages);
+                        context.commit('setColumns', response.data.columns);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            resolve(response)
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            reject(error)
+                        }, 1000);
+                        console.log(error.response.data)
+                    });
             })
-            .catch(error => {
-                setTimeout(() => {
-                    context.dispatch('setLoadingState', false);
-                }, 1000);
-                console.log(error.response.data)
-            });
         },
         loadUser: (context, payload) => {
             context.dispatch('setLoadingState', true);
-
-            axios.get('/api/users/' + payload.id)
-            .then(response => {
-                context.commit('setUser', response);
-                setTimeout(() => {
-                    context.dispatch('setLoadingState', false);
-                }, 1000);
+            return new Promise((resolve, reject) => {
+                axios.get('/api/users/' + payload.id)
+                    .then(response => {
+                        context.commit('setUser', response);
+                        setTimeout(() => {
+                            context.dispatch('setLoadingState', false);
+                            resolve(response)
+                        }, 1000);
+                    })
+                    .catch(errors => {
+                        setTimeout(() => {
+                            context.dispatch('setLoadingState', false);
+                            reject(errors)
+                        }, 1000);
+                        console.log(errors.response.data);
+                    });
             })
-            .catch(errors => {
-                setTimeout(() => {
-                    context.dispatch('setLoadingState', false);
-                }, 1000);
-                console.log(errors.response.data);
-            });
         },
         setUrl: (context, payload) => {
             context.commit('setUrl', payload);

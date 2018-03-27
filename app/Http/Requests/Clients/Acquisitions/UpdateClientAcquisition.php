@@ -27,14 +27,14 @@ class UpdateClientAcquisition extends FormRequest
         return [
             'client_id' => 'required',
             'company_id' => 'required',
-            'status_as_of' => ['required', 
-                new UniqueClientRecord('client_acquisitions', 
-                'client_id' , 
-                'company_id', 
-                'acquired_by',
-                $this->get('id') 
-            )],
-            'status' => 'required',
+            // 'status_as_of' => ['required', 
+            //     new UniqueClientRecord('client_acquisitions', 
+            //     'client_id' , 
+            //     'company_id', 
+            //     'acquired_by',
+            //     $this->get('id') 
+            // )],
+            // 'status' => 'required',
             'date_acquired' => [ 
                 new UniqueClientRecord('client_acquisitions', 
                 'client_id' , 

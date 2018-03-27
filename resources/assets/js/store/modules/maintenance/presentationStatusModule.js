@@ -34,30 +34,42 @@ export default {
         },
         loadPresentationStatuses: (context, payload) => {
             context.commit('setLoadingState', true);
-            axios.get(payload)
-            .then(response => {
-                context.commit('setPresentationStatuses', response);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
-            })
-            .catch(error => {
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
-                console.log(error.response)
+            return new Promise((resolve, reject) => {
+                axios.get(payload)
+                    .then(response => {
+                        context.commit('setPresentationStatuses', response);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            resolve(response)
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            reject(error)
+                        }, 1000);
+                        console.log(error.response)
+                    });
             });
         },
         loadPresentationStatus: (context, payload) => {
-            axios.get('api/maintenance/presentation-statuses/' + payload.id)
-            .then(response => {
-                context.commit('setPresentationStatus', response);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
-            })
-            .catch(error => {
-                console.log(error.response)
+            context.commit('setLoadingState', true);
+            return new Promise((resolve, reject) => {
+                axios.get('api/maintenance/presentation-statuses/' + payload.id)
+                    .then(response => {
+                        context.commit('setPresentationStatus', response);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            resolve(response)
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            reject(error);
+                        }, 1000);
+                        console.log(error.response)
+                    });
             });
         },
         storePresentationStatus: (context, payload) => {

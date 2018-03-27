@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Maintenance\Manpower\StoreManpowerType;
 use App\Http\Requests\Maintenance\Manpower\UpdateManpowerType;
 use App\ClientManpowerType;
+use App\Events\MaintenanceEvent;
 
 class ManpowersController extends Controller
 {
@@ -49,6 +50,8 @@ class ManpowersController extends Controller
             'type' => $request['type']
         ]);
 
+        event(new MaintenanceEvent('manpowers'));
+
         return ['message' => 'Record has been saved'];
     }
 
@@ -89,7 +92,9 @@ class ManpowersController extends Controller
                         ->update([
                             'type' => $request['type']
                         ]);
-
+        
+        event(new MaintenanceEvent('manpowers'));
+        
         return ['message' => 'Changes has been saved'];
     }
 
@@ -105,6 +110,8 @@ class ManpowersController extends Controller
             return response()->json(['message' => 'This action is unauthorized.'], 403);
 
         ClientManpowerType::destroy($id);
+
+        event(new MaintenanceEvent('manpowers'));
 
         return  [
             'message' => 'Record has been deleted',

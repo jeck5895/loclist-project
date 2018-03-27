@@ -79,12 +79,6 @@
     import formErrors from '../../errors/clientForm/clientFormError';
 
     export default {
-        beforeCreate() {
-            
-        },
-        created() {
-
-        },
         data() {
             return {
                 date_of_call:''
@@ -124,6 +118,9 @@
             client_id() {
                 return this.$route.params.clientId;
             },
+            client() {
+                return this.$store.getters.getClient;
+            }
         },
         watch: {
             call: 'formatDate',
@@ -153,6 +150,7 @@
                                 });
                         } else if (this.formType == 'EDIT_CALL_RECORD') {
                                 this.$store.dispatch('updateClientCall', call_record).then(() => {
+
                                     this.$store.dispatch('loadClientCalls', `api/clients/${this.client_id}/calls?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`);
                                 });
                         } else {

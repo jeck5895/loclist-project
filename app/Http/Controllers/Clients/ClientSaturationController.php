@@ -9,6 +9,7 @@ use App\Http\Requests\Clients\Saturation\UpdateClientSaturation;
 use App\Client;
 use App\ClientSaturation;
 use App\Events\ClientSaturationEvent;
+use App\Events\ClientSubrecordEvent;
 
 class ClientSaturationController extends Controller
 {
@@ -78,7 +79,16 @@ class ClientSaturationController extends Controller
         $saturation->save();
 
         $client = Client::find($request['client_id']);
-
+        if($request['proposal_accepted'] == 1){
+            $client->task_status = 5;
+            $client->negotiation_status = 10;
+        }
+        else{
+            $client->task_status = 2;
+            $client->negotiation_status = 10;
+        }
+        $client->save();
+        
         $message = [
                 'user' => auth()->user(),
                 'response' => auth()->user()->name . " has added saturation record to ".$client->client_name,
@@ -86,7 +96,8 @@ class ClientSaturationController extends Controller
             ];
         
         broadcast(new ClientSaturationEvent($message, $clientId))->toOthers();
-        
+        event(new ClientSubrecordEvent($message));
+
         return ['message' => 'New client saturation has been saved'];
     }
 
@@ -142,6 +153,15 @@ class ClientSaturationController extends Controller
         $saturation->save();
 
         $client = Client::find($clientId);
+        if($request['proposal_accepted'] == 1){
+            $client->task_status = 5;
+            $client->negotiation_status = 10;
+        }
+        else{
+            $client->task_status = 2;
+            $client->negotiation_status = 10;
+        }
+        $client->save();
 
         $message = [
                 'user' => auth()->user(),
@@ -150,7 +170,8 @@ class ClientSaturationController extends Controller
             ];
 
         broadcast(new ClientSaturationEvent($message, $clientId))->toOthers();
-        
+        event(new ClientSubrecordEvent($message));
+
         return  [
                 'message' => 'Changes has been saved',
                 'client_id' => $clientId,
@@ -170,6 +191,7 @@ class ClientSaturationController extends Controller
             return response()->json(['message' => 'This action is unauthorized.'], 403);
 
         ClientSaturation::destroy($saturation_id);
+        event(new ClientSubrecordEvent($message));
 
         return [
             'message' => 'Record has been deleted', 

@@ -2,7 +2,7 @@
     <form id="acquisitionForm" @submit.prevent="submitForm('acquisitionForm')" data-vv-scope="acquisitionForm">
         <form-errors :serverResponse="serverResponse"></form-errors>
         <div class="row">
-            <div class="form-group col-sm-12">
+            <!-- <div class="form-group col-sm-12">
                 <label for="">Status as of</label>
                 <input v-model="status_as_of" v-validate="{rules:{required:true}}" type="date" name="status_as_of" id="" class="form-control form-control-sm">
                 <small class="form-text has-danger" v-show="errors.has('acquisitionForm.status_as_of')">{{ errors.first('acquisitionForm.status_as_of') }}</small>
@@ -14,17 +14,17 @@
                     <option v-for="(status, index) in statuses" :key="index" :value="status.id">{{ status.status }}</option>
                 </select>
                 <small class="form-text has-danger" v-show="errors.has('acquisitionForm.status')">{{ errors.first('acquisitionForm.status') }}</small>
-            </div>
+            </div> -->
 
             <div class="form-group col-sm-12">
-                <label for="">Date Acquired <small class="text-muted">(if applicable)</small></label>
-                <input v-model="date_acquired" type="date" name="date_acquired" id="" class="form-control form-control-sm">
-                <!-- <small class="form-text has-danger" v-show="errors.has('acquisitionForm.date_acquired')">{{ errors.first('acquisitionForm.date_acquired') }}</small> -->
+                <label for="">Date Acquired </label>
+                <input v-model="date_acquired" type="date" v-validate="'required'" data-vv-as="Date Acquired" name="date_acquired" id="" class="form-control form-control-sm">
+                <small class="form-text has-danger" v-show="errors.has('acquisitionForm.date_acquired')">{{ errors.first('acquisitionForm.date_acquired') }}</small>
             </div>
             
             <div class="form-group col-sm-12">
-                <label for="">Acquired By <small class="text-muted">(if applicable)</small></label>
-                <select v-model="client_acquisition.acquired_by" v-validate="{rules:{required:true}}" name="acquired_by" id="acquired_by" class="form-control form-control-sm">]
+                <label for="">Acquired By </label>
+                <select v-model="client_acquisition.acquired_by" v-validate="'required'" data-vv-as="Acquired by" name="acquired_by" id="acquired_by" class="form-control form-control-sm">]
                     <option value="">--Select User--</option>
                     <option v-for="(user, index) in users" :key="index" :value="user.id"> {{ user.initial + ' ( ' +user.name+ ' ) ' }} </option>
                 </select>
@@ -32,8 +32,8 @@
             </div>
 
             <div class="form-group col-sm-12">
-                <label for="">Signed Contract <small class="text-muted">(if applicable)</small></label>
-                <select v-model="client_acquisition.signed_contract" name="signed_contract" v-validate="{rules:{required:true}}" id="" class="form-control form-control-sm">
+                <label for="">Signed Contract</label>
+                <select v-model="client_acquisition.signed_contract" v-validate="'required'" data-vv-as="Signed Contract" name="signed_contract" id="" class="form-control form-control-sm">
                     <option value="N/A">N/A</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -43,19 +43,19 @@
 
             <div class="form-group col-sm-12">
                 <label for="">Manner of Acquisition</label>
-                <select v-model="client_acquisition.manner_of_acquisition" v-validate="{rules:{required:true}}" name="manner_of_acquisition" id="" class="form-control form-control-sm">
+                <select v-model="client_acquisition.manner_of_acquisition" v-validate="'required'" data-vv-as="Manner of Acquisition" name="manner_of_acquisition" id="" class="form-control form-control-sm">
                     <option v-for="(acquisition, index) in manner_of_acquisitions" :key="index" :value="acquisition.id">{{ acquisition.acquisition_name }}</option>
                 </select>
                 <small class="form-text has-danger" v-show="errors.has('acquisitionForm.manner_of_acquisition')">{{ errors.first('acquisitionForm.manner_of_acquisition') }}</small>
             </div>
             <div class="form-group col-sm-12">
-                <label for="">Initial HC Required</label>
-                <input v-model="client_acquisition.initial_hc_acquired" v-validate="{rules:{required:true}}" type="number" name="initial_hc_acquired" class="form-control form-control-sm" id="">
+                <label for="">Initial Head Count Required</label>
+                <input v-model="client_acquisition.initial_hc_acquired" type="number" v-validate="'required'" data-vv-as="Initial Head Count" name="initial_hc_acquired" class="form-control form-control-sm" id="">
                 <small class="form-text has-danger" v-show="errors.has('acquisitionForm.initial_hc_acquired')">{{ errors.first('acquisitionForm.initial_hc_acquired') }}</small>
             </div>
             <div class="form-group col-sm-12">
                 <label for="">If not owned, who referred? Or name of related client</label>
-                <input v-model="client_acquisition.name_of_related_client" v-validate="{rules:{required:true}}" name="related_client" type="text" class="form-control form-control-sm">
+                <input v-model="client_acquisition.name_of_related_client" name="related_client" v-validate="'required'" data-vv-as="Referral" type="text" class="form-control form-control-sm">
                 <small class="form-text has-danger" v-show="errors.has('acquisitionForm.related_client')">{{ errors.first('acquisitionForm.related_client') }}</small>
             </div>
 
@@ -100,10 +100,13 @@
         data() {
             return {
                 date_acquired: '',
-                status_as_of: ''
+                // status_as_of: ''
             }
         },
         computed: {
+            client() {
+                return this.$store.getters.getClient;
+            },
             client_acquisition() {
                 return this.$store.getters.getClientAcquisition;
             },
@@ -156,8 +159,8 @@
                             id: this.client_acquisition.id,
                             client_id: this.$route.params.clientId,
                             company_id: this.client_acquisition.company_id,
-                            status_as_of: this.status_as_of,
-                            status: this.client_acquisition.status,
+                            // status_as_of: this.status_as_of,
+                            // status: this.client_acquisition.status,
                             acquired_by: this.client_acquisition.acquired_by,
                             date_acquired: this.date_acquired,
                             name_of_related_client: this.client_acquisition.name_of_related_client,
@@ -169,6 +172,9 @@
 
                         if (this.formType == 'NEW_CLIENT_ACQUISITION_RECORD') {
                                 this.$store.dispatch('storeClientAcquisition', acquisition_record).then(() => {
+                                    // this.client.negotiation_status = 6; //set client status to acquired
+                                    // this.client.task_status = 13;
+                                    // this.$store.dispatch('updateClient', this.client);
                                     this.$store.dispatch('loadClientAcquisitions', `api/clients/${this.client_id}/acquisitions?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`);
                                 });
                         } else if (this.formType == 'EDIT_CLIENT_ACQUISITION_RECORD') {
@@ -196,7 +202,7 @@
                     if(this.client_acquisition.date_acquired != null){
                         this.date_acquired = moment(this.client_acquisition.date_acquired).format('YYYY-MM-DD');
                     }
-                    this.status_as_of = moment(this.client_acquisition.status_as_of).format('YYYY-MM-DD');
+                    //this.status_as_of = moment(this.client_acquisition.status_as_of).format('YYYY-MM-DD');
                 } else if (this.formType == 'NEW_CLIENT_ACQUISITION_RECORD') {
                     // this.date_acquired = moment().format('YYYY-MM-DD');
                     // this.status_as_of = moment().format('YYYY-MM-DD');

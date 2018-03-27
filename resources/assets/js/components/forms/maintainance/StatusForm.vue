@@ -21,6 +21,15 @@
                 <small class="form-text has-danger" v-show="errors.has('statusForm.status')">{{ errors.first('statusForm.status') }}</small>
             </div>
 
+            <div class="form-group col-md-12">
+                <label for="">Status category</label>
+                <select v-model="status.status_category_id" name="status_category" class="form-control" data-vv-as="Status category" v-validate="'required'" id="">
+                    <option value="">--Select Category--</option>
+                    <option v-for="(category, index) in status_categories" :key="index" :value="category.id">{{ category.category }}</option>
+                </select>
+                <small class="form-text has-danger" v-show="errors.has('statusForm.status_category')">{{ errors.first('statusForm.status_category') }}</small>
+            </div>
+
             <div class="form-group col">
                 <button type="submit" class="btn btn-success btn-sm" :disabled="isSubmitting">
                     <span v-if="isSubmitting">
@@ -46,6 +55,9 @@
         computed: {
             status() {
                 return this.$store.getters.getStatus;
+            },
+            status_categories() {
+                return this.$store.getters.getStatusCategories;
             },
             isSubmitting() {
                 return this.$store.getters.getSubmitState;
@@ -78,7 +90,8 @@
                     if (result) { // if true submit form else set serverResponse error
                         let status = {
                             id: this.status.id,
-                            status: this.status.status.toUpperCase()
+                            status: this.status.status.toUpperCase(),
+                            status_category: this.status.status_category_id
                         };
 
                         if (this.formType == 'CREATE_STATUS') {

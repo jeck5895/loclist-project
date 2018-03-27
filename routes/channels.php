@@ -39,6 +39,11 @@ Broadcast::channel('client-presentation-channel-{clientId}', function ($user, $c
     return !empty($user) ? true : false;
 });
 
+Broadcast::channel('client-acquisition-channel-{clientId}', function ($user, $clientId) {
+    // return (int) $user->id === (int) $id;
+    return !empty($user) ? true : false;
+});
+
 Broadcast::channel('user-channel', function ($user) {
     // return (int) $user->id === (int) $id;
     return !empty($user) ? true : false;
@@ -46,4 +51,9 @@ Broadcast::channel('user-channel', function ($user) {
 
 Broadcast::channel('maintenance-channel', function ($user) {
     return true;
+});
+
+Broadcast::channel('update-client-channel-{clientId}', function ($user, $clientId) {
+    // return (int) $user->id === (int) $id;
+    return !empty($user) ? true : false;
 });

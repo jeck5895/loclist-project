@@ -40,8 +40,12 @@ const app = new Vue({
     methods:{
         signOut(){
             localStorage.removeItem('_u');
-            window.location = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:8000/auth/logout";
-        }
+            window.location = `https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=${window.location.protocol}//${window.location.host}/auth/logout`;
+        },
+        toUrlFormat(param) {
+            let temp = param.replace(/[^a-zA-Z0-9\s\-]/g, "");
+            return temp.replace(/\s+/g, "-").toLowerCase();
+        },
     },
     created(){
         Vue.auth.setter();

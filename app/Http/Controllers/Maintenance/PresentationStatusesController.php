@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\PresentationStatus;
 use App\Http\Requests\Maintenance\Presentation\StorePresentationStatus;
 use App\Http\Requests\Maintenance\Presentation\UpdatePresentationStatus;
+use App\Events\MaintenanceEvent;
 
 class PresentationStatusesController extends Controller
 {
@@ -48,6 +49,7 @@ class PresentationStatusesController extends Controller
         PresentationStatus::create([
             'status' => $request['status']
         ]);
+        event(new MaintenanceEvent('presentation_statuses'));
 
         return ['message' => 'New Record has been saved'];
     }
@@ -89,7 +91,9 @@ class PresentationStatusesController extends Controller
                     ->update([
                         'status' => $request['status']
                     ]);
-                    
+
+        event(new MaintenanceEvent('presentation_statuses'));
+            
         return ['message' => 'Changes has been saved'];
     }
 
@@ -105,6 +109,8 @@ class PresentationStatusesController extends Controller
             return response()->json(['message' => 'This action is unauthorized.'], 403);
         
         PresentationStatus::destroy($id);
+
+        event(new MaintenanceEvent('presentation_statuses'));
 
         return ['message' => 'Record has been deleted'];
     }

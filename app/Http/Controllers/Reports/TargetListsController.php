@@ -18,7 +18,7 @@ class TargetListsController extends Controller
      */
     public function index()
     {
-        $target_lists = ReportTargetList::orderBy('target_year','asc')->orderBy('month_id','asc')->with('report_month')->paginate(12);
+        $target_lists = ReportTargetList::orderBy('target_year','desc')->orderBy('month_id','asc')->with('report_month')->paginate(12);
 
         return $target_lists;
     }

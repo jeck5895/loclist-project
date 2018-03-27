@@ -84,6 +84,60 @@ class KPIAnalysisReportController extends Controller
         //
     }
 
+    public function potentialClients($month, $year) 
+    {
+        $clients = DB::table('vw_kpi_report_potential_clients')
+                    ->where('month_id', '=', $month)
+                    ->where('target_year', '=', $year)
+                    ->first();
+        
+        return response()->json($clients);
+    }
+
+    public function noOfCallsMade($month, $year) 
+    {
+        $clients = DB::table('vw_kpi_report2a')
+                    ->where('month_id', '=', $month)
+                    ->where('target_year', '=', $year)
+                    ->first();
+        
+        return response()->json($clients);
+
+    }
+
+    public function proposalsToBeSent($month, $year) 
+    {
+        $clients = DB::table('vw_kpi_report2c')
+                    ->where('month_id', '=', $month)
+                    ->where('target_year', '=', $year)
+                    ->first();
+        
+        return response()->json($clients);
+
+    }
+
+    public function noOfFormalPresentations($month, $year) 
+    {
+        $clients = DB::table('vw_kpi_report2f')
+                    ->where('month_id', '=', $month)
+                    ->where('target_year', '=', $year)
+                    ->first();
+        
+        return response()->json($clients);
+
+    }
+
+    public function noOfAcquiredClients($month, $year) 
+    {
+        $clients = DB::table('vw_kpi_report3')
+                    ->where('month_id', '=', $month)
+                    ->where('target_year', '=', $year)
+                    ->first();
+        
+        return response()->json($clients);
+
+    }
+
     public function export(Request $request)
     {
         // $from_date = Carbon::createFromFormat('Y-m-d H:i:s', $request['from_date']." 00:00:00");//date('Y-m-d H:i:s', strtotime($from_date));

@@ -27,6 +27,7 @@ class UpdateClient extends FormRequest
         return [
             'entry_by' => 'required',
             // 'overall_status' => 'required',
+            
             'client_name' => 'required|unique:clients,client_name,'.$this->get('id'),
             'industry' => 'required|numeric',
             'nationality' => 'required|numeric',
@@ -48,7 +49,10 @@ class UpdateClient extends FormRequest
             // 'gender' => 'required',
             // 'department' => 'required|numeric',
             // 'position' => 'required|numeric',
-            'proposal' => 'required'
+            'proposal' => 'required',
+            'negotiation_status' => 'required',
+            'task_status' => 'required'
+
         ];
     }
 }

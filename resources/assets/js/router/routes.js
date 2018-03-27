@@ -79,5 +79,5 @@ export default new VueRouter({
     routes,
     mode:'history',
     linkExactActiveClass: 'active',
-    linkActiveClass: 'active'
+    linkActiveClass: 'active',
 });

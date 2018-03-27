@@ -75,17 +75,17 @@ export default {
             this.$validator.validateAll(scope).then((result) => {
                 
                 if (result) { // if true submit form else set serverResponse error
-                    let department = {
+                    let acquisition = {
                         id: this.acquisition.id,
                         acquisition_name: this.acquisition.acquisition_name.toUpperCase()
                     };
 
                     if (this.formType == 'CREATE_ACQUISITION') {
-                            this.$store.dispatch('storeAcquisition', department).then(() => {
+                            this.$store.dispatch('storeAcquisition', acquisition).then(() => {
                                 this.$store.dispatch('loadAcquisitions', 'api/maintenance/acquisitions');
                             });
                     } else if (this.formType == 'EDIT_ACQUISITION') {
-                            this.$store.dispatch('updateAcquisition', department)
+                            this.$store.dispatch('updateAcquisition', acquisition)
                             .then(() => {
                             this.$store.dispatch('loadAcquisitions', 'api/maintenance/acquisitions');
                         });

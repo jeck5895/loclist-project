@@ -7,6 +7,7 @@ use App\Http\Requests\Clients\StoreClient;
 use App\Http\Requests\Clients\UpdateClient;
 use App\Http\Controllers\Controller;
 use App\Events\ClientEvent;
+use App\Events\UpdateClientEvent;
 use App\Client;
 use App\VwClient;
 use App\ClientSourcingPractice;
@@ -110,7 +111,7 @@ class ClientsController extends Controller
      */
     public function store(StoreClient $request)
     {
-        $client_id = Client::create(
+        $clientId = Client::create(
             [
                 'entry_by' => $request['entry_by'],
                 'client_name' => $request['client_name'],
@@ -138,13 +139,16 @@ class ClientsController extends Controller
                 'company' => $request['company'],
                 'manpower' => $request['manpower'],
                 'updated_by' => $request['entry_by'],
-                'overall_status' => $request['overall_status']
+                'overall_status' => $request['overall_status'],
+                'negotiation_status' => $request['negotiation_status'],
+                'task_status' => $request['task_status'],
+                'reasons_for_closing' => $request['reasons_for_closing']
             ]
         )->id;
         
-        if($client_id) {
+        if($clientId) {
 
-            $client = Client::find($client_id);
+            $client = Client::find($clientId);
 
             foreach ($request['contact_persons'] as $contact_person) {
                 $client_contact_persons = new ClientContactPerson(
@@ -184,6 +188,7 @@ class ClientsController extends Controller
             ];
 
             broadcast(new ClientEvent($message))->toOthers();
+            //broadcast(new UpdateClientEvent($clientId, $message))->toOthers();
 
             return ['message' => $request['client_name'] . ' has been saved.', 'others' => $message];
         }
@@ -234,9 +239,9 @@ class ClientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateClient $request, $id)
+    public function update(UpdateClient $request, $clientId)
     {
-        Client::find($id)->update([
+        Client::find($clientId)->update([
                 'entry_by' => $request['entry_by'],
                 'client_name' => $request['client_name'],
                 'industry' => $request['industry'],
@@ -263,14 +268,16 @@ class ClientsController extends Controller
                 'company' => $request['company'],
                 'manpower' => $request['manpower'],
                 'updated_by' => $request['entry_by'],
-                'overall_status' => $request['overall_status']
+                'overall_status' => $request['overall_status'],
+                'negotiation_status' => $request['negotiation_status'],
+                'task_status' => $request['task_status'],
             ]);
         
-        if($id) {
+        if($clientId) {
 
-            $client = Client::find($id);
+            $client = Client::find($clientId);
             //Delete all records first then insert it again whatever changes has done
-            DB::table('client_contact_persons')->where('client_id', $id)->delete();
+            DB::table('client_contact_persons')->where('client_id', $clientId)->delete();
 
             foreach ($request['contact_persons'] as $contact_person) {
                 $client_contact_persons = new ClientContactPerson(
@@ -287,13 +294,13 @@ class ClientsController extends Controller
                 $client->contact_persons()->save($client_contact_persons);
             }
 
-            DB::table('client_manpower_providers')->where('client_id', $id)->delete();
+            DB::table('client_manpower_providers')->where('client_id', $clientId)->delete();
             foreach($request['manpower_providers'] as $provider){
                 $client_provider = new ClientManpowerProvider(array('manpower_provider' => $provider));
                 $client->manpower_providers()->save($client_provider);
             }
 
-            DB::table('client_sourcing_practices')->where('client_id', $id)->delete();
+            DB::table('client_sourcing_practices')->where('client_id', $clientId)->delete();
 
             foreach($request['sourcing_practices'] as $sp ){
                 $client->sourcing_practices()->attach($sp);
@@ -305,7 +312,10 @@ class ClientsController extends Controller
                 'response' => auth()->user()->name . " has updated ".$client->client_name." record",
                 'client' => $client  
             ];
-            broadcast(new ClientEvent($message))->toOthers();
+
+            //broadcast(new ClientEvent($message))->toOthers();
+            broadcast(new UpdateClientEvent($clientId, $message))->toOthers();
+            // event(new UpdateClientEvent($clientId, $message));
 
             return ['message' => 'Changes has been saved.'];
         }
@@ -338,6 +348,31 @@ class ClientsController extends Controller
         ClientCall::where('client_id', $id)->delete();
         //delete presentation record
         ClientPresentation::where('client_id', $id)->delete();
+    }
+
+    public function clients_to_call() 
+    {
+        $clients = VwClient::where('latest_call', '=', null)->orderBy('created_at', 'DESC')->paginate(10);
+
+        return $clients;
+    }
+
+    public function clients_to_send_proposal() 
+    {
+        $clients = ClientCall::where('proposal_sent', '=', 0)
+                    ->orderBy('created_at', 'DESC')
+                    ->with('client')
+                    ->paginate(10);
+        
+        return $clients;
+    }
+
+    public function clients_to_request_formal_presentation()
+    {
+        //$clients = ClientPresentation::where('proposal_mode', 1)->orderBy('created_at', 'DESC')->paginate(10);
+        $clients = VwClient::where('latest_presentation', '=', null)->orderBy('created_at', 'DESC')->paginate(10);
+
+        return $clients;
     }
 
 }

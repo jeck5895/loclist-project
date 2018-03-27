@@ -3,7 +3,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    Export KPI Analysis 
+                    <h4 class="lead mb-0">EXPORT KPI ANALYSIS</h4>
                 </div>
                 <div class="card-body">
                     <form id="kpiAnalysisForm" @submit.prevent="generate('kpiAnalysisForm')" data-vv-scope="kpiAnalysisForm">

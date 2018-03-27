@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OverallStatus extends Model
 {
-    protected $fillable = ['status'];
+    protected $guarded = [];
 
     public function scopeActive($query) 
     {
@@ -21,5 +21,10 @@ class OverallStatus extends Model
     public function client_acquisitions()
     {
         return $this->hasMany(ClientAcquisition::class,'status');
+    }
+
+    public function status_category() 
+    {
+        return $this->belongsTo(StatusCategory::class,'status_category_id');
     }
 }

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Clients\Acquisitions\StoreClientAcquisition;
 use App\Http\Requests\Clients\Acquisitions\UpdateClientAcquisition;
+use App\Events\ClientAcquisitionEvent;
+use App\Events\ClientSubrecordEvent;
+use App\Client;
 
 class ClientAcquisitionController extends Controller
 {
@@ -15,7 +18,7 @@ class ClientAcquisitionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($client_id)
+    public function index($clientId)
     {
         $request = app()->make('request');
 
@@ -29,7 +32,7 @@ class ClientAcquisitionController extends Controller
                                     //add additional filtering fields here
                                 }
                             })
-                            ->where('client_id', $client_id)
+                            ->where('client_id', $clientId)
                             ->with('user')
                             ->with('manner_of_acquisition')
                             ->with('company')
@@ -58,13 +61,13 @@ class ClientAcquisitionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreClientAcquisition $request, $client_id)
+    public function store(StoreClientAcquisition $request, $clientId)
     {
         $client_acquisition = new ClientAcquisition;
-        $client_acquisition->client_id = $client_id;
+        $client_acquisition->client_id = $clientId;
         $client_acquisition->company_id = $request['company_id'];
-        $client_acquisition->status_as_of = $request['status_as_of'];
-        $client_acquisition->status = $request['status'];
+        // $client_acquisition->status_as_of = $request['status_as_of'];
+        // $client_acquisition->status = $request['status'];
         $client_acquisition->date_acquired = $request['date_acquired'];
         $client_acquisition->acquired_by = $request['acquired_by'];
         $client_acquisition->signed_contract = $request['signed_contract'];
@@ -75,7 +78,7 @@ class ClientAcquisitionController extends Controller
         $client_acquisition->updated_by = auth()->user()->id ;    
         $client_acquisition->save();
         // $acquisition = ClientAcquisition::create([
-            // 'client_id' => $client_id,
+            // 'client_id' => $clientId,
             // 'company_id' => $request['company_id'],
             // 'status_as_of' => $request['status_as_of'],
             // 'status' => $request['status'],
@@ -88,6 +91,15 @@ class ClientAcquisitionController extends Controller
             // 'remarks' => $request['remarks'],
             // 'updated_by' => auth()->user()->id
         // ]);
+        $client = Client::find($clientId);
+        $message = [
+                'user' => auth()->user(),
+                'response' => auth()->user()->name . " has tagged ".$client->client_name. ' ACQUIRED',
+                'client' => $client
+            ];
+
+        broadcast(new ClientAcquisitionEvent($message,$clientId))->toOthers();
+        event(new ClientSubrecordEvent($message));
 
         return ['message' => 'New client acquisition record has been saved'];
     }
@@ -98,7 +110,7 @@ class ClientAcquisitionController extends Controller
      * @param  \App\ClientAcquisition  $clientAcquisition
      * @return \Illuminate\Http\Response
      */
-    public function show($client_id, $acquisition_id )
+    public function show($clientId, $acquisition_id )
     {
         $acquisition = ClientAcquisition::findOrFail($acquisition_id);
 
@@ -123,14 +135,14 @@ class ClientAcquisitionController extends Controller
      * @param  \App\ClientAcquisition  $clientAcquisition
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateClientAcquisition $request, $client_id, $acquisition_id)
+    public function update(UpdateClientAcquisition $request, $clientId, $acquisition_id)
     {
         ClientAcquisition::findOrFail($acquisition_id)
                             ->update([
                                 'client_id' => $request['client_id'],
                                 'company_id' => $request['company_id'],
-                                'status_as_of' => $request['status_as_of'],
-                                'status' => $request['status'],
+                                // 'status_as_of' => $request['status_as_of'],
+                                // 'status' => $request['status'],
                                 'date_acquired' => $request['date_acquired'],
                                 'acquired_by' => $request['acquired_by'],
                                 'signed_contract' => $request['signed_contract'],
@@ -141,6 +153,16 @@ class ClientAcquisitionController extends Controller
                                 'updated_by' => auth()->user()->id
                             ]);
         
+        $client = Client::find($clientId);
+        $message = [
+                'user' => auth()->user(),
+                'response' => auth()->user()->name . " has updated ".$client->client_name. ' Acquisition record',
+                'client' => $client
+            ];
+
+        broadcast(new ClientAcquisitionEvent($message, $clientId))->toOthers();
+        event(new ClientSubrecordEvent($message));
+    
         return  [
                 'message' => 'Changes has been saved',
             ];
@@ -152,15 +174,21 @@ class ClientAcquisitionController extends Controller
      * @param  \App\ClientAcquisition  $clientAcquisition
      * @return \Illuminate\Http\Response
      */
-    public function destroy($client_id, $acquisition_id)
+    public function destroy($clientId, $acquisition_id)
     {
         if(!auth()->user()->userRole->delete_client_acquisitions == 1)
             return response()->json(['message' => 'This action is unauthorized.'], 403);
 
         ClientAcquisition::destroy($acquisition_id);
-
-        return [
-            'message' => 'Acquisition record has been deleted', 
+        $client = Client::findOrFail($clientId);
+        
+        $message = [
+            'message' => $client->client_name . ' Acquisition record has been deleted by '. auth()->user()->name, 
         ];
+
+        broadcast(new ClientAcquisitionEvent($message, $clientId))->toOthers();
+        event(new ClientSubrecordEvent($message));
+
+        return $message;
     }
 }

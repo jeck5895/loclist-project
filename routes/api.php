@@ -19,11 +19,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:api')->group(function() {
-    // Route::get('/users', 'UsersController@index');
-    // Route::get('/users/{id}', 'UsersController@show');
-    // Route::post('/user', 'UsersController@store');
-    // Route::patch('/user/{id}', 'UsersController@update');
+    Route::get('/clients/clients-to-call', 'Clients\ClientsController@clients_to_call');
+    Route::get('/clients/clients-to-send-proposal', 'Clients\ClientsController@clients_to_send_proposal');
+    Route::get('/clients/clients-to-request-for-formal-presentation', 'Clients\ClientsController@clients_to_request_formal_presentation');
     Route::get('reports/target-lists/years', 'Reports\TargetListsController@years');
+    Route::get('kpi/potential-clients/month/{month}/year/{year}', 'Reports\KPIAnalysisReportController@potentialClients');
+    Route::get('kpi/no-of-calls-made/month/{month}/year/{year}', 'Reports\KPIAnalysisReportController@noOfCallsMade');
+    Route::get('kpi/proposals-to-be-sent/month/{month}/year/{year}', 'Reports\KPIAnalysisReportController@proposalsToBeSent');
+    Route::get('kpi/no-of-formal-presentations/month/{month}/year/{year}', 'Reports\KPIAnalysisReportController@noOfFormalPresentations');
+    Route::get('kpi/no-of-acquired-clients/month/{month}/year/{year}', 'Reports\KPIAnalysisReportController@noOfAcquiredClients');
+
+    Route::get('/pending-tasks/list-of-clients/{task_name}/{task_id}/date/{range}', 'Dashboard\PendingTasksController@clientsList');
+
     Route::apiResource('users', 'Users\UsersController');
     Route::apiResource('maintenance/user_types', 'Maintenance\UserTypesController');
     Route::apiResource('companies', 'Companies\CompaniesController');
@@ -36,6 +43,7 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('maintenance/positions', 'Maintenance\PositionsController');
     Route::apiResource('maintenance/manpowers', 'Maintenance\ManpowersController');
     Route::apiResource('maintenance/statuses', 'Maintenance\StatusesController');
+    Route::apiResource('maintenance/status-categories', 'Maintenance\StatusCategoriesController');
     Route::apiResource('maintenance/saturations','Maintenance\SaturationController');
     Route::apiResource('maintenance/confirmations','Maintenance\ConfirmationController');
     Route::apiResource('clients.calls','Clients\ClientCallController');
@@ -48,6 +56,8 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('maintenance/acquisitions', 'Maintenance\AcquisitionsController');
     Route::apiResource('reports/report-months', 'Reports\ReportMonthsController');
     Route::apiResource('reports/target-lists','Reports\TargetListsController');
+    Route::apiResource('/pending-tasks', 'Dashboard\PendingTasksController');
+    
     
     Route::post('reports/kpi-analysis/export','Reports\KPIAnalysisReportController@export');
     // Route::get('reports/kpi-analysis/export/from_date/{from_date}/to_date/{to_date}','Reports\KPIAnalysisReportController@export');

@@ -34,31 +34,43 @@ export default {
         },
         loadModeOfPresentations: (context, payload) => {
             context.commit('setLoadingState', true);
-            axios.get(payload)
-            .then(response => {
-                context.commit('setModeOfPresentations', response);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
+            return new Promise((resolve, reject) => {
+                axios.get(payload)
+                    .then(response => {
+                        context.commit('setModeOfPresentations', response);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            resolve(response)
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            reject(error)
+                        }, 1000);
+                        console.log(error.response)
+                    });
             })
-            .catch(error => {
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
-                console.log(error.response)
-            });
         },
         loadModeOfPresentation: (context, payload) => {
-            axios.get('api/maintenance/mode-of-presentations/' + payload.id)
-            .then(response => {
-                context.commit('setModeOfPresentation', response);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
+            context.commit('setLoadingState', true);
+            return new Promise((resolve, reject) => {
+                axios.get('api/maintenance/mode-of-presentations/' + payload.id)
+                    .then(response => {
+                        context.commit('setModeOfPresentation', response);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            resolve(response)
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            reject(error);
+                        }, 1000);
+                        console.log(error.response)
+                    });
             })
-            .catch(error => {
-                console.log(error.response)
-            });
         },
         storeModeOfPresentation: (context, payload) => {
             context.commit('setSubmitState', true);

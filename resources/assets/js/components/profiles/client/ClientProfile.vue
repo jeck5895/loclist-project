@@ -6,11 +6,15 @@
 
             <div class="card">
                 <div class="card-header clearfix bg-white">
-                    <h4 class="float-left">Company Information</h4>
+                    <h4 class="float-left">Company Information 
+                        <a v-if="user.user_role.edit_clients == 1" @click.prevent="toEditClientForm(client)" :title="'Edit ' + client.client_name">
+                                <span class="fa fa-edit"></span>
+                            </a>
+                    </h4>
                     <div v-if="!isLoading" class="row float-right">
+                        
                         <dt style="width: 10%;"> <span class="fa fa-user"></span></dt>  <dd class="mb-0" style="width: 90%;"> {{ client.user.name }} </dd>
                         <dt style="width: 10%;"> <span class="fa fa-calendar"></span></dt>  <dd class="mb-0" style="width: 90%;"> {{ client.created_at | humanReadableFormat }} </dd>
-                        
                     </div>
                 </div>
                 <div v-if="isLoading" class="card-body">
@@ -188,7 +192,9 @@
                                   <span class="fa fa-phone-square"></span>  New Call Record
                                 </button>
                             </div>
-                            <client-calls-table :clientId="clientId" :displayOptions="true"></client-calls-table>
+                            <div id="call-records">
+                                <client-calls-table :clientId="clientId" :displayOptions="true"></client-calls-table>
+                            </div>
                         </div>
 
                         <div class="tab-pane fade" id="saturation" role="tabpanel" aria-labelledby="home-tab">
@@ -283,17 +289,52 @@
             next();
         },
         created() {
-            Echo.private("client-channel").listen("ClientEvent", e => {
-                console.log(e);
-                let payload = {
-                    id: this.$route.params.clientId
-                };
-                //if(this.$route.params.clientId == e.message.client.id){
+            // Echo.private("client-channel")
+            // .listen("ClientEvent", e => {
+            //     // console.log(e);
+                // let payload = {
+                //     id: this.$route.params.clientId
+                // };
+            
+                //     console.log(this.$route.params.clientId + "||" + e.message.client.id)
+                //     this.$store.dispatch('loadClient', payload);
+                //     toastr.info('', e.message.response);
+            // })
+            Echo.private(`update-client-channel-${this.$route.params.clientId}`).listen('UpdateClientEvent', (e) => {
+                    let payload = {
+                        id: this.$route.params.clientId
+                    };
+            
                     console.log(this.$route.params.clientId + "||" + e.message.client.id)
                     this.$store.dispatch('loadClient', payload);
                     toastr.info('', e.message.response);
-                //}
             });
+            Echo.private('maintenance-channel').listen('MaintenanceEvent', (e) => {
+                if(e.scope == "statuses"){
+                    this.$store.dispatch('loadStatuses', 'api/maintenance/statuses?type=all');
+                }
+                if(e.scope == "companies"){
+                    this.$store.dispatch('loadCompanies', 'api/companies?type=all');
+                }
+                if(e.scope == "acquisitions"){
+                    this.$store.dispatch('loadAcquisitions', 'api/maintenance/acquisitions?type=all');
+                }
+                if(e.scope == "saturations"){
+                    this.$store.dispatch('loadSaturations', 'api/maintenance/saturations?type=all');
+                }
+                if(e.scope == "confirmations"){
+                    this.$store.dispatch('loadConfirmations', 'api/maintenance/confirmations?type=all');
+                }
+                if(e.scope == "presentation_modes"){
+                    this.$store.dispatch('loadModeOfPresentations', 'api/maintenance/mode-of-presentations?type=all');
+                }
+                if(e.scope == "presentation_statuses"){
+                    this.$store.dispatch('loadPresentationStatuses', 'api/maintenance/presentation-statuses?type=all');
+                }
+            });
+        },
+        mounted() {
+            this.scrollTo()
         },
         data(){
             return{
@@ -317,6 +358,12 @@
             },
         },
         methods: {
+            toEditClientForm(client) {
+                localStorage.setItem('f_type', 'EDIT_CLIENT');
+                this.$store.dispatch('clearContactPersons');
+                this.$store.dispatch('clearClientManpowerProviders');
+                this.$router.push({ name: 'editClient', params: { companyName:  this.$root.toUrlFormat(client.client_name), clientId : client.id }})
+            },
             showModalForm (clientId, type){
                 switch (type) {
                     case 'NEW_CALL_RECORD':
@@ -351,6 +398,16 @@
             },
             checkWebsite() {
                 this.website = this.website = this.client.website.indexOf("http") !== -1 || this.client.website.indexOf("https") !== -1 ? this.client.website : 'http://' + this.client.website ;
+            },
+            scrollTo() {
+                if(this.$route.hash){
+                    var el = this.$route.hash;
+                    setTimeout(() => {
+                        $('html, body').animate({
+                            scrollTop: $(el).offset().top
+                        }, 1000);
+                    }, 2000);
+                }
             }
         },
         components:{
@@ -371,6 +428,7 @@
         },
         destroyed() {
             Echo.leave("client-channel");
+            Echo.leave('maintenance-channel');
         }
     };
 </script>

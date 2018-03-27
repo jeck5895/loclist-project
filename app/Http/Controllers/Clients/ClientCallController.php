@@ -9,7 +9,7 @@ use App\Http\Requests\Clients\Calls\UpdateClientCall;
 use App\Client;
 use App\ClientCall;
 use Illuminate\Support\Facades\Auth;
-use App\Events\ClientEvent;
+use App\Events\ClientSubrecordEvent;
 use App\Events\ClientCallEvent;
 
 class ClientCallController extends Controller
@@ -72,6 +72,16 @@ class ClientCallController extends Controller
         ]);
         
         $client = Client::find($clientId);
+        
+        if($request['productive_call'] == 1){
+            $client->task_status = 2;
+            $client->negotiation_status = 10;
+        }
+        else{
+            $client->task_status = 1;
+            $client->negotiation_status = 10;
+        }
+        $client->save();
 
         $message = [
                 'user' => auth()->user(),
@@ -79,7 +89,9 @@ class ClientCallController extends Controller
                 'new_client' => $client  
             ];
             
+            
         broadcast(new ClientCallEvent($message,$clientId))->toOthers();
+        event(new ClientSubrecordEvent($message));
 
         return ['message' => 'Call record has been saved.'];
     }
@@ -129,6 +141,16 @@ class ClientCallController extends Controller
                     ]);
 
         $client = Client::find($clientId);
+        
+        if($request['productive_call'] == 1){
+            $client->task_status = 2;
+            $client->negotiation_status = 10;
+        }
+        else{
+            $client->task_status = 1;
+            $client->negotiation_status = 10;
+        }
+        $client->save();
 
         $message = [
                 'user' => auth()->user(),
@@ -137,14 +159,12 @@ class ClientCallController extends Controller
                 'client' => $client,
                 'call_id' => $callId   
             ];
-            
-        broadcast(new ClientCallEvent($message,$clientId))->toOthers();
 
-        return [
-            'message' => 'Changes has been saved.',
-            'client_id' => $clientId,
-            'call_id' => $callId
-        ];
+        broadcast(new ClientCallEvent($message,$clientId))->toOthers();
+        event(new ClientSubrecordEvent($message));
+
+
+        return $message;
     }
 
     /**
@@ -153,13 +173,18 @@ class ClientCallController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($client_id, $call_id)
+    public function destroy($clientId, $call_id)
     {
         if(!auth()->user()->userRole->delete_client_calls == 1)
             return response()->json(['message' => 'This action is unauthorized.'], 403);
 
         ClientCall::destroy($call_id);
 
-        return ['message' => 'Record has been deleted'];
+        $message = ['message' => 'Record has been deleted'];
+
+        broadcast(new ClientCallEvent($message, $clientId))->toOthers();
+        event(new ClientSubrecordEvent($message));
+
+        return $message;
     }
 }

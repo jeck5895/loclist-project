@@ -3,7 +3,7 @@
         <!-- Include Filter here for every table must have filter -->
         <form @submit.prevent="search" class="form-inline float-right mt-2 mb-2">
             <div class="form-group">
-                <label for="staticEmail" class="col-form-label mr-1">ADVANCE</label>
+                <label for="staticEmail" class="col-form-label mr-1">Advance</label>
                 <button @click="dropdownMenuClick" class="mr-sm-2 btn btn-sm btn-default dropdown-toggle dropdown-remove-arrow" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <span class="fa fa-th"></span>
@@ -59,7 +59,7 @@
             </div>
 
             <div class="form-group">
-                <label for="staticEmail" class="col-form-label mr-1">LOCATION</label>
+                <label for="staticEmail" class="col-form-label mr-1">Location</label>
                 <input v-model="client_query.location" placeholder="Search by location" type="text" class="form-control form-control-sm mr-sm-2">
             </div>
             <div class="form-group">
@@ -73,24 +73,26 @@
         <table id="clients-table" class="table table-borderless table-striped m-b-none">
             <thead>
                 <tr>
-                    <th>
+                    <!-- <th>
                         <span>Ref</span>
-                    </th>
+                    </th> -->
                     <th>Entry By</th>
-                    <th style="width: 250px;">Client Name</th>
-                    <th style="width: 180px;">Contact Person</th>
+                    <th style="width: 200px;">Client Name</th>
+                    <th style="width: 120px;">Contact Person</th>
                     <th>Contact #</th>
                     <th style="width: 100px;">Email</th>
                     <th>Date of Call</th>
                     <th>Date of Saturation</th>
                     <th>Date of Presentation</th>
                     <th>Follow-up Date</th>
+                    <th>Task Status</th>
+                    <th>Negotiation Status</th>
                     <th>Options</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-if="isLoading">
-                    <td colspan="11" class="text-center">
+                    <td colspan="12" class="text-center">
                         <div v-if="isLoading" class="card-body">
                             <div class="img-loading-container">
                                 <img src="/images/spinner.gif" class="img-sm">
@@ -105,9 +107,9 @@
                 </tr>
                 <tr v-else v-for="(client, index) in clients.data" :key="index">
                     <!-- ID -->
-                    <td style="vertical-align: middle;">
+                    <!-- <td style="vertical-align: middle;">
                         {{ client.id }}
-                    </td>
+                    </td> -->
 
                     <!-- Name -->
                     <td v-if="client.user != null" style="vertical-align: middle;">
@@ -172,6 +174,25 @@
                         No record
                     </td>
 
+                    <td v-if="client.task_status != null" style="vertical-align: middle;">
+                        <span 
+                            :class="client.task_status_id == 1 ? 'bad badge-primary': client.negotiation_status_id == 6 ? 'badge badge-success' : client.negotiation_status_id == 9 ? 'badge badge-danger' : 'badge badge-info'"> 
+                            {{ client.task_status }} 
+                        </span>
+                    </td>
+                    <td v-else style="vertical-align: middle;">
+                        <span class="badge badge-warning">NO STATUS</span>
+                    </td>
+
+                    <td v-if="client.negotiation_status != null" style="vertical-align: middle;">
+                        <span 
+                            :class="client.negotiation_status_id == 6 ? 'badge badge-success': client.negotiation_status_id == 9 ? 'badge badge-danger' : client.negotiation_status_id == 13 ? 'badge badge-success' : 'badge badge-info'"> 
+                            {{ client.negotiation_status }} </span>
+                    </td>
+                    <td v-else style="vertical-align: middle;">
+                        <span class="badge badge-warning">NO STATUS</span>
+                    </td>
+
                     <!-- Edit Button -->
                     <td style="vertical-align: middle;">
                         <div class="btn-group btn-group-sm" role="group">
@@ -179,7 +200,7 @@
                                 <span class="fa fa-edit"></span>
                             </button>
 
-                            <router-link :to="{ name: 'viewClient', params: { companyName:  toUrlFormat(client.client_name), clientId : client.id }}"
+                            <router-link :to="{ name: 'viewClient', params: { companyName:  $root.toUrlFormat(client.client_name), clientId : client.id }}"
                                 class="btn btn-sm btn-default"
                                 :target="client.id">
                                 <span class="fa fa-eye"></span>
@@ -216,7 +237,7 @@
         },
         data() {
             return {
-                user : Vue.auth.getter()
+                user : Vue.auth.getter()            
             };
         },
         computed: {
@@ -247,7 +268,7 @@
                 localStorage.setItem('f_type', 'EDIT_CLIENT');
                 this.$store.dispatch('clearContactPersons');
                 this.$store.dispatch('clearClientManpowerProviders');
-                this.$router.push({ name: 'editClient', params: { companyName:  this.toUrlFormat(client.client_name), clientId : client.id }})
+                this.$router.push({ name: 'editClient', params: { companyName:  this.$root.toUrlFormat(client.client_name), clientId : client.id }})
             },
             destroy(client){
                 let deletionType = {
@@ -307,10 +328,6 @@
                 this.$store.dispatch("setClientApiQuery", query).then(() => {
                     this.loadClientsData();
                 });
-            },
-            toUrlFormat(param) {
-                let temp = param.replace(/[^a-zA-Z0-9\s\-]/g, "");
-                return temp.replace(/\s+/g, "-").toLowerCase();
             },
             loadClientsData() {
                 //console.log(this.client_query);

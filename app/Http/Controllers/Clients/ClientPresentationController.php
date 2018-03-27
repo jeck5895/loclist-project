@@ -9,6 +9,7 @@ use App\Http\Requests\Clients\Presentations\UpdateClientPresentation;
 use App\ClientPresentation;
 use App\Client;
 use App\Events\ClientPresentationEvent;
+use App\Events\ClientSubrecordEvent;
 
 class ClientPresentationController extends Controller
 {
@@ -75,13 +76,17 @@ class ClientPresentationController extends Controller
         ]);
         
         $client = Client::find($request['client_id']);
-
+        $client->task_status = 4;
+        $client->negotiation_status = 10;
+        $client->save();
+        
         $message = [
                 'user' => auth()->user(),
                 'response' => auth()->user()->name . " has added presentation record to ".$client->client_name,
                 'client' => $client  
             ];
         broadcast(new ClientPresentationEvent($message,$clientId))->toOthers();
+        event(new ClientSubrecordEvent($message));
 
         return ['message' => 'New client saturation has been saved'];
     }
@@ -135,13 +140,17 @@ class ClientPresentationController extends Controller
                         ]);
 
         $client = Client::find($clientId);
-
+        $client->task_status = 4;
+        $client->negotiation_status = 10;
+        $client->save();
+                   
         $message = [
                 'user' => auth()->user(),
                 'response' => auth()->user()->name . " has updated a presentation record of ".$client->client_name,
                 'client' => $client  
             ];
         broadcast(new ClientPresentationEvent($message,$clientId))->toOthers();
+        event(new ClientSubrecordEvent($message));
 
         return  [
                 'message' => 'Changes has been saved',
@@ -160,6 +169,7 @@ class ClientPresentationController extends Controller
             return response()->json(['message' => 'This action is unauthorized.'], 403);
 
         ClientPresentation::destroy($presentation_id);
+        event(new ClientSubrecordEvent($message));
 
         return [
             'message' => 'Record has been deleted', 

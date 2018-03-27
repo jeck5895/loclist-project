@@ -5,8 +5,8 @@
                 <tr>
                     <!-- <th>ID</th> -->
                     <th>Acquired by</th>
-                    <th>Status as of</th>
-                    <th>Status</th>
+                    <!-- <th>Status as of</th>
+                    <th>Status</th> -->
                     <th>Date Acquired</th>
                     <th>Company</th>
                     <th>Signed Contract</th>
@@ -37,16 +37,16 @@
                         {{ acquisition.id }}
                     </td> -->
                     <td style="vertical-align: middle;">
-                        {{ acquisition.user.initial }}
+                        {{ acquisition.user != null ? acquisition.user.initial : 'N/A' }}
                     </td>
                     
-                    <td style="vertical-align: middle;">
+                    <!-- <td style="vertical-align: middle;">
                         {{ acquisition.status_as_of|humanReadableFormat }}
                     </td>
 
                     <td style="vertical-align: middle;">
                         {{ acquisition.status.status }}
-                    </td>
+                    </td> -->
 
                     <td v-if="acquisition.date_acquired == null" style="vertical-align: middle;">
                         N/A
@@ -65,11 +65,11 @@
                     </td>
 
                     <td style="vertical-align: middle;">
-                        {{ acquisition.manner_of_acquisition.acquisition_name}}
+                        {{ acquisition.manner_of_acquisition != null ? acquisition.manner_of_acquisition.acquisition_name : 'N/A' }}
                     </td>
 
                     <td style="vertical-align: middle;">
-                        {{ acquisition.initial_hc_acquired }}
+                        {{ acquisition.initial_hc_acquired != null ? acquisition.initial_hc_acquired : 'N/A' }}
                     </td>
 
                     <td v-if="user.user_role.edit_client_acquisitions == 1 || user.user_role.delete_client_acquisitions == 1" style="vertical-align: middle;">
@@ -87,7 +87,7 @@
             </tbody>
         </table>
         <pagination scope="client_acquisitions" :object="acquisitions" 
-                :url="`api/clients/${this.client_id}/acquisitions?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`"
+                :url="`api/clients/${this.clientId}/acquisitions?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`"
                 :query="`keyword=${this.query.search_keyword}&order_by=${this
                 .query.order_by}&per_page=${this.query
                 .per_page}&sort_column=${this.query.sort_column}`"
@@ -100,16 +100,13 @@
     import Pagination from '../../pagination/Pagination';
 
     export default {
-        created() {
-            this.loadClientAcquisitionsRecord();
-        },
         data() {
             return {
                 user: Vue.auth.getter()
             }
         },
         computed: {
-            client_id() {
+            clientId() {
                 return this.$route.params.clientId;
             },
             acquisitions() {
@@ -150,11 +147,22 @@
                 this.$store.dispatch('showConfirmationModal');
             },
             loadClientAcquisitionsRecord() {
-                return this.$store.dispatch('loadClientAcquisitions', `api/clients/${this.client_id}/acquisitions?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`)
+                return this.$store.dispatch('loadClientAcquisitions', `api/clients/${this.clientId}/acquisitions?keyword=${this.query.search_keyword}&order_by=${this.query.order_by}&per_page=${this.query.per_page}&sort_column=${this.query.sort_column}`)
             },
         },
         components: {
             Pagination
+        },
+        created() {
+            this.loadClientAcquisitionsRecord();
+
+            Echo.private(`client-acquisition-channel-${this.clientId}`).listen("ClientAcquisitionEvent", e => {
+                this.loadClientAcquisitionsRecord();
+                toastr.info('', e.message.response);
+            });
+        },
+        destroyed() {
+            Echo.leave(`client-acquisition-channel-${this.clientId}`);
         }
     }
 </script>

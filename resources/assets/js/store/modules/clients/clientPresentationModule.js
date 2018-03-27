@@ -34,34 +34,42 @@ export default {
         },
         loadClientPresentation: (context, payload) => {
             context.commit('setLoadingState', true);
-            axios.get('api/clients/' + payload.client_id + '/presentations/' + payload.presentation_id)
-            .then(response => {
-                context.commit('setClientPresentation', response);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
-            })
-            .catch(error => {
-                console.log(error.response.data);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
+            return new Promise((resolve, reject) => {
+                axios.get('api/clients/' + payload.client_id + '/presentations/' + payload.presentation_id)
+                    .then(response => {
+                        context.commit('setClientPresentation', response);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            resolve(response)
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        console.log(error.response.data);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            reject(error)
+                        }, 1000);
+                    });
             });
         },
         loadClientPresentations: (context, payload) => {
             context.commit('setLoadingState', true);
-            axios.get(payload)
-            .then(response => {
-                context.commit('setClientPresentations', response);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
-            })
-            .catch(error => {
-                console.log(error.response.data);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
+            return new Promise((resolve, reject) => {
+                axios.get(payload)
+                    .then(response => {
+                        context.commit('setClientPresentations', response);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            resolve(response)
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        console.log(error.response.data);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            reject(error)
+                        }, 1000);
+                    });
             });
         },
         storeClientPresentation: (context, payload) => {
@@ -110,16 +118,20 @@ export default {
             });
         },
         deleteClientPresentation: (context, payload) => {
-            axios.delete('api/clients/' + payload.client_presentation.client_id + '/presentations/' + payload.client_presentation.id)
-            .then(response => {
-                toastr.success('Success', response.data.message);
-            })
-            .catch(error => {
-                context.commit('setServerResponse', error.response.data);
-                if (error.response.status == 403) {
-                    toastr.error('Error', error.response.data);
-                }
-                console.log(error)
+            return new Promise((resolve, reject) => {
+                axios.delete('api/clients/' + payload.client_presentation.client_id + '/presentations/' + payload.client_presentation.id)
+                    .then(response => {
+                        toastr.success('Success', response.data.message);
+                        resolve(response);
+                    })
+                    .catch(error => {
+                        context.commit('setServerResponse', error.response.data);
+                        if (error.response.status == 403) {
+                            toastr.error('Error', error.response.data);
+                        }
+                        reject(error)
+                        console.log(error)
+                    });
             });
         }
     }

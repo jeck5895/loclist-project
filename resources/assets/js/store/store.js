@@ -28,6 +28,17 @@ import mannerOfAcquisitionModule from './modules/maintenance/mannerOfAcquisition
 import targetListModule from './modules/reports/targetListModule';
 import reportMonthModule from './modules/reports/reportMonthModule';
 import styleModule from './modules/styles/styleModule';
+/** Start dashboard */
+// import clientsToCallModule from './modules/dashboard/clientsToCallModule';
+// import clientsToSendProposal from './modules/dashboard/clientsToSendProposalModule';
+// import clientsToRequestPresentation from './modules/dashboard/clientsToRequestPresentationModule';
+import potentialClientsModule from './modules/dashboard/potentialClientsModule';
+import noOfCallsMadeModule from './modules/dashboard/noOfCallsMadeModule';
+import proposalsToBeSentModule from './modules/dashboard/proposalsToBeSentModule';
+import noOfFormalPresentations from './modules/dashboard/noOfFormalPresentaionsModule';
+import acquiredClientsModule from './modules/dashboard/acquiredClientsModule';
+import pendingTasksModule from './modules/dashboard/pendingTasksModule';
+/** End dashboard */
  
 Vue.use(Vuex); 
 
@@ -61,5 +72,14 @@ export const store = new Vuex.Store({
         targetListModule,
         reportMonthModule,
         styleModule,
+        // clientsToCallModule,
+        // clientsToSendProposal,
+        // clientsToRequestPresentation,
+        potentialClientsModule,
+        noOfCallsMadeModule,
+        proposalsToBeSentModule,
+        noOfFormalPresentations,
+        acquiredClientsModule,
+        pendingTasksModule
     }
 });

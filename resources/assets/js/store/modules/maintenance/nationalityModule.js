@@ -34,81 +34,109 @@ export default {
             commit('clearNationality');
         },
         loadNationality: (context, payload) => {
-            axios.get('api/maintenance/nationalities/' + payload.id)
-            .then(response => {
-                context.commit('setNationality', response);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
-            })
-            .catch(error => {
-                console.log(error.response.data)
+            context.commit('setLoadingState', true);
+            return new Promise((resolve, reject) => {
+                axios.get('api/maintenance/nationalities/' + payload.id)
+                    .then(response => {
+                        context.commit('setNationality', response);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            resolve(response)
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            reject(error);
+                        }, 1000);
+                        console.log(error.response.data)
+                    });
             });
         },
         loadNationalities: (context, payload) => {
             context.commit('setLoadingState', true);
-            axios.get(payload)
-            .then(response => {
-                context.commit('setNationalities', response);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
+            return new Promise((resolve, reject) => {
+                axios.get(payload)
+                    .then(response => {
+                        context.commit('setNationalities', response);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            resolve(response)
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            reject(error)
+                        }, 1000);
+                        console(error)
+                    });
             })
-            .catch(error => {
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
-                console(error)
-            });
         },
         storeNationality : (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.post('api/maintenance/nationalities', payload)
-            .then(response => {
-                setTimeout(() => {
-                    context.commit('setServerResponse', response);
-                    context.commit('setSubmitState', false);
-                    $("#createUserModal").modal('hide');
-                    toastr.success('Success', response.data.message);
-                //document.getElementById('nationalityForm').reset();
-                }, 1000);
-            })
-            .catch(error => {
-                let errors = error.response;
-                context.commit('setServerResponse', errors);
-                context.commit('setSubmitState', false);
-                //toastr.error('Error', 'Oops! something went wrong');
-                console.log(errors);
+            return new Promise((resolve, reject) => {
+                axios.post('api/maintenance/nationalities', payload)
+                    .then(response => {
+                        setTimeout(() => {
+                            context.commit('setServerResponse', response);
+                            context.commit('setSubmitState', false);
+                            $("#createUserModal").modal('hide');
+                            toastr.success('Success', response.data.message);
+                            resolve(response)
+                            //document.getElementById('nationalityForm').reset();
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        let errors = error.response;
+                        context.commit('setServerResponse', errors);
+                        setTimeout(() => {
+                            context.commit('setSubmitState', false);
+                            reject(error);
+                        }, 1000);
+                        //toastr.error('Error', 'Oops! something went wrong');
+                        console.log(errors);
+                    });
             });
         },
         updateNationality: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.patch('api/maintenance/nationalities/' + payload.id, payload)
-            .then(response => {
-                setTimeout(() => {
-                    context.commit('setServerResponse', response);
-                    context.commit('setSubmitState', false);
-                    $("#createUserModal").modal('hide');
-                    toastr.success('Success', response.data.message);
-                    //document.getElementById('nationalityForm').reset();
-                }, 1000);
-            })
-            .catch(error => {
-                context.commit('setServerResponse', error.response);
-                context.commit('setSubmitState', false);
-                console.log(error.response)
+            return new Promise((resolve, reject) => {
+                axios.patch('api/maintenance/nationalities/' + payload.id, payload)
+                    .then(response => {
+                        setTimeout(() => {
+                            context.commit('setServerResponse', response);
+                            context.commit('setSubmitState', false);
+                            $("#createUserModal").modal('hide');
+                            toastr.success('Success', response.data.message);
+                            resolve(response)
+                            //document.getElementById('nationalityForm').reset();
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        context.commit('setServerResponse', error.response);
+                        setTimeout(() => {
+                            context.commit('setSubmitState', false);
+                            reject(error);
+                        }, 1000);
+                        console.log(error.response)
+                    });
             });
         },
         deleteNationality: (context, payload) => {
-            axios.delete('api/maintenance/nationalities/' + payload.nationality.id)
-            .then(response => {
-                toastr.success('Success', response.data.message);
-            })
-            .catch(error => {
-                context.commit('setServerResponse', error.response.data);
-                if (error.response.status == 403) {
-                    toastr.error('Error', error.response.data);
-                }
+            return new Promise((resolve, reject) => {
+                axios.delete('api/maintenance/nationalities/' + payload.nationality.id)
+                    .then(response => {
+                        toastr.success('Success', response.data.message);
+                        resolve(response)
+                    })
+                    .catch(error => {
+                        context.commit('setServerResponse', error.response.data);
+                        if (error.response.status == 403) {
+                            toastr.error('Error', error.response.data);
+                        }
+                        reject(error);
+                    });
             });
         }
     }

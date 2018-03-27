@@ -28,4 +28,9 @@ class ClientContactPerson extends Model
     {
         return $this->belongsTo(Position::class, 'position')->select(['id','position_name']);
     }
+
+    public function pending_task() 
+    {
+        return $this->belongsTo(PendingTask::class, 'client_id','client_id');
+    }
 }

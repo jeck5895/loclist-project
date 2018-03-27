@@ -33,79 +33,107 @@ export default {
             context.commit('clearConfirmation');
         },
         loadConfirmations: (context, payload) => {
-            context.commit('setLoadingState', true);
-            axios.get(payload)
-            .then(response => {
-                context.commit('setConfirmations', response);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
+            return new Promise((resolve, reject) => {
+                context.commit('setLoadingState', true);
+                axios.get(payload)
+                    .then(response => {
+                        context.commit('setConfirmations', response);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            resolve(response)
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            reject(error)
+                        }, 1000);
+                        console.log(error.response)
+                    }); 
             })
-            .catch(error => {
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
-                console.log(error.response)
-            }); 
         },
         loadConfirmation: (context, payload) => {
-            axios.get('api/maintenance/confirmations/' + payload.id)
-            .then(response => {
-                context.commit('setConfirmation', response);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
+            context.commit('setLoadingState', true);
+            return new Promise((resolve, reject) => {
+                axios.get('api/maintenance/confirmations/' + payload.id)
+                    .then(response => {
+                        context.commit('setConfirmation', response);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            resolve(response);
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            reject(error);
+                        }, 1000);
+                        console.log(error.response)
+                    });
             })
-            .catch(error => {
-                console.log(error.response)
-            });
         },
         storeConfirmation: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.post('api/maintenance/confirmations', payload)
-            .then(response => {
-                setTimeout(() => {
-                    context.commit('setServerResponse', response);
-                    context.commit('setSubmitState', false);
-                    $("#createUserModal").modal('hide');
-                    toastr.success('Success', response.data.message);
-                    //document.getElementById('departmentForm').reset();
-                }, 1000);
-            })
-            .catch(error => {
-                context.commit('setServerResponse', error.response);
-                context.commit('setSubmitState', false);
+            return new Promise((resolve, reject) => {
+                axios.post('api/maintenance/confirmations', payload)
+                    .then(response => {
+                        setTimeout(() => {
+                            context.commit('setServerResponse', response);
+                            context.commit('setSubmitState', false);
+                            $("#createUserModal").modal('hide');
+                            toastr.success('Success', response.data.message);
+                            resolve(response)
+                            //document.getElementById('departmentForm').reset();
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        setTimeout(() => {
+                            context.commit('setServerResponse', error.response);
+                            context.commit('setSubmitState', false);
+                            reject(error)
+                        }, 1000);
+                    });
             });
         },
         updateConfirmation: (context, payload) => {
             context.commit('setSubmitState', true);
-            axios.patch('api/maintenance/confirmations/' + payload.id, payload)
-            .then(response => {
-                setTimeout(() => {
-                    context.commit('setServerResponse', response);
-                    context.commit('setSubmitState', false);
-                    $("#createUserModal").modal('hide');
-                    toastr.success('Success', response.data.message);
-                    //document.getElementById('departmentForm').reset();
-                }, 1000);
-            })
-            .catch(error => {
-                context.commit('setServerResponse', error.response);
-                context.commit('setSubmitState', false);
+            return new Promise((resolve, reject) => {
+                axios.patch('api/maintenance/confirmations/' + payload.id, payload)
+                    .then(response => {
+                        setTimeout(() => {
+                            context.commit('setServerResponse', response);
+                            context.commit('setSubmitState', false);
+                            $("#createUserModal").modal('hide');
+                            toastr.success('Success', response.data.message);
+                            resolve(response)
+                            //document.getElementById('departmentForm').reset();
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        setTimeout(() => {
+                            context.commit('setServerResponse', error.response);
+                            context.commit('setSubmitState', false);
+                            reject(error)
+                        }, 1000);
+                    });
             });
         },
         deleteConfirmation: (context, payload) => {
-            axios.delete('api/maintenance/confirmations/' + payload.confirmation.id)
-            .then(response => {
-                toastr.success('Success', response.data.message);
+            return new Promise((resolve, reject) => {
+                axios.delete('api/maintenance/confirmations/' + payload.confirmation.id)
+                    .then(response => {
+                        toastr.success('Success', response.data.message);
+                        resolve(response)
+                    })
+                    .catch(error => {
+                        context.commit('setServerResponse', error.response.data);
+                        if (error.response.status == 403) {
+                            toastr.error('Error', error.response.data);
+                        }
+                        reject(error);
+                        console.log(error)
+                    });
             })
-            .catch(error => {
-                context.commit('setServerResponse', error.response.data);
-                if (error.response.status == 403) {
-                    toastr.error('Error', error.response.data);
-                }
-                console.log(error)
-            });
         }
     }
 }

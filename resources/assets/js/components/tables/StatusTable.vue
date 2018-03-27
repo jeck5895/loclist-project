@@ -5,6 +5,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Status</th>
+                    <th>Category</th>
                     <th>Date Created</th>
                     <th>Status</th>
                     <th>OPTIONS</th>
@@ -32,6 +33,9 @@
                     <td style="vertical-align: middle;">
                         {{ status.status }}
                     </td>
+                    <td v-if="status.status_category" style="vertical-align: middle;">
+                        {{ status.status_category.category   }}
+                    </td>
                     <td style="vertical-align: middle;">
                         {{ status.created_at | humanReadableFormat}}
                     </td>
@@ -53,7 +57,7 @@
                 </tr>
             </tbody>
         </table>
-        <pagination scope="statused" :object="statuses" url="api/maintenance/statuses" classSize="pagination-sm"></pagination>
+        <pagination scope="statuses" :object="statuses" url="api/maintenance/statuses" classSize="pagination-sm"></pagination>
     </div>
 </template>
 
@@ -62,7 +66,7 @@
 
     export default {
         created() {
-            this.$store.dispatch('loadStatuses', 'api/maintenance/statuses');
+            this.loadData();
         },
         computed: {
             statuses() {
@@ -90,6 +94,10 @@
                 this.$store.dispatch('setModalTitle', "Delete " + status.status + " ?");
                 this.$store.dispatch('setDeletionType', deletionType);
                 this.$store.dispatch('showConfirmationModal');
+            },
+            loadData() {
+                this.$store.dispatch('loadStatuses', 'api/maintenance/statuses');
+                this.$store.dispatch('loadStatusCategories', 'api/maintenance/status-categories');
             }
         },
         filters: {

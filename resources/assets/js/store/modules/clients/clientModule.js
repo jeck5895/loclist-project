@@ -2,7 +2,11 @@
 export default {
     state:{
         clients: [],
-        client: {},
+        client: {
+            task_status: 1,
+            negotiation_status: 10
+        },
+        disable_status: true,
         client_manpower_providers: [],
         client_manpower_provider: {},
         client_sourcing_practices: [],
@@ -33,11 +37,16 @@ export default {
         },
         getClientContactPerson: state => {
             return state.contact_person;
+        },
+        getDisableStatus: state => {
+            return state.disable_status;
         }
     },
     mutations:{
         clearClient: state => {
             state.client = {};
+            state.client.task_status = 1;
+            state.client.negotiation_status = 10;
         },
         clearClients: state => {
             state.clients = [];
@@ -48,6 +57,7 @@ export default {
         clearContactPersons: state => {
             state.contact_persons = [];
         },
+
         removeClientManpowerProvider: (state, payload) => {
             state.client_manpower_providers.splice(state.client_manpower_providers.indexOf(payload), 1);
         },
@@ -71,6 +81,9 @@ export default {
         },
         setContactPersons: (state, payload) => {
             state.contact_persons.push(payload);
+        },
+        setDisableStatus: (state, payload) => {
+            state.disable_status = payload;
         }
     },
     actions:{
@@ -86,6 +99,9 @@ export default {
         },
         clearContactPersons : context => {
             context.commit('clearContactPersons');
+        },
+        setDisableStatus: ({commit}, payload) => {
+            commit('setDisableStatus', payload);
         },
         loadClient: (context, payload) => {
             context.commit('setLoadingState', true);
@@ -140,20 +156,24 @@ export default {
         },
         loadClients: (context, payload) => {
             context.commit('setLoadingState', true);
-            axios.get(payload)
-            .then(response => {
-                console.log(response)
-                context.commit('setClients', response);
-                context.commit('setColumns', response.data.columns);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
-            })
-            .catch(error => {
-                console.log(error.response.data);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
+            return new Promise((resolve, reject) => {
+                axios.get(payload)
+                .then(response => {
+                    //console.log(response)
+                    setTimeout(() => {
+                        context.commit('setLoadingState', false);
+                        context.commit('setClients', response);
+                        context.commit('setColumns', response.data.columns);
+                        resolve(response)
+                    }, 1000);
+                })
+                .catch(error => {
+                    console.log(error.response.data);
+                    setTimeout(() => {
+                        context.commit('setLoadingState', false);
+                        reject(error);
+                    }, 1000);
+                });
             });
         },
         removeClientManpowerProvider: (context, payload) => {

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\ModeOfPresentation;
 use App\Http\Requests\Maintenance\Presentation\StorePresentationMode;
 use App\Http\Requests\Maintenance\Presentation\UpdatePresentationMode;
+use App\Events\MaintenanceEvent;
 
 class PresentationModesController extends Controller
 {
@@ -48,6 +49,7 @@ class PresentationModesController extends Controller
         ModeOfPresentation::create([
             'presentation_mode' => $request['presentation_mode']
         ]);
+        event(new MaintenanceEvent('presentation_modes'));
 
         return ['message' => 'New Record has been saved'];
     }
@@ -89,7 +91,8 @@ class PresentationModesController extends Controller
                     ->update([
                         'presentation_mode' => $request['presentation_mode']
                     ]);
-                    
+        event(new MaintenanceEvent('presentation_modes'));
+            
         return ['message' => 'Changes has been saved'];
     }
 
@@ -105,6 +108,7 @@ class PresentationModesController extends Controller
             return response()->json(['message' => 'This action is unauthorized.'], 403);
         
         ModeOfPresentation::destroy($id);
+        event(new MaintenanceEvent('presentation_modes'));
 
         return ['message' => 'Record has been deleted'];
     }

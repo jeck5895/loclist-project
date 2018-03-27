@@ -116,15 +116,19 @@ export default{
             });
         },
         deleteUserType: (context, payload) => {
-            axios.delete('api/maintenance/user_types/' + payload.user_type.id)
-            .then( response => {
-                toastr.success('Success', response.data.message);
-            })
-            .catch( error => {
-                context.commit('setServerResponse', error.response.data);
-                if (error.response.status == 403) {
-                    toastr.error('Error', error.response.data.message);
-                }
+            return new Promise((resolve, reject) => {
+                axios.delete('api/maintenance/user_types/' + payload.user_type.id)
+                    .then(response => {
+                        toastr.success('Success', response.data.message);
+                        resolve(response)
+                    })
+                    .catch(error => {
+                        context.commit('setServerResponse', error.response.data);
+                        if (error.response.status == 403) {
+                            toastr.error('Error', error.response.data.message);
+                        }
+                        reject(error)
+                    });
             });
         }
     }

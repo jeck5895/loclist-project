@@ -34,34 +34,42 @@ export default {
         },
         loadClientSaturations: (context, payload) => {
             context.commit('setLoadingState', true);
-            axios.get(payload)
-            .then(response => {
-                context.commit('setClientSaturations', response);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
-            })
-            .catch(error => {
-                console.log(error.response.data);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
+            return new Promise((resolve, reject) => {
+                axios.get(payload)
+                    .then(response => {
+                        context.commit('setClientSaturations', response);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            resolve(response)
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        console.log(error.response.data);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            reject(error)
+                        }, 1000);
+                    });
             });
         },
         loadClientSaturation: (context, payload) => {
             context.commit('setLoadingState', true);
-            axios.get('api/clients/' + payload.client_id + '/saturations/' + payload.saturation_id)
-            .then(response => {
-                context.commit('setClientSaturation', response);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
-            })
-            .catch(error => {
-                console.log(error.response.data);
-                setTimeout(() => {
-                    context.commit('setLoadingState', false);
-                }, 1000);
+            return new Promise((resolve, reject) => {
+                axios.get('api/clients/' + payload.client_id + '/saturations/' + payload.saturation_id)
+                    .then(response => {
+                        context.commit('setClientSaturation', response);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            resolve(response)
+                        }, 1000);
+                    })
+                    .catch(error => {
+                        console.log(error.response.data);
+                        setTimeout(() => {
+                            context.commit('setLoadingState', false);
+                            reject(error);
+                        }, 1000);
+                    });
             });
         },
         storeClientSaturation: (context, payload) => {
@@ -110,17 +118,21 @@ export default {
             });
         },
         deleteClientSaturation: (context, payload) => {
-            axios.delete('api/clients/' + payload.client_saturation.client_id + '/saturations/' + payload.client_saturation.id)
-            .then(response => {
-                toastr.success('Success', response.data.message);
+            return new Promise((resolve, reject) => {
+                axios.delete('api/clients/' + payload.client_saturation.client_id + '/saturations/' + payload.client_saturation.id)
+                    .then(response => {
+                        toastr.success('Success', response.data.message);
+                        resolve(response)
+                    })
+                    .catch(error => {
+                        context.commit('setServerResponse', error.response.data);
+                        if (error.response.status == 403) {
+                            toastr.error('Error', error.response.data);
+                        }
+                        reject(error)
+                        console.log(error)
+                    });
             })
-            .catch(error => {
-                context.commit('setServerResponse', error.response.data);
-                if (error.response.status == 403) {
-                    toastr.error('Error', error.response.data);
-                }
-                console.log(error)
-            });
         }
     }
 }
