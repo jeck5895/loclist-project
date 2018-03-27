@@ -159,15 +159,25 @@
                         // console.log(result); //result returns true / false
                         // console.log(user);
                         if (this.formType == 'CREATE_USER') {
-                            this.$store.dispatch('storeUser', user);
-                            this.$store.dispatch('loadUsers',
+                            this.$store.dispatch('storeUser', user).then(() => {
+                                this.$store.dispatch('loadUsers',
                                 `api/users?keyword=${this.user_query.search_keyword}&order_by=${this.user_query.order_by}&per_page=${this.user_query.per_page}&sort_column=${this.user_query.sort_column}`
-                            );
+                                );
+                            })
+                            .catch(error=> {
+
+                            });
+                            
                         } else if (this.formType == 'EDIT_USER') {
-                            this.$store.dispatch('updateUser', user);
-                            this.$store.dispatch('loadUsers',
-                                `api/users?keyword=${this.user_query.search_keyword}&order_by=${this.user_query.order_by}&per_page=${this.user_query.per_page}&sort_column=${this.user_query.sort_column}`
-                            );
+                            this.$store.dispatch('updateUser', user).then(response => {
+
+                            })
+                            .catch(error => {
+                                this.$store.dispatch('loadUsers',
+                                    `api/users?keyword=${this.user_query.search_keyword}&order_by=${this.user_query.order_by}&per_page=${this.user_query.per_page}&sort_column=${this.user_query.sort_column}`
+                                );
+                            });
+                            
                         } else {
                             alert('unknown action')
                         }
