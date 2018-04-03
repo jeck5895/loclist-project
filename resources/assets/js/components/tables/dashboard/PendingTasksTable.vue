@@ -3,6 +3,7 @@
         <thead>
             <tr>
                 <th>No performed action in:</th>
+                <th>Recently Added</th>
                 <th>7 days</th>
                 <th>1 month</th>
                 <th>3 months</th>
@@ -31,6 +32,13 @@
                     <td style="vertical-align: middle;">
                             {{ pending_task.task_name }} 
                             &nbsp;
+                    </td>
+                    <td style="vertical-align: middle;">
+                        <a v-if="pending_task.recent != 0" @click.prevent="showTable({scope: pending_task.task_id, range: 'RECENT'})" href="#">  
+                            {{ pending_task.recent }} 
+                            &nbsp;<small><span class="fa fa-external-link"></span></small>
+                        </a>  
+                        <span v-else>{{ pending_task.recent }}</span>
                     </td>
                     <td style="vertical-align: middle;">
                         <a v-if="pending_task.seven_days != 0" @click.prevent="showTable({scope: pending_task.task_id, range: 'SEVEN_DAYS'})" href="#">  
@@ -94,7 +102,16 @@
                 let parameters = null;
 
                 if(params.scope == 1){
-                    if(params.range == "SEVEN_DAYS"){
+                    if(params.range == "RECENT"){
+                        modal_title = "LIST OF RECENTLY ADDED CLIENTS WITH NO PERFORMED PRE-CALL";
+                        table_type = "SHOW_CALL_TASKS_RECENT";
+                        parameters = {
+                            scope: 'for-calls',
+                            range: 0,
+                            task_id: params.scope
+                        };
+                    }
+                    else if(params.range == "SEVEN_DAYS"){
                         modal_title = "LIST OF CLIENTS WITH NO PERFORMED PRE-CALL IN 7 DAYS";
                         table_type = "SHOW_CALL_TASKS_SEVEN_DAYS";
                         parameters = {
@@ -144,7 +161,16 @@
                     }
                 }
                 if(params.scope == 2){ //ID of status in overall_statuses table
-                    if(params.range == "SEVEN_DAYS"){
+                    if(params.range == "RECENT"){
+                        modal_title = "LIST OF RECENTLY ADDED CLIENTS WITH NO PERFORMED SATURATION";
+                        table_type = "SHOW_SATURATION_TASKS_RECENT";
+                        parameters = {
+                            scope: 'for-saturations',
+                            range: 0,
+                            task_id: params.scope
+                        };
+                    }
+                    else if(params.range == "SEVEN_DAYS"){
                         modal_title = "LIST OF CLIENTS WITH NO PERFORMED SATURATION IN 7 DAYS";
                         table_type = "SHOW_SATURATION_TASKS_SEVEN_DAYS";
                         parameters = {
@@ -194,7 +220,16 @@
                     }
                 }
                 if(params.scope == 5){
-                    if(params.range == "SEVEN_DAYS"){
+                    if(params.range == "RECENT"){
+                        modal_title = "LIST OF RECENTLY ADDED CLIENTS WITH NO PERFORMED PRESENTATION";
+                        table_type = "SHOW_PRESENTATION_TASKS_RECENT";
+                        parameters = {
+                            scope: 'for-presentations',
+                            range: 0,
+                            task_id: params.scope
+                        };
+                    }
+                    else if(params.range == "SEVEN_DAYS"){
                         modal_title = "LIST OF CLIENTS WITH NO PERFORMED FOLLOW-UP ON PRESENTATION IN 7 DAYS";
                         table_type = "SHOW_PRESENTATION_TASKS_SEVEN_DAYS";
                         parameters = {
@@ -244,7 +279,17 @@
                     }
                 }
                 if(params.scope == 4){
-                    if(params.range == "SEVEN_DAYS"){
+                    if(params.range == "RECENT"){
+                        modal_title = "LIST OF RECENTLY CLIENTS WITH NO PERFORMED NEGOTIATION";
+                        table_type = "SHOW_NEGOTIATION_TASKS_RECENT";
+                        parameters = {
+                            scope: 'for-negotiations',
+                            range: 0,
+                            task_id: params.scope
+                        };
+                    }
+
+                    else if(params.range == "SEVEN_DAYS"){
                         modal_title = "LIST OF CLIENTS WITH NO PERFORMED FOLLOW-UP NEGOTIATION IN 7 DAYS";
                         table_type = "SHOW_NEGOTIATION_TASKS_SEVEN_DAYS";
                         parameters = {

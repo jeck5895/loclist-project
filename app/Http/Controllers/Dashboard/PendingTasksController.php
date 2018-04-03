@@ -17,15 +17,18 @@ class PendingTasksController extends Controller
     {
         $pending_tasks = PendingTask::get();
         $data =  [];
-        $forCall7d = $forCall1m = $forCall3m = $forCall6m = $forCall1y = 0;
-        $forSaturation7d = $forSaturation1m = $forSaturation3m = $forSaturation6m = $forSaturation1y = 0;
-        $forPresentation7d = $forPresentation1m = $forPresentation3m = $forPresentation6m = $forPresentation1y = 0;
-        $forNegotiation7d = $forNegotiation1m = $forNegotiation3m = $forNegotiation6m = $forNegotiation1y = 0;
+        $recentCall = $forCall7d = $forCall1m = $forCall3m = $forCall6m = $forCall1y = 0;
+        $recentSaturation = $forSaturation7d = $forSaturation1m = $forSaturation3m = $forSaturation6m = $forSaturation1y = 0;
+        $recentPresentation = $forPresentation7d = $forPresentation1m = $forPresentation3m = $forPresentation6m = $forPresentation1y = 0;
+        $recentNegotiation = $forNegotiation7d = $forNegotiation1m = $forNegotiation3m = $forNegotiation6m = $forNegotiation1y = 0;
 
         foreach ($pending_tasks as $key => $pending_task) {
             
             if($pending_task->task_status_id == 1){
-                if($pending_task->days_difference >= 7 && $pending_task->days_difference <= 29){
+                if($pending_task->days_difference >= -1 && $pending_task->days_difference <= 6){
+                    $recentCall = $recentCall + 1;
+                }
+                elseif($pending_task->days_difference >= 7 && $pending_task->days_difference <= 29){
                     $forCall7d = $forCall7d + 1;
                 }
                 elseif($pending_task->days_difference >= 30 && $pending_task->days_difference <= 89){
@@ -37,13 +40,16 @@ class PendingTasksController extends Controller
                 elseif($pending_task->days_difference >= 180 && $pending_task->days_difference <= 364){
                     $forCall6m = $forCall6m + 1;
                 }
-                else {
+                elseif($pending_task->days_difference >= 365) {
                     $forCall1y = $forCall1y + 1;
                 }
             }
             elseif ($pending_task->task_status_id == 2) 
             {
-                if ($pending_task->days_difference >= 7 && $pending_task->days_difference <= 29) {
+                if ($pending_task->days_difference >= -1 && $pending_task->days_difference <= 6) {
+                    $recentSaturation = $recentSaturation + 1;
+                }
+                elseif ($pending_task->days_difference >= 7 && $pending_task->days_difference <= 29) {
                     $forSaturation7d = $forSaturation7d + 1;
                 } elseif ($pending_task->days_difference >= 30 && $pending_task->days_difference <= 89) {
                     $forSaturation1m = $forSaturation1m + 1;
@@ -51,12 +57,15 @@ class PendingTasksController extends Controller
                     $forSaturation3m = $forSaturation3m + 1;
                 } elseif ($pending_task->days_difference >= 180 && $pending_task->days_difference <= 364) {
                     $forSaturation6m = $forSaturation6m + 1;
-                } else {
+                } elseif($pending_task->days_difference >= 365){
                     $forSaturation1y = $forSaturation1y + 1;
                 }
             }
             elseif ($pending_task->task_status_id == 5) {
-                if ($pending_task->days_difference >= 7 && $pending_task->days_difference <= 29) {
+                if ($pending_task->days_difference >= -1 && $pending_task->days_difference <= 6) {
+                    $recentPresentation = $recentPresentation + 1;
+                }
+                elseif ($pending_task->days_difference >= 7 && $pending_task->days_difference <= 29) {
                     $forPresentation7d = $forPresentation7d + 1;
                 } elseif ($pending_task->days_difference >= 30 && $pending_task->days_difference <= 89) {
                     $forPresentation1m = $forPresentation1m + 1;
@@ -64,12 +73,15 @@ class PendingTasksController extends Controller
                     $forPresentation3m = $forPresentation3m + 1;
                 } elseif ($pending_task->days_difference >= 180 && $pending_task->days_difference <= 364) {
                     $forPresentation6m = $forPresentation6m + 1;
-                } else {
+                } elseif($pending_task->days_difference >= 365){
                     $forPresentation1y = $forPresentation1y + 1;
                 }
             }
             else {
-                if ($pending_task->days_difference >= 7 && $pending_task->days_difference <= 29) {
+                if ($pending_task->days_difference >= -1 && $pending_task->days_difference <= 6) {
+                    $recentNegotiation = $recentNegotiation + 1;
+                }
+                elseif ($pending_task->days_difference >= 7 && $pending_task->days_difference <= 29) {
                     $forNegotiation7d = $forNegotiation7d + 1;
                 } elseif ($pending_task->days_difference >= 30 && $pending_task->days_difference <= 89) {
                     $forNegotiation1m = $forNegotiation1m + 1;
@@ -77,7 +89,7 @@ class PendingTasksController extends Controller
                     $forNegotiation3m = $forNegotiation3m + 1;
                 } elseif ($pending_task->days_difference >= 180 && $pending_task->days_difference <= 364) {
                     $forNegotiation6m = $forNegotiation6m + 1;
-                } else {
+                } elseif($pending_task->days_difference >= 365) {
                     $forNegotiation1y = $forNegotiation1y + 1;
                 }
 
@@ -89,6 +101,7 @@ class PendingTasksController extends Controller
                 [
                         'task_id' => 1,
                         'task_name' => 'FOR PRE-CALL',
+                        'recent' => $recentCall,
                         'seven_days' => $forCall7d,
                         'one_month' => $forCall1m,
                         'three_months' => $forCall3m,
@@ -99,6 +112,7 @@ class PendingTasksController extends Controller
                 [
                         'task_id' => 2,
                         'task_name' => 'FOR SATURATION',
+                        'recent' => $recentSaturation,
                         'seven_days' => $forSaturation7d,
                         'one_month' => $forSaturation1m,
                         'three_months' => $forSaturation3m,
@@ -109,6 +123,7 @@ class PendingTasksController extends Controller
                 [
                         'task_id' => 5,
                         'task_name' => 'FOR FOLLOW-UP ON PRESENTATION',
+                        'recent' => $recentPresentation,
                         'seven_days' => $forPresentation7d,
                         'one_month' => $forPresentation1m,
                         'three_months' => $forPresentation3m,
@@ -119,6 +134,7 @@ class PendingTasksController extends Controller
                 [
                         'task_id' => 4,
                         'task_name' => 'FOR FOLLOW-UP NEGOTIATION',
+                        'recent' => $recentNegotiation,
                         'seven_days' => $forNegotiation7d,
                         'one_month' => $forNegotiation1m,
                         'three_months' => $forNegotiation3m,
@@ -177,7 +193,15 @@ class PendingTasksController extends Controller
     {
         
         $client_list = PendingTask::where(function($query) use ($task_id, $range){
-            if($range == 7) {
+            
+            if($range == 0) {
+                $query->where([
+                    ['days_difference', '>=', $range],
+                    ['days_difference', '<=', 6],
+                    ['task_status_id', '=', $task_id]
+                ]);
+            }
+            elseif($range == 7) {
                 $query->where([
                     ['days_difference', '>=', $range],
                     ['days_difference', '<=', 29],

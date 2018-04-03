@@ -40,21 +40,25 @@
             </div>
 
             <div 
-                v-if="((modalFormType == 'SHOW_CALL_TASKS_SEVEN_DAYS') 
+                v-if="((modalFormType == 'SHOW_CALL_TASKS_RECENT'
+                        || modalFormType == 'SHOW_CALL_TASKS_SEVEN_DAYS') 
                         || (modalFormType =='SHOW_CALL_TASKS_ONE_MONTH') 
                         ||( modalFormType =='SHOW_CALL_TASKS_THREE_MONTHS') 
                         || (modalFormType =='SHOW_CALL_TASKS_SIX_MONTHS') 
                         || (modalFormType =='SHOW_CALL_TASKS_ONE_YEAR')
+                        || (modalFormType == 'SHOW_SATURATION_TASKS_RECENT')
                         ||(modalFormType == 'SHOW_SATURATION_TASKS_SEVEN_DAYS')
                         || (modalFormType =='SHOW_SATURATION_TASKS_ONE_MONTH') 
                         ||( modalFormType =='SHOW_SATURATION_TASKS_THREE_MONTHS') 
                         || (modalFormType =='SHOW_SATURATION_TASKS_SIX_MONTHS') 
                         || (modalFormType =='SHOW_SATURATION_TASKS_ONE_YEAR')
-                        ||(modalFormType == 'SHOW_PRESENTATION_TASKS_SEVEN_DAYS')
+                        || (modalFormType == 'SHOW_PRESENTATION_TASKS_RECENT')
+                        || (modalFormType == 'SHOW_PRESENTATION_TASKS_SEVEN_DAYS')
                         || (modalFormType =='SHOW_PRESENTATION_TASKS_ONE_MONTH') 
                         ||( modalFormType =='SHOW_PRESENTATION_TASKS_THREE_MONTHS') 
                         || (modalFormType =='SHOW_PRESENTATION_TASKS_SIX_MONTHS') 
                         || (modalFormType =='SHOW_PRESENTATION_TASKS_ONE_YEAR')
+                        || (modalFormType == 'SHOW_NEGOTIATION_TASKS_RECENT')
                         ||(modalFormType == 'SHOW_NEGOTIATION_TASKS_SEVEN_DAYS')
                         || (modalFormType =='SHOW_NEGOTIATION_TASKS_ONE_MONTH') 
                         ||( modalFormType =='SHOW_NEGOTIATION_TASKS_THREE_MONTHS') 
