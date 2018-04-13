@@ -10,10 +10,14 @@
                     <router-link to="/maintenance/reports">Report Settings</router-link>
                 </li>
                 <li>
-                    <a @click="addClass" :class="active" id="sidebar-toggle" data-toggle="collapse" href="#general-settings" aria-expanded="false">General Settings</a>
+                    <a @click="addClass" :class="active + ' with-submenu'" id="sidebar-toggle" data-toggle="collapse" href="#general-settings" aria-expanded="false">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="menu-collapsed">General Settings</span>
+                        <span class="submenu-icon ml-auto"></span>
+                </div>
+                    </a>
                     <div id="general-settings" class="collapse">
-                        <div class="card border-0">
-                            <div class="card-body">
+                        
                                 <li>
                                     <router-link to="/maintenance/companies">Companies</router-link>
                                 </li>
@@ -44,8 +48,7 @@
                                 <li>
                                     <router-link to="/maintenance/user-types">User Types</router-link>
                                 </li>
-                            </div>
-                        </div>
+                           
                     </div>
                 </li>
                 <li>
@@ -135,4 +138,40 @@
         padding-top: 1rem;
         padding-bottom: 1rem;
     }
+
+
+#general-settings >li>a {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 1rem;
+    font-size: 12px;
+    border-top: 1px solid #efefef;
+    background: #fff;
+}
+
+#general-settings >li>a:hover {
+    text-decoration: none;
+    background-color: #0e4e92;
+    color:#fff;
+}
+    /* Closed submenu icon */
+
+ .with-submenu[aria-expanded="false"] .submenu-icon::after {
+    content: "\f107";
+    font-family: FontAwesome;
+    position: relative;
+    float: right;
+    padding-left: 10px;
+}
+
+/* Opened submenu icon */
+
+.with-submenu[aria-expanded="true"] .submenu-icon::after {
+    content: "\f106";
+    font-family: FontAwesome;
+    position: relative;
+    float: right;
+    padding-left: 10px;
+}
+
 </style>

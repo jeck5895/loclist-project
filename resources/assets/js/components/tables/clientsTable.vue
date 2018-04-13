@@ -70,151 +70,153 @@
                 </button>
             </div>
         </form>
-        <table id="clients-table" class="table table-borderless table-striped m-b-none">
-            <thead>
-                <tr>
-                    <!-- <th>
-                        <span>Ref</span>
-                    </th> -->
-                    <th>Entry By</th>
-                    <th style="width: 200px;">Client Name</th>
-                    <th style="width: 120px;">Contact Person</th>
-                    <th>Contact #</th>
-                    <th style="width: 100px;">Email</th>
-                    <th>Date of Call</th>
-                    <th>Date of Saturation</th>
-                    <th>Date of Presentation</th>
-                    <th>Follow-up Date</th>
-                    <th>Task Status</th>
-                    <th>Negotiation Status</th>
-                    <th>Options</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-if="isLoading">
-                    <td colspan="12" class="text-center">
-                        <div v-if="isLoading" class="card-body">
-                            <div class="img-loading-container">
-                                <img src="/images/spinner.gif" class="img-sm">
+        <div class="table-responsive">
+            <table id="clients-table" class="table table-borderless table-striped m-b-none">
+                <thead>
+                    <tr>
+                        <!-- <th>
+                            <span>Ref</span>
+                        </th> -->
+                        <th>Entry By</th>
+                        <th style="width: 200px;">Client Name</th>
+                        <th style="width: 120px;">Contact Person</th>
+                        <th style="width: 120px;">Contact #</th>
+                        <th style="width: 100px;">Email</th>
+                        <th style="width: 100px;">Date of Call</th>
+                        <th style="width: 100px;">Date of Saturation</th>
+                        <th style="width: 100px;">Date of Presentation</th>
+                        <th style="width: 100px;">Follow-up Date</th>
+                        <th style="width: 120px;">Task Status</th>
+                        <th style="width: 120px;">Negotiation Status</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-if="isLoading">
+                        <td colspan="12" class="text-center">
+                            <div v-if="isLoading" class="card-body">
+                                <div class="img-loading-container">
+                                    <img src="/images/spinner.gif" class="img-sm">
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr v-else-if="clients.data == 0">
-                    <td colspan="11" class="text-center">
-                        No data to show...
-                    </td>
-                </tr>
-                <tr v-else v-for="(client, index) in clients.data" :key="index">
-                    <!-- ID -->
-                    <!-- <td style="vertical-align: middle;">
-                        {{ client.id }}
-                    </td> -->
+                        </td>
+                    </tr>
+                    <tr v-else-if="clients.data == 0">
+                        <td colspan="11" class="text-center">
+                            No data to show...
+                        </td>
+                    </tr>
+                    <tr v-else v-for="(client, index) in clients.data" :key="index">
+                        <!-- ID -->
+                        <!-- <td style="vertical-align: middle;">
+                            {{ client.id }}
+                        </td> -->
 
-                    <!-- Name -->
-                    <td v-if="client.user != null" style="vertical-align: middle;">
-                        {{ client.user_initial }}
-                    </td>
+                        <!-- Name -->
+                        <td v-if="client.user != null" style="vertical-align: middle;">
+                            {{ client.user_initial }}
+                        </td>
 
-                    <td v-else style="vertical-align: middle;">
-                        Removed
-                    </td>
-                    <!-- Secret -->
-                    <td style="vertical-align: middle;">
-                        {{ client.client_name }}
-                    </td>
+                        <td v-else style="vertical-align: middle;">
+                            Removed
+                        </td>
+                        <!-- Secret -->
+                        <td style="vertical-align: middle;">
+                            {{ client.client_name }}
+                        </td>
 
-                    <td v-if="client.contact_persons[0]" style="vertical-align: middle;">
-                        <a v-if="client.contact_persons.length > 1" @click.prevent="showTable(client, 'CONTACT_PERSONS_TABLE')" href="#">{{ client.contact_persons[0].first_name + " " + client.contact_persons[0].last_name }}</a>
-                        <span v-else>{{ client.contact_persons[0].first_name + " " + client.contact_persons[0].last_name }}</span>
-                    </td>
-                    <td v-else style="vertical-align: middle;">
-                        <em>No contact person provided</em>
-                    </td>
+                        <td v-if="client.contact_persons[0]" style="vertical-align: middle;">
+                            <a v-if="client.contact_persons.length > 1" @click.prevent="showTable(client, 'CONTACT_PERSONS_TABLE')" href="#">{{ client.contact_persons[0].first_name + " " + client.contact_persons[0].last_name }}</a>
+                            <span v-else>{{ client.contact_persons[0].first_name + " " + client.contact_persons[0].last_name }}</span>
+                        </td>
+                        <td v-else style="vertical-align: middle;">
+                            <em>No contact person provided</em>
+                        </td>
 
-                    <td v-if="client.contact_persons[0]" style="vertical-align: middle;">
-                        {{ client.contact_persons[0].mobile_number }}
-                    </td>
-                    <td v-else style="vertical-align: middle;">
-                        <em>No mobile number provided</em>
-                    </td>
+                        <td v-if="client.contact_persons[0]" style="vertical-align: middle;">
+                            {{ client.contact_persons[0].mobile_number }}
+                        </td>
+                        <td v-else style="vertical-align: middle;">
+                            <em>No mobile number provided</em>
+                        </td>
 
-                    <td v-if="client.contact_persons[0]" style="vertical-align: middle;">
-                        {{ client.contact_persons[0].email }}
-                    </td>
-                    <td v-else style="vertical-align: middle;">
-                        <em>No email provided</em>
-                    </td>
+                        <td v-if="client.contact_persons[0]" style="vertical-align: middle;">
+                            {{ client.contact_persons[0].email }}
+                        </td>
+                        <td v-else style="vertical-align: middle;">
+                            <em>No email provided</em>
+                        </td>
 
-                    <td v-if="client.latest_call != null" style="vertical-align: middle;">
-                        <a @click.prevent="showTable(client, 'CALLS_TABLE')" href="#">{{ client.latest_call | shortDateTime }} </a>
-                    </td>
-                    <td v-else style="vertical-align: middle;">
-                        No record
-                    </td>
+                        <td v-if="client.latest_call != null" style="vertical-align: middle;">
+                            <a @click.prevent="showTable(client, 'CALLS_TABLE')" href="#">{{ client.latest_call | shortDateTime }} </a>
+                        </td>
+                        <td v-else style="vertical-align: middle;">
+                            No record
+                        </td>
 
-                    <td v-if="client.latest_saturation != null" style="vertical-align: middle;">
-                        <a @click.prevent="showTable(client, 'SATURATIONS_TABLE')" href="#">{{ client.latest_saturation | shortDateTime }}</a>
-                    </td>
-                    <td v-else style="vertical-align: middle;">
-                        No record
-                    </td>
+                        <td v-if="client.latest_saturation != null" style="vertical-align: middle;">
+                            <a @click.prevent="showTable(client, 'SATURATIONS_TABLE')" href="#">{{ client.latest_saturation | shortDateTime }}</a>
+                        </td>
+                        <td v-else style="vertical-align: middle;">
+                            No record
+                        </td>
 
-                    <td v-if="client.latest_presentation != null" style="vertical-align: middle;">
-                        <a @click.prevent="showTable(client, 'PRESENTATIONS_TABLE')" href="#">{{ client.latest_presentation | shortDateTime }} </a>
-                    </td>
-                    <td v-else style="vertical-align: middle;">
-                        No record
-                    </td>
+                        <td v-if="client.latest_presentation != null" style="vertical-align: middle;">
+                            <a @click.prevent="showTable(client, 'PRESENTATIONS_TABLE')" href="#">{{ client.latest_presentation | shortDateTime }} </a>
+                        </td>
+                        <td v-else style="vertical-align: middle;">
+                            No record
+                        </td>
 
-                    <td v-if="client.latest_follow_up_date != null" style="vertical-align: middle;">
-                        {{ client.latest_follow_up_date | shortDateTime }}
-                    </td>
-                    <td v-else style="vertical-align: middle;">
-                        No record
-                    </td>
+                        <td v-if="client.latest_follow_up_date != null" style="vertical-align: middle;">
+                            {{ client.latest_follow_up_date | shortDateTime }}
+                        </td>
+                        <td v-else style="vertical-align: middle;">
+                            No record
+                        </td>
 
-                    <td v-if="client.task_status != null" style="vertical-align: middle;">
-                        <span 
-                            :class="client.task_status_id == 1 ? 'badge badge-primary': client.negotiation_status_id == 6 ? 'badge badge-success' : client.negotiation_status_id == 9 ? 'badge badge-danger' : 'badge badge-info'"> 
-                            {{ client.task_status }} 
-                        </span>
-                    </td>
-                    <td v-else style="vertical-align: middle;">
-                        <span class="badge badge-warning">NO STATUS</span>
-                    </td>
+                        <td v-if="client.task_status != null" style="vertical-align: middle;">
+                            <span 
+                                :class="client.task_status_id == 1 ? 'badge badge-primary': client.negotiation_status_id == 6 ? 'badge badge-success' : client.negotiation_status_id == 9 ? 'badge badge-danger' : 'badge badge-info'"> 
+                                {{ client.task_status }} 
+                            </span>
+                        </td>
+                        <td v-else style="vertical-align: middle;">
+                            <span class="badge badge-warning">NO STATUS</span>
+                        </td>
 
-                    <td v-if="client.negotiation_status != null" style="vertical-align: middle;">
-                        <span 
-                            :class="client.negotiation_status_id == 6 ? 'badge badge-success': client.negotiation_status_id == 9 ? 'badge badge-danger' : client.negotiation_status_id == 13 ? 'badge badge-success' : 'badge badge-info'"> 
-                            {{ client.negotiation_status }} </span>
-                    </td>
-                    <td v-else style="vertical-align: middle;">
-                        <span class="badge badge-warning">NO STATUS</span>
-                    </td>
+                        <td v-if="client.negotiation_status != null" style="vertical-align: middle;">
+                            <span 
+                                :class="client.negotiation_status_id == 6 ? 'badge badge-success': client.negotiation_status_id == 9 ? 'badge badge-danger' : client.negotiation_status_id == 13 ? 'badge badge-success' : 'badge badge-info'"> 
+                                {{ client.negotiation_status }} </span>
+                        </td>
+                        <td v-else style="vertical-align: middle;">
+                            <span class="badge badge-warning">NO STATUS</span>
+                        </td>
 
-                    <!-- Edit Button -->
-                    <td style="vertical-align: middle;">
-                        <div class="btn-group btn-group-sm" role="group">
-                            <button v-if="user.user_role.edit_clients == 1" @click="toEditClientForm(client)" :title="'Edit ' + client.client_name" class="btn btn-sm btn-default">
-                                <span class="fa fa-edit"></span>
-                            </button>
+                        <!-- Edit Button -->
+                        <td style="vertical-align: middle;">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button v-if="user.user_role.edit_clients == 1" @click="toEditClientForm(client)" :title="'Edit ' + client.client_name" class="btn btn-sm btn-default">
+                                    <span class="fa fa-edit"></span>
+                                </button>
 
-                            <router-link :to="{ name: 'viewClient', params: { companyName:  $root.toUrlFormat(client.client_name), clientId : client.id }}"
-                                class="btn btn-sm btn-default"
-                                :target="client.id">
-                                <span class="fa fa-eye"></span>
-                            </router-link>
+                                <router-link :to="{ name: 'viewClient', params: { companyName:  $root.toUrlFormat(client.client_name), clientId : client.id }}"
+                                    class="btn btn-sm btn-default"
+                                    :target="client.id">
+                                    <span class="fa fa-eye"></span>
+                                </router-link>
 
 
-                            <button v-if="user.user_role.delete_clients == 1" type="button" title="Delete" class="btn btn-sm btn-default" @click="destroy(client)">
-                                <span class="fa fa-trash"></span>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                                <button v-if="user.user_role.delete_clients == 1" type="button" title="Delete" class="btn btn-sm btn-default" @click="destroy(client)">
+                                    <span class="fa fa-trash"></span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <pagination scope="clients" :object="clients" 
             :url="`api/clients?keyword=${this.client_query.search_keyword}&order_by=${this.client_query.order_by}&per_page=${this.client_query.per_page}&sort_column=${this.client_query.sort_column}&industry=${this.client_query.industry}&location=${this.client_query.location}&from_date=${this.client_query.from_date}&to_date=${this.client_query.to_date}&status=${this.client_query.status}`"
             :query="`keyword=${this.client_query.search_keyword}&order_by=${this.client_query.order_by}&per_page=${this.client_query.per_page}&sort_column=${this.client_query.sort_column}&industry=${this.client_query.industry}&location=${this.client_query.location}&from_date=${this.client_query.from_date}&to_date=${this.client_query.to_date}&status=${this.client_query.status}`"

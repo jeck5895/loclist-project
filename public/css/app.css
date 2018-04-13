@@ -10182,6 +10182,7 @@ a.text-dark:focus {
   margin-bottom: 2px;
   font-size: 12px !important;
   letter-spacing: 0.6px;
+  background-color: #fff;
 }
 
 .sidebar ul.sidebar-nav > li > a:hover,
