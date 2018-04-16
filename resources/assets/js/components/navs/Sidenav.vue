@@ -3,8 +3,7 @@
         <div class="sidenav-links">
             <ul class="sidebar-nav">
                 <li>
-                    <h5>Form Keywords</h5> 
-                    <span @click="toggleSidebar" style="cursor:pointer" class="sidebar-toggle"><i class="fa fa-chevron-left"></i></span>
+                    <h5 class="ml-5">Configurations</h5> 
                 </li>
                 <li>
                     <router-link to="/maintenance/reports">Report Settings</router-link>
@@ -110,7 +109,8 @@
     }
 </script>
 
-<style>
+<style lang="scss">
+    @import '~styles/variables';
     .sidebar.show{
         display: block;
     }
@@ -123,17 +123,17 @@
         width: 214px;
         top: 0;
         left: 0;
-        padding-top: 85px;
+        padding-top: 75px;
         min-height: 100%;
         z-index: 1000;
         max-height: 100%;
         overflow-y: auto;
     }
-    .sidebar-toggle{
-        position: absolute;
-        right: 1rem;
-        top: 0rem;
+    
+    .sidebar a{
+        color: $bg-teal;//#343a40;
     }
+
     .card-body{
         padding-top: 1rem;
         padding-bottom: 1rem;
@@ -151,7 +151,7 @@
 
 #general-settings >li>a:hover {
     text-decoration: none;
-    background-color: #0e4e92;
+    background-color: $bg-teal;
     color:#fff;
 }
     /* Closed submenu icon */

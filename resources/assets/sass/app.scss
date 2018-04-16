@@ -84,12 +84,19 @@
 
 .navbar{
     z-index: 1001;
+    height: 58px;
 }
 
 .navbar-shadowed {
-    -webkit-box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.75);
-    box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
+    0 3px 1px -2px rgba(0, 0, 0, .2),
+    0 1px 5px 0 rgba(0, 0, 0, .12);
+    -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
+    0 3px 1px -2px rgba(0, 0, 0, .2),
+    0 1px 5px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
+    0 3px 1px -2px rgba(0, 0, 0, .2),
+    0 1px 5px 0 rgba(0, 0, 0, .12);
 }
 
 .has-danger{
@@ -118,6 +125,10 @@
 
 .bg-transparent {
     background: transparent;
+}
+
+.bg-teal {
+    background-color: #009688!important;
 }
 
 .btn, .form-control, .form-control.form-control-sm{
@@ -205,9 +216,9 @@ $pulse-duration: 750ms;
 }
 
 .sidebar ul.sidebar-nav>li>a:hover, .sidebar ul.sidebar-nav>li>a.active{
-    background-color: #0062cc;
-    color: #fff;
-    transition: 0.9s;
+    background-color: $bg-teal;
+    color: #fff!important;
+    transition: 0.3s;
 }
 
 .sidebar ul.sidebar-nav > li li a.active {

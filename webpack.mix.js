@@ -10,6 +10,15 @@ let mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+mix.webpackConfig({
+    resolve: {
+        alias: {
+            'styles': path.resolve(__dirname, './resources/assets/sass') // relative to the location of the webpack config file!
+        }
+    }
+});
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css');
+
+

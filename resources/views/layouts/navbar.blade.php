@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-shadowed navbar-expand-sm navbar-dark bg-incognito">
+<nav class="navbar fixed-top navbar-shadowed navbar-expand-sm navbar-dark bg-teal">
     <a class="navbar-brand" href="#">
         <img src="/images/icon.png" height="25" width="25" class="d-inline-block align-top" alt="">
         SRI-Locatorslist

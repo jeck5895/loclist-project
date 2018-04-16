@@ -1,9 +1,10 @@
 <template>
     <div>
-        <div @click="toggleSidebar" :style="!sideBarIsHidden ?'visibility: hidden;':'display: visible; opacity: 1;'" class="sidebar-toggle-hidden">
+        <div @click="toggleSidebar" :style="!sideBarIsHidden ?'visibility: hidden;':'display: visible; opacity: 1;'" :class="!sideBarIsHidden ? 'animated slideOutLeft sidebar-toggle sidebar-toggle-hidden' : 'animated slideInLeft sidebar-toggle sidebar-toggle-hidden'">
             <h3 style="cursor: pointer;" class="mt-2"><i class="fa fa-chevron-circle-right"></i></h3>
         </div>
-        <div style="position: relative;">
+        <span @click="toggleSidebar" :style="sideBarIsHidden ?'visibility: hidden;':'display: visible; opacity: 1;'" :class="sideBarIsHidden ? 'animated slideOutLeft sidebar-toggle sidebar-toggle-hidden' : 'animated slideInLeft sidebar-toggle sidebar-toggle-show'"><h3 class="mt-2 ml-1"><i class="fa fa-chevron-circle-left"></i></h3></span>
+        <div style="position: relative; margin-top:7rem;">
             <sidenav></sidenav>
             <div :style="!sideBarIsHidden ?'margin-left: 12.75rem; transition:margin-left 1s;' : 'margin-left: 0; transition:margin-left 1s;'">
                 <router-view></router-view>
@@ -156,7 +157,7 @@
 </script>
 
 <style scoped>
-    .sidebar-toggle-hidden{
+    .sidebar-toggle{
         position: absolute;
         border: 1px solid #ccc;
         height: 43px;
@@ -164,9 +165,17 @@
         border-bottom-right-radius: 5px;
         border-top-right-radius: 5px;
         z-index: 1000;
-        left: 0;
-        top: -1.5rem;
-        opacity: 0;
         transition: visibility 1s, opacity 2s linear;
+        top: -3rem;
+    }
+
+    .sidebar-toggle-show {
+        left: 13.3rem;
+        opacity: 0;
+    }
+
+    .sidebar-toggle-hidden{
+        left: 0;
+        opacity: 0;
     }
 </style>
