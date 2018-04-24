@@ -152,7 +152,7 @@
 #general-settings >li>a:hover {
     text-decoration: none;
     background-color: $bg-teal;
-    color:#fff;
+    color:#ffff!important;
 }
     /* Closed submenu icon */
 

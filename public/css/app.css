@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Hind);/*!
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic,300italic,300,100italic,100);/*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
@@ -9994,6 +9994,11 @@ a.text-dark:focus {
   }
 }
 
+body {
+  font-family: 'Roboto', sans-serif !important;
+  color: rgba(0, 0, 0, 0.87);
+}
+
 .home-tab {
   min-height: 500px !important;
 }
@@ -10038,8 +10043,10 @@ a.text-dark:focus {
   text-transform: uppercase;
 }
 
-.dropdown-item:hover {
-  background-color: #549eff;
+.dropdown-item:hover,
+.dropdown-item:active,
+.dropdown-item.active {
+  background-color: #009688 !important;
   color: #fff;
 }
 
@@ -10106,8 +10113,8 @@ a.text-dark:focus {
 
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  border-bottom: 3px solid #549eff;
-  color: #549eff;
+  border-bottom: 3px solid #009688 !important;
+  color: #009688 !important;
   background: transparent;
 }
 

@@ -44,7 +44,7 @@
 
             <div class="form-group">
                 <label class="mr-1 d-sm-none d-md-none d-lg-block">Filter By Status</label>
-                <select v-model="client_query.status" class="form-control form-control-sm mr-sm-2" id="exampleFormControlSelect1">
+                <select v-model="client_query.status" class="form-control form-control-sm mr-sm-2" style="max-width:150px" id="exampleFormControlSelect1">
                     <option value="">Filter by Status</option>
                     <option v-for="(status, index) in statuses" :key="index" :value="status.id">{{ status.status }}</option>
                 </select>
@@ -74,14 +74,11 @@
             <table id="clients-table" class="table table-borderless table-striped m-b-none">
                 <thead>
                     <tr>
-                        <!-- <th>
-                            <span>Ref</span>
-                        </th> -->
-                        <th>Entry By</th>
-                        <th style="width: 200px;">Client Name</th>
+                        <th>User</th>
+                        <th style="width: 220px;">Client Name</th>
                         <th style="width: 120px;">Contact Person</th>
                         <th style="width: 120px;">Contact #</th>
-                        <th style="width: 100px;">Email</th>
+                        <th style="width: 80px;">Email</th>
                         <th style="width: 100px;">Date of Call</th>
                         <th style="width: 100px;">Date of Saturation</th>
                         <th style="width: 100px;">Date of Presentation</th>
@@ -107,12 +104,7 @@
                         </td>
                     </tr>
                     <tr v-else v-for="(client, index) in clients.data" :key="index">
-                        <!-- ID -->
-                        <!-- <td style="vertical-align: middle;">
-                            {{ client.id }}
-                        </td> -->
-
-                        <!-- Name -->
+                        
                         <td v-if="client.user != null" style="vertical-align: middle;">
                             {{ client.user_initial }}
                         </td>
@@ -213,6 +205,8 @@
                                 </button>
                             </div>
                         </td>
+
+
                     </tr>
                 </tbody>
             </table>
