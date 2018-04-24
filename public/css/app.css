@@ -9999,6 +9999,10 @@ body {
   color: rgba(0, 0, 0, 0.87);
 }
 
+.nav-tabs .nav-link {
+  color: #009688 !important;
+}
+
 .home-tab {
   min-height: 500px !important;
 }

@@ -16,6 +16,10 @@ body {
     color: rgba(0, 0, 0, 0.87);
 }
 
+.nav-tabs .nav-link {
+    color: $bg-teal;
+}
+
 .home-tab {
     min-height: 500px!important;
 }

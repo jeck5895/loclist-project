@@ -3,6 +3,16 @@
         <!-- Include Filter here for every table must have filter -->
         <form @submit.prevent="search" class="form-inline float-right mt-2 mb-2">
             <div class="form-group">
+                <button type="button" id="dropdownMore" class="mr-sm-2 btn btn-sm btn-default dropdown-toggle dropdown-remove-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More <i class="fa fa-ellipsis-v"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">
+                        <i class="fa fa-download"></i> Export to Excel
+                    </a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
                 <label for="staticEmail" class="col-form-label mr-1">Advance</label>
                 <button @click="dropdownMenuClick" class="mr-sm-2 btn btn-sm btn-default dropdown-toggle dropdown-remove-arrow" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">

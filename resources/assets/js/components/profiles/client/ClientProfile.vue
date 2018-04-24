@@ -434,8 +434,8 @@
 </script>
 
 <style scoped>
-.client-profile {
-  position: absolute;
-  right: 21px;
-}
+    .client-profile {
+    position: absolute;
+    right: 21px;
+    }
 </style>

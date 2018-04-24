@@ -5,8 +5,8 @@
                 <tr>
                     <th>ID</th>
                     <th>Caller</th>
-                    <th class="tbl-header-date">Date of Call</th>
-                    <th style="width:140px">Confirmation Pre-call</th>
+                    <th class="tbl-header-date" style="width:150px">Date of Call</th>
+                    <th style="width:150px">Confirmation Pre-call</th>
                     <th class="tbl-header-date">Productive</th>
                     <th style="width:110px">Proposal Sent</th>
                     <th>Company</th>
