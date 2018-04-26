@@ -53,7 +53,7 @@
             </div>
 
             <div class="form-group">
-                <label class="mr-1 d-sm-none d-md-none d-lg-block">Filter By Status</label>
+                <!-- <label class="mr-1 d-sm-none d-md-none d-lg-block">Filter By Status</label> -->
                 <select v-model="client_query.status" class="form-control form-control-sm mr-sm-2" style="max-width:150px" id="exampleFormControlSelect1">
                     <option value="">Filter by Status</option>
                     <option v-for="(status, index) in statuses" :key="index" :value="status.id">{{ status.status }}</option>
@@ -61,7 +61,7 @@
             </div>
 
             <div class="form-group">
-                <label class="mr-1 d-sm-none d-md-none d-lg-block">Filter By Industry</label>
+                <!-- <label class="mr-1 d-sm-none d-md-none d-lg-block">Filter By Industry</label> -->
                 <select v-model="client_query.industry" class="form-control form-control-sm mr-sm-2" id="exampleFormControlSelect1" style="max-width:150px">
                     <option value="">Filter by Industry</option>
                     <option v-for="(industry, index) in industries" :key="index" :value="industry.id">{{ industry.industry_name }}</option>
@@ -69,7 +69,7 @@
             </div>
 
             <div class="form-group">
-                <label for="staticEmail" class="d-sm-none d-md-none d-lg-block col-form-label mr-1">Location</label>
+                <!-- <label for="staticEmail" class="d-sm-none d-md-none d-lg-block col-form-label mr-1">Location</label> -->
                 <input v-model="client_query.location" placeholder="Search by location" type="text" class="form-control form-control-sm mr-sm-2">
             </div>
             <div class="form-group">
