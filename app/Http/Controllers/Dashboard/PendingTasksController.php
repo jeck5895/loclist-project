@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
+
 use App\PendingTask;
 
 class PendingTasksController extends Controller

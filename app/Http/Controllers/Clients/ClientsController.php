@@ -19,6 +19,7 @@ use App\ClientPresentation;
 use App\ClientAcquisition;
 use Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class ClientsController extends Controller
 {
@@ -48,7 +49,8 @@ class ClientsController extends Controller
             if($validation->fails()) {
                 dd($validation->messages());
             }
-            $clients = VwClient::orderBy($request->sort_column, $request->order_by)
+            // $clients = Cache::remember('clients', 24*60, function() use ($request) {
+                $clients = VwClient::orderBy($request->sort_column, $request->order_by)
                         ->where(function($query) use ($request){
                             if($request->has('keyword'))
                             {
@@ -82,6 +84,7 @@ class ClientsController extends Controller
                         ->with('contact_persons.department')
                         ->with('contact_persons.position')
                         ->paginate($request->per_page);
+            // });
 
             return response()->json([
                 'model' => $clients,

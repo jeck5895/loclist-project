@@ -21,7 +21,7 @@
     export default {
         beforeRouteEnter(to, from, next) {
             store.dispatch('clearDepartments');
-            store.dispatch('loadDepartments','api/maintainance/departments?type=all');
+            store.dispatch('loadDepartments','api/maintenance/departments?type=all');
             next();
         },
         beforeCreate(){
